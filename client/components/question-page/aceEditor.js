@@ -3,7 +3,7 @@ import AceEditor from 'react-ace'
 import { getInput } from '../../store'
 import { connect } from 'react-redux'
 
-import 'brace/mode/java'
+import 'brace/mode/javascript'
 import 'brace/theme/github'
 
 class reactAce extends Component {
@@ -19,7 +19,6 @@ class reactAce extends Component {
   }
 
   onChange(newValue) {
-    console.log('change', newValue)
     this.userSubmission = newValue
   }
 
@@ -29,11 +28,10 @@ class reactAce extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
         <AceEditor
-          mode="java"
+          mode="javascript"
           theme="github"
           onChange={this.onChange}
           name="user-input"
