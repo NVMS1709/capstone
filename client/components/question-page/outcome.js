@@ -1,21 +1,15 @@
 import React, { Component } from 'react'
-import AceEditor from 'react-ace'
-import { getInput } from '../../store'
 import { connect } from 'react-redux'
 
 import 'brace/mode/java'
 import 'brace/theme/github'
 
-class reactAce extends Component {
+class Outcome extends Component {
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.userSubmissoin = ''
-  }
-
-  componentWillUnmount() {
-    this.props.getInput('')
   }
 
   onChange(newValue) {
@@ -45,10 +39,4 @@ class reactAce extends Component {
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    getInput: userSubmission => dispatch(getInput(userSubmission))
-  }
-}
-
-export default connect(null, mapDispatch)(reactAce)
+export default connect(null, null)(Outcome)

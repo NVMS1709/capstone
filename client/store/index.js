@@ -3,9 +3,9 @@ import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import user from './user'
-import questionPage from './question-page'
+import userInput from './user-input'
 
-const reducer = combineReducers({ user, questionPage })
+const reducer = combineReducers({ user, userInput })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 )
@@ -13,4 +13,4 @@ const store = createStore(reducer, middleware)
 
 export default store
 export * from './user'
-export * from './question-page'
+export * from './user-input'
