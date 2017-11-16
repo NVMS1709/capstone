@@ -9,12 +9,7 @@ class HomePage extends Component {
     render() {
         return (
             <div>
-                HomePage, place all questions here. 
-                {
-                    props.questions.map(question => {
-                        
-                    })
-                }
+                HomePage, place all questions here.
           </div>
         )
     }
