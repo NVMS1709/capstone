@@ -1,5 +1,6 @@
 const Question = require('./question')
 const User = require('./user')
+const Category = require('./category')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -7,6 +8,8 @@ const User = require('./user')
  *
  *    BlogPost.belongsTo(User)
  */
+Category.hasMany(Question);
+Question.belongsTo(Category);
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -16,5 +19,6 @@ const User = require('./user')
  */
 module.exports = {
   Question,
-  User
+  User,
+  Category
 }

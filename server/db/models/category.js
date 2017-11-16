@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Question = db.define('question', {
+const Category = db.define('category', {
   name: {
     type: Sequelize.STRING,
     unique: true,
@@ -10,11 +10,7 @@ const Question = db.define('question', {
   description: {
     type: Sequelize.TEXT,
     allowNull: false
-  },
-  difficulty: {
-    type: Sequelize.INTEGER,
-    allowNull: false
   }
 })
 
-module.exports = Question
+module.exports = Category;
