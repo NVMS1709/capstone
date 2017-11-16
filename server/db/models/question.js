@@ -11,7 +11,7 @@ const Question = db.define('question', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  type: {
+  category: {
     type: Sequelize.STRING,
     allowNull: false
   },
