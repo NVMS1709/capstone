@@ -8,6 +8,7 @@ import { Main, Login, Signup, UserHome } from './components'
 import { me, fetchQuestions, fetchCategories } from './store'
 import QuestionPage from './components/question-page/index'
 import HomePage from './components/home-page'
+import UserPage from './components/user-page'
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ class Routes extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/home" component={HomePage} />
             <Route path="/question-page" component={QuestionPage} />
+            <Route path="/user" component={UserPage} />
             {isLoggedIn && (
               <Switch>
                 {/* Routes placed here are only available after logging in */}

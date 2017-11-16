@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class Outcome extends Component {
+class instructionMode extends Component {
   constructor(props) {
     super(props)
   }
@@ -9,10 +9,10 @@ class Outcome extends Component {
   render() {
     return (
       <div>
-        <h3>Outcome Component To Be Rendered</h3>
+        <h3>Instruction Mode Component to be Rendered</h3>
       </div>
     )
   }
 }
 
-export default connect(null, null)(Outcome)
+export default connect(null, null)(instructionMode)
