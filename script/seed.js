@@ -29,8 +29,6 @@ async function seed() {
     Question.create({
       name: 'BST Construction',
       description: 'Write a Binary Search Tree (BST) class named "BST". The BST class should have a "value" property set to be an integer, as well as "left" and "right" properties, both of which should point to either the None (null) value or to another BST. A node is said to be a BST node if and only if it satisfies the BST property: its value is strictly greater than the values of every node to its left; its value is less than or equal to the values of every node to its right; and both of its children nodes are either BST nodes themselves or None (null) values. The BST class should support three methods, viz., "insert", "contains", and "remove". The "contains" method return a boolean value indicating whether the value is contained in the BST tree or not. The "remove" method should only remove the first instance of the target value.',
-      optimalTimeComplexity: 'average case: (all 3 methods): 0(log(n)) time; worst case: 0(n) time',
-      optimalSpaceComplexity: 'agerage case: 0(1) space; worst case: 0(1) space',
       solution:
         `
 class BST {
@@ -40,8 +38,6 @@ class BST {
     this.right = null;
   }
     
-  // Average: O(log(n)) time | O(log(n)) space
-  // Worst: O(n) time | O(n) space
   insert(value) {
     if (value < this.value) {
       if (this.left === null) {
@@ -58,8 +54,7 @@ class BST {
     }
     return this;
   }
-    
-  // Worst: O(n) time | O(n) space
+
   contains(value) {
     if (value < this.value) {
       if (this.left === null) {
@@ -78,8 +73,6 @@ class BST {
     }
   }
     
-  // Average: O(log(n)) time | O(log(n)) space
-  // Worst: O(n) time | O(n) space
   remove(value, parent = null) {
     if (value < this.value) {
       if (this.left !== null) {
@@ -123,9 +116,7 @@ class BST {
   }
 }
 `,
-      type: 'Binary Search Trees',
-      funcName: 'BST',
-      instanceTest: true,
+      category: 'Binary Search Trees',
       difficulty: 2
     }),
 
@@ -134,7 +125,6 @@ class BST {
       description: 'Write three functions, viz., "inOrderTraverse", "preOrderTraverse", and "postOrderTraverse", that take in an empty array, traverse the BST, add its nodes\' values to the input array, and return that array. The three functions should traverse the BST using the in-order traversal, pre-order traversal, and post-order traversal techniques, respectively. You are given a BST data structure consisting of BST nodes. Each BST node has an integer value stored in a property called "value" and two children nodes stored in properties called "left" ani "right," respectively. A node is said to be a BST node if and only if it satisfies the BST property: its value is strictly greater than the values of every node to its left; its value is less than or equal to the values of every node to its right; and both of its children nodes are either BST nodes themselves or None (null) values.',
       solution:
         `
-// O(n) time | O(n) space
 function inOrderTraverse(tree, array) {
   if (tree !== null) {
     inOrderTraverse(tree.left, array);
@@ -143,8 +133,7 @@ function inOrderTraverse(tree, array) {
   }
   return array;
 }
-        
-// O(n) time | O(n) space
+
 function preOrderTraverse(tree, array) {
   if (tree !== null) {
     array.push(tree.value);
@@ -154,7 +143,6 @@ function preOrderTraverse(tree, array) {
   return array;
 }
         
-// O(n) time | O(n) space
 function postOrderTraverse(tree, array) {
   if (tree !== null) {
     postOrderTraverse(tree.left, array);
@@ -164,9 +152,7 @@ function postOrderTraverse(tree, array) {
   return array;
 }
 `,
-      type: 'Binary Search Trees',
-      funcName: 'inOrderTraverse, preOrderTraverse, postOrderTraverse',
-      instanceTest: true,
+      category: 'Binary Search Trees',
       difficulty: 2,
     })
   ])
