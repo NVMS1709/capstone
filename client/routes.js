@@ -5,8 +5,9 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import { Main, Login, Signup, UserHome } from './components'
-import { me } from './store'
-import questionPage from './components/question-page/index'
+import { me, fetchQuestions } from './store'
+import QuestionPage from './components/question-page/index'
+import HomePage from './components/HomePage'
 
 /**
  * COMPONENT
@@ -26,7 +27,8 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/question-page" component={questionPage} />
+            <Route path="/home" component={HomePage} />
+            <Route path="/question-page" component={QuestionPage} />
             {isLoggedIn && (
               <Switch>
                 {/* Routes placed here are only available after logging in */}
@@ -57,6 +59,7 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
+      dispatch(fetchQuestions())
     }
   }
 }
