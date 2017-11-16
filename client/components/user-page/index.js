@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import UserInfo from './userInfo'
 import UserEdit from './userEdit'
+import CategoryMap from './categoryMap'
 
 class UserIndex extends Component {
   constructor(props) {
@@ -18,7 +19,6 @@ class UserIndex extends Component {
 
   render() {
     const gitGoogleBool = this.props.user.googleId || this.props.user.githubId
-    console.log(this.props.categories)
     return (
       <div>
         {this.state.userEdit ? <UserEdit /> : <UserInfo />}
@@ -27,6 +27,7 @@ class UserIndex extends Component {
         ) : (
           ''
         )}
+        <CategoryMap />
       </div>
     )
   }
