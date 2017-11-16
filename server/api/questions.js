@@ -7,4 +7,3 @@ router.get('/', (req, res, next) => {
     .then(questions => res.json(questions))
     .catch(next)
 })
-
