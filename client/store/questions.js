@@ -21,7 +21,7 @@ export const getQuestions = questions => ({ type: GET_QUESTIONS, questions })
  */
 export const fetchQuestions = () => {
     return function thunk(dispatch) {
-        axios.get('/')
+        axios.get('/api/questions')
             .then(res => {
                 const questions = res.data
                 dispatch(getQuestions(questions))
