@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import AceEditor from './aceEditor'
-import Outcome from './outcome'
-import InstructionMode from './instruction-mode'
+import Outcome from './outcome-container'
+import InstructionMode from './instruction-mode-container'
 import Question from './question-container'
 
 export default class questionPage extends Component {
