@@ -15,7 +15,7 @@ class HomePage extends Component {
 
     showQuestions(event) {
         event.preventDefault()
-        this.setState({showQuestions: event.target.getAttribute("value")})
+        this.setState({showQuestions: event.target.getAttribute('value')})
     }
 
     hideQuestions(event) {
