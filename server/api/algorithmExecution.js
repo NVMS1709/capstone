@@ -1,15 +1,16 @@
 const router = require('express').Router()
 const fs = require('fs')
+const path = require('path')
 
 module.exports = router
 
 router.post('/', (req, res, next) => {
-  fs.writeFile('/Users/daddyyun/Fullstack/capstone/server/test/algorithmInput.js', req.body.algorithmContent, function (err) {
+  fs.writeFile(path.join(__dirname, '..', 'test/algorithmInput.js'), req.body.algorithmContent, function (err) {
     if (err) throw err;
   });
 
-  // hardcoded module.exports
-  fs.appendFile('/Users/daddyyun/Fullstack/capstone/server/test/algorithmInput.js', '\n\n module.exports = BST', function (err) {
+  // appends module.exports = function name
+  fs.appendFile(path.join(__dirname, '..', 'test/algorithmInput.js'), '\n\n' + req.body.moduleExports, function (err) {
     if (err) throw err;
     res.send(res.status)
   })
