@@ -6,9 +6,10 @@ import user from './user'
 import algorithmInput from './algorithm-input'
 import questions from './questions'
 import categories from './categories'
+import testResult from './testResult'
 
 
-const reducer = combineReducers({ user, algorithmInput, questions, categories })
+const reducer = combineReducers({ user, algorithmInput, questions, categories, testResult })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 )
@@ -19,3 +20,5 @@ export * from './user'
 export * from './algorithm-input'
 export * from './questions'
 export * from './categories'
+export * from './testResult'
+
