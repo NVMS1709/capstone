@@ -23,12 +23,33 @@ body {
 
 .box-container {
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
 
   .box {
-    flex-grow: 1; 
-    width: 33%; 
+    margin-left: 1.5vw;
+    margin-right: 1.5vw;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    width: 25vw; 
     height: 200px;
-    border: 1px solid black; 
+
+    .title {
+      height: 50px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .questions {
+      height: 150px;
+      font-size: 13px;
+      line-height: 17px;
+      margin-left: 5vw;
+    }
+
+    .description {
+      height: 150px;
+      font-size: 13px;
+      line-height: 18px;
+    }
   }
 }  
