@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class Question extends Component {
-  constructor(props) {
-    super(props)
-  }
+const QuestionDescription = (props) => {
 
-  render() {
-    return (
-      <div>
-        <h3>Question Goes Here</h3>
-      </div>
-    )
-  }
+  return (
+    <div className="question-description">
+      {props.currentQuestion && <div>{props.currentQuestion.description}</div>}
+    </div>
+  )
 }
 
-export default connect(null, null)(Question)
+
+export default QuestionDescription

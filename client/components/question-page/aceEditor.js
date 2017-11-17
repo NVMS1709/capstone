@@ -24,22 +24,25 @@ class reactAce extends Component {
 
   onSubmit(event) {
     event.preventDefault()
-    this.props.onGetAlgorithmInput(this.userSubmission)
-    this.props.onPostAlgorithmInput(this.userSubmission)
-    
+    this.props.toGetAlgorithmInput(this.userSubmission)
+    this.props.toPostAlgorithmInput(this.userSubmission)
   }
 
   render() {
     return (
       <div>
-        <AceEditor
-          mode="javascript"
-          theme="github"
-          onChange={this.onChange}
-          name="user-input"
-          editorProps={{ $blockScrolling: true }}
-        />
-        <button onClick={this.onSubmit}>Submit</button>
+        <div className="code-editor">
+          <AceEditor
+            mode="javascript"
+            theme="github"
+            onChange={this.onChange}
+            name="user-input"
+            editorProps={{ $blockScrolling: true }}
+          />
+        </div>
+        <div className="run-button-container">
+          <button onClick={this.onSubmit}>Submit</button>
+        </div>
       </div>
     )
   }
@@ -47,8 +50,8 @@ class reactAce extends Component {
 
 const mapDispatch = dispatch => {
   return {
-    onGetAlgorithmInput: userSubmission => dispatch(getAlgorithmInput(userSubmission)),
-    onPostAlgorithmInput: userSubmission => dispatch(postAlgorithmInput(userSubmission))
+    toGetAlgorithmInput: userSubmission => dispatch(getAlgorithmInput(userSubmission)),
+    toPostAlgorithmInput: userSubmission => dispatch(postAlgorithmInput(userSubmission))
   }
 }
 
