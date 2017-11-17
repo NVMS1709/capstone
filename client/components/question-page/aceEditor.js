@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AceEditor from 'react-ace'
-import { getInput } from '../../store'
+import { getAlgorithmInput, postAlgorithmInput } from '../../store'
 import { connect } from 'react-redux'
 
 import 'brace/mode/javascript'
@@ -24,7 +24,9 @@ class reactAce extends Component {
 
   onSubmit(event) {
     event.preventDefault()
-    this.props.getInput(this.userSubmission)
+    this.props.onGetAlgorithmInput(this.userSubmission)
+    this.props.onPostAlgorithmInput(this.userSubmission)
+    
   }
 
   render() {
@@ -45,7 +47,8 @@ class reactAce extends Component {
 
 const mapDispatch = dispatch => {
   return {
-    getInput: userSubmission => dispatch(getInput(userSubmission))
+    onGetAlgorithmInput: userSubmission => dispatch(getAlgorithmInput(userSubmission)),
+    onPostAlgorithmInput: userSubmission => dispatch(postAlgorithmInput(userSubmission))
   }
 }
 

@@ -1,0 +1,47 @@
+import axios from 'axios'
+// import history from '../history'
+
+/**
+ * ACTION TYPES
+ */
+const ALGORITHM_INPUT = 'ALGORITHM_INPUT'
+
+/**
+ * INITIAL STATE
+ */
+const defaultInput = ''
+
+/**
+ * ACTION CREATORS
+ */
+export const getAlgorithmInput = input => ({ type: ALGORITHM_INPUT, input })
+
+/**
+ * THUNK CREATORS
+ */
+export const postAlgorithmInput = (algorithmInput) => {
+  console.log("algorithmInput", algorithmInput)
+  return function thunk(dispatch) {
+      axios.post('/api/algorithm-execution', {algorithmContent: algorithmInput})
+          .then(res => {
+            // will get the test results here
+              // const questions = res.data
+              // dispatch(getQuestions(questions))
+          })
+          .catch(console.err)
+  }
+}
+/**
+ * REDUCER
+ */
+export default function(state = defaultInput, action) {
+  let newState = Object.assign('', state)
+  switch (action.type) {
+    case ALGORITHM_INPUT:
+      newState = action.input
+      return newState
+
+    default:
+      return state
+  }
+}
