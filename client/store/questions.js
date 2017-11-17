@@ -34,7 +34,7 @@ export const fetchQuestions = () => {
  * REDUCER
  */
 export default function (state = defaultQuestions, action) {
-    let newState = state
+    let newState = Object.create([], state)
     switch (action.type) {
         case GET_QUESTIONS:
             newState = action.questions

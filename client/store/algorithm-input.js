@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { setResult } from './index'
 // import history from '../history'
 
 /**
@@ -19,14 +20,16 @@ export const getAlgorithmInput = input => ({ type: ALGORITHM_INPUT, input })
 /**
  * THUNK CREATORS
  */
-export const postAlgorithmInput = (algorithmInput) => {
-  console.log("algorithmInput", algorithmInput)
+export const postAlgorithmInput = (algorithmInput, question) => {
   return function thunk(dispatch) {
-      axios.post('/api/algorithm-execution', {algorithmContent: algorithmInput})
+      axios.post('/api/algorithm-execution', {algorithmContent: algorithmInput, question})
           .then(res => {
+            console.log(res)
+            dispatch(setResult(res))
             // will get the test results here
               // const questions = res.data
               // dispatch(getQuestions(questions))
+
           })
           .catch(console.err)
   }

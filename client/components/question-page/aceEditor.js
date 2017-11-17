@@ -25,10 +25,11 @@ class reactAce extends Component {
   onSubmit(event) {
     event.preventDefault()
     this.props.toGetAlgorithmInput(this.userSubmission)
-    this.props.toPostAlgorithmInput(this.userSubmission)
+    this.props.toPostAlgorithmInput(this.userSubmission, this.props.currentQuestion)
   }
 
   render() {
+    console.log(this.props.currentQuestion)
     return (
       <div>
         <div className="code-editor">
@@ -48,11 +49,17 @@ class reactAce extends Component {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapState = state => {
   return {
-    toGetAlgorithmInput: userSubmission => dispatch(getAlgorithmInput(userSubmission)),
-    toPostAlgorithmInput: userSubmission => dispatch(postAlgorithmInput(userSubmission))
+    questions: state.questions
   }
 }
 
-export default connect(null, mapDispatch)(reactAce)
+const mapDispatch = dispatch => {
+  return {
+    toGetAlgorithmInput: userSubmission => dispatch(getAlgorithmInput(userSubmission)),
+    toPostAlgorithmInput: (userSubmission, question) => dispatch(postAlgorithmInput(userSubmission, question))
+  }
+}
+
+export default connect(mapState, mapDispatch)(reactAce)

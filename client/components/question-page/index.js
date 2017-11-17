@@ -30,7 +30,7 @@ class questionPage extends Component {
         </div>
         <div className="my-repl">
           <div className="left">
-            <AceEditor />
+            <AceEditor currentQuestion={this.props.currentQuestion}/>
           </div>
           <div className="right">
             {this.state.componentToggle ? <Outcome /> : <InstructionMode />}
