@@ -14,6 +14,14 @@ const Question = db.define('question', {
   difficulty: {
     type: Sequelize.INTEGER,
     allowNull: false
+  },
+  functionName: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  testSpec: {
+    type: Sequelize.TEXT,
+    allowNull: false
   }
 })
 
