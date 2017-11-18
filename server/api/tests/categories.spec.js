@@ -2,17 +2,16 @@ const Promise = require('bluebird')
 const { expect } = require('chai')
 const request = require('supertest')
 
-const db = require('../../db/models/index')
+const db = require('../../db')
 const app = require('../../index')
-const Category = db.model('category') // Trouble spot for test
+const Category = db.model('category')
 
 describe('[CATEGORIES ROUTE]', () => {
   beforeEach(() => {
     return db.sync({ force: true })
   })
 
-  describe('[API] Categories Route Tests', () => {
-
+  describe('[API Categories Route Tests]', () => {
     beforeEach(() => {
       return Category.create({
         name: 'Arrays',
