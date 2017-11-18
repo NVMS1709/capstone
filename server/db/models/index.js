@@ -8,8 +8,11 @@ const Category = require('./category')
  *
  *    BlogPost.belongsTo(User)
  */
-Category.hasMany(Question);
-Question.belongsTo(Category);
+Category.hasMany(Question)
+Question.belongsTo(Category)
+
+Question.belongsTo(User)
+User.hasMany(Question)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,

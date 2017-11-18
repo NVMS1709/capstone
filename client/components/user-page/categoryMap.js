@@ -6,9 +6,13 @@ class CategoryMap extends Component {
     super(props)
   }
   render() {
+    const pStyle = {
+      textAlign: 'center'
+    }
     const categories = this.props.categories
     return (
       <div>
+        <p style={pStyle}>Algorithm Categories - Completed/Total</p>
         {categories.map(category => (
           <p key={category.id}>Category: {category.name} - Completed: 03/12</p>
         ))}
