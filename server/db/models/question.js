@@ -19,7 +19,7 @@ const Question = db.define('question', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  testSpec: {
+  testFile: {
     type: Sequelize.TEXT,
     allowNull: false
   }
