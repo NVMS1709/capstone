@@ -32,12 +32,11 @@ class Routes extends Component {
             <Route path="/home" component={HomePage} />
             <Route path="/questions/:questionName" component={QuestionPage} />
             <Route path="/user" component={UserPage} />
-            <Route path="/user-submission" component={UserSubmission} />
-
             {isLoggedIn && (
               <Switch>
                 {/* Routes placed here are only available after logging in */}
                 <Route path="/home" component={UserHome} />
+                <Route path="/user-submission" component={UserSubmission} />
               </Switch>
             )}
             {/* Displays our Login component as a fallback */}

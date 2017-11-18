@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import UserInfo from './userInfo'
 import UserEdit from './userEdit'
 import CategoryMap from './categoryMap'
+import UsersAlgos from './usersAlgos'
 
 class UserIndex extends Component {
   constructor(props) {
@@ -23,11 +24,12 @@ class UserIndex extends Component {
       <div>
         {this.state.userEdit ? <UserEdit /> : <UserInfo />}
         {this.state.userEdit ? (
-          <button onClick={this.toggleEditView}>Close Drop Down</button>
+          <button onClick={this.toggleEditView}>Hide User Edit Menu</button>
         ) : (
-          <button onClick={this.toggleEditView}>Edit Info</button>
+          <button onClick={this.toggleEditView}>Edit User Info</button>
         )}
         <CategoryMap />
+        <UsersAlgos />
         <button onClick={() => history.push('/user-submission')}>
           Submit Algorithm
         </button>

@@ -29,6 +29,7 @@ class reactAce extends Component {
 
   onSubmit(event) {
     event.preventDefault()
+    this.newAlgorithm.userId = this.props.user.id
     this.props.postNewAlgo(this.newAlgorithm)
   }
 
@@ -117,7 +118,8 @@ class reactAce extends Component {
 
 const mapState = state => {
   return {
-    categories: state.categories
+    categories: state.categories,
+    user: state.user
   }
 }
 

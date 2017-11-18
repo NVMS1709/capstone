@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { setResult } from './index'
+import { getQuestions, setResult } from './index'
 import history from '../history'
 
 /**
@@ -38,10 +38,16 @@ export const postAlgorithmInput = (algorithmInput, question) => {
   }
 }
 
-export const postNewAlgo = newAlgorithm => () => {
+export const postNewAlgo = newAlgorithm => dispatch => {
   axios
     .post('/api/questions', newAlgorithm)
-    .then(() => history.push('/user'))
+    .then(() => {
+      axios.get('/api/questions').then(res => {
+        const questions = res.data
+        dispatch(getQuestions(questions))
+        history.push('/user')
+      })
+    })
     .catch(console.err)
 }
 
