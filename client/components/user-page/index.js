@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import history from '../../history'
 import { connect } from 'react-redux'
 import UserInfo from './userInfo'
 import UserEdit from './userEdit'
@@ -27,6 +28,9 @@ class UserIndex extends Component {
           <button onClick={this.toggleEditView}>Edit Info</button>
         )}
         <CategoryMap />
+        <button onClick={() => history.push('/user-submission')}>
+          Submit Algorithm
+        </button>
       </div>
     )
   }

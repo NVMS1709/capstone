@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { setResult } from './index'
-// import history from '../history'
+import history from '../history'
 
 /**
  * ACTION TYPES
@@ -22,18 +22,29 @@ export const getAlgorithmInput = input => ({ type: ALGORITHM_INPUT, input })
  */
 export const postAlgorithmInput = (algorithmInput, question) => {
   return function thunk(dispatch) {
-      axios.post('/api/algorithm-execution', {algorithmContent: algorithmInput, question})
-          .then(res => {
-            console.log(res)
-            dispatch(setResult(res))
-            // will get the test results here
-              // const questions = res.data
-              // dispatch(getQuestions(questions))
-
-          })
-          .catch(console.err)
+    axios
+      .post('/api/algorithm-execution', {
+        algorithmContent: algorithmInput,
+        question
+      })
+      .then(res => {
+        console.log(res)
+        dispatch(setResult(res))
+        // will get the test results here
+        // const questions = res.data
+        // dispatch(getQuestions(questions))
+      })
+      .catch(console.err)
   }
 }
+
+export const postNewAlgo = newAlgorithm => () => {
+  axios
+    .post('/api/questions', newAlgorithm)
+    .then(() => history.push('/user'))
+    .catch(console.err)
+}
+
 /**
  * REDUCER
  */
