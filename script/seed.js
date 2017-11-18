@@ -24,33 +24,73 @@ async function seed() {
   ])
 
   const categories = await Promise.all([
-    Category.create({ name: 'Arrays', description: 'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.' }),
-    Category.create({ name: 'Binary Search Trees', description: 'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.' }),
-    Category.create({ name: 'Dynamic Programming', description: 'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.' }),
-    Category.create({ name: 'Graphs', description: 'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.' }),
-    Category.create({ name: 'Heaps', description: 'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.' }),
-    Category.create({ name: 'Recursion', description: 'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.' }),
-    Category.create({ name: 'Searching', description: 'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.' }),
-    Category.create({ name: 'Sorting', description: 'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.' }),
-    Category.create({ name: 'Stacks', description: 'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.' }),
-    Category.create({ name: 'Strings', description: 'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.' })
+    Category.create({
+      name: 'Arrays',
+      description:
+        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    }),
+    Category.create({
+      name: 'Binary Search Trees',
+      description:
+        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    }),
+    Category.create({
+      name: 'Dynamic Programming',
+      description:
+        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    }),
+    Category.create({
+      name: 'Graphs',
+      description:
+        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    }),
+    Category.create({
+      name: 'Heaps',
+      description:
+        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    }),
+    Category.create({
+      name: 'Recursion',
+      description:
+        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    }),
+    Category.create({
+      name: 'Searching',
+      description:
+        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    }),
+    Category.create({
+      name: 'Sorting',
+      description:
+        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    }),
+    Category.create({
+      name: 'Stacks',
+      description:
+        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    }),
+    Category.create({
+      name: 'Strings',
+      description:
+        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    })
   ])
 
-    console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${users.length} users`)
 
   const questions = await Promise.all([
     Question.create({
       name: 'BST Construction',
-      description: 'Write a Binary Search Tree (BST) class named "BST". The BST class should have a "value" property set to be an integer, as well as "left" and "right" properties, both of which should point to either the None (null) value or to another BST. A node is said to be a BST node if and only if it satisfies the BST property: its value is strictly greater than the values of every node to its left; its value is less than or equal to the values of every node to its right; and both of its children nodes are either BST nodes themselves or None (null) values. The BST class should support three methods, viz., "insert", "contains", and "remove". The "contains" method return a boolean value indicating whether the value is contained in the BST tree or not. The "remove" method should only remove the first instance of the target value.',
-      solution:
-        `
+      description:
+        'Write a Binary Search Tree (BST) class named "BST". The BST class should have a "value" property set to be an integer, as well as "left" and "right" properties, both of which should point to either the None (null) value or to another BST. A node is said to be a BST node if and only if it satisfies the BST property: its value is strictly greater than the values of every node to its left; its value is less than or equal to the values of every node to its right; and both of its children nodes are either BST nodes themselves or None (null) values. The BST class should support three methods, viz., "insert", "contains", and "remove". The "contains" method return a boolean value indicating whether the value is contained in the BST tree or not. The "remove" method should only remove the first instance of the target value.',
+      solution: `
 class BST {
   constructor(value) {
     this.value = value;
     this.left = null;
     this.right = null;
   }
-    
+
   insert(value) {
     if (value < this.value) {
       if (this.left === null) {
@@ -85,7 +125,7 @@ class BST {
       return true;
     }
   }
-    
+
   remove(value, parent = null) {
     if (value < this.value) {
       if (this.left !== null) {
@@ -119,7 +159,7 @@ class BST {
     }
     return this;
   }
-    
+
   getMinValue() {
     if (this.left === null) {
       return this.value;
@@ -130,14 +170,16 @@ class BST {
 }
 `,
       categoryId: 2,
-      difficulty: 2
+      difficulty: 2,
+      functionName: `BST`,
+      testSpec: `Test Spec Placeholder`
     }),
 
     Question.create({
       name: 'BST Traversal',
-      description: 'Write three functions, viz., "inOrderTraverse", "preOrderTraverse", and "postOrderTraverse", that take in an empty array, traverse the BST, add its nodes\' values to the input array, and return that array. The three functions should traverse the BST using the in-order traversal, pre-order traversal, and post-order traversal techniques, respectively. You are given a BST data structure consisting of BST nodes. Each BST node has an integer value stored in a property called "value" and two children nodes stored in properties called "left" ani "right," respectively. A node is said to be a BST node if and only if it satisfies the BST property: its value is strictly greater than the values of every node to its left; its value is less than or equal to the values of every node to its right; and both of its children nodes are either BST nodes themselves or None (null) values.',
-      solution:
-        `
+      description:
+        'Write three functions, viz., "inOrderTraverse", "preOrderTraverse", and "postOrderTraverse", that take in an empty array, traverse the BST, add its nodes\' values to the input array, and return that array. The three functions should traverse the BST using the in-order traversal, pre-order traversal, and post-order traversal techniques, respectively. You are given a BST data structure consisting of BST nodes. Each BST node has an integer value stored in a property called "value" and two children nodes stored in properties called "left" ani "right," respectively. A node is said to be a BST node if and only if it satisfies the BST property: its value is strictly greater than the values of every node to its left; its value is less than or equal to the values of every node to its right; and both of its children nodes are either BST nodes themselves or None (null) values.',
+      solution: `
 function inOrderTraverse(tree, array) {
   if (tree !== null) {
     inOrderTraverse(tree.left, array);
@@ -155,7 +197,7 @@ function preOrderTraverse(tree, array) {
   }
   return array;
 }
-        
+
 function postOrderTraverse(tree, array) {
   if (tree !== null) {
     postOrderTraverse(tree.left, array);
@@ -167,6 +209,8 @@ function postOrderTraverse(tree, array) {
 `,
       categoryId: 2,
       difficulty: 2,
+      functionName: `inOrderTraverse`,
+      testSpec: `Test Spec Placeholder`
     })
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
