@@ -16,7 +16,8 @@ const Question = db.define('question', {
     allowNull: false
   },
   difficulty: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.ENUM,
+    values: ['easy', 'medium', 'hard'],
     allowNull: false
   },
   functionName: {
