@@ -23,6 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.15.3",
+    "bluebird": "^3.5.1",
     "body-parser": "^1.16.1",
     "compression": "^1.7.1",
     "connect-session-sequelize": "^4.1.0",
@@ -40,7 +41,7 @@
     "react-ace": "^5.5.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.6",
-    "react-router": "^4.1.1",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.1.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",

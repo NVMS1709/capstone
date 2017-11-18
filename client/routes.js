@@ -9,6 +9,7 @@ import { me, fetchQuestions, fetchCategories } from './store'
 import QuestionPage from './components/question-page/index'
 import HomePage from './components/home-page'
 import UserPage from './components/user-page'
+import UserSubmission from './components/user-page/algo-submission-page/index.js'
 
 /**
  * COMPONENT
@@ -35,6 +36,7 @@ class Routes extends Component {
               <Switch>
                 {/* Routes placed here are only available after logging in */}
                 <Route path="/home" component={UserHome} />
+                <Route path="/user-submission" component={UserSubmission} />
               </Switch>
             )}
             {/* Displays our Login component as a fallback */}
