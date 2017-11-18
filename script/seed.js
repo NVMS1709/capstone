@@ -170,7 +170,7 @@ class BST {
 }
 `,
       categoryId: 2,
-      difficulty: 2,
+      difficulty: 'medium',
       functionName: `BST`,
       testSpec: `Test Spec Placeholder`
     }),
@@ -208,7 +208,7 @@ function postOrderTraverse(tree, array) {
 }
 `,
       categoryId: 2,
-      difficulty: 2,
+      difficulty: 'medium',
       functionName: `inOrderTraverse`,
       testSpec: `Test Spec Placeholder`
     })

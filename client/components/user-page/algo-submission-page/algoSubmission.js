@@ -71,7 +71,7 @@ class reactAce extends Component {
             onChange={this.onChange}
           >
             <option>Select Difficulty Level</option>
-            {[1, 2, 3, 4, 5].map(difficulty => {
+            {['easy', 'medium', 'hard'].map(difficulty => {
               return <option key={difficulty}>{difficulty}</option>
             })}
           </select>
