@@ -18,14 +18,13 @@ class UserIndex extends Component {
   }
 
   render() {
-    const gitGoogleBool = this.props.user.googleId || this.props.user.githubId
     return (
       <div>
         {this.state.userEdit ? <UserEdit /> : <UserInfo />}
-        {!gitGoogleBool ? (
-          <button onClick={this.toggleEditView}>Edit Info</button>
+        {this.state.userEdit ? (
+          <button onClick={this.toggleEditView}>Close Drop Down</button>
         ) : (
-          ''
+          <button onClick={this.toggleEditView}>Edit Info</button>
         )}
         <CategoryMap />
       </div>
