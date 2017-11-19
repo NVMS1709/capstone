@@ -15,7 +15,7 @@ class reactAce extends Component {
   }
 
   componentWillUnmount() {
-    this.props.getInput('')
+    this.props.toGetAlgorithmInput('')
   }
 
   onChange(newValue) {
@@ -25,11 +25,13 @@ class reactAce extends Component {
   onSubmit(event) {
     event.preventDefault()
     this.props.toGetAlgorithmInput(this.userSubmission)
-    this.props.toPostAlgorithmInput(this.userSubmission, this.props.currentQuestion)
+    this.props.toPostAlgorithmInput(
+      this.userSubmission,
+      this.props.currentQuestion
+    )
   }
 
   render() {
-    console.log(this.props.currentQuestion)
     return (
       <div>
         <div className="code-editor">
@@ -57,8 +59,10 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    toGetAlgorithmInput: userSubmission => dispatch(getAlgorithmInput(userSubmission)),
-    toPostAlgorithmInput: (userSubmission, question) => dispatch(postAlgorithmInput(userSubmission, question))
+    toGetAlgorithmInput: userSubmission =>
+      dispatch(getAlgorithmInput(userSubmission)),
+    toPostAlgorithmInput: (userSubmission, question) =>
+      dispatch(postAlgorithmInput(userSubmission, question))
   }
 }
 
