@@ -24,7 +24,7 @@ class reactAce extends Component {
   }
 
   onChangeTestSpec(newValue) {
-    this.newAlgorithm.testSpec = newValue
+    this.newAlgorithm.testFile = newValue
   }
 
   onSubmit(event) {
@@ -105,7 +105,7 @@ class reactAce extends Component {
               theme="github"
               required="required"
               onChange={this.onChangeTestSpec}
-              name="testSpec"
+              name="testFile"
               editorProps={{ $blockScrolling: true }}
             />
           </div>
