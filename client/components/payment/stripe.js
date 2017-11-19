@@ -1,41 +1,36 @@
-import React from 'react'
-import ReactScriptLoader from 'react-script-loader'
-import createReactClass from 'create-react-class'
-import store, { sendPayment } from '../../store/index'
+import React, { Component } from 'react'
+import { sendPayment } from '../../store/index'
+import { connect } from 'react-redux'
 
-const ReactScriptLoaderMixin = ReactScriptLoader.ReactScriptLoaderMixin
-
-const PaymentForm = createReactClass({
-  mixins: [ReactScriptLoaderMixin],
-
-  getInitialState: function() {
-    return {
-      stripeLoading: true,
+class PaymentForm extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      stripeLoading: false,
       stripeLoadingError: false,
       submitDisabled: false,
       paymentError: null,
       paymentComplete: false,
       token: null
     }
-  },
+    this.onScriptLoaded = this.onScriptLoaded.bind(this)
+    this.onScriptError = this.onScriptError.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
 
-  getScriptURL: function() {
-    return 'https://js.stripe.com/v2/'
-  },
-
-  onScriptLoaded: function() {
+  onScriptLoaded() {
     if (!PaymentForm.getStripeToken) {
       Stripe.setPublishableKey('pk_test_LYZ3KAstQTBHJk4vg7JoZ4q3')
-
       this.setState({ stripeLoading: false, stripeLoadingError: false })
     }
-  },
+  }
 
-  onScriptError: function() {
+  onScriptError() {
     this.setState({ stripeLoading: false, stripeLoadingError: true })
-  },
+  }
 
-  onSubmit: function(event) {
+  onSubmit(event) {
+    Stripe.setPublishableKey('pk_test_LYZ3KAstQTBHJk4vg7JoZ4q3')
     const self = this
     event.preventDefault()
     this.setState({ submitDisabled: true, paymentError: null })
@@ -51,12 +46,13 @@ const PaymentForm = createReactClass({
           submitDisabled: false,
           token: response.id
         })
-        store.dispatch(sendPayment(self.state.token))
+        self.props.sendPayment(self.state.token, self.props.user.id)
       }
     })
-  },
+  }
 
-  render: function() {
+  render() {
+    console.log(this.props.user)
     if (this.state.stripeLoading) {
       return <div>Loading</div>
     } else if (this.state.stripeLoadingError) {
@@ -97,6 +93,18 @@ const PaymentForm = createReactClass({
       )
     }
   }
-})
+}
 
-export default PaymentForm
+const mapState = state => {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    sendPayment: (token, userId) => dispatch(sendPayment(token, userId))
+  }
+}
+
+export default connect(mapState, mapDispatch)(PaymentForm)

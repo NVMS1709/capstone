@@ -15,9 +15,12 @@
     "seed": "node script/seed.js",
     "start": "node server",
     "start-dev": "npm run build-client-watch & npm run start-server",
-    "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public",
-    "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/algorithms-tests' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register",
-    "test-algorithm-input": "mocha ./server/algorithm_input_test/algorithm-test.js"
+    "start-server":
+      "NODE_ENV='development' nodemon server -e html,js,scss --ignore public",
+    "test":
+      "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/algorithms-tests' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register",
+    "test-algorithm-input":
+      "mocha ./server/algorithm_input_test/algorithm-test.js"
   },
   "author": "",
   "license": "ISC",
@@ -45,7 +48,6 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.1.1",
-    "react-script-loader": "0.0.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",

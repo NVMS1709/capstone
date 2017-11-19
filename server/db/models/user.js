@@ -25,7 +25,7 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   membership: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.DATE,
     allowNull: true
   }
 })

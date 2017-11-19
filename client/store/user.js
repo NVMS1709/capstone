@@ -59,17 +59,18 @@ export const userUpdate = (id, user) => dispatch => {
     .catch(err => console.log(err))
 }
 
-export const sendPayment = token => dispatch => {
-  axios
-    .post('/api/payment', { stripeToken: token })
-    .then()
+export const sendPayment = (token, userId) => dispatch => {
+  axios.post('/api/payment', { stripeToken: token }).then(() => {
     // Need to get user id - set member status for user in db
-    // axios.put(`/api/users/${id}`, user).then(() => {
-    //   return axios
-    //     .get('/auth/me')
-    //     .then(res => dispatch(getUser(res.data || defaultUser)))
-    // })
-    .catch(console.err)
+    axios
+      .put(`/api/users/${userId}`, { membership: new Date() })
+      .then(() => {
+        return axios
+          .get('/auth/me')
+          .then(res => dispatch(getUser(res.data || defaultUser)))
+      })
+      .catch(console.err)
+  })
 }
 
 /**
