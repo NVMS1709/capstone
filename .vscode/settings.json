@@ -1,0 +1,6 @@
+{
+    "eslint.run": "onSave",
+    "eslint.options": {
+        "complexity": ["error", 20]
+    }
+}

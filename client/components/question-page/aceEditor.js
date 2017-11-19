@@ -36,6 +36,7 @@ class reactAce extends Component {
       <div>
         <div className="code-editor">
           <AceEditor
+            className="ace-editor"
             mode="javascript"
             theme="github"
             onChange={this.onChange}
