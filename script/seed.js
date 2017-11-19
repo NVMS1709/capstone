@@ -23,6 +23,8 @@ async function seed() {
     User.create({ email: 'murphy@email.com', password: '123' })
   ])
 
+  console.log(`seeded ${users.length} users`)
+
   const categories = await Promise.all([
     Category.create({
       name: 'Arrays',
@@ -76,7 +78,7 @@ async function seed() {
     })
   ])
 
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${categories.length} categories`)
 
   const questions = await Promise.all([
     Question.create({

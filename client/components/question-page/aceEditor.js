@@ -29,11 +29,11 @@ class reactAce extends Component {
   }
 
   render() {
-    console.log(this.props.currentQuestion)
     return (
       <div>
         <div className="code-editor">
           <AceEditor
+            className="ace-editor"
             mode="javascript"
             theme="github"
             onChange={this.onChange}

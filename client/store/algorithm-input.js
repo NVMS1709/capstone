@@ -28,11 +28,8 @@ export const postAlgorithmInput = (algorithmInput, question) => {
         question
       })
       .then(res => {
-        console.log(res)
-        dispatch(setResult(res))
-        // will get the test results here
-        // const questions = res.data
-        // dispatch(getQuestions(questions))
+        const results = res.data
+        dispatch(setResult(results))
       })
       .catch(console.err)
   }

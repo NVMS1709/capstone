@@ -42,6 +42,7 @@ router.post('/', (req, res, next) => {
       exec('npm run test-algorithm-input', (err, stdout) => {
         if (err) next(err)
         res.send(stdout.split('\n').slice(3).join('\n'))
+        //still has to clean the file!!
       })
     });
 })

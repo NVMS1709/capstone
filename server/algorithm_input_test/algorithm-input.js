@@ -4,7 +4,7 @@ class BST {
     this.left = null;
     this.right = null;
   }
-    
+
   insert(value) {
     if (value < this.value) {
       if (this.left === null) {
@@ -39,7 +39,7 @@ class BST {
       return true;
     }
   }
-    
+
   remove(value, parent = null) {
     if (value < this.value) {
       if (this.left !== null) {
@@ -73,7 +73,7 @@ class BST {
     }
     return this;
   }
-    
+
   getMinValue() {
     if (this.left === null) {
       return this.value;
