@@ -17,7 +17,7 @@
     "start-dev": "npm run build-client-watch & npm run start-server",
     "start-server": "NODE_ENV='development' nodemon server -e html,js,scss --ignore public",
     "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/algorithms-tests' mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register",
-    "test-algorithm-input": "mocha ./server/algorithm_input_test/algorithm-test.js"
+    "test-algorithm-input": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -47,7 +47,8 @@
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
     "sequelize": "^4.3.1",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "tmp": "0.0.33"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.9.0",
