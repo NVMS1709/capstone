@@ -5,7 +5,7 @@ const { exec } = require('child_process')
 const tmp = require('tmp');
 
 module.exports = router
-
+const tempDirNameLength = 22;
 router.post('/', (req, res, next) => {
 
   req.body.algorithmContent = req.body.algorithmContent + `\n module.exports = ${req.body.question.functionName}`
@@ -53,7 +53,7 @@ router.post('/', (req, res, next) => {
     return [algorithmTestTempDirectory, cleanupCB, await algorithmInputFile, await algorithmTestFile];
   })(req.body.algorithmContent, req.body.question.testFile)
     .then(([algorithmTestTempDirectory, cleanupCB]) => {
-      exec(`npm run test-algorithm-input ./server/algorithm_input_test/${algorithmTestTempDirectory.slice(-22)}/algorithm-test.js`, (err, stdout, stderr) => {
+      exec(`npm run test-algorithm-input ./server/algorithm_input_test/${algorithmTestTempDirectory.slice(-tempDirNameLength)}/algorithm-test.js`, (err, stdout, stderr) => {
         if (err) {
           next(err)
         }
