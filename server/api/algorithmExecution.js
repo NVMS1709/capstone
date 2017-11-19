@@ -1,17 +1,30 @@
 const router = require('express').Router()
 const fs = require('fs')
 const path = require('path')
-const { exec } = require('child_process');
+const { exec } = require('child_process')
+const tmp = require('tmp');
 
 module.exports = router
-
+const tempDirNameLength = 22;
 router.post('/', (req, res, next) => {
 
   req.body.algorithmContent = req.body.algorithmContent + `\n module.exports = ${req.body.question.functionName}`
 
-  const createAlgorithmInputFile = algorithmInput => (
+  const createAlgorithmTestTempDirectory = () => (
     new Promise((resolve, reject) => {
-      fs.writeFile(path.join(__dirname, '..', 'algorithm_input_test/algorithm-input.js'), algorithmInput, (err) => {
+      tmp.dir({ unsafeCleanup: true, prefix: 'test_', dir: path.join(__dirname, '..', 'algorithm_input_test') }, (err, tmpPath, cleanupCB) => {
+        if (err) {
+          reject(err)
+          return next(err)
+        }
+        resolve([tmpPath, cleanupCB])
+      })
+    })
+  );
+
+  const createAlgorithmInputFile = (algorithmInput, tempDirectory) => (
+    new Promise((resolve, reject) => {
+      fs.writeFile(path.join(tempDirectory, 'algorithm-input.js'), algorithmInput, (err) => {
         if (err) {
           reject(err)
           return next(err)
@@ -21,9 +34,9 @@ router.post('/', (req, res, next) => {
     })
   );
 
-  const createAlgorithmTestFile = algorithmTest => (
+  const createAlgorithmTestFile = (algorithmTest, tempDirectory) => (
     new Promise((resolve, reject) => {
-      fs.writeFile(path.join(__dirname, '..', 'algorithm_input_test/algorithm-test.js'), algorithmTest, (err) => {
+      fs.writeFile(path.join(tempDirectory, 'algorithm-test.js'), algorithmTest, (err) => {
         if (err) {
           reject(err)
           return next(err)
@@ -34,15 +47,20 @@ router.post('/', (req, res, next) => {
   );
 
   (async function (algorithmInput, algorithmTest) {
-    const algorithmTestFile = await createAlgorithmTestFile(algorithmTest)
-    const algorithmInputFile = await createAlgorithmInputFile(algorithmInput);
-    return [algorithmInputFile, algorithmTestFile];
+    const [algorithmTestTempDirectory, cleanupCB] = await createAlgorithmTestTempDirectory()
+    const algorithmTestFile = createAlgorithmTestFile(algorithmTest, algorithmTestTempDirectory)
+    const algorithmInputFile = createAlgorithmInputFile(algorithmInput, algorithmTestTempDirectory);
+    return [algorithmTestTempDirectory, cleanupCB, await algorithmInputFile, await algorithmTestFile];
   })(req.body.algorithmContent, req.body.question.testFile)
-    .then(() => {
-      exec('npm run test-algorithm-input', (err, stdout) => {
-        if (err) next(err)
-        res.send(stdout.split('\n').slice(3).join('\n'))
-        //still has to clean the file!!
+    .then(([algorithmTestTempDirectory, cleanupCB]) => {
+      exec(`npm run test-algorithm-input ./server/algorithm_input_test/${algorithmTestTempDirectory.slice(-tempDirNameLength)}/algorithm-test.js`, (err, stdout, stderr) => {
+        if (err) {
+          next(err)
+        }
+        //currently, res.send pretty much everything, including info on our backend system.
+        //need to figure out a way to sanitize the output, so only re.send error and test results relevant to the user
+        res.send(stderr + '\n' + stdout.split('\n').slice(3).join('\n'))
+        cleanupCB();
       })
     });
 })
