@@ -39,7 +39,6 @@ const PaymentForm = createReactClass({
     const self = this
     event.preventDefault()
     this.setState({ submitDisabled: true, paymentError: null })
-    // send form here
     Stripe.createToken(event.target, function(status, response) {
       if (response.error) {
         self.setState({
@@ -53,12 +52,6 @@ const PaymentForm = createReactClass({
           token: response.id
         })
         store.dispatch(sendPayment(self.state.token))
-        // axios
-        //   .post('/api/payment', { stripeToken: self.state.token })
-        //   .then(res => {
-        //     console.log(res)
-        //   })
-        //   .catch(console.err)
       }
     })
   },
