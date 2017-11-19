@@ -1,9 +1,9 @@
 import React from 'react'
-const ReactScriptLoaderMixin = require('react-script-loader')
-  .ReactScriptLoaderMixin
+import ReactScriptLoader from 'react-script-loader'
 import createReactClass from 'create-react-class'
-import axios from 'axios'
-let token
+import store, { sendPayment } from '../../store/index'
+
+const ReactScriptLoaderMixin = ReactScriptLoader.ReactScriptLoaderMixin
 
 const PaymentForm = createReactClass({
   mixins: [ReactScriptLoaderMixin],
@@ -52,12 +52,13 @@ const PaymentForm = createReactClass({
           submitDisabled: false,
           token: response.id
         })
-        axios
-          .post('/api/payment', { stripeToken: self.state.token })
-          .then(res => {
-            console.log(res)
-          })
-          .catch(console.err)
+        store.dispatch(sendPayment(self.state.token))
+        // axios
+        //   .post('/api/payment', { stripeToken: self.state.token })
+        //   .then(res => {
+        //     console.log(res)
+        //   })
+        //   .catch(console.err)
       }
     })
   },
@@ -105,4 +106,4 @@ const PaymentForm = createReactClass({
   }
 })
 
-module.exports = PaymentForm
+export default PaymentForm

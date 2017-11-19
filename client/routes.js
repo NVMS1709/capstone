@@ -10,7 +10,7 @@ import QuestionPage from './components/question-page/index'
 import HomePage from './components/home-page'
 import UserPage from './components/user-page'
 import UserSubmission from './components/user-page/algo-submission-page/index.js'
-import Payment from './components/payment/stripe'
+import Payment from './components/payment/payment'
 
 /**
  * COMPONENT
