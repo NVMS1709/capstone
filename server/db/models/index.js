@@ -1,6 +1,8 @@
 const Question = require('./question')
 const User = require('./user')
 const Category = require('./category')
+const Difficulty = require('./difficulty')
+
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -10,6 +12,9 @@ const Category = require('./category')
  */
 Category.hasMany(Question)
 Question.belongsTo(Category)
+
+Difficulty.hasMany(Question)
+Question.belongsTo(Difficulty)
 
 Question.belongsTo(User)
 User.hasMany(Question)
@@ -23,5 +28,6 @@ User.hasMany(Question)
 module.exports = {
   Question,
   User,
-  Category
+  Category,
+  Difficulty
 }

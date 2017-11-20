@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AceEditor from 'react-ace'
-import { getAlgorithmInput, postAlgorithmInput } from '../../store'
+import { postAlgorithmInput } from '../../store'
 import { connect } from 'react-redux'
 
 import 'brace/mode/python'

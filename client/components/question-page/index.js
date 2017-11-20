@@ -28,7 +28,7 @@ class QuestionPage extends Component {
     return (
       <div className="repl-container">
         <div className="left-container">
-          {this.props.currentQuestion && <div className="question-name">➩ {this.props.currentQuestion.name} ({this.props.currentQuestion.difficulty} difficulty)</div>}
+          {this.props.currentQuestion && <div className="question-name">➩ {this.props.currentQuestion.name} ({this.props.currentQuestion.difficulty.name} difficulty)</div>}
           <div className="instructions-button-container">
             <button onClick={this.setMode} style={this.state.mode === 'Prompt' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Prompt</button>
             <button onClick={this.setMode} style={this.state.mode === 'Instructions' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Instructions</button>

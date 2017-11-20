@@ -10,7 +10,7 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const { User, Question, Category } = require('../server/db/models')
+const { User, Question, Category, Difficulty } = require('../server/db/models')
 
 async function seed() {
   await db.sync({ force: true })
@@ -79,6 +79,14 @@ async function seed() {
   ])
 
   console.log(`seeded ${categories.length} categories`)
+
+  const difficulties = await Promise.all([
+    Difficulty.create({ name: 'easy'}),
+    Difficulty.create({ name: 'medium'}),
+    Difficulty.create({ name: 'difficult'}),
+  ])
+
+  console.log(`seeded ${difficulties.length} difficulties`)
 
   const questions = await Promise.all([
     Question.create({
@@ -251,7 +259,7 @@ class BST:
 
 `,
       categoryId: 2,
-      difficulty: 'medium',
+      difficultyId: 2,
       functionName: 'BST',
       javascriptTestFile: `
 const BST = require('./algorithm-input');
@@ -437,7 +445,6 @@ if __name__ == "__main__":
     unittest.main()
       `
     }),
-
     Question.create({
       name: 'BST Traversal',
       description:
@@ -472,10 +479,142 @@ function postOrderTraverse(tree, array) {
 `,
       pythonSolution: '',
       categoryId: 2,
-      difficulty: 'medium',
+      difficultyId: 2,
       functionName: 'inOrderTraverse, preOrderTraverse, postOrderTraverse',
       javascriptTestFile: '',
       pythonTestFile: ''
+    }),
+    Question.create({
+      name: 'Two Number Sum',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 1,
+      difficultyId: 1
+    }),
+    Question.create({
+      name: 'Three Number Sum',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 1,
+      difficultyId: 2,
+    }),
+    Question.create({
+      name: 'Max SubsetSum No Adjacent',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 3,
+      difficultyId: 2,
+    }),
+    Question.create({
+      name: 'Max Sum Increasing Subsequence',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 3,
+      difficultyId: 3,
+    }),
+    Question.create({
+      name: 'Depth-first Search',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 4,
+      difficultyId: 1,
+    }),
+    Question.create({
+      name: 'Breadth-first Search',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 4,
+      difficultyId: 2,
+    }),
+    Question.create({
+      name: 'Binary Search',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 7,
+      difficultyId: 1,
+    }),
+    Question.create({
+      name: 'Search In Sorted Matrix',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 7,
+      difficultyId: 2,
+    }),
+    Question.create({
+      name: 'Shifted Binary Search',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 7,
+      difficultyId: 3,
+    }),
+    Question.create({
+      name: 'Bubble Sort',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 8,
+      difficultyId: 1,
+    }),
+    Question.create({
+      name: 'Insertion Sort',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 8,
+      difficultyId: 2,
+    }),
+    Question.create({
+      name: 'Heap Sort',
+      description: '',
+      javascriptSolution: '',
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 8,
+      difficultyId: 3,
     })
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
