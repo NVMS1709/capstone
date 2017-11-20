@@ -56,11 +56,12 @@ router.post('/javascript', (req, res, next) => {
     .then(([algorithmTestTempDirectory, cleanupCB]) => {
       exec(`npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(algorithmTestTempDirectory.lastIndexOf('/'))}/algorithm-test.js`, { timeout: 5000 }, (err, stdout, stderr) => {
         if (err) {
-          next(err)
+          console.error(err)
+         // next(err) CANNOT USE next(err)
         }
         //currently, res.send pretty much everything, including info on our backend system.
         //need to figure out a way to sanitize the output, so only re.send error and test results relevant to the user
-        res.send(stderr + '\n' + stdout.split('\n').slice(3).join('\n'))
+        res.send(stderr + '\n' + stdout)
         cleanupCB()
       })
     });
@@ -81,7 +82,6 @@ router.post('/python', (req, res, next) => {
 
   const createAlgorithmInputFile = (algorithmInput, tempDirectory) => (
     new Promise((resolve, reject) => {
-      console.log("THE INPUT", algorithmInput)
       fs.writeFile(path.join(tempDirectory, 'program.py'), algorithmInput, (err) => {
         if (err) {
           reject(err)
@@ -113,11 +113,13 @@ router.post('/python', (req, res, next) => {
     .then(([algorithmTestTempDirectory, cleanupCB]) => {
       exec(`npm run test-python-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(algorithmTestTempDirectory.lastIndexOf('/'))}/algorithm-test.py`, { timeout: 5000 }, (err, stdout, stderr) => {
         if (err) {
-          next(err)
+          console.error(err);
+          //next(err) CANNOT USE NEXT(ERR)
         }
+        console.log('AFTER THE ERROR______________________________')
         //currently, res.send pretty much everything, including info on our backend system.
         //need to figure out a way to sanitize the output, so only re.send error and test results relevant to the user
-        res.send(stderr + '\n' + stdout.split('\n').slice(3).join('\n'))
+        res.send(stderr + '\n' + stdout) //customize the error manually here
         cleanupCB()
       })
     });
