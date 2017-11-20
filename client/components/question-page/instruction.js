@@ -1,18 +1,14 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 
-class instructionMode extends Component {
-  constructor(props) {
-    super(props)
-  }
 
-  render() {
-    return (
-      <div>
-        <h3>Instruction Mode Component to be Rendered</h3>
-      </div>
-    )
-  }
+const InstructionMode = props => {
+
+  return (
+    <div className="instructions-shell">
+      Instructions rendered here
+    </div>
+  )
+
 }
 
-export default connect(null, null)(instructionMode)
+export default InstructionMode

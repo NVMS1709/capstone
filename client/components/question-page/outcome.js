@@ -8,7 +8,7 @@ class Outcome extends Component {
     super(props)
     this.state = {
       result: '',
-      outputMode: '',
+      outputMode: 'rawOutput',
     }
     this.handleOutputMode = this.handleOutputMode.bind(this);
   }
@@ -26,15 +26,14 @@ class Outcome extends Component {
   render() {
     return (
       <div>
-        <div className="result-elem-top">Result: <span style={this.state.result === 'FAILED' ? { color: 'red' } : { color: 'green' }}>{this.state.result}</span></div>
-        <div className="result-button-container">
-          <button onClick={this.handleOutputMode} style={this.state.outputMode === 'rawOutput' ? { textDecoration: 'underline' } : { textDecoration: '' }}>Raw Output</button>
-          <button onClick={this.handleOutputMode} style={this.state.outputMode === 'tests' ? { textDecoration: 'underline' } : { textDecoration: '' }}>Tests</button>
+        <div className="results-button-container">
+          <button onClick={this.handleOutputMode} style={{ border: '1px solid black', borderBottom: 'none' }}>Raw Output</button>
+          <button onClick={this.handleOutputMode}>Tests</button>
         </div>
-        {this.props.testResult &&
+        {
           this.state.outputMode === 'rawOutput'
-          ? <RawOutput testResult={this.props.testResult} />
-          : ''
+            ? <RawOutput testResult={this.props.testResult} />
+            : ''
         }
         {
           this.state.outputMode === 'tests'
