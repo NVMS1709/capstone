@@ -1,9 +1,9 @@
 const router = require('express').Router()
-const { Question } = require('../db/models')
+const { Question, Difficulty } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  Question.findAll()
+  Question.findAll({include: [Difficulty]})
     .then(questions => res.json(questions))
     .catch(next)
 })
