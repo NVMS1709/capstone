@@ -20,11 +20,11 @@ export const getAlgorithmInput = input => ({ type: ALGORITHM_INPUT, input })
 /**
  * THUNK CREATORS
  */
-export const postAlgorithmInput = (algorithmInput, question) => {
+export const postAlgorithmInput = (submission, question) => {
   return function thunk(dispatch) {
     axios
-      .post('/api/algorithm-execution', {
-        algorithmContent: algorithmInput,
+      .post(`/api/algorithm-execution/${submission.language}`, {
+        algorithmContent: submission.algorithmInput,
         question
       })
       .then(res => {
@@ -51,7 +51,7 @@ export const postNewAlgo = newAlgorithm => dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultInput, action) {
+export default function (state = defaultInput, action) {
   let newState = Object.assign('', state)
   switch (action.type) {
     case ALGORITHM_INPUT:
