@@ -24,7 +24,7 @@ class reactAce extends Component {
   }
 
   onChangeTestSpec(newValue) {
-    this.newAlgorithm.testFile = newValue
+    this.newAlgorithm.javascriptTestFile = newValue
   }
 
   onSubmit(event) {

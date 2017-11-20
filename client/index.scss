@@ -143,9 +143,10 @@ body {
         }
       }
 
-      .raw-output {
+      .scroll-viewer {
         border: 1px solid black;
         height: 417px;
+        overflow: scroll;
       }
 
       .ace-editor {

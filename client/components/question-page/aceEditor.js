@@ -3,8 +3,9 @@ import AceEditor from 'react-ace'
 import { getAlgorithmInput, postAlgorithmInput } from '../../store'
 import { connect } from 'react-redux'
 
+import 'brace/mode/python'
 import 'brace/mode/javascript'
-import 'brace/theme/github'
+import 'brace/theme/chrome'
 
 class reactAce extends Component {
   constructor(props) {
@@ -25,8 +26,12 @@ class reactAce extends Component {
   onSubmit(event) {
     event.preventDefault()
     this.props.toGetAlgorithmInput(this.userSubmission)
+    const submission = {
+      algorithmInput: this.userSubmission,
+      language: 'python'
+    }
     this.props.toPostAlgorithmInput(
-      this.userSubmission,
+      submission,
       this.props.currentQuestion
     )
   }
@@ -37,8 +42,8 @@ class reactAce extends Component {
         <div className="code-editor">
           <AceEditor
             className="ace-editor"
-            mode="javascript"
-            theme="github"
+            mode="python"
+            theme="chrome"
             onChange={this.onChange}
             name="user-input"
             editorProps={{ $blockScrolling: true }}
@@ -62,8 +67,8 @@ const mapDispatch = dispatch => {
   return {
     toGetAlgorithmInput: userSubmission =>
       dispatch(getAlgorithmInput(userSubmission)),
-    toPostAlgorithmInput: (userSubmission, question) =>
-      dispatch(postAlgorithmInput(userSubmission, question))
+    toPostAlgorithmInput: (submission, question) =>
+      dispatch(postAlgorithmInput(submission, question))
   }
 }
 
