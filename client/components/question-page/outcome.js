@@ -38,7 +38,7 @@ class Outcome extends Component {
         }
         {
           this.state.outputMode === 'tests'
-            ? <Tests tests={this.props.currentQuestion.testFile} />
+            ? <Tests tests={this.props.currentQuestion.javascriptTestFile} />
             : ''
         }
       </div>

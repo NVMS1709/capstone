@@ -24,7 +24,11 @@ const Question = db.define('question', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  testFile: {
+  javascriptTestFile: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  },
+  pythonTestFile: {
     type: Sequelize.TEXT,
     allowNull: false
   }
