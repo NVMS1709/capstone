@@ -5,7 +5,7 @@ import InstructionMode from './instruction'
 import QuestionDescription from './question'
 import { connect } from 'react-redux'
 
-class questionPage extends Component {
+class QuestionPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,19 +21,27 @@ class questionPage extends Component {
   render() {
     return (
       <div className="repl-container">
-        <div className="question-info-container">
+        <div className="left-container">
+          {this.props.currentQuestion && <div className="question-name">➩ {this.props.currentQuestion.name} ({this.props.currentQuestion.difficulty} difficulty)</div>}
+          <div className="instructions-button-container">
+            <button onClick={this.toggle} style={{ border: '1px solid black', borderBottom: 'none' }}>Prompt</button>
+            <button onClick={this.toggle}>Instructions</button>
+          </div>
           <QuestionDescription currentQuestion={this.props.currentQuestion} />
         </div>
-        <div className="mode-button-container">{this.state.componentToggle
-          ? (<button onClick={this.toggle}>Instructional Mode</button>)
-          : (<button onClick={this.toggle}>Solution Mode</button>)}
-        </div>
-        <div className="my-repl">
-          <div className="left">
+        <div className="right-container">
+          <div className="language-buttons-container">
+            <button>Javascript</button>
+            <button>Python</button>
+          </div>
+          <div className="solution-button-container">
+            <button onClick={this.toggle} style={{ border: '1px solid black', borderBottom: 'none' }}>Solution</button>
+          </div>
+          <div className="top">
             <AceEditor currentQuestion={this.props.currentQuestion} />
           </div>
-          <div className="right">
-            {this.state.componentToggle ? <Outcome currentQuestion={this.props.currentQuestion} /> : <InstructionMode />}
+          <div className="bottom">
+            <Outcome currentQuestion={this.props.currentQuestion} />
           </div>
         </div>
       </div>
@@ -47,4 +55,4 @@ const mapState = (state, ownProps) => {
   }
 }
 
-export default connect(mapState, null)(questionPage)
+export default connect(mapState, null)(QuestionPage)

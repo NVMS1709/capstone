@@ -394,7 +394,8 @@ function postOrderTraverse(tree, array) {
       categoryId: 2,
       difficulty: 'medium',
       functionName: 'inOrderTraverse, preOrderTraverse, postOrderTraverse',
-      testFile: ''
+      javascriptTestFile: '',
+      pythonTestFile: ''
     })
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator

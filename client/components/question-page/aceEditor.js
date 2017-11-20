@@ -38,7 +38,7 @@ class reactAce extends Component {
 
   render() {
     return (
-      <div>
+      <div className="within-top">
         <div className="code-editor">
           <AceEditor
             className="ace-editor"
@@ -47,6 +47,7 @@ class reactAce extends Component {
             onChange={this.onChange}
             name="user-input"
             editorProps={{ $blockScrolling: true }}
+            width="100%"
           />
         </div>
         <div className="run-button-container">
