@@ -59,10 +59,10 @@ router.post('/javascript', (req, res, next) => {
           console.error(err)
          // next(err) CANNOT USE next(err)
         }
+        cleanupCB()
         //currently, res.send pretty much everything, including info on our backend system.
         //need to figure out a way to sanitize the output, so only re.send error and test results relevant to the user
         res.send(stderr + '\n' + stdout)
-        cleanupCB()
       })
     });
 })
@@ -116,11 +116,11 @@ router.post('/python', (req, res, next) => {
           console.error(err);
           //next(err) CANNOT USE NEXT(ERR)
         }
+        cleanupCB()
         console.log('AFTER THE ERROR______________________________')
         //currently, res.send pretty much everything, including info on our backend system.
         //need to figure out a way to sanitize the output, so only re.send error and test results relevant to the user
         res.send(stderr + '\n' + stdout) //customize the error manually here
-        cleanupCB()
       })
     });
 })
