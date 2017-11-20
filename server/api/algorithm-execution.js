@@ -4,6 +4,8 @@ const path = require('path')
 const { exec } = require('child_process')
 const tmp = require('tmp');
 
+// sanitize the code input
+// 
 module.exports = router
 router.post('/javascript', (req, res, next) => {
 
@@ -65,7 +67,6 @@ router.post('/javascript', (req, res, next) => {
 })
 
 router.post('/python', (req, res, next) => {
-
   const createAlgorithmTestTempDirectory = () => (
     new Promise((resolve, reject) => {
       tmp.dir({ unsafeCleanup: true, prefix: 'test_', dir: path.join(__dirname, '..', 'algorithm_input_test') }, (err, tmpPath, cleanupCB) => {
@@ -80,6 +81,7 @@ router.post('/python', (req, res, next) => {
 
   const createAlgorithmInputFile = (algorithmInput, tempDirectory) => (
     new Promise((resolve, reject) => {
+      console.log("THE INPUT", algorithmInput)
       fs.writeFile(path.join(tempDirectory, 'program.py'), algorithmInput, (err) => {
         if (err) {
           reject(err)
