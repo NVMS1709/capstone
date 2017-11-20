@@ -5,7 +5,6 @@ const RawOutput = (props) => (
     <pre className="raw-output">
       {props.testResult}
     </pre>
-    <div className="scroll" />
   </div>
 )
 

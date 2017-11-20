@@ -12,23 +12,20 @@ class reactAce extends Component {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
-    this.userSubmissoin = ''
-  }
-
-  componentWillUnmount() {
-    this.props.toGetAlgorithmInput('')
+    this.state = {
+      localAlgorithmInput: ''
+    }
   }
 
   onChange(newValue) {
-    this.userSubmission = newValue
+    this.setState({ localAlgorithmInput: newValue })
   }
 
   onSubmit(event) {
     event.preventDefault()
-    this.props.toGetAlgorithmInput(this.userSubmission)
     const submission = {
-      algorithmInput: this.userSubmission,
-      language: 'python'
+      algorithmInput: this.state.localAlgorithmInput,
+      language: this.props.language.toLowerCase()
     }
     this.props.toPostAlgorithmInput(
       submission,
@@ -42,9 +39,10 @@ class reactAce extends Component {
         <div className="code-editor">
           <AceEditor
             className="ace-editor"
-            mode="python"
+            mode={this.props.language.toLowerCase()}
             theme="chrome"
             onChange={this.onChange}
+            value={this.state.localAlgorithmInput}
             name="user-input"
             editorProps={{ $blockScrolling: true }}
             width="100%"
@@ -66,8 +64,6 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    toGetAlgorithmInput: userSubmission =>
-      dispatch(getAlgorithmInput(userSubmission)),
     toPostAlgorithmInput: (submission, question) =>
       dispatch(postAlgorithmInput(submission, question))
   }

@@ -11,7 +11,11 @@ const Question = db.define('question', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  solution: {
+  javascriptSolution: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  },
+  pythonSolution: {
     type: Sequelize.TEXT,
     allowNull: false
   },

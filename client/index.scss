@@ -302,14 +302,24 @@ body {
                 }
 
                 .scroll-viewer {
+                    padding: 15px;
                     border: 1px solid black;
                     height: calc( ((100vh - 70px - 40px - 30px - 10px - 30px) * 0.4) - 30px);
                     overflow: scroll;
                 }
 
-                .ace-editor {
-                    border: 1px solid black;
-                    height: 417px;
+                .bottom-code-editor {
+                    height: calc( ((100vh - 70px - 40px - 30px - 10px - 30px) * 0.4) - 30px);
+
+                    .bottom-ace-editor {
+                        border: 1px solid black;
+                        display: relative;
+                        height: calc( ((100vh - 70px - 40px - 30px - 10px - 30px) * 0.4) - 30px) !important;
+
+                        .ace_print-margin {
+                            visibility: hidden !important;
+                        }
+                    }
                 }
             }
         }
