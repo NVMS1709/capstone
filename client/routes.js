@@ -10,6 +10,7 @@ import QuestionPage from './components/question-page/index'
 import HomePage from './components/home-page'
 import UserPage from './components/user-page'
 import UserSubmission from './components/user-page/algo-submission-page/index.js'
+import Payment from './components/payment/payment'
 
 /**
  * COMPONENT
@@ -32,6 +33,7 @@ class Routes extends Component {
             <Route path="/home" component={HomePage} />
             <Route path="/questions/:questionName" component={QuestionPage} />
             <Route path="/user" component={UserPage} />
+            <Route path="/payment" component={Payment} />
             {isLoggedIn && (
               <Switch>
                 {/* Routes placed here are only available after logging in */}

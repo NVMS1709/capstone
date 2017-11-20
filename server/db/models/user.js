@@ -23,6 +23,10 @@ const User = db.define('user', {
   },
   githubId: {
     type: Sequelize.STRING
+  },
+  membership: {
+    type: Sequelize.DATE,
+    allowNull: true
   }
 })
 
