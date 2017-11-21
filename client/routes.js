@@ -8,8 +8,8 @@ import { Main, Login, Signup, UserHome } from './components'
 import { me, fetchQuestions, fetchCategories, fetchDifficulties } from './store'
 import QuestionPage from './components/question-page/index'
 import HomePage from './components/home-page'
-import UserPage from './components/user-page'
-import UserSubmission from './components/user-page/algo-submission-page/index.js'
+import UserPage from './components/user-account-page/index.js'
+import UserSubmission from './components/user-new-algorithm-submission-page/index.js'
 import Payment from './components/payment/payment'
 
 /**

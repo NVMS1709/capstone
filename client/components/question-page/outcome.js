@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import RawOutput from './rawOutput'
+import CustomOutput from './customOutput'
+
 import Tests from './tests'
 
 class Outcome extends Component {
@@ -8,7 +10,7 @@ class Outcome extends Component {
     super(props)
     this.state = {
       result: '',
-      outputMode: 'rawOutput',
+      outputMode: 'customOutput',
     }
     this.handleOutputMode = this.handleOutputMode.bind(this);
   }
@@ -20,24 +22,34 @@ class Outcome extends Component {
     if (event.target.textContent === 'Tests') {
       this.setState({ outputMode: 'tests' })
     }
+    if (event.target.textContent === 'Custom Output') {
+      this.setState({ outputMode: 'customOutput' })
+    }
 
   }
 
   render() {
+    console.log("I am the user",this.props.user)
     return (
       <div>
         <div className="results-button-container">
-          <button onClick={this.handleOutputMode} style={{ border: '1px solid black', borderBottom: 'none' }}>Raw Output</button>
-          <button onClick={this.handleOutputMode}>Tests</button>
+          <button onClick={this.handleOutputMode} style={this.state.outputMode === 'customOutput' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Custom Output</button>
+          <button onClick={this.handleOutputMode} style={this.state.outputMode === 'rawOutput' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Raw Output</button>
+          <button onClick={this.handleOutputMode} style={this.state.outputMode === 'tests' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Tests</button>
         </div>
         {
+          this.state.outputMode === 'customOutput'
+            ? <CustomOutput testResult={this.props.testCustomResult} />
+            : ''
+        }
+        {
           this.state.outputMode === 'rawOutput'
-            ? <RawOutput testResult={this.props.testResult} />
+            ? <RawOutput testResult={this.props.testResult} color={this.props.testCustomResult.length === 0 ? 'black' : this.props.testCustomResult.find(test => test.outcome === 'failed') ? 'red' : 'green'} />
             : ''
         }
         {
           this.state.outputMode === 'tests'
-            ? <Tests tests={this.props.currentQuestion.javascriptTestFile} />
+            ? <Tests tests={this.props.currentQuestion[`${this.props.language}TestFile`]} language={this.props.language}/>
             : ''
         }
       </div>
@@ -46,8 +58,12 @@ class Outcome extends Component {
 
 }
 
-const mapState = state => ({
-  testResult: state.testResult
-})
+const mapState = state => {
+  return {
+    testResult: state.testResult,
+    testCustomResult: state.testCustomResult,
+    user: state.user
+  }
+}
 
 export default connect(mapState, null)(Outcome)

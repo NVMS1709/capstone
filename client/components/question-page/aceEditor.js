@@ -29,7 +29,8 @@ class reactAce extends Component {
     }
     this.props.toPostAlgorithmInput(
       submission,
-      this.props.currentQuestion
+      this.props.currentQuestion,
+      this.props.user.questionsSolved
     )
   }
 
@@ -39,7 +40,7 @@ class reactAce extends Component {
         <div className="code-editor">
           <AceEditor
             className="ace-editor"
-            mode={this.props.language.toLowerCase()}
+            mode={this.props.language}
             theme="chrome"
             onChange={this.onChange}
             value={this.state.localAlgorithmInput}
@@ -58,14 +59,14 @@ class reactAce extends Component {
 
 const mapState = state => {
   return {
-    questions: state.questions
+    user: state.user
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    toPostAlgorithmInput: (submission, question) =>
-      dispatch(postAlgorithmInput(submission, question))
+    toPostAlgorithmInput: (submission, question, questionsSolved) =>
+      dispatch(postAlgorithmInput(submission, question, questionsSolved))
   }
 }
 

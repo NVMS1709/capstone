@@ -8,9 +8,9 @@ import questions from './questions'
 import categories from './categories'
 import difficulties from './difficulties'
 import testResult from './testResult'
+import testCustomResult from './testCustomResult'
 
-
-const reducer = combineReducers({ user, algorithmInput, questions, categories, testResult, difficulties })
+const reducer = combineReducers({ user, algorithmInput, questions, categories, testResult, testCustomResult, difficulties })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 )
@@ -23,4 +23,4 @@ export * from './questions'
 export * from './categories'
 export * from './testResult'
 export * from './difficulties'
-
+export * from './testCustomResult'

@@ -2,10 +2,12 @@ const router = require('express').Router()
 const fs = require('fs')
 const path = require('path')
 const { exec } = require('child_process')
-const tmp = require('tmp');
+const getTestCaseOutcomes = require('./algorithm-execution-util')
+const tmp = require('tmp')
+const { User } = require('../db/models')
 
-// sanitize the code input
-// 
+// todo: sanitize the code input
+
 module.exports = router
 router.post('/javascript', (req, res, next) => {
 
@@ -56,13 +58,22 @@ router.post('/javascript', (req, res, next) => {
     .then(([algorithmTestTempDirectory, cleanupCB]) => {
       exec(`npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(algorithmTestTempDirectory.lastIndexOf('/'))}/algorithm-test.js`, { timeout: 5000 }, (err, stdout, stderr) => {
         if (err) {
-          console.error(err)
-         // next(err) CANNOT USE next(err)
+          console.error('ERROR WITH EXEC', err)
+          // next(err) CANNOT USE next(err)
         }
         cleanupCB()
+        const { testCasesStr, revisedStdoutStr } = getTestCaseOutcomes(stdout)
+        const testCasesArr = JSON.parse(testCasesStr.trim());
+        let results;
+        if (req.session.passport.user && !testCasesArr.find(testCase => testCase.outcome === 'failed')) {
+          console.log("backend", req.body)
+          results = { testCasesArr, rawOutput: stderr + '\n' + revisedStdoutStr, userId: req.session.passport.user, questionsSolved: req.body.questionsSolved }
+        } else {
+          results = { testCasesArr, rawOutput: stderr + '\n' + revisedStdoutStr }
+        }
+        res.send(results)
         //currently, res.send pretty much everything, including info on our backend system.
         //need to figure out a way to sanitize the output, so only re.send error and test results relevant to the user
-        res.send(stderr + '\n' + stdout)
       })
     });
 })
@@ -117,7 +128,6 @@ router.post('/python', (req, res, next) => {
           //next(err) CANNOT USE NEXT(ERR)
         }
         cleanupCB()
-        console.log('AFTER THE ERROR______________________________')
         //currently, res.send pretty much everything, including info on our backend system.
         //need to figure out a way to sanitize the output, so only re.send error and test results relevant to the user
         res.send(stderr + '\n' + stdout) //customize the error manually here

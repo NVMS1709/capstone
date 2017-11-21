@@ -47,10 +47,10 @@ class QuestionPage extends Component {
             <button onClick={this.toggle} style={{ border: '1px solid black', borderBottom: 'none' }}>Solution</button>
           </div>
           <div className="top">
-            <AceEditor currentQuestion={this.props.currentQuestion} language={this.state.language} />
+            <AceEditor currentQuestion={this.props.currentQuestion} language={this.state.language.toLowerCase()} />
           </div>
           <div className="bottom">
-            <Outcome currentQuestion={this.props.currentQuestion} />
+            <Outcome currentQuestion={this.props.currentQuestion} language={this.state.language.toLowerCase()} />
           </div>
         </div>
       </div>
