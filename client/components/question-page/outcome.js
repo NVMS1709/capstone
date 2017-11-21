@@ -29,7 +29,6 @@ class Outcome extends Component {
   }
 
   render() {
-    console.log("I am the user",this.props.user)
     return (
       <div>
         <div className="results-button-container">
