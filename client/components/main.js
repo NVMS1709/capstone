@@ -12,7 +12,6 @@ import { logout } from '../store'
  */
 const Main = (props) => {
   const { children, handleLogout, isLoggedIn } = props
-
   return (
     <div id="navbar-container">
       <nav>
