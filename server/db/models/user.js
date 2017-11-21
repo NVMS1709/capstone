@@ -27,6 +27,10 @@ const User = db.define('user', {
   membership: {
     type: Sequelize.DATE,
     allowNull: true
+  },
+  questionsSolved: {
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    defaultValue: []
   }
 })
 

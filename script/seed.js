@@ -81,9 +81,9 @@ async function seed() {
   console.log(`seeded ${categories.length} categories`)
 
   const difficulties = await Promise.all([
-    Difficulty.create({ name: 'easy'}),
-    Difficulty.create({ name: 'medium'}),
-    Difficulty.create({ name: 'difficult'}),
+    Difficulty.create({ name: 'easy' }),
+    Difficulty.create({ name: 'medium' }),
+    Difficulty.create({ name: 'difficult' }),
   ])
 
   console.log(`seeded ${difficulties.length} difficulties`)
@@ -179,7 +179,7 @@ class BST {
   }
 }
 `,
-pythonSolution: `
+      pythonSolution: `
 class BST:
     def __init__(self, value):
         self.value = value
@@ -287,6 +287,16 @@ function inOrderTraverse(tree, array) {
 }
 
 describe('BST', function () {
+
+  let testCaseOutcomes = [];
+
+  afterEach(function(){
+    testCaseOutcomes.push({title: this.currentTest.title, outcome: this.currentTest.state});
+  });
+
+  after(function(){
+    console.log("*****Eventually the testCaseOutcomes", JSON.stringify(testCaseOutcomes), "*****End the testCaseOutcomes")
+  })
 
    it('Test Case #1', function () {
     expect(test1.left.value).to.deep.equal(5);

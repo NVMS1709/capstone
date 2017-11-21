@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import AceEditor from 'react-ace'
-import { postNewAlgo } from '../../../store'
+import { postNewAlgo } from '../../store'
 import { connect } from 'react-redux'
 import 'brace/mode/javascript'
 import 'brace/theme/github'

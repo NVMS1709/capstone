@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getQuestions, setResult } from './index'
+import { getQuestions, setResult, setCustomResult, userUpdate } from './index'
 import history from '../history'
 
 /**
@@ -20,16 +20,22 @@ export const getAlgorithmInput = input => ({ type: ALGORITHM_INPUT, input })
 /**
  * THUNK CREATORS
  */
-export const postAlgorithmInput = (submission, question) => {
+export const postAlgorithmInput = (submission, question, questionsSolved) => {
   return function thunk(dispatch) {
     axios
       .post(`/api/algorithm-execution/${submission.language}`, {
         algorithmContent: submission.algorithmInput,
-        question
+        question,
+        questionsSolved
       })
       .then(res => {
         const results = res.data
-        dispatch(setResult(results))
+        dispatch(setResult(results.rawOutput))
+        dispatch(setCustomResult(results.testCasesArr))
+        if (results.userId) {
+          console.log("am i here", results.userId, results.questionsSolved)
+          dispatch(userUpdate(results.userId, {questionsSolved: results.questionsSolved.concat([question.id])}))
+        }
       })
       .catch(console.err)
   }
