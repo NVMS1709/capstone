@@ -28,7 +28,7 @@ class UserIndex extends Component {
         ) : (
             <button onClick={this.toggleEditView}>Edit User Info</button>
           )}
-        <div className="together">
+        <div className="user-form-layer-1">
           <CategoryMap />
           <UsersAlgos />
         </div>
