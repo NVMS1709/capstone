@@ -4,16 +4,32 @@ import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import user from './user'
 import algorithmInput from './algorithm-input'
+import algorithmValidationInput from './algorithm-validation-input'
 import questions from './questions'
 import categories from './categories'
 import difficulties from './difficulties'
 import testResult from './testResult'
 import testCustomResult from './testCustomResult'
+import validationResult from './validationResult'
+import validationCustomResult from './validationCustomResult'
 
-const reducer = combineReducers({ user, algorithmInput, questions, categories, testResult, testCustomResult, difficulties })
+const reducer = combineReducers({
+  user,
+  algorithmInput,
+  questions,
+  categories,
+  testResult,
+  testCustomResult,
+  difficulties,
+  algorithmValidationInput,
+  validationResult,
+  validationCustomResult
+})
+
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 )
+
 const store = createStore(reducer, middleware)
 
 export default store
@@ -24,3 +40,6 @@ export * from './categories'
 export * from './testResult'
 export * from './difficulties'
 export * from './testCustomResult'
+export * from './algorithm-validation-input'
+export * from './validationResult'
+export * from './validationCustomResult'

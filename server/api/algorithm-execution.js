@@ -44,7 +44,7 @@ router.post('/javascript', (req, res, next) => {
           resolve()
         }
       )
-    })
+    });
 
   const createAlgorithmTestFile = (algorithmTest, tempDirectory) =>
     new Promise((resolve, reject) => {
@@ -59,9 +59,9 @@ router.post('/javascript', (req, res, next) => {
           resolve()
         }
       )
-    })
+    });
 
-  ;(async function(algorithmInput, algorithmTest) {
+  (async function (algorithmInput, algorithmTest) {
     const [
       algorithmTestTempDirectory,
       cleanupCB
@@ -80,15 +80,23 @@ router.post('/javascript', (req, res, next) => {
       await algorithmInputFile,
       await algorithmTestFile
     ]
-  })(req.body.algorithmContent, req.body.question.javascriptTestFile)
-    .then(([algorithmTestTempDirectory, cleanupCB]) => {
+  })(
+    req.body.algorithmContent,
+    req.body.question.javascriptTestFile
+    )
+    .then(([
+      algorithmTestTempDirectory,
+      cleanupCB
+    ]) => {
       exec(
         `npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(
           algorithmTestTempDirectory.lastIndexOf('/')
         )}/algorithm-test.js`,
         { timeout: 5000 },
         (err, stdout, stderr) => {
+
           try {
+
             if (err) {
               cleanupCB()
               console.log('ERROR WITH EXEC______________________-', err)
@@ -96,17 +104,22 @@ router.post('/javascript', (req, res, next) => {
               return
               // next(err) CANNOT USE next(err)
             }
+
             cleanupCB()
-            const { testCasesStr, revisedStdoutStr } = getTestCaseOutcomes(
-              stdout
-            )
+
+            const {
+              testCasesStr,
+              revisedStdoutStr
+              } = getTestCaseOutcomes(stdout)
+
             const testCasesArr = JSON.parse(testCasesStr.trim())
+
             let results
-            if (
-              req.session.passport &&
-              req.session.passport.user &&
-              !testCasesArr.find(testCase => testCase.outcome === 'failed')
-            ) {
+
+            if (req.session.passport
+              && req.session.passport.user
+              && testCasesArr
+              && !testCasesArr.find(testCase => testCase.outcome === 'failed')) {
               results = {
                 testCasesArr,
                 rawOutput: '/n' + stderr + '\n' + revisedStdoutStr,
@@ -125,8 +138,6 @@ router.post('/javascript', (req, res, next) => {
             console.log('CAUGHT THE ERROR____________________')
             next(error)
           }
-          //currently, res.send pretty much everything, including info on our backend system.
-          //need to figure out a way to sanitize the output, so only re.send error and test results relevant to the user
         }
       )
     })
@@ -184,43 +195,43 @@ router.post('/python', (req, res, next) => {
       )
     })
 
-  ;(async function(algorithmInput, algorithmTest) {
-    const [
-      algorithmTestTempDirectory,
-      cleanupCB
-    ] = await createAlgorithmTestTempDirectory()
-    const algorithmTestFile = createAlgorithmTestFile(
-      algorithmTest,
-      algorithmTestTempDirectory
-    )
-    const algorithmInputFile = createAlgorithmInputFile(
-      algorithmInput,
-      algorithmTestTempDirectory
-    )
-    return [
-      algorithmTestTempDirectory,
-      cleanupCB,
-      await algorithmInputFile,
-      await algorithmTestFile
-    ]
-  })(req.body.algorithmContent, req.body.question.pythonTestFile).then(
-    ([algorithmTestTempDirectory, cleanupCB]) => {
-      exec(
-        `npm run test-python-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(
-          algorithmTestTempDirectory.lastIndexOf('/')
-        )}/algorithm-test.py`,
-        { timeout: 5000 },
-        (err, stdout, stderr) => {
-          if (err) {
-            console.error(err)
-            //next(err) CANNOT USE NEXT(ERR)
-          }
-          cleanupCB()
-          //currently, res.send pretty much everything, including info on our backend system.
-          //need to figure out a way to sanitize the output, so only re.send error and test results relevant to the user
-          res.send(stderr + '\n' + stdout) //customize the error manually here
-        }
+    ; (async function (algorithmInput, algorithmTest) {
+      const [
+        algorithmTestTempDirectory,
+        cleanupCB
+      ] = await createAlgorithmTestTempDirectory()
+      const algorithmTestFile = createAlgorithmTestFile(
+        algorithmTest,
+        algorithmTestTempDirectory
       )
-    }
-  )
+      const algorithmInputFile = createAlgorithmInputFile(
+        algorithmInput,
+        algorithmTestTempDirectory
+      )
+      return [
+        algorithmTestTempDirectory,
+        cleanupCB,
+        await algorithmInputFile,
+        await algorithmTestFile
+      ]
+    })(req.body.algorithmContent, req.body.question.pythonTestFile).then(
+      ([algorithmTestTempDirectory, cleanupCB]) => {
+        exec(
+          `npm run test-python-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(
+            algorithmTestTempDirectory.lastIndexOf('/')
+          )}/algorithm-test.py`,
+          { timeout: 5000 },
+          (err, stdout, stderr) => {
+            if (err) {
+              console.error(err)
+              //next(err) CANNOT USE NEXT(ERR)
+            }
+            cleanupCB()
+            //currently, res.send pretty much everything, including info on our backend system.
+            //need to figure out a way to sanitize the output, so only re.send error and test results relevant to the user
+            res.send(stderr + '\n' + stdout) //customize the error manually here
+          }
+        )
+      }
+      )
 })

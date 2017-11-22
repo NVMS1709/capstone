@@ -6,6 +6,7 @@ router.use('/questions', require('./questions'))
 router.use('/categories', require('./categories'))
 router.use('/difficulties', require('./difficulties'))
 router.use('/algorithm-execution', require('./algorithm-execution'))
+router.use('/algorithm-validation', require('./algorithm-validation'))
 router.use('/payment', require('./payment'))
 
 router.use((req, res, next) => {
