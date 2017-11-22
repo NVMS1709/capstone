@@ -1,14 +1,66 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
+class InstructionMode extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      index: 0,
+      codeView: false
+    }
+    this.toggleUp = this.toggleUp.bind(this)
+    this.toggleDown = this.toggleDown.bind(this)
+    this.toggleCodeView = this.toggleCodeView.bind(this)
+  }
 
-const InstructionMode = props => {
+  toggleUp() {
+    if (this.state.index < this.props.currentQuestion.jsWalkThrough.length - 1) this.setState({ index: this.state.index + 1 })
+    this.setState({ codeView: false })
+  }
 
-  return (
-    <div className="instructions-shell">
-      Instructions rendered here
-    </div>
-  )
+  toggleDown() {
+    if (this.state.index > 0) this.setState({ index: this.state.index - 1 })
+    this.setState({ codeView: false })
+  }
 
+  toggleCodeView() {
+    this.setState({ codeView: !this.state.codeView })
+  }
+
+  render() {
+    return (
+      <div className="instructions-shell">
+        <div>
+          <div>
+            {this.state.index > 0 ? (
+              <button onClick={this.toggleDown}>See Previous Hint</button>
+            ) : (
+              ''
+            )}
+            <button onClick={this.toggleCodeView}>See Solution</button>
+            {this.state.index <
+            this.props.currentQuestion.jsWalkThrough.length - 1 ? (
+              <button onClick={this.toggleUp}>See Next Hint</button>
+            ) : (
+              ''
+            )}
+          </div>
+          {this.state.codeView ? (
+            ''
+          ) : (
+            <p>{this.props.currentQuestion.jsWalkThrough[this.state.index]}</p>
+          )}
+          {this.state.codeView ? (
+            <pre>
+              {this.props.currentQuestion.jsSolutionWT[this.state.index]}
+            </pre>
+          ) : (
+            ''
+          )}
+        </div>
+      </div>
+    )
+  }
 }
 
-export default InstructionMode
+export default connect(null)(InstructionMode)
