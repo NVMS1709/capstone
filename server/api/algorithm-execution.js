@@ -49,19 +49,29 @@ router.post('/javascript', (req, res, next) => {
   );
 
   (async function (algorithmInput, algorithmTest) {
-    const [algorithmTestTempDirectory, cleanupCB] = await createAlgorithmTestTempDirectory()
+    const [
+      algorithmTestTempDirectory,
+      cleanupCB
+    ] = await createAlgorithmTestTempDirectory()
     const algorithmTestFile = createAlgorithmTestFile(algorithmTest, algorithmTestTempDirectory)
     const algorithmInputFile = createAlgorithmInputFile(algorithmInput, algorithmTestTempDirectory);
-    return [algorithmTestTempDirectory, cleanupCB, await algorithmInputFile, await algorithmTestFile];
+    return [
+      algorithmTestTempDirectory,
+      cleanupCB,
+      await algorithmInputFile,
+      await algorithmTestFile
+    ];
   })(req.body.algorithmContent, req.body.question.javascriptTestFile)
-    .then(([algorithmTestTempDirectory, cleanupCB]) => {
+    .then(([
+      algorithmTestTempDirectory, cleanupCB
+    ]) => {
       exec(`npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(algorithmTestTempDirectory.lastIndexOf('/'))}/algorithm-test.js`, { timeout: 5000 }, (err, stdout, stderr) => {
 
         try {
           if (err) {
             cleanupCB()
             console.log('ERROR WITH EXEC______________________-', err)
-            res.send({rawOutput: err.message})
+            res.send({ rawOutput: err.message })
             return;
             // next(err) CANNOT USE next(err)
           }

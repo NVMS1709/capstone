@@ -33,8 +33,7 @@ export const postAlgorithmInput = (submission, question, questionsSolved) => {
         dispatch(setResult(results.rawOutput))
         dispatch(setCustomResult(results.testCasesArr))
         if (results.userId) {
-          console.log("am i here", results.userId, results.questionsSolved)
-          dispatch(userUpdate(results.userId, {questionsSolved: results.questionsSolved.concat([question.id])}))
+          dispatch(userUpdate(results.userId, { questionsSolved: results.questionsSolved.concat([question.id]) }))
         }
       })
       .catch(console.err)

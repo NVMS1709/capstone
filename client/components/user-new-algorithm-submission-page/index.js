@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { postAlgorithmInput } from '../../store'
+import { postAlgorithmValidationInput } from '../../store'
 import { connect } from 'react-redux'
 import AceEditor from 'react-ace'
 import 'brace/mode/python'
@@ -13,7 +13,6 @@ class UserAlgorithmSubmissionPage extends Component {
       algorithmName: '',
       category: '',
       difficulty: '',
-      language: '',
       localDescriptionInput: '',
       localAlgorithmInput: '',
       result: '',
@@ -21,7 +20,7 @@ class UserAlgorithmSubmissionPage extends Component {
       localTestInput: '',
       algorithmCategory: '',
       algorithmDifficulty: '',
-      algorithmLanguage: '',
+      algorithmLanguage: 'javascript',
       algorithmFunctionName: ''
     }
     this.setAlgorithmName = this.setAlgorithmName.bind(this)
@@ -69,29 +68,34 @@ class UserAlgorithmSubmissionPage extends Component {
   }
 
   onValidate(event) {
-    // event.preventDefault()
-    // const submission = {
-    //   algorithmInput: this.state.localAlgorithmInput,
-    //   language: this.props.language.toLowerCase()
-    // }
-    // this.props.toPostValidateAlgorithmSubmission(
-    //   submission,
-    //   this.props.currentQuestion,
-    //   this.props.user.questionsSolved
-    // )
+    event.preventDefault()
+    if (this.state.algorithmFunctionName) {
+      this.props.toPostAlgorithmValidationSubmission(
+        {
+          algorithmInput: this.state.localAlgorithmInput,
+          language: this.state.algorithmLanguage,
+          functionName: this.state.algorithmFunctionName,
+          testFile: this.state.localTestInput
+        },
+        this.props.user
+      )
+    } else {
+      console.log("I am desperate!!!!")
+    }
   }
 
   handleOutputMode(event) {
-    if (event.target.textContent === 'Example Test Cases') {
+    if (event.target.textContent === 'Validation Custom Output') {
+      this.setState({ outputMode: 'ValidationCustomOutput' })
+    } else if (event.target.textContent === 'Test Cases') {
       this.setState({ outputMode: 'TestCases' })
-    }
-    if (event.target.textContent === 'Test Cases') {
-      this.setState({ outputMode: 'ExampleTestCases' })
+    } else if (event.target.textContent === 'Validation Raw Output') {
+      this.setState({ outputMode: 'ValidationRawOutput' })
     }
   }
 
   render() {
-    const { difficulties, categories } = this.props
+    const { difficulties, categories, validationCustomResult, validationResult } = this.props
 
     return (
       <div id="submission-page" >
@@ -122,7 +126,7 @@ class UserAlgorithmSubmissionPage extends Component {
             </div>
             <div className="input-row">
               <label>Language</label>
-              <select onChange={this.setAlgorithmLanguage}>
+              <select onChange={this.setAlgorithmLanguage} value={this.state.algorithmLanguage}>
                 <option value="python">python</option>
                 <option value="javascript">javascript</option>
               </select>
@@ -160,14 +164,15 @@ class UserAlgorithmSubmissionPage extends Component {
           <div id="test-solution">
             <div id="tests-button-container">
               <button onClick={this.handleOutputMode} style={this.state.outputMode === 'TestCases' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Test Cases</button>
-              <button onClick={this.handleOutputMode} style={this.state.outputMode === 'ExampleTestCases' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Example Test Cases</button>
+              <button onClick={this.handleOutputMode} style={this.state.outputMode === 'ValidationCustomOutput' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Validation Custom Output</button>
+              <button onClick={this.handleOutputMode} style={this.state.outputMode === 'ValidationRawOutput' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Validation Raw Output</button>
             </div>
             {
               this.state.outputMode === 'TestCases'
                 ? <div className="submission-test-code-editor">
                   <AceEditor
                     className="ace-test-editor"
-                    mode={this.props.language}
+                    mode={this.state.algorithmLanguage}
                     theme="chrome"
                     onChange={this.onTestChange}
                     value={this.state.localTestInput}
@@ -179,17 +184,23 @@ class UserAlgorithmSubmissionPage extends Component {
                 : ''
             }
             {
-              this.state.outputMode === 'ExampleTestCases'
-                ? <div className="submission-test-code-editor">
-                  <AceEditor
-                    className="ace-test-editor"
-                    mode={this.props.language}
-                    theme="chrome"
-                    value=""
-                    name="test-example"
-                    editorProps={{ $blockScrolling: true }}
-                    width="100%"
-                  />
+              this.state.outputMode === 'ValidationCustomOutput'
+                ? <div className="scroll-viewer" >
+                  <pre className="raw-output">
+                    {validationCustomResult.map(result => (
+                      <p key={result.title + ' ' + result.outcome} style={result.outcome === 'passed' ? { color: 'green' } : { color: 'red' }}>{result.title + ' ' + result.outcome}</p>
+                    )
+                    )}
+                  </pre>
+                </div>
+                : ''
+            }
+            {
+              this.state.outputMode === 'ValidationRawOutput'
+                ? <div className="scroll-viewer">
+                  <pre className="raw-output">
+                    {validationResult}
+                  </pre>
                 </div>
                 : ''
             }
@@ -205,15 +216,16 @@ const mapState = state => {
     user: state.user,
     categories: state.categories,
     difficulties: state.difficulties,
-    testResult: state.testResult,
-    testCustomResult: state.testCustomResult,
+    validationResult: state.validationResult,
+    validationCustomResult: state.validationCustomResult,
+
   }
 }
 
 const mapDispatch = dispatch => {
   return {
-    toPostAlgorithmInput: (submission, question, questionsSolved) =>
-      dispatch(postAlgorithmInput(submission, question, questionsSolved))
+    toPostAlgorithmValidationSubmission: (submission, user) =>
+      dispatch(postAlgorithmValidationInput(submission, user))
   }
 }
 

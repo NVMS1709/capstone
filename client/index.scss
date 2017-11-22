@@ -588,6 +588,15 @@ body {
                             height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px) !important;
                         }
                     }
+
+                }
+
+                .scroll-viewer {
+                    padding: 15px;
+                    border: 1px solid black;
+                    height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px);
+                    width: calc(((100vw - 40px - 40px) * 0.5) - 15px );
+                    overflow: scroll;
                 }
             }
         }
