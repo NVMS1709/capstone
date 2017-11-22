@@ -6,41 +6,55 @@ import { auth } from '../store'
 /**
  * COMPONENT
  */
-
 const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props
-  const gitStyle = {
-    backgroundImage:
-      'url("https://tpc.googlesyndication.com/simgad/1681709168446687103")',
-    height: 25,
-    width: 200
-  }
+
   return (
     <div>
-      <form onSubmit={handleSubmit} name={name}>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+      <div className="sign-in-box">
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}
+        >
+          <form onSubmit={handleSubmit} name={name}>
+            <div>
+              <label htmlFor="email">
+                <small>Email</small>
+              </label>
+              <input name="email" type="text" size="38" />
+            </div>
+            <br />
+            <div>
+              <label htmlFor="password">
+                <small>Password</small>
+              </label>
+              <input name="password" type="password" size="38" />
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center'
+              }}
+            >
+              <button type="submit">{displayName}</button>
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>
+          <br />
         </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <a href="/auth/github">
+            <img src="github.png" style={{ height: 35 }} />
+          </a>
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <a href="/auth/google">
+            <img src="google.png" style={{ height: 35.75 }} />
+          </a>
         </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
-      <br />
-      <br />
-      <a  href="/auth/github">
-        {displayName} with Github
-      </a>
+      </div>
     </div>
   )
 }
