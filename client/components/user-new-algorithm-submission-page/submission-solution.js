@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import AceEditor from 'react-ace'
-import { postAlgorithmInput, getAlgorithmInput } from '../../store'
+import { postAlgorithmInput } from '../../store'
 import { connect } from 'react-redux'
-
 import 'brace/mode/python'
 import 'brace/mode/javascript'
 import 'brace/theme/chrome'
 
-class reactAce extends Component {
+class SubmissionSolution extends Component {
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
@@ -36,8 +35,11 @@ class reactAce extends Component {
 
   render() {
     return (
-      <div className="within-top">
-        <div className="code-editor">
+      <div id="submission-solution">
+        <div id="validate-button-container">
+          <button onClick={this.onSubmit}>Validate Solution</button>
+        </div>
+        <div id="submission-code-editor">
           <AceEditor
             className="ace-editor"
             mode={this.props.language}
@@ -49,9 +51,6 @@ class reactAce extends Component {
             width="100%"
           />
         </div>
-        <div className="run-button-container">
-          <button onClick={this.onSubmit}>Submit</button>
-        </div>
       </div>
     )
   }
@@ -59,8 +58,7 @@ class reactAce extends Component {
 
 const mapState = state => {
   return {
-    user: state.user,
-    algorithmInput: state.algorithmInput
+    user: state.user
   }
 }
 
@@ -71,4 +69,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(reactAce)
+export default connect(mapState, mapDispatch)(SubmissionSolution)
