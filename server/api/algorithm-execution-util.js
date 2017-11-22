@@ -9,4 +9,31 @@ const getTestCaseOutcomes = (rawOutputStr) => {
     }
 }
 
-module.exports = getTestCaseOutcomes
+const wrapTestfile = (testFile, functionName) => {
+    return `
+describe('${functionName}', function () {
+    const ${functionName} = require('./algorithm-input');
+
+    let testCaseOutcomes = [];
+
+    afterEach(function(){
+        testCaseOutcomes.push({title: this.currentTest.title, outcome: this.currentTest.state});
+    });
+
+    after(function(){
+        console.log("*****Eventually the testCaseOutcomes", JSON.stringify(testCaseOutcomes), "*****End the testCaseOutcomes")
+    })
+` + testFile + `
+});
+`
+}
+
+const wrapAlgorithmInput = (algorithmInput, functionName) => {
+    return algorithmInput + `\nmodule.exports = ${functionName}`
+}
+
+module.exports = {
+    getTestCaseOutcomes,
+    wrapTestfile,
+    wrapAlgorithmInput
+}

@@ -601,10 +601,68 @@ body {
               visibility: hidden !important;
             }
 
-            .ace_content {
-              height: calc(
-                 ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
-              ) !important;
+            #test-solution {
+              width: calc((100vw - 40px - 40px) * 0.5);
+              height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px);
+              padding-left: 15px;
+
+              #tests-button-container {
+                height: 30px;
+                width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
+
+                button {
+                  background-color: white;
+                  color: black;
+                  border-radius: 0px;
+                  height: 30px;
+                  outline: none;
+                  border: none;
+                  font-size: 13px;
+                  border-bottom: none;
+                }
+              }
+
+              .submission-test-code-editor {
+                font-size: 13px;
+                height: calc(
+                  ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                );
+                width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
+
+                .ace-test-editor {
+                  border: 1px solid black;
+                  display: relative;
+                  height: calc(
+                    ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                  ) !important;
+
+                  .ace_print-margin {
+                    visibility: hidden !important;
+                  }
+
+                  .ace_content {
+                    height: calc(
+                      ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                    ) !important;
+                  }
+                }
+              }
+
+              .scroll-viewer {
+                padding: 15px;
+                border: 1px solid black;
+                height: calc(
+                  ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                );
+                width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
+                overflow: scroll;
+              }
+
+              .ace_content {
+                height: calc(
+                   ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                ) !important;
+              }
             }
           }
         }
