@@ -26,10 +26,12 @@ class UserIndex extends Component {
         {this.state.userEdit ? (
           <button onClick={this.toggleEditView}>Hide User Edit Menu</button>
         ) : (
-          <button onClick={this.toggleEditView}>Edit User Info</button>
-        )}
-        <CategoryMap />
-        <UsersAlgos />
+            <button onClick={this.toggleEditView}>Edit User Info</button>
+          )}
+        <div className="together">
+          <CategoryMap />
+          <UsersAlgos />
+        </div>
         <button onClick={() => history.push('/user-submission')}>
           Submit Algorithm
         </button>

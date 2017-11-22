@@ -24,6 +24,42 @@ body {
     }
 }
 
+.together {
+  display: flex;
+  flex-direction: row;
+  width: calc(100% * (1/2) - 10px - 1px);
+
+.categories-section {
+
+  
+  .categories {
+    display: flex;
+    flex-wrap: wrap;
+  
+    .category-child {
+      border: 2px solid black;
+      text-align: center;
+      display: inline-block;
+      margin: 10px 0 0 10px;
+      flex-grow: 1;
+      height: 125px;    
+      width: calc(100% * (1/2) - 10px - 1px);
+      border-radius: 3px; 
+
+      .half-n-half {
+        flex-direction: column;
+        
+        .half-child {
+          align-self: center; 
+        }
+      }
+    }
+  } 
+}
+}
+
+
+
 #homepage {
     display: flex;
     flex-direction: column;
