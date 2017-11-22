@@ -625,7 +625,7 @@ body {
               .submission-test-code-editor {
                 font-size: 13px;
                 height: calc(
-                  ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                   ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                 );
                 width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
 
@@ -633,7 +633,7 @@ body {
                   border: 1px solid black;
                   display: relative;
                   height: calc(
-                    ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                     ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                   ) !important;
 
                   .ace_print-margin {
@@ -642,7 +642,7 @@ body {
 
                   .ace_content {
                     height: calc(
-                      ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                       ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                     ) !important;
                   }
                 }
@@ -652,7 +652,7 @@ body {
                 padding: 15px;
                 border: 1px solid black;
                 height: calc(
-                  ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                   ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                 );
                 width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
                 overflow: scroll;
@@ -671,12 +671,42 @@ body {
   }
 }
 
+.custom-right {
+  position: relative;
+  z-index: 1;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  /* RGBa with 0.6 opacity */
+  background-color: rgba(0, 0, 0, 0.6);
+  /* For IE 5.5 - 7*/
+  filter: progid:DXImageTransform.Microsoft.gradient(
+      startColorstr=#99000000,
+      endColorstr=#99000000
+    );
+  /* For IE 8*/
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  display: block;
+  opacity: 1;
+}
+
 .oauth-box {
+  margin-top: 10%;
   display: flex;
   justify-content: center;
   filter: grayscale(88%);
 
   .login-box {
+    background-color: white;
     border: 1px solid black;
 
     .inputs {

@@ -14,7 +14,7 @@ const AuthForm = props => {
       <div className="login-box">
         <div>
           <form onSubmit={handleSubmit} name={name}>
-            <div onSubmit="inputs">
+            <div className="inputs">
               <label htmlFor="email">
                 <small>Email</small>
               </label>
@@ -82,6 +82,7 @@ const mapDispatch = dispatch => {
   }
 }
 
+export default connect(mapLogin, mapDispatch)(AuthForm)
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
 

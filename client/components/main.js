@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, NavLink } from 'react-router-dom'
 import { logout } from '../store'
+import Modal from './modal'
+import AuthForm from './auth-form'
 
 /**
  * COMPONENT
@@ -14,6 +16,11 @@ const Main = props => {
   const { children, handleLogout, isLoggedIn } = props
   return (
     <div id="navbar-container">
+      <div className="custom-right">
+        <Modal>
+          <AuthForm />
+        </Modal>
+      </div>
       <nav>
         {
           <div className="navbar">
