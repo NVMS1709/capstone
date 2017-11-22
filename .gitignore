@@ -5,3 +5,8 @@ secrets.js
 .DS_Store
 npm-debug.log
 yarn-error.log
+algorithm_input_test
+
+//yarn.lock should be removed
+yarn.lock
+

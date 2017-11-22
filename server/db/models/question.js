@@ -30,6 +30,12 @@ const Question = db.define('question', {
   pythonTestFile: {
     type: Sequelize.TEXT,
     allowNull: false
+  },
+  jsWalkThrough: {
+    type: Sequelize.ARRAY(Sequelize.STRING(3000))
+  },
+  jsSolutionWT: {
+    type: Sequelize.ARRAY(Sequelize.STRING(3000))
   }
 })
 

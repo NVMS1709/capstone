@@ -10,9 +10,9 @@ class Outcome extends Component {
     super(props)
     this.state = {
       result: '',
-      outputMode: 'customOutput',
+      outputMode: 'customOutput'
     }
-    this.handleOutputMode = this.handleOutputMode.bind(this);
+    this.handleOutputMode = this.handleOutputMode.bind(this)
   }
 
   handleOutputMode(event) {
@@ -25,36 +25,78 @@ class Outcome extends Component {
     if (event.target.textContent === 'Custom Output') {
       this.setState({ outputMode: 'customOutput' })
     }
-
   }
 
   render() {
     return (
       <div>
         <div className="results-button-container">
-          <button onClick={this.handleOutputMode} style={this.state.outputMode === 'customOutput' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Custom Output</button>
-          <button onClick={this.handleOutputMode} style={this.state.outputMode === 'rawOutput' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Raw Output</button>
-          <button onClick={this.handleOutputMode} style={this.state.outputMode === 'tests' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Tests</button>
+          <button
+            onClick={this.handleOutputMode}
+            style={
+              this.state.outputMode === 'customOutput'
+                ? { border: '1px solid black', borderBottom: 'none' }
+                : {}
+            }
+          >
+            Custom Output
+          </button>
+          <button
+            onClick={this.handleOutputMode}
+            style={
+              this.state.outputMode === 'rawOutput'
+                ? { border: '1px solid black', borderBottom: 'none' }
+                : {}
+            }
+          >
+            Raw Output
+          </button>
+          <button
+            onClick={this.handleOutputMode}
+            style={
+              this.state.outputMode === 'tests'
+                ? { border: '1px solid black', borderBottom: 'none' }
+                : {}
+            }
+          >
+            Tests
+          </button>
         </div>
-        {
-          this.state.outputMode === 'customOutput'
-            ? <CustomOutput testResult={this.props.testCustomResult} />
-            : ''
-        }
-        {
-          this.state.outputMode === 'rawOutput'
-            ? <RawOutput testResult={this.props.testResult} color={this.props.testCustomResult.length === 0 ? 'black' : this.props.testCustomResult.find(test => test.outcome === 'failed') ? 'red' : 'green'} />
-            : ''
-        }
-        {
-          this.state.outputMode === 'tests'
-            ? <Tests tests={this.props.currentQuestion[`${this.props.language}TestFile`]} language={this.props.language}/>
-            : ''
-        }
+        {this.state.outputMode === 'customOutput' ? (
+          <CustomOutput
+            tests={this.props.currentQuestion}
+            testResult={this.props.testCustomResult}
+          />
+        ) : (
+          ''
+        )}
+        {this.state.outputMode === 'rawOutput' ? (
+          <RawOutput
+            testResult={this.props.testResult}
+            color={
+              this.props.testCustomResult.length === 0
+                ? 'black'
+                : this.props.testCustomResult.find(
+                    test => test.outcome === 'failed'
+                  )
+                  ? 'red'
+                  : 'green'
+            }
+          />
+        ) : (
+          ''
+        )}
+        {this.state.outputMode === 'tests' ? (
+          <Tests
+            tests={this.props.currentQuestion[`${this.props.language}TestFile`]}
+            language={this.props.language}
+          />
+        ) : (
+          ''
+        )}
       </div>
     )
   }
-
 }
 
 const mapState = state => {
