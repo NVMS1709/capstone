@@ -8,17 +8,15 @@ class UserAlgos extends Component {
     this.num = 0
   }
   render() {
-    const pStyle = {
-      textAlign: 'center'
-    }
+    
     const questions = this.props.questions
     const user = this.props.user
     const userQuestions = questions.filter(
       question => question.userId === user.id
     )
     return (
-      <div>
-        <p style={pStyle}>User Submitted Algorithms</p>
+      <div className="submissions">
+        <p>User Submitted Algorithms</p>
         {userQuestions.length ? (
           userQuestions.map(question => {
             const urlName = question.name.trim().replace(/ /g, '%20')
