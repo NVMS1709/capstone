@@ -10,39 +10,27 @@ const AuthForm = props => {
   const { name, displayName, handleSubmit, error } = props
 
   return (
-    <div>
-      <div className="sign-in-box">
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center'
-          }}
-        >
+    <div className="oauth-box">
+      <div className="login-box">
+        <div>
           <form onSubmit={handleSubmit} name={name}>
-            <div>
+            <div onSubmit="inputs">
               <label htmlFor="email">
                 <small>Email</small>
               </label>
               <input name="email" type="text" size="38" />
-            </div>
-            <br />
-            <div>
               <label htmlFor="password">
                 <small>Password</small>
               </label>
               <input name="password" type="password" size="38" />
             </div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center'
-              }}
-            >
-              <button type="submit">{displayName}</button>
+            <div className="oauth-buttons">
+              <button style={{ width: 130 }} type="submit">
+                {displayName}
+              </button>
             </div>
             {error && error.response && <div> {error.response.data} </div>}
           </form>
-          <br />
         </div>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <a href="/auth/github">
