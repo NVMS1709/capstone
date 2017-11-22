@@ -33,8 +33,12 @@ export const postAlgorithmInput = (submission, question, questionsSolved) => {
         dispatch(setResult(results.rawOutput))
         dispatch(setCustomResult(results.testCasesArr))
         if (results.userId) {
-          console.log("am i here", results.userId, results.questionsSolved)
-          dispatch(userUpdate(results.userId, {questionsSolved: results.questionsSolved.concat([question.id])}))
+          console.log('am i here', results.userId, results.questionsSolved)
+          dispatch(
+            userUpdate(results.userId, {
+              questionsSolved: results.questionsSolved.concat([question.id])
+            })
+          )
         }
       })
       .catch(console.err)
@@ -57,7 +61,7 @@ export const postNewAlgo = newAlgorithm => dispatch => {
 /**
  * REDUCER
  */
-export default function (state = defaultInput, action) {
+export default function(state = defaultInput, action) {
   let newState = Object.assign('', state)
   switch (action.type) {
     case ALGORITHM_INPUT:

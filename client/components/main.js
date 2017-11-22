@@ -10,7 +10,7 @@ import { logout } from '../store'
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Main = (props) => {
+const Main = props => {
   const { children, handleLogout, isLoggedIn } = props
   return (
     <div id="navbar-container">
@@ -24,7 +24,7 @@ const Main = (props) => {
               <NavLink to="/questions" className="link">
                 <span className="small-head">Questions</span>
               </NavLink>
-              <NavLink to="/purchases" className="link">
+              <NavLink to="/payment" className="link">
                 <span className="small-head">Purchase</span>
               </NavLink>
             </div>
@@ -34,11 +34,17 @@ const Main = (props) => {
               </NavLink>
             </div>
             <div className="navbar-right">
-              {isLoggedIn
-                ? <NavLink to="/homepage" className="link" id="link-left-space" onClick={handleLogout}>
+              {isLoggedIn ? (
+                <NavLink
+                  to="/homepage"
+                  className="link"
+                  id="link-left-space"
+                  onClick={handleLogout}
+                >
                   <span className="small-head">LOG OUT</span>
                 </NavLink>
-                : <div>
+              ) : (
+                <div>
                   <NavLink to="/login" className="link" id="link-left-space">
                     <span className="small-head">LOG IN</span>
                   </NavLink>
@@ -46,7 +52,7 @@ const Main = (props) => {
                     <span className="small-head">SIGN UP</span>
                   </NavLink>
                 </div>
-              }
+              )}
             </div>
           </div>
         }
@@ -59,13 +65,13 @@ const Main = (props) => {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapState = state => {
   return {
     isLoggedIn: !!state.user.id
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = dispatch => {
   return {
     handleLogout() {
       dispatch(logout())

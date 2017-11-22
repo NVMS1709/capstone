@@ -1,4 +1,3 @@
-const Promise = require('bluebird')
 const { expect } = require('chai')
 const request = require('supertest')
 
@@ -15,7 +14,8 @@ describe('[CATEGORIES ROUTE]', () => {
     beforeEach(() => {
       return Category.create({
         name: 'Arrays',
-        description: 'An array is a collection of items stored at continuous memory locations. Each item (element) is accessible by their index.'
+        description:
+          'An array is a collection of items stored at continuous memory locations. Each item (element) is accessible by their index.'
       })
     })
 
@@ -26,7 +26,9 @@ describe('[CATEGORIES ROUTE]', () => {
         .then(res => {
           expect(res.body).to.be.an('array')
           expect(res.body[0].name).to.be.equal('Arrays')
-          expect(res.body[0].description).to.be.equal('An array is a collection of items stored at continuous memory locations. Each item (element) is accessible by their index.')
+          expect(res.body[0].description).to.be.equal(
+            'An array is a collection of items stored at continuous memory locations. Each item (element) is accessible by their index.'
+          )
         })
     })
   })

@@ -1,4 +1,3 @@
-const Promise = require('bluebird')
 const { expect } = require('chai')
 const request = require('supertest')
 
@@ -17,8 +16,12 @@ describe('[QUESTIONS ROUTE]', () => {
     beforeEach(() => {
       const OPTIONS = { validate: true, individualHooks: true }
       return Category.bulkCreate(testData.Categories[0], OPTIONS)
-        .then(() => { return Question.bulkCreate(testData.Question, OPTIONS) })
-        .catch(err => console.error(`Failed inside questions.spec with message: ${err}`))
+        .then(() => {
+          return Question.bulkCreate(testData.Question, OPTIONS)
+        })
+        .catch(err =>
+          console.error(`Failed inside questions.spec with message: ${err}`)
+        )
     })
 
     it('GET request to /api/questions/', () => {
@@ -28,7 +31,9 @@ describe('[QUESTIONS ROUTE]', () => {
         .then(res => {
           expect(res.body).to.be.an('array')
           expect(res.body[0].name).to.be.equal('Is Unique')
-          expect(res.body[0].description).to.be.equal('Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?')
+          expect(res.body[0].description).to.be.equal(
+            'Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?'
+          )
           expect(res.body[0].categoryId).to.be.equal(1)
         })
     })
