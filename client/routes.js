@@ -37,6 +37,7 @@ class Routes extends Component {
                   path="/user-submission"
                   component={UserAlgorithmSubmissionPage}
                 />
+                <Route exact path="/" component={HomePage} />
                 <Route
                   path="/questions/:questionName"
                   component={QuestionPage}
