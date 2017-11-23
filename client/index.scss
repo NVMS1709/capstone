@@ -46,6 +46,7 @@ body {
         #head {
           font-size: 16px;
           color: black;
+          justify-content: center;
           font-style: italic;
           height: 30px;
           width: 15vw;
@@ -703,11 +704,18 @@ body {
   margin-top: 10%;
   display: flex;
   justify-content: center;
-  filter: grayscale(88%);
 
   .login-box {
     background-color: white;
     border: 1px solid black;
+    filter: hue-rotate(50%);
+
+    .error-handled {
+      font-size: 0.6em;
+      display: flex;
+      justify-content: center;
+      color: red;
+    }
 
     .inputs {
       margin-bottom: 0;
@@ -716,8 +724,20 @@ body {
     .oauth-buttons {
       display: flex;
       justify-content: center;
-      margin-top: 0;
+      margin-top: 6;
       margin-bottom: 2;
+    }
+    .not-user-sign-up {
+      font-size: 0.8em;
+      display: flex;
+      justify-content: center;
+    }
+    .toggle-view-auth-sign {
+      color: blue;
+    }
+    .toggle-view-auth-sign:hover {
+      cursor: pointer;
+      margin: 4;
     }
   }
 }

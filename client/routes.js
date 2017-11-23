@@ -4,7 +4,7 @@ import { Router } from 'react-router'
 import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import { Main, Login, Signup, UserHome } from './components'
+import { Main, UserHome } from './components'
 import { me, fetchQuestions, fetchCategories, fetchDifficulties } from './store'
 import QuestionPage from './components/question-page/index'
 import HomePage from './components/home-page'
@@ -28,21 +28,25 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
             <Route path="/home" component={HomePage} />
-            <Route path="/questions/:questionName" component={QuestionPage} />
-            <Route path="/user" component={UserPage} />
-            <Route path="/payment" component={Payment} />
             {isLoggedIn && (
               <Switch>
                 {/* Routes placed here are only available after logging in */}
-                <Route path="/home" component={UserHome} />
-                <Route path="/user-submission" component={UserAlgorithmSubmissionPage} />
+                <Route path="/home" component={HomePage} />
+                <Route
+                  path="/user-submission"
+                  component={UserAlgorithmSubmissionPage}
+                />
+                <Route
+                  path="/questions/:questionName"
+                  component={QuestionPage}
+                />
+                <Route path="/user" component={UserPage} />
+                <Route path="/payment" component={Payment} />
               </Switch>
             )}
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route path="/home" component={HomePage} />
           </Switch>
         </Main>
       </Router>

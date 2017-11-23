@@ -18,6 +18,7 @@ class reactAce extends Component {
   }
 
   onChange(newValue) {
+    //console.log(newValue, 'NEW VAL')
     this.setState({ localAlgorithmInput: newValue })
   }
 

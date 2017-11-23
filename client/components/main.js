@@ -13,13 +13,17 @@ import AuthForm from './auth-form'
  *  rendered out by the component's `children`.
  */
 const Main = props => {
-  const { children, handleLogout, isLoggedIn } = props
+  const { user, children, handleLogout, isLoggedIn } = props
   return (
     <div id="navbar-container">
       <div className="custom-right">
-        <Modal>
-          <AuthForm />
-        </Modal>
+        {user.id ? (
+          ''
+        ) : (
+          <Modal>
+            <AuthForm />
+          </Modal>
+        )}
       </div>
       <nav>
         {
@@ -31,9 +35,6 @@ const Main = props => {
               <NavLink to="/questions" className="link">
                 <span className="small-head">Questions</span>
               </NavLink>
-              <NavLink to="/payment" className="link">
-                <span className="small-head">Purchase</span>
-              </NavLink>
             </div>
             <div className="navbar-central">
               <NavLink to="/home" id="head-link">
@@ -42,14 +43,19 @@ const Main = props => {
             </div>
             <div className="navbar-right">
               {isLoggedIn ? (
-                <NavLink
-                  to="/homepage"
-                  className="link"
-                  id="link-left-space"
-                  onClick={handleLogout}
-                >
-                  <span className="small-head">LOG OUT</span>
-                </NavLink>
+                <div>
+                  <NavLink to="/user" className="link" id="link-left-space">
+                    <span className="small-head">USER</span>
+                  </NavLink>
+                  <NavLink
+                    to="/homepage"
+                    className="link"
+                    id="link-left-space"
+                    onClick={handleLogout}
+                  >
+                    <span className="small-head">LOG OUT</span>
+                  </NavLink>
+                </div>
               ) : (
                 <div>
                   <NavLink to="/login" className="link" id="link-left-space">
@@ -74,7 +80,8 @@ const Main = props => {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
