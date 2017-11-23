@@ -28,27 +28,6 @@ class InstructionMode extends Component {
   }
 
   render() {
-    //   #container {
-    //     width:100%;
-    //     text-align:center;
-    // }
-
-    // #left {
-    //     float:left;
-    //     width:100px;
-    // }
-
-    // #center {
-    //     display: inline-block;
-    //     margin:0 auto;
-    //     width:100px;
-    // }
-
-    // #right {
-    //     float:right;
-    //     width:100px;
-    //}
-
     return (
       <div
         style={{
