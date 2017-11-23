@@ -33,14 +33,24 @@ class InstructionMode extends Component {
         <div>
           <div>
             {this.state.index > 0 ? (
-              <button onClick={this.toggleDown}>See Previous Hint</button>
+              <button className="previous-hint" onClick={this.toggleDown}>
+                See Previous Hint
+              </button>
             ) : (
               ''
             )}
-            <button onClick={this.toggleCodeView}>See Solution</button>
+            <button
+              button
+              className="show-solution"
+              onClick={this.toggleCodeView}
+            >
+              See Solution
+            </button>
             {this.state.index <
             this.props.currentQuestion.jsWalkThrough.length - 1 ? (
-              <button onClick={this.toggleUp}>See Next Hint</button>
+              <button className="next-hint" onClick={this.toggleUp}>
+                See Next Hint
+              </button>
             ) : (
               ''
             )}
