@@ -28,6 +28,8 @@ class InstructionMode extends Component {
   }
 
   render() {
+    console.log('here')
+    console.log(this.props.currentQuestion.jsWalkThrough)
     return (
       <div className="instructions-shell">
         <div>

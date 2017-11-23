@@ -100,7 +100,6 @@ class BST {
     this.left = null;
     this.right = null;
   }
-
   insert(value) {
     if (value < this.value) {
       if (this.left === null) {
@@ -117,7 +116,6 @@ class BST {
     }
     return this;
   }
-
   contains(value) {
     if (value < this.value) {
       if (this.left === null) {
@@ -135,7 +133,6 @@ class BST {
       return true;
     }
   }
-
   remove(value, parent = null) {
     if (value < this.value) {
       if (this.left !== null) {
@@ -169,7 +166,6 @@ class BST {
     }
     return this;
   }
-
   getMinValue() {
     if (this.left === null) {
       return this.value;
@@ -185,7 +181,6 @@ class BST:
         self.value = value
         self.left = None
         self.right = None
-
     # Average: O(log(n)) time | O(1) space
     # Worst: O(n) time | O(1) space
     def insert(self, value):
@@ -204,7 +199,6 @@ class BST:
                 else:
                     currentNode = currentNode.right
         return self
-
     # Average: O(log(n)) time | O(1) space
     # Worst: O(n) time | O(1) space
     def contains(self, value):
@@ -217,7 +211,6 @@ class BST:
             else:
                 return True
         return False
-
     # Average: O(log(n)) time | O(1) space
     # Worst: O(n) time | O(1) space
     def remove(self, value, parentNode = None):
@@ -250,13 +243,11 @@ class BST:
                     parentNode.right = currentNode.left if currentNode.left is not None else currentNode.right
                 break
         return self
-
     def getMinValue(self):
         currentNode = self
         while currentNode.left is not None:
             currentNode = currentNode.left
         return currentNode.value
-
 `,
       categoryId: 2,
       difficultyId: 2,
@@ -265,18 +256,13 @@ class BST:
 const BST = require('./algorithm-input');
 const chai = require('chai')
 let expect = chai.expect;
-
 const test1 = new BST(10).insert(5).insert(15).insert(5).insert(2)
 .insert(14).insert(22);
-
 const test2 = new BST(10).insert(15).insert(11).insert(22).remove(10);
-
 const test3 = new BST(10).insert(5).insert(7).insert(2).remove(10);
-
 const test4 = new BST(10).insert(5).insert(15).insert(22).insert(17)
 .insert(34).insert(7).insert(2).insert(5).insert(1).insert(35).insert(27)
 .insert(16).insert(30).remove(22).remove(17);
-
 function inOrderTraverse(tree, array) {
   if (tree !== null) {
     inOrderTraverse(tree.left, array);
@@ -285,201 +271,143 @@ function inOrderTraverse(tree, array) {
   }
   return array;
 }
-
 describe('BST', function () {
-
   let testCaseOutcomes = [];
-
   afterEach(function(){
     testCaseOutcomes.push({title: this.currentTest.title, outcome: this.currentTest.state});
   });
-
   after(function(){
     console.log("*****Eventually the testCaseOutcomes", JSON.stringify(testCaseOutcomes), "*****End the testCaseOutcomes")
   })
-
    it('Test Case #1', function () {
     expect(test1.left.value).to.deep.equal(5);
   });
-
   it('Test Case #2', function () {
     expect(test1.right.right.value).to.deep.equal(22);
   });
-
   it('Test Case #3', function () {
     expect(test1.right.left.value).to.deep.equal(14);
   });
-
   it('Test Case #4', function () {
     expect(test1.left.right.value).to.deep.equal(5);
   });
-
   it('Test Case #5', function () {
     expect(test1.left.left.value).to.deep.equal(2);
   });
-
   it('Test Case #6', function () {
     expect(test1.left.left.left).to.deep.equal(null);
   });
-
   it('Test Case #7', function () {
     expect(test1.right.left.right).to.deep.equal(null);
   });
-
   it('Test Case #8', function () {
     expect(test1.contains(15)).to.deep.equal(true);
   });
-
   it('Test Case #9', function () {
     expect(test1.contains(2)).to.deep.equal(true);
   });
-
   it('Test Case #10', function () {
     expect(test1.contains(5)).to.deep.equal(true);
   });
-
   it('Test Case #11', function () {
     expect(test1.contains(10)).to.deep.equal(true);
   });
-
   it('Test Case #12', function () {
     expect(test1.contains(22)).to.deep.equal(true);
   });
-
   it('Test Case #13', function () {
     expect(test1.contains(23)).to.deep.equal(false);
   });
-
   it('Test Case #14', function () {
     expect(inOrderTraverse(test2, [])).to.deep.equal([11, 15, 22]);
   });
-
   it('Test Case #15', function () {
     expect(inOrderTraverse(test3, [])).to.deep.equal([2, 5, 7]);
   });
-
   it('Test Case #16', function () {
     expect(inOrderTraverse(test4, [])).to.deep.equal([1, 2, 5, 5, 7, 10, 15, 16, 27, 30, 34, 35]);
   });
-
   it('Test Case #17', function () {
     expect(test4.right.right.value).to.deep.equal(27);
   });
-
   it('Test Case #18', function () {
     expect(test4.right.right.left.value).to.deep.equal(16);
   });
-
 });
       `,
       pythonTestFile: `
 import program
 import unittest
-
-
 test1 = program.BST(10).insert(5).insert(15).insert(5).insert(2).insert(14).insert(22)
-
 test2 = program.BST(10).insert(15).insert(11).insert(22).remove(10)
-
 test3 = program.BST(10).insert(5).insert(7).insert(2).remove(10)
-
 test4 = program.BST(10).insert(5).insert(15).insert(22).insert(17).insert(34) \
     .insert(7).insert(2).insert(5).insert(1).insert(35).insert(27).insert(16) \
     .insert(30).remove(22).remove(17)
-
 def inOrderTraverse(tree, array):
     if tree is not None:
         inOrderTraverse(tree.left, array)
         array.append(tree.value)
         inOrderTraverse(tree.right, array)
     return array
-
-
 class TestProgram(unittest.TestCase):
-
     def test_case_1(self):
         self.assertEqual(test1.left.value, 5)
-
     def test_case_2(self):
         self.assertEqual(test1.right.right.value, 22)
-
     def test_case_3(self):
         self.assertEqual(test1.right.left.value, 14)
-
     def test_case_4(self):
         self.assertEqual(test1.left.right.value, 5)
-
     def test_case_5(self):
         self.assertEqual(test1.left.left.value, 2)
-
     def test_case_6(self):
         self.assertEqual(test1.left.left.left, None)
-
     def test_case_7(self):
         self.assertEqual(test1.right.left.right, None)
-
     def test_case_8(self):
         self.assertEqual(test1.contains(15), True)
-
     def test_case_9(self):
         self.assertEqual(test1.contains(2), True)
-
     def test_case_10(self):
         self.assertEqual(test1.contains(5), True)
-
     def test_case_11(self):
         self.assertEqual(test1.contains(10), True)
-
     def test_case_12(self):
         self.assertEqual(test1.contains(22), True)
-
     def test_case_13(self):
         self.assertEqual(test1.contains(23), False)
-
     def test_case_14(self):
         self.assertEqual(inOrderTraverse(test2, []), [11, 15, 22])
-
     def test_case_15(self):
         self.assertEqual(inOrderTraverse(test3, []), [2, 5, 7])
-
     def test_case_16(self):
         self.assertEqual(inOrderTraverse(test4, []), [1, 2, 5, 5, 7, 10, 15, 16, 27, 30, 34, 35])
-
     def test_case_17(self):
         self.assertEqual(test4.right.right.value, 27)
-
     def test_case_18(self):
         self.assertEqual(test4.right.right.left.value, 16)
-
 if __name__ == "__main__":
     unittest.main()
       `,
       jsWalkThrough: [
         `Function: 'BST'
-
         Create a class function called 'BST.'
-
         Make a constructor within the function that takes a value as a parameter. The initial value passed in through the constructor will become the value of our tree's root node.  Any future values passed  via the constructor's instance method(s) will become nodes within the tree.
-
         Next, you will want to create key value pairs that represent the properties of the new node and place these pairs into the constructor.  You will want a property that represents the node's value, as well as a property that points to the nodes located to the left and right of the newly created node.`,
 
         `Method: 'insert'
         Create a method called 'insert' that will insert new nodes into the tree.  This method will take a value.  This method will traverse the tree, find an appropriate place where a node of the value passed in should be inserted, create a new node with that value using the constructor, and then place it into the tree.
-
         Remember, if the value passed into the function is less than the value of the root node, this new node should be placed to the left of the root node.  If the value of the new node is greater than the value of the root node then this new node should be placed to the right of the root node.
-
         At the end of the the function you will want to place a return this, which should now represent the node that was created and inserted into the tree.`,
 
         `Method: 'contains'
         Create a method called 'contains' that will check the nodes of our tree to see if there is a node that contains a particular value or not.  This method should accept a value within its parameter to search for and then traverse the tree looking for that value.  If a node within the tree contains the value, we will want to return true.  If not, we want to return false.
-
         You will want to check the values of the nodes as you traverse the tree in order to determine which direction, left or right, within the tree you should search at any particular point.  Use recursion in this method in order to complete the traversal of the tree.`,
 
         `Method: 'remove'
         Create a method called 'remove'.  This method should take two values as parameters.  The first is the value that will be removed.  The second is a value that will represent the parent node of the node we are currently on during our traversal of the tree.
-
         You will want to recursively call the remove method in order to traverse the tree using.  Use if else statements to determine whether the current node you are on is the one you are looking for, or if you want to continue traversing the tree and whether you want to move left or right through the tree.
-
         If you reach the end of a branch without finding a node that contains the sought after value, you've traversed the entire tree and should return the current node.  If you find the value you are looking for you will want to re-orient the tree so that the the node can be removed without disrupting the structure of the tree.`,
 
         `Create a method called 'getMinValue.'  This method will not take any values into it's parameters.  This method will traverse the tree in a single direction searching for the lowest value contained within the tree.`
@@ -521,7 +449,6 @@ if __name__ == "__main__":
           this.left = null;
           this.right = null;
         }
-
         insert(value) {
           if (value < this.value) {
             if (this.left === null) {
@@ -538,7 +465,6 @@ if __name__ == "__main__":
           }
           return this;
         }
-
         contains(value) {
           if (value < this.value) {
             if (this.left === null) {
@@ -563,7 +489,6 @@ if __name__ == "__main__":
           this.left = null;
           this.right = null;
         }
-
         insert(value) {
           if (value < this.value) {
             if (this.left === null) {
@@ -580,7 +505,6 @@ if __name__ == "__main__":
           }
           return this;
         }
-
         contains(value) {
           if (value < this.value) {
             if (this.left === null) {
@@ -598,7 +522,6 @@ if __name__ == "__main__":
             return true;
           }
         }
-
         remove(value, parent = null) {
           if (value < this.value) {
             if (this.left !== null) {
@@ -639,7 +562,6 @@ if __name__ == "__main__":
           this.left = null;
           this.right = null;
         }
-
         insert(value) {
           if (value < this.value) {
             if (this.left === null) {
@@ -656,7 +578,6 @@ if __name__ == "__main__":
           }
           return this;
         }
-
         contains(value) {
           if (value < this.value) {
             if (this.left === null) {
@@ -674,7 +595,6 @@ if __name__ == "__main__":
             return true;
           }
         }
-
         remove(value, parent = null) {
           if (value < this.value) {
             if (this.left !== null) {
@@ -708,7 +628,6 @@ if __name__ == "__main__":
           }
           return this;
         }
-
         getMinValue() {
           if (this.left === null) {
             return this.value;
@@ -732,7 +651,6 @@ function inOrderTraverse(tree, array) {
   }
   return array;
 }
-
 function preOrderTraverse(tree, array) {
   if (tree !== null) {
     array.push(tree.value);
@@ -741,7 +659,6 @@ function preOrderTraverse(tree, array) {
   }
   return array;
 }
-
 function postOrderTraverse(tree, array) {
   if (tree !== null) {
     postOrderTraverse(tree.left, array);
