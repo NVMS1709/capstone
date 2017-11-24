@@ -5,17 +5,21 @@ class CategoryMap extends Component {
   constructor(props) {
     super(props)
   }
+
   render() {
-    const pStyle = {
-      textAlign: 'center'
-    }
     const categories = this.props.categories
     return (
-      <div>
-        <p style={pStyle}>Algorithm Categories - Completed/Total</p>
-        {categories.map(category => (
-          <p key={category.id}>Category: {category.name} - Completed: 03/12</p>
-        ))}
+      <div className="categories-section">
+        <div className="categories">
+          {categories.map(category => {
+            return (
+              <div key={category.id} className="category-child">
+                <div className="half-child">{category.name}</div>
+                <div className="half-child">{category.questions.length}</div>
+              </div>
+            )
+          })}
+        </div>
       </div>
     )
   }
