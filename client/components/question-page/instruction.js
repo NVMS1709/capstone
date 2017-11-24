@@ -29,18 +29,83 @@ class InstructionMode extends Component {
 
   render() {
     return (
-      <div className="instructions-shell">
+      <div
+        style={{
+          textAlign: 'center',
+          height: 'calc(100vh - 70px - 40px - 30px - 40px)',
+          border: '1px solid black',
+          width: 'calc(40vw - 53px)',
+          padding: '15px',
+          fontSize: '13px',
+          lineHeight: '25px',
+          overflowY: 'scroll'
+        }}
+      >
         <div>
           <div>
             {this.state.index > 0 ? (
-              <button onClick={this.toggleDown}>See Previous Hint</button>
+              <button
+                style={{
+                  borderRadius: '0',
+                  float: 'left',
+                  width: '120px',
+                  marginTop: '3px'
+                }}
+                className="previous-hint"
+                onClick={this.toggleDown}
+              >
+                See Previous Hint
+              </button>
             ) : (
               ''
             )}
-            <button onClick={this.toggleCodeView}>See Solution</button>
+            {this.state.index > 0 ? (
+              <button
+                button
+                stye={{
+                  borderRadius: '0',
+                  float: 'right',
+                  rightMargin: '50%',
+                  display: 'inline-block',
+                  margin: '0 auto',
+                  width: '100px',
+                  marginTop: '3px'
+                }}
+                className="show-solution"
+                onClick={this.toggleCodeView}
+              >
+                See Solution
+              </button>
+            ) : (
+              <button
+                button
+                style={{
+                  borderRadius: '0',
+                  float: 'left',
+                  width: '100px',
+                  marginTop: '3px'
+                }}
+                className="show-solution"
+                onClick={this.toggleCodeView}
+              >
+                See Solution
+              </button>
+            )}
+
             {this.state.index <
             this.props.currentQuestion.jsWalkThrough.length - 1 ? (
-              <button onClick={this.toggleUp}>See Next Hint</button>
+              <button
+                style={{
+                  borderRadius: '0',
+                  float: 'right',
+                  width: '100px',
+                  marginTop: '3px'
+                }}
+                className="next-hint"
+                onClick={this.toggleUp}
+              >
+                See Next Hint
+              </button>
             ) : (
               ''
             )}
@@ -48,12 +113,20 @@ class InstructionMode extends Component {
           {this.state.codeView ? (
             ''
           ) : (
-            <p>{this.props.currentQuestion.jsWalkThrough[this.state.index]}</p>
+            <div>
+              <br />
+              <p style={{ textAlign: 'left' }}>
+                {this.props.currentQuestion.jsWalkThrough[this.state.index]}
+              </p>
+            </div>
           )}
           {this.state.codeView ? (
-            <pre>
-              {this.props.currentQuestion.jsSolutionWT[this.state.index]}
-            </pre>
+            <div>
+              <br />
+              <pre style={{ textAlign: 'left' }}>
+                {this.props.currentQuestion.jsSolutionWT[this.state.index]}
+              </pre>
+            </div>
           ) : (
             ''
           )}

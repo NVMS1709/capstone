@@ -30,6 +30,7 @@ export const postAlgorithmInput = (submission, question, questionsSolved) => {
       })
       .then(res => {
         const results = res.data
+        console.log('HEEEREEEEE')
         dispatch(setResult(results.rawOutput))
         dispatch(setCustomResult(results.testCasesArr))
         if (results.userId) {
