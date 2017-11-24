@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, NavLink } from 'react-router-dom'
@@ -12,70 +12,83 @@ import AuthForm from './auth-form'
  *  else common to our entire app. The 'picture' inside the frame is the space
  *  rendered out by the component's `children`.
  */
-const Main = props => {
-  const { user, children, handleLogout, isLoggedIn } = props
-  return (
-    <div id="navbar-container">
-      <div className="custom-right">
-        {user.id ? (
-          ''
-        ) : (
-          <Modal>
-            <AuthForm />
-          </Modal>
-        )}
+class Main extends Component {
+  constructor(props) {
+    super(props)
+    this.bool = true
+  }
+
+  componentDidMount() {
+    this.bool = false
+  }
+
+  render() {
+    const { user, children, handleLogout, isLoggedIn } = this.props
+    return (
+      <div id="navbar-container">
+        <div className="custom-right">
+          {user.id ? (
+            ''
+          ) : this.bool ? (
+            ''
+          ) : (
+            <Modal>
+              <AuthForm />
+            </Modal>
+          )}
+        </div>
+        <nav>
+          {
+            <div className="navbar">
+              <div className="navbar-left">
+                <NavLink to="/about" className="link">
+                  <span className="small-head">About</span>
+                </NavLink>
+                <NavLink to="/home" className="link">
+                  <span className="small-head">Questions</span>
+                </NavLink>
+                <NavLink to="/payment" className="link">
+                  <span className="small-head">Payment</span>
+                </NavLink>
+              </div>
+              <div className="navbar-central">
+                <NavLink to="/home" id="head-link">
+                  <span id="head">A L G O R I T H M</span>
+                </NavLink>
+              </div>
+              <div className="navbar-right">
+                {isLoggedIn ? (
+                  <div>
+                    <NavLink to="/user" className="link" id="link-left-space">
+                      <span className="small-head">USER</span>
+                    </NavLink>
+                    <NavLink
+                      to="/homepage"
+                      className="link"
+                      id="link-left-space"
+                      onClick={handleLogout}
+                    >
+                      <span className="small-head">LOG OUT</span>
+                    </NavLink>
+                  </div>
+                ) : (
+                  <div>
+                    <NavLink to="/login" className="link" id="link-left-space">
+                      <span className="small-head">LOG IN</span>
+                    </NavLink>
+                    <NavLink to="/signup" className="link">
+                      <span className="small-head">SIGN UP</span>
+                    </NavLink>
+                  </div>
+                )}
+              </div>
+            </div>
+          }
+        </nav>
+        {children}
       </div>
-      <nav>
-        {
-          <div className="navbar">
-            <div className="navbar-left">
-              <NavLink to="/about" className="link">
-                <span className="small-head">About</span>
-              </NavLink>
-              <NavLink to="/home" className="link">
-                <span className="small-head">Questions</span>
-              </NavLink>
-              <NavLink to="/payment" className="link">
-                <span className="small-head">Payment</span>
-              </NavLink>
-            </div>
-            <div className="navbar-central">
-              <NavLink to="/home" id="head-link">
-                <span id="head">A L G O R I T H M</span>
-              </NavLink>
-            </div>
-            <div className="navbar-right">
-              {isLoggedIn ? (
-                <div>
-                  <NavLink to="/user" className="link" id="link-left-space">
-                    <span className="small-head">USER</span>
-                  </NavLink>
-                  <NavLink
-                    to="/homepage"
-                    className="link"
-                    id="link-left-space"
-                    onClick={handleLogout}
-                  >
-                    <span className="small-head">LOG OUT</span>
-                  </NavLink>
-                </div>
-              ) : (
-                <div>
-                  <NavLink to="/login" className="link" id="link-left-space">
-                    <span className="small-head">LOG IN</span>
-                  </NavLink>
-                  <NavLink to="/signup" className="link">
-                    <span className="small-head">SIGN UP</span>
-                  </NavLink>
-                </div>
-              )}
-            </div>
-          </div>
-        }
-      </nav>
-      {children}
-    </div>
-  )
+    )
+  }
 }
 
 /**
