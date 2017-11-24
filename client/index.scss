@@ -303,8 +303,8 @@ body {
     }
   }
   .repl-container {
-    height: calc(100vh - 70px);
-    padding-bottom: 40px;
+    height: calc(100vh - 87px);
+    padding-bottom: 5px;
     display: flex;
     width: 100vw;
     .left-container {
@@ -645,21 +645,21 @@ body {
               .submission-test-code-editor {
                 font-size: 13px;
                 height: calc(
-                  ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                   ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                 );
                 width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
                 .ace-test-editor {
                   border: 1px solid black;
                   display: relative;
                   height: calc(
-                    ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                     ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                   ) !important;
                   .ace_print-margin {
                     visibility: hidden !important;
                   }
                   .ace_content {
                     height: calc(
-                      ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                       ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                     ) !important;
                   }
                 }
@@ -668,7 +668,7 @@ body {
                 padding: 15px;
                 border: 1px solid black;
                 height: calc(
-                  ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                   ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                 );
                 width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
                 overflow: scroll;
@@ -753,5 +753,38 @@ body {
       cursor: pointer;
       margin: 4;
     }
+  }
+}
+
+.question-chat {
+  margin-bottom: 20px;
+  margin-top: 5px;
+  display: row;
+  .posted-chat-container {
+    height: 150px;
+    border: 1px solid black;
+    line-height: 25px;
+    margin-left: 41px;
+    margin-right: 41px;
+    .posted-comments {
+      margin: 7px;
+    }
+  }
+  .post-chat-container {
+    height: 96px;
+    border: 1px solid black;
+    line-height: 25px;
+    margin-left: 41px;
+    margin-right: 41px;
+  }
+  textarea {
+    display: block;
+    width: 98.57%;
+    margin: 7px;
+  }
+  button {
+    display: inline-block;
+    margin: 7px;
+    border-radius: 0;
   }
 }
