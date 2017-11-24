@@ -4,7 +4,8 @@ const { Comment, User } = require('../db/models')
 module.exports = router
 
 router.post('/', (req, res, next) => {
-  Comment.create()
+  console.log('BACKEND', req.body)
+  Comment.create(req.body)
     .then(comment => res.json(comment))
     .catch(next)
 })

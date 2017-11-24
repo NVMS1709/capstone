@@ -31,6 +31,18 @@ export const questionComments = () => {
   }
 }
 
+export const postComment = comment => {
+  return function thunk(dispatch) {
+    axios
+      .post('/api/comments', comment)
+      .then(res => {
+        const comments = res.data
+        dispatch(getComments(comments))
+      })
+      .catch(console.err)
+  }
+}
+
 /**
  * REDUCER
  */

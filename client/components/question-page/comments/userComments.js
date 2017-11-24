@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { questionComments } from '../../../store'
+import { questionComments, postComment } from '../../../store'
 
 class Comments extends Component {
   constructor(props) {
@@ -21,6 +21,9 @@ class Comments extends Component {
 
   onSubmit(event) {
     event.preventDefault()
+    this.newComment.questionId = this.props.currentQuestion.id
+    this.newComment.userId = this.props.user.id
+    //this.postComment(this.newComment)
     console.log(this.newComment)
   }
 
@@ -85,7 +88,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    questionComments: questionId => dispatch(questionComments(questionId))
+    questionComments: () => dispatch(questionComments()),
+    postComment: comment => dispatch(postComment(comment))
   }
 }
 
