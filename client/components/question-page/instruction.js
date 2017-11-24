@@ -120,7 +120,6 @@ class InstructionMode extends Component {
               </p>
             </div>
           )}
-
           {this.state.codeView ? (
             <div>
               <br />
