@@ -21,13 +21,16 @@ class UserIndex extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.userEdit ? <UserEdit /> : <UserInfo />}
-        {this.state.userEdit ? (
-          <button onClick={this.toggleEditView}>Hide User Edit Menu</button>
-        ) : (
-            <button onClick={this.toggleEditView}>Edit User Info</button>
-          )}
+      <div className="user-dashboard">
+        <div className="user-form-layer-0">
+
+          {this.state.userEdit ? (
+            <button className="user-info-button" onClick={this.toggleEditView}>Hide User Edit Menu</button>
+          ) : (
+              <button className="user-info-button" onClick={this.toggleEditView}>Edit User Info</button>
+            )}
+          {this.state.userEdit ? <UserEdit /> : <UserInfo />}
+        </div>
         <div className="user-form-layer-1">
           <CategoryMap />
           <UsersAlgos />

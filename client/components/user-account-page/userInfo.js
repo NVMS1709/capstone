@@ -8,8 +8,10 @@ class UserInfo extends Component {
   render() {
     const user = this.props.user.name || this.props.user.email
     return (
-      <div>
+      <div className="user-info">
         <p>User: {user}</p>
+        <p>Completed: </p>
+        <p>Attempted: </p>
       </div>
     )
   }

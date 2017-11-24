@@ -22,27 +22,24 @@ class UserEdit extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <p>User Name</p>
-          <input
-            name="name"
-            onChange={this.handleChange}
-            placeholder="Enter Name"
-          />
-          <p>User Email</p>
-          <input
-            name="email"
-            onChange={this.handleChange}
-            placeholder="Enter Email"
-          />
-          <p>Password</p>
-          <input
-            name="password"
-            onChange={this.handleChange}
-            placeholder="Enter Email"
-          />
-          <br />
-          <button type="submit">Submit</button>
+        <form className="user-edit" onSubmit={this.handleSubmit}>
+          <ul className="wrapper">
+            <li className="form-row">
+              <label htmlFor="username">Username</label>
+              <input type="text" id="username" />
+            </li>
+            <li className="form-row">
+              <label htmlFor="email">Email</label>
+              <input type="text" id="email" />
+            </li>
+            <li className="form-row">
+              <label htmlFor="password">Password</label>
+              <input type="text" id="password" />
+            </li>
+            <li className="form-row">
+              <button type="submit">Submit</button>
+            </li>
+          </ul>
         </form>
       </div>
     )

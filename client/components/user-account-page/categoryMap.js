@@ -8,7 +8,6 @@ class CategoryMap extends Component {
 
   render() {
     const categories = this.props.categories
-    console.log(categories)
     return (
       <div className="categories-section">
         <div className="categories">
