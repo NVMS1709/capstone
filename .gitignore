@@ -5,3 +5,6 @@ server/algorithm_input_test
 secrets.js
 .DS_Store
 npm-debug.log
+yarn-error.log
+algorithm_input_test
+yarn.lock
