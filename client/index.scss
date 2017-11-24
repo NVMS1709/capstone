@@ -95,8 +95,13 @@ body {
             flex-direction: row;
             padding: 20px;
             .user-info-button {
-                max-height: 50px;
+                max-height: 75px;
+                min-height: 75px; 
+                max-width: 75px; 
+                min-width: 75px;
                 margin-right: 2rem;
+                background-color: #4c4ce0;
+                color: white;
             }
             .user-info {
                 border: 1px solid white;

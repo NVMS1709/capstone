@@ -5,6 +5,7 @@ import UserInfo from './userInfo'
 import UserEdit from './userEdit'
 import CategoryMap from './categoryMap'
 import UsersAlgos from './usersAlgos'
+import FontAwesome from 'react-fontawesome'
 
 class UserIndex extends Component {
   constructor(props) {
@@ -25,9 +26,9 @@ class UserIndex extends Component {
         <div className="user-form-layer-0">
 
           {this.state.userEdit ? (
-            <button className="user-info-button" onClick={this.toggleEditView}>Hide User Edit Menu</button>
+            <button className="user-info-button" onClick={this.toggleEditView}>Go Back</button>
           ) : (
-              <button className="user-info-button" onClick={this.toggleEditView}>Edit User Info</button>
+              <button className="user-info-button" onClick={this.toggleEditView}><FontAwesome name="cogs" size="3x" /></button>
             )}
           {this.state.userEdit ? <UserEdit /> : <UserInfo />}
         </div>
