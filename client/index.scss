@@ -645,21 +645,21 @@ body {
               .submission-test-code-editor {
                 font-size: 13px;
                 height: calc(
-                   ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                  ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                 );
                 width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
                 .ace-test-editor {
                   border: 1px solid black;
                   display: relative;
                   height: calc(
-                     ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                    ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                   ) !important;
                   .ace_print-margin {
                     visibility: hidden !important;
                   }
                   .ace_content {
                     height: calc(
-                       ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                      ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                     ) !important;
                   }
                 }
@@ -668,7 +668,7 @@ body {
                 padding: 15px;
                 border: 1px solid black;
                 height: calc(
-                   ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
+                  ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
                 );
                 width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
                 overflow: scroll;
@@ -682,315 +682,6 @@ body {
           }
         }
       }
-    }
-  }
-}
-
-#submission-page {
-  height: calc(100vh - 70px);
-  padding-bottom: 40px;
-  width: 100vw;
-  padding-left: 40px;
-  padding-right: 40px;
-
-  #submission-control-buttons-container {
-    height: 60px;
-    padding-bottom: 10px;
-    display: flex;
-    align-items: flex-end;
-
-    button {
-      margin-left: 20px;
-      border: 1px solid black;
-      border-radius: 0px;
-      background-color: white;
-      color: black;
-      font-size: 13px;
-      outline: none;
-      cursor: pointer;
-    }
-  }
-
-  #question-info {
-    display: flex;
-    height: calc((100vh - 70px - 40px - 60px) * 0.4);
-
-    #submission-info-form-container {
-      width: calc((100vw - 40px - 40px) * 0.45);
-      font-size: 13px;
-      padding-right: 30px;
-
-      .input-row {
-        height: calc((100vh - 70px - 40px - 60px) * 0.4 / 5);
-        width: calc(((100vw - 40px - 40px) * 0.45) - 30px);
-        margin-left: 0px !important;
-        margin-right: 0px;
-        padding-top: 10px;
-
-        label {
-          margin-bottom: 5px;
-        }
-
-        select {
-          border: 1px solid black;
-          width: calc(((100vw - 40px - 40px) * 0.45) - 30px);
-          outline: none;
-        }
-
-        input {
-          border: 1px solid black;
-          width: calc(((100vw - 40px - 40px) * 0.45) - 30px);
-          outline: none;
-        }
-      }
-    }
-
-    #description-container {
-      width: calc((100vw - 40px - 40px) * 0.55);
-
-      #description-title {
-        padding-top: 8px;
-        font-size: 13px;
-        padding-left: 5px;
-        padding-bottom: 8px;
-        border: 1px solid black;
-        height: 30px;
-      }
-
-      textarea {
-        font-size: 13px;
-        height: calc(((100vh - 70px - 40px - 60px) * 0.4) - 30px);
-        padding: 10px;
-        width: calc((100vw - 40px - 40px) * 0.55);
-        border-top: none;
-        border-bottom: 1px solid black;
-        border-left: 1px solid black;
-        border-right: 1px solid black;
-      }
-    }
-  }
-
-  #solution-test-container {
-    display: flex;
-    padding-top: 30px;
-    height: calc((100vh - 70px - 40px - 60px) * 0.6);
-    width: calc(100vw - 40px - 40px);
-
-    #submission-solution {
-      width: calc((100vw - 40px - 40px) * 0.5);
-      height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px);
-      padding-right: 15px;
-
-      #validate-button-container {
-        height: 30px;
-
-        button {
-          background-color: white;
-          padding: 0px;
-          color: black;
-          border-bottom: none;
-          border-radius: 0px;
-          border-left: 1px solid black;
-          border-right: 1px solid black;
-          border-top: 1px solid black;
-          height: 30px;
-          outline: none;
-          width: 100px;
-          font-size: 11px;
-        }
-      }
-
-      #submission-code-editor {
-        height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px);
-
-        .ace-editor {
-          border: 1px solid black;
-          display: relative;
-          height: calc(
-             ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
-          ) !important;
-
-          .ace_print-margin {
-            visibility: hidden !important;
-          }
-
-          .ace_content {
-            height: calc(
-               ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
-            ) !important;
-          }
-        }
-      }
-    }
-
-    #test-solution {
-      width: calc((100vw - 40px - 40px) * 0.5);
-      height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px);
-      padding-left: 15px;
-
-      #tests-button-container {
-        height: 30px;
-        width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
-
-        button {
-          background-color: white;
-          color: black;
-          border-radius: 0px;
-          height: 30px;
-          outline: none;
-          border: none;
-          font-size: 13px;
-          border-bottom: none;
-        }
-      }
-
-      .submission-test-code-editor {
-        font-size: 13px;
-        height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px);
-        width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
-
-        .ace-test-editor {
-          border: 1px solid black;
-          display: relative;
-          height: calc(
-             ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
-          ) !important;
-
-          .ace_print-margin {
-            visibility: hidden !important;
-          }
-
-          #test-solution {
-            width: calc((100vw - 40px - 40px) * 0.5);
-            height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px);
-            padding-left: 15px;
-
-            #tests-button-container {
-              height: 30px;
-              width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
-
-              button {
-                background-color: white;
-                color: black;
-                border-radius: 0px;
-                height: 30px;
-                outline: none;
-                border: none;
-                font-size: 13px;
-                border-bottom: none;
-              }
-            }
-
-            .submission-test-code-editor {
-              font-size: 13px;
-              height: calc( ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px);
-              width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
-
-              .ace-test-editor {
-                border: 1px solid black;
-                display: relative;
-                height: calc(
-                   ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
-                ) !important;
-
-                .ace_print-margin {
-                  visibility: hidden !important;
-                }
-
-                .ace_content {
-                  height: calc(
-                     ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
-                  ) !important;
-                }
-              }
-            }
-
-            .scroll-viewer {
-              padding: 15px;
-              border: 1px solid black;
-              height: calc( ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px);
-              width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
-              overflow: scroll;
-            }
-
-            .ace_content {
-              height: calc(
-                 ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
-              ) !important;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.custom-right {
-  position: relative;
-  z-index: 1;
-}
-
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  /* RGBa with 0.6 opacity */
-  background-color: rgba(0, 0, 0, 0.6);
-  /* For IE 5.5 - 7*/
-  filter: progid:DXImageTransform.Microsoft.gradient(
-      startColorstr=#99000000,
-      endColorstr=#99000000
-    );
-  /* For IE 8*/
-  border-radius: 4px;
-  outline: none;
-  padding: 20px;
-  display: block;
-  opacity: 1;
-}
-
-.oauth-box {
-  margin-top: 10%;
-  display: flex;
-  justify-content: center;
-
-  .login-box {
-    background-color: white;
-    border: 1px solid black;
-    filter: hue-rotate(50%);
-
-    .error-handled {
-      font-size: 0.6em;
-      display: flex;
-      justify-content: center;
-      color: red;
-    }
-
-    .inputs {
-      margin-bottom: 0;
-    }
-
-    .oauth-buttons {
-      display: flex;
-      justify-content: center;
-      margin-top: 6;
-      margin-bottom: 2;
-    }
-    .not-user-sign-up {
-      font-size: 0.8em;
-      display: flex;
-      justify-content: center;
-    }
-    .toggle-view-auth-sign {
-      color: blue;
-    }
-    .toggle-view-auth-sign:hover {
-      cursor: pointer;
-      margin: 4;
     }
   }
 }
