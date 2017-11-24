@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Comment } = require('../db/models')
+const { Comment, User } = require('../db/models')
 
 module.exports = router
 
@@ -19,12 +19,12 @@ router.put('/:id', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/question', (req, res, next) => {
-  console.log('BACK END', req.body)
+router.post('/question', (req, res, next) => {
   Comment.findAll({
     where: {
       questionId: req.body.questionId
-    }
+    },
+    include: [{ model: User, required: true }]
   })
     .then(comments => res.json(comments))
     .catch(next)
@@ -41,7 +41,9 @@ router.get('/user', (req, res, next) => {
 })
 
 router.get('/', (req, res, next) => {
-  Comment.findAll()
+  Comment.findAll({
+    include: [{ model: User, required: true }]
+  })
     .then(comments => res.json(comments))
     .catch(next)
 })

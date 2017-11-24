@@ -19,11 +19,10 @@ export const getComments = comments => ({ type: QUESTION_COMMENTS, comments })
 /**
  * THUNK CREATORS
  */
-export const questionComments = questionId => {
-  console.log('THUNK', questionId)
+export const questionComments = () => {
   return function thunk(dispatch) {
     axios
-      .get('/api/comments', questionId)
+      .get('/api/comments')
       .then(res => {
         const comments = res.data
         dispatch(getComments(comments))

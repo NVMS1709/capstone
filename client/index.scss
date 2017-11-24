@@ -758,27 +758,49 @@ body {
 }
 
 .question-chat {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   margin-top: 5px;
   display: row;
   .posted-chat-container {
-    height: 150px;
-    border: 1px solid black;
+    //height: 280px;
+    // border: 1px solid black;
     line-height: 25px;
     margin-left: 41px;
     margin-right: 41px;
-    overflow-y: scroll;
     font-size: 13px;
+    p {
+      margin: 2px;
+    }
     .posted-comments {
       margin: 7px;
+    }
+    .user-name-comment {
+      display: inline-block;
+      margin-top: 15px;
+      margin-left: 14px;
+      color: rgb(62, 61, 61);
+      font-weight: bold;
+    }
+    .posted-date {
+      font-size: 10px;
+    }
+    .user-comment {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      margin-left: 40px;
+      margin-right: 40px;
+      button {
+        font-size: 8px;
+      }
     }
   }
   .post-chat-container {
     height: 96px;
-    border: 1px solid black;
+    //border: 1px solid black;
     line-height: 25px;
     margin-left: 41px;
     margin-right: 41px;
+    margin-bottom: 20px;
   }
   textarea {
     display: block;
