@@ -11,6 +11,7 @@ class Comments extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      newComment: '',
       editToggle: '',
       comment: ''
     }
@@ -51,14 +52,16 @@ class Comments extends Component {
   }
 
   onChange(event) {
-    this.newComment[event.target.name] = event.target.value
+    this.setState({ newComment: event.target.value })
   }
 
   onSubmit(event) {
     event.preventDefault()
+    this.newComment.comment = this.state.newComment
     this.newComment.questionId = this.props.currentQuestion.id
     this.newComment.userId = this.props.user.id
     this.props.postComment(this.newComment)
+    this.setState({ newComment: '' })
   }
 
   render() {
@@ -74,7 +77,12 @@ class Comments extends Component {
         <div className="post-chat-container">
           <p style={{ fontSize: '18px' }}>Comments:</p>
           <form onSubmit={this.onSubmit}>
-            <textarea rows="3" name="comment" onChange={this.onChange} />
+            <textarea
+              rows="3"
+              name="comment"
+              value={this.state.newComment}
+              onChange={this.onChange}
+            />
             <button type="submit">Submit New Comment</button>
           </form>
         </div>
