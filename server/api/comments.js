@@ -20,9 +20,10 @@ router.put('/:id', (req, res, next) => {
 })
 
 router.get('/question', (req, res, next) => {
+  console.log('BACK END', req.body)
   Comment.findAll({
     where: {
-      questionId: req.body.id
+      questionId: req.body.questionId
     }
   })
     .then(comments => res.json(comments))

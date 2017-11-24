@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { questionComments } from '../../../store'
 
 class Comments extends Component {
   constructor(props) {
     super(props)
+  }
+
+  componentDidMount() {
+    this.props.questionComments(
+      this.props.currentQuestion && this.props.currentQuestion.id
+    )
   }
 
   render() {
@@ -11,7 +18,14 @@ class Comments extends Component {
       <div className="question-chat">
         <div className="posted-chat-container">
           <div className="posted-comments">
-            <h1>hi</h1>
+            {this.props &&
+              this.props.comments.map(comment => {
+                return (
+                  <div key={comment.id}>
+                    <p>{comment.comment}</p>
+                  </div>
+                )
+              })}
           </div>
         </div>
         <div className="post-chat-container">
@@ -25,4 +39,16 @@ class Comments extends Component {
   }
 }
 
-export default connect(null)(Comments)
+const mapState = state => {
+  return {
+    comments: state.comments
+  }
+}
+
+const mapDispatch = dispatch => {
+  return {
+    questionComments: questionId => dispatch(questionComments(questionId))
+  }
+}
+
+export default connect(mapState, mapDispatch)(Comments)

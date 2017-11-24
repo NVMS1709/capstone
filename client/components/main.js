@@ -15,11 +15,6 @@ import AuthForm from './auth-form'
 class Main extends Component {
   constructor(props) {
     super(props)
-    this.bool = true
-  }
-
-  componentDidMount() {
-    this.bool = false
   }
 
   render() {
@@ -28,8 +23,6 @@ class Main extends Component {
       <div id="navbar-container">
         <div className="custom-right">
           {user.id ? (
-            ''
-          ) : this.bool ? (
             ''
           ) : (
             <Modal>

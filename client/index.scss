@@ -344,6 +344,7 @@ body {
         padding: 15px;
         font-size: 13px;
         line-height: 25px;
+        overflow-y: scroll;
       }
     }
     .right-container {
@@ -766,6 +767,8 @@ body {
     line-height: 25px;
     margin-left: 41px;
     margin-right: 41px;
+    overflow-y: scroll;
+    font-size: 13px;
     .posted-comments {
       margin: 7px;
     }

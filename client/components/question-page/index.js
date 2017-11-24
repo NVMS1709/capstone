@@ -113,7 +113,7 @@ class QuestionPage extends Component {
             </div>
           </div>
         </div>
-        <Comments />
+        <Comments currentQuestion={this.props.currentQuestion} />
       </div>
     )
   }
