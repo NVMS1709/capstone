@@ -35,6 +35,9 @@ const Main = props => {
               <NavLink to="/home" className="link">
                 <span className="small-head">Questions</span>
               </NavLink>
+              <NavLink to="/payment" className="link">
+                <span className="small-head">Payment</span>
+              </NavLink>
             </div>
             <div className="navbar-central">
               <NavLink to="/home" id="head-link">
