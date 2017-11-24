@@ -18,21 +18,20 @@ router.post('/', (req, res, next) => {
 })
 
 router.delete('/:id', (req, res, next) => {
-  console.log('BACKEND', req.params)
   Comment.destroy({ where: { id: req.params.id } })
     .then(comment => res.json(comment))
     .catch(next)
 })
 
-// router.put('/:id', (req, res, next) => {
-//   Comment.create(req.body, {
-//     where: {
-//       id: req.param.id
-//     }
-//   })
-//     .then(comment => res.json(comment))
-//     .catch(next)
-// })
+router.put('/:id', (req, res, next) => {
+  Comment.update(req.body, {
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(comment => res.json(comment))
+    .catch(next)
+})
 
 // router.post('/question', (req, res, next) => {
 //   Comment.findAll({

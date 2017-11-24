@@ -59,6 +59,20 @@ export const commentDelete = id => {
   }
 }
 
+export const commentEdit = (id, comment) => {
+  return function thunk(dispatch) {
+    axios
+      .put(`/api/comments/${id}`, { comment })
+      .then(() => {
+        return axios.get('/api/comments').then(res => {
+          const comments = res.data
+          dispatch(getComments(comments))
+        })
+      })
+      .catch(console.err)
+  }
+}
+
 /**
  * REDUCER
  */
