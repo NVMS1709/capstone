@@ -24,7 +24,6 @@ class Main extends Component {
 
   render() {
     const { user, children, handleLogout, isLoggedIn } = this.props
-    console.log('HERE', user)
     return (
       <div id="navbar-container">
         <div className="custom-right">
