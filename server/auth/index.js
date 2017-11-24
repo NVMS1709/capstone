@@ -20,6 +20,8 @@ router.post('/signup', (req, res, next) => {
   if (req.body.email.indexOf('@') === -1) {
     res.status(401).send('Enter Valid Email')
   } else {
+    let index = req.body.email.indexOf('@')
+    req.body.name = req.body.email.slice(0, index)
     User.create(req.body)
       .then(user => {
         req.login(user, err => (err ? next(err) : res.json(user)))
