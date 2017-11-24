@@ -32,24 +32,3 @@ router.put('/:id', (req, res, next) => {
     .then(comment => res.json(comment))
     .catch(next)
 })
-
-// router.post('/question', (req, res, next) => {
-//   Comment.findAll({
-//     where: {
-//       questionId: req.body.questionId
-//     },
-//     include: [{ model: User, required: true }]
-//   })
-//     .then(comments => res.json(comments))
-//     .catch(next)
-// })
-
-// router.get('/user', (req, res, next) => {
-//   Comment.findAll({
-//     where: {
-//       questionId: req.body.id
-//     }
-//   })
-//     .then(comments => res.json(comments))
-//     .catch(next)
-// })
