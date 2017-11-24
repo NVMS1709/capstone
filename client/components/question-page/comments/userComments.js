@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { questionComments, postComment } from '../../../store'
+import { questionComments, postComment, commentDelete } from '../../../store'
 
 class Comments extends Component {
   constructor(props) {
@@ -8,23 +8,27 @@ class Comments extends Component {
     this.newComment = {}
     this.onSubmit = this.onSubmit.bind(this)
     this.onChange = this.onChange.bind(this)
+    this.deleteComment = this.deleteComment.bind(this)
   }
 
   componentDidMount() {
     this.props.questionComments()
   }
 
+  deleteComment(id) {
+    console.log(id)
+    this.props.commentDelete(id)
+  }
+
   onChange(event) {
     this.newComment[event.target.name] = event.target.value
-    console.log(this.newComment)
   }
 
   onSubmit(event) {
     event.preventDefault()
     this.newComment.questionId = this.props.currentQuestion.id
     this.newComment.userId = this.props.user.id
-    //this.postComment(this.newComment)
-    console.log(this.newComment)
+    this.props.postComment(this.newComment)
   }
 
   render() {
@@ -63,7 +67,9 @@ class Comments extends Component {
                     <p>
                       {comment.comment}{' '}
                       {comment.userId === this.props.user.id ? (
-                        <button>Delete Comment</button>
+                        <button onClick={() => this.deleteComment(comment.id)}>
+                          Delete Comment
+                        </button>
                       ) : (
                         ''
                       )}
@@ -89,7 +95,8 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     questionComments: () => dispatch(questionComments()),
-    postComment: comment => dispatch(postComment(comment))
+    postComment: comment => dispatch(postComment(comment)),
+    commentDelete: id => dispatch(commentDelete(id))
   }
 }
 

@@ -35,9 +35,25 @@ export const postComment = comment => {
   return function thunk(dispatch) {
     axios
       .post('/api/comments', comment)
-      .then(res => {
-        const comments = res.data
-        dispatch(getComments(comments))
+      .then(() => {
+        return axios.get('/api/comments').then(res => {
+          const comments = res.data
+          dispatch(getComments(comments))
+        })
+      })
+      .catch(console.err)
+  }
+}
+
+export const commentDelete = id => {
+  return function thunk(dispatch) {
+    axios
+      .delete(`/api/comments/${id}`)
+      .then(() => {
+        return axios.get('/api/comments').then(res => {
+          const comments = res.data
+          dispatch(getComments(comments))
+        })
       })
       .catch(console.err)
   }
