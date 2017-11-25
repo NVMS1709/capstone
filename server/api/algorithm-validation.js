@@ -59,62 +59,80 @@ router.post('/javascript', (req, res, next) => {
     );
 
     (async function (algorithmInput, algorithmTest) {
+
         const [
             algorithmTestTempDirectory,
             cleanupCB
         ] = await createAlgorithmTestTempDirectory()
+
         const algorithmTestFile = createAlgorithmTestFile(algorithmTest, algorithmTestTempDirectory)
+
         const algorithmInputFile = createAlgorithmInputFile(algorithmInput, algorithmTestTempDirectory)
+
         return [
             algorithmTestTempDirectory,
             cleanupCB,
             await algorithmInputFile,
             await algorithmTestFile
-        ];
-    })(req.body.submission.algorithmInput, req.body.submission.testFile)
+        ]
+
+    })(
+        req.body.submission.algorithmInput,
+        req.body.submission.testFile
+        )
         .then(([
-            algorithmTestTempDirectory, cleanupCB
+            algorithmTestTempDirectory,
+            cleanupCB
         ]) => {
-            exec(`npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(algorithmTestTempDirectory.lastIndexOf('/'))}/algorithm-test.js`, { timeout: 5000 }, (err, stdout, stderr) => {
 
-                try {
-                    if (err) {
-                        cleanupCB()
-                        console.error('ERROR WITH EXEC______________________-', err)
-                        res.send({
-                            testCasesArr: [
-                                {
-                                    title: 'Error with code execution. See raw output for further information',
-                                    outcome: ''
-                                }
-                            ],
-                            rawOutput: err.message
-                        })
-                        return;
-                    }
+            exec(`npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(algorithmTestTempDirectory.lastIndexOf('/'))}/algorithm-test.js`,
+                { timeout: 5000 },
+                (err, stdout, stderr) => {
 
-                    cleanupCB()
+                    try {
 
-                    const {
+                        const {
                         testCasesStr,
-                        revisedStdoutStr
+                            revisedStdoutStr
                     } = getTestCaseOutcomes(stdout)
-                    const testCasesArr = JSON.parse(testCasesStr.trim());
-                    let results;
 
-                    if (req.session.passport && req.session.passport.user && testCasesArr && !testCasesArr.find(testCase => testCase.outcome === 'failed')) {
-                        results = { testCasesArr, rawOutput: '/n' + stderr + '\n' + revisedStdoutStr, userId: req.session.passport.user, questionsSolved: req.body.questionsSolved }
-                    } else {
-                        results = { rawOutput: stderr + '\n' + revisedStdoutStr }
+
+                        const testCasesArr = JSON.parse(testCasesStr.trim())
+
+                        if (err) {
+                            cleanupCB()
+                            console.error('EXECUTION ERROR______________________', err)
+                        }
+
+                        cleanupCB()
+
+                        let results;
+
+                        if (
+                            testCasesArr
+                            && !testCasesArr.find(testCase => testCase.outcome === 'failed')
+                        ) {
+                            results = {
+                                testCasesArr,
+                                rawOutput: '\n' + stderr + '\n' + revisedStdoutStr,
+                                allPassed: true
+                            }
+                        } else {
+                            results = {
+                                testCasesArr,
+                                rawOutput: '\n' + stderr + '\n' + revisedStdoutStr,
+                                allPassed: false
+                            }
+                        }
+
+                        res.send(results)
+
+                    } catch (err1) {
+                        cleanupCB()
+                        console.error('CAUGHT ERROR____________________', err1)
+                        next(err1)
                     }
+                })
 
-                    res.send(results)
-
-                } catch (error) {
-                    cleanupCB()
-                    console.error('CAUGHT THE ERROR____________________')
-                    next(error)
-                }
-            })
         }).catch(error => { console.error(error) })
 })
