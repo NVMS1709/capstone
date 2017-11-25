@@ -34,7 +34,10 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
       const email = profile.emails[0].value
       let name
       if (!profile.displayName) {
-        name = profile.emails[0].value
+        if (profile.emails[0].value) {
+          let index = profile.emails[0].value.indexOf('@')
+          name = profile.emails[0].value.slice(0, index)
+        }
       } else {
         name = profile.displayName
       }

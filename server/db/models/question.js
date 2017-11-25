@@ -25,10 +25,12 @@ const Question = db.define('question', {
     type: Sequelize.TEXT
   },
   jsWalkThrough: {
-    type: Sequelize.ARRAY(Sequelize.STRING(3000))
+    type: Sequelize.ARRAY(Sequelize.STRING(3000)),
+    defaultValue: ['']
   },
   jsSolutionWT: {
-    type: Sequelize.ARRAY(Sequelize.STRING(3000))
+    type: Sequelize.ARRAY(Sequelize.STRING(3000)),
+    defaultValue: ['']
   }
 })
 
