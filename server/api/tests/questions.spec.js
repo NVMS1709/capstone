@@ -17,9 +17,7 @@ describe('[QUESTIONS ROUTE]', () => {
     beforeEach(() => {
       const OPTIONS = { validate: true, individualHooks: true }
       return Category.bulkCreate(testData.Categories, OPTIONS)
-        .then(() => {
-          return Question.bulkCreate(testData.Question, OPTIONS)
-        })
+        .then(() => { return Question.bulkCreate(testData.Question, OPTIONS) })
     })
 
     it('GET request to /api/questions/', () => {
