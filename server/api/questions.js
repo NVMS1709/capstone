@@ -3,7 +3,7 @@ const { Question, Difficulty } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  Question.findAll({include: [Difficulty]})
+  Question.findAll({ include: [Difficulty] })
     .then(questions => res.json(questions))
     .catch(next)
 })

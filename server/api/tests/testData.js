@@ -59,7 +59,7 @@ const Categories = [
   }
 ]
 
-const Question = [
+const Questions = [
   {
     name: 'Is Unique',
     description:
@@ -69,4 +69,18 @@ const Question = [
   }
 ]
 
-module.exports = { Categories, Question }
+const Users = [
+  {
+    name: 'Cody',
+    email: 'cody@puppybook.com',
+    questionsSolved: []
+  },
+  {
+    name: 'Stephanie',
+    email: 'stephis@thebest.com',
+    questionsSolved: []
+  }
+
+]
+
+module.exports = { Categories, Questions, Users }
