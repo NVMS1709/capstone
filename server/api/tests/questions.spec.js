@@ -13,15 +13,13 @@ describe('[QUESTIONS ROUTE]', () => {
   })
 
   describe('[API Questions Route Tests]', () => {
+    console.log('hello', testData.Question[0])
     beforeEach(() => {
       const OPTIONS = { validate: true, individualHooks: true }
-      return Category.bulkCreate(testData.Categories[0], OPTIONS)
+      return Category.bulkCreate(testData.Categories, OPTIONS)
         .then(() => {
           return Question.bulkCreate(testData.Question, OPTIONS)
         })
-        .catch(err =>
-          console.error(`Failed inside questions.spec with message: ${err}`)
-        )
     })
 
     it('GET request to /api/questions/', () => {
