@@ -35,7 +35,11 @@ class Routes extends Component {
                 {/* Routes placed here are only available after logging in */}
                 <Route path="/home" component={HomePage} />
                 <Route
-                  path="/user-submission"
+                  exact path="/user-submission"
+                  component={UserAlgorithmSubmissionPage}
+                />
+                <Route
+                  exact path="/user-submission/:questionName"
                   component={UserAlgorithmSubmissionPage}
                 />
                 <Route exact path="/" component={HomePage} />
