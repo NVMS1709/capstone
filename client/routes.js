@@ -11,6 +11,7 @@ import HomePage from './components/home-page'
 import UserPage from './components/user-account-page/index.js'
 import UserAlgorithmSubmissionPage from './components/user-new-algorithm-submission-page/index.js'
 import Payment from './components/payment/payment'
+import Forum from './components/forum/index'
 
 /**
  * COMPONENT
@@ -44,6 +45,7 @@ class Routes extends Component {
                 />
                 <Route path="/user" component={UserPage} />
                 <Route path="/payment" component={Payment} />
+                <Route path="/forum" component={Forum} />
               </Switch>
             )}
             {/* Displays our Login component as a fallback */}
