@@ -17,13 +17,13 @@ describe('[User Route Tests]', () => {
       return User.bulkCreate(testData.Users)
     })
 
-    xit('GET request to /api/users/ path', () => {
+    it('GET request to /api/users/ path', () => {
       return request(app)
         .get('/api/users')
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('array')
-          expect(res.body[0].name).to.be.equal('Cody')
+          expect(res.body[0].name).to.be.equal(undefined) // due to attributes.
           expect(res.body[0].id).to.be.equal(1)
           expect(res.body[0].email).to.be.equal('cody@puppybook.com')
         })
@@ -35,13 +35,13 @@ describe('[User Route Tests]', () => {
         .expect(200)
         .then(res => {
           expect(res.body).to.be.an('array')
-          expect(res.body[1].name).to.be.equal('Stephanie')
+          expect(res.body[1].name).to.be.equal(undefined)
           expect(res.body[1].id).to.be.equal(2)
           expect(res.body[1].email).to.be.equal('stephis@thebest.com')
         })
     })
 
-    xit('Check is Stephanie has a questions solved attribute', () => {
+    xit('User named Stephanie must have attribute questionsSolved', () => {
       return request(app)
         .get('/api/users/2')
         .expect(200)

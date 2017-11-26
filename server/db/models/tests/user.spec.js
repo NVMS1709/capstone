@@ -1,10 +1,10 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const db = require('../index')
+const db = require('../../index')
 const User = db.model('user')
 
-describe('User model', () => {
+describe('[User Model]', () => {
   beforeEach(() => {
     return db.sync({force: true})
   })
