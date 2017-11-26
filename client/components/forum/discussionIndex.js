@@ -7,6 +7,7 @@ import {
   deleteForumComment,
   deleteTopic
 } from '../../store'
+import history from '../../history'
 
 class Discussion extends Component {
   constructor(props) {
@@ -33,26 +34,13 @@ class Discussion extends Component {
     this.props.getForumComments(this.props.titleForum)
   }
 
-  // editComment(id, comment) {
-  //   this.setState({ editToggle: id, comment })
-  // }
-
   discardChanges() {
     this.setState({ editToggle: '' })
   }
 
-  // onChangeEdit(event) {
-  //   this.setState({ comment: event.target.value })
-  // }
-
-  // onSubmitEdit(event) {
-  //   event.preventDefault()
-  //   this.props.commentEdit(this.state.editToggle, this.state.comment)
-  //   this.setState({ editToggle: '' })
-  // }
-
   deleteTopic(id) {
     this.props.deleteTopic(id)
+    history.push('/forum')
   }
 
   deleteComment(id, forumTitle) {
