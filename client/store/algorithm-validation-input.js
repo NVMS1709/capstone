@@ -28,7 +28,6 @@ export const postAlgorithmValidationInput = (submission, user) => {
             })
             .then(res => {
                 const results = res.data
-                console.log("FRONT END", results)
                 dispatch(setValidationResult(results.rawOutput))
                 dispatch(setValidationCustomResult(results.testCasesArr))
             })
