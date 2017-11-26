@@ -46,6 +46,21 @@ export const addTopic = topic => {
   }
 }
 
+export const deleteTopic = id => {
+  return function thunk(dispatch) {
+    console.log(id)
+    axios
+      .delete(`/api/forum/${id}`)
+      .then(() =>
+        axios.get('/api/forum').then(res => {
+          const forum = res.data
+          dispatch(getForum(forum))
+        })
+      )
+      .catch(console.err)
+  }
+}
+
 // export const postComment = comment => {
 //   return function thunk(dispatch) {
 //     axios

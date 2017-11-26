@@ -4,7 +4,8 @@ import {
   getForumTitles,
   getForumComments,
   newCommentForum,
-  deleteForumComment
+  deleteForumComment,
+  deleteTopic
 } from '../../store'
 
 class Discussion extends Component {
@@ -19,6 +20,7 @@ class Discussion extends Component {
     this.onSubmit = this.onSubmit.bind(this)
     this.onChange = this.onChange.bind(this)
     this.deleteComment = this.deleteComment.bind(this)
+    this.deleteTopic = this.deleteTopic.bind(this)
     // this.editComment = this.editComment.bind(this)
     // this.discardChanges = this.discardChanges.bind(this)
     // this.onChangeEdit = this.onChangeEdit.bind(this)
@@ -49,8 +51,11 @@ class Discussion extends Component {
   //   this.setState({ editToggle: '' })
   // }
 
+  deleteTopic(id) {
+    this.props.deleteTopic(id)
+  }
+
   deleteComment(id, forumTitle) {
-    console.log(id, forumTitle)
     this.props.deleteForumComment(id, forumTitle)
   }
 
@@ -75,14 +80,26 @@ class Discussion extends Component {
     let titleYear = this.forumTitle && this.forumTitle.createdAt.slice(0, 4)
     let titleMonth = this.forumTitle && this.forumTitle.createdAt.slice(5, 7)
     let titleDay = this.forumTitle && this.forumTitle.createdAt.slice(8, 10)
+    let topicUserId = this.forumTitle && this.forumTitle.user.id
+    let currentUserId = this.props.user && this.props.user.id
     return (
       <div>
         <div className="comments-top-box">
           <h3>{this.forumTitle && this.forumTitle.title}</h3>
         </div>
         <div className="comments-comment-box">
-          <p>{this.forumTitle && this.forumTitle.comment}}</p>
+          <p>{this.forumTitle && this.forumTitle.comment}</p>
         </div>
+        {topicUserId === currentUserId ? (
+          <button
+            onClick={() => this.deleteTopic(this.forumTitle.id)}
+            className="delete-topic-button"
+          >
+            Delete Topic
+          </button>
+        ) : (
+          ''
+        )}
         <div className="comments-user-box">
           <p className="forum-comments-user">
             Submitted By: {this.forumTitle && this.forumTitle.user.name}{' '}
@@ -188,7 +205,8 @@ const mapDispatch = dispatch => {
     newCommentForum: (comment, userId, forumId, title) =>
       dispatch(newCommentForum(comment, userId, forumId, title)),
     deleteForumComment: (id, forumTitle) =>
-      dispatch(deleteForumComment(id, forumTitle))
+      dispatch(deleteForumComment(id, forumTitle)),
+    deleteTopic: id => dispatch(deleteTopic(id))
   }
 }
 
