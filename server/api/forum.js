@@ -4,7 +4,12 @@ const { Forum, ForumComment, User } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  Forum.findAll({ include: [{ model: User, required: true }] })
+  Forum.findAll({
+    include: [
+      { model: User, required: true },
+      { model: ForumComment, required: false }
+    ]
+  })
     .then(comments => res.json(comments))
     .catch(next)
 })

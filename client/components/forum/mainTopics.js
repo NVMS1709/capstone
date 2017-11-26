@@ -88,33 +88,41 @@ class Topics extends Component {
                           className="forum-main-item-details"
                         >
                           <p>
-                            Threads: {forum.commentNum}, (posted) 01/01/1900
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })
-              : this.props.forum.map(forum => {
-                  return (
-                    <div key={forum.title} className="forum-main">
-                      <div key={forum.id} className="forum-main-item-title">
-                        <Link
-                          to={`/forum/${forum.title}`}
-                          className="forum-link"
-                        >
-                          {forum.title}
-                        </Link>
-                        <div key={forum.id} className="forum-main-item-details">
-                          <p>
-                            Replies: {forum.commentNum} - Created By:{' '}
+                            Replies: {forum.forumComments.length} - Created By:{' '}
                             {forum.user.name}
                           </p>
                         </div>
                       </div>
                     </div>
                   )
-                })}
+                })
+              : this.props.forum
+                  .sort(
+                    (a, b) => b.forumComments.length - a.forumComments.length
+                  )
+                  .map(forum => {
+                    return (
+                      <div key={forum.title} className="forum-main">
+                        <div key={forum.id} className="forum-main-item-title">
+                          <Link
+                            to={`/forum/${forum.title}`}
+                            className="forum-link"
+                          >
+                            {forum.title}
+                          </Link>
+                          <div
+                            key={forum.id}
+                            className="forum-main-item-details"
+                          >
+                            <p>
+                              Replies: {forum.forumComments.length} - Created
+                              By: {forum.user.name}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
           </div>
         ) : (
           <AddTopic toggle={this.toggleForumAdd.bind(this)} />
