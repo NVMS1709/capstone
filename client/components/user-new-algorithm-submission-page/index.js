@@ -13,15 +13,15 @@ class UserAlgorithmSubmissionPage extends Component {
 
         this.state = {
             algorithmName: '',
-            category: '',
-            difficulty: '',
             localDescriptionInput: '',
-            localAlgorithmInput: '',
+            localJavascriptAlgorithmInput: '',
+            localPythonAlgorithmInput: '',
             result: '',
             outputMode: 'TestCases',
-            localTestInput: '',
-            algorithmCategory: '',
-            algorithmDifficulty: '',
+            localJavascriptTestInput: '',
+            localPythonTestInput: '',
+            algorithmCategory: 'Arrays',
+            algorithmDifficulty: 'easy',
             algorithmLanguage: 'javascript',
             algorithmFunctionName: '',
             needFunctionName: false,
@@ -103,11 +103,19 @@ class UserAlgorithmSubmissionPage extends Component {
     }
 
     onSolutionChange(newValue) {
-        this.setState({ localAlgorithmInput: newValue })
+        if (this.state.algorithmLanguage === 'javascript') {
+            this.setState({ localJavascriptAlgorithmInput: newValue })
+        } else {
+            this.setState({ localPythonAlgorithmInput: newValue })
+        }
     }
 
     onTestChange(newValue) {
-        this.setState({ localTestInput: newValue })
+        if (this.state.algorithmLanguage === 'javascript') {
+        this.setState({ localJavascriptTestInput: newValue })
+        } else {
+            this.setState({ localPythonTestInput: newValue })
+        }
     }
 
     onValidate(event) {
@@ -124,10 +132,10 @@ class UserAlgorithmSubmissionPage extends Component {
 
             this.props.toPostAlgorithmValidationSubmission(
                 {
-                    algorithmInput: this.state.localAlgorithmInput,
+                    algorithmInput: this.state.localJavascriptAlgorithmInput,
                     language: this.state.algorithmLanguage,
                     functionName: this.state.algorithmFunctionName,
-                    testFile: this.state.localTestInput
+                    testFile: this.state.localJavascriptTestInput
                 },
                 this.props.user
             )
@@ -144,39 +152,20 @@ class UserAlgorithmSubmissionPage extends Component {
 
         if (this.state.algorithmName) {
 
-            let algorithmSubmissionObj = {}
-
-            if (this.state.algorithmLanguage === 'javascript') {
-
-                algorithmSubmissionObj = {
-                    name: this.state.algorithmName,
-                    javascriptSolution: this.state.localAlgorithmInput,
-                    functionName: this.state.algorithmFunctionName,
-                    javascriptTestFile: this.state.localTestInput,
-                    description: this.state.localDescriptionInput,
-                    difficulty: this.state.algorithmDifficulty,
-                    category: this.state.algorithmCategory,
-                    published: false,
-                    userId: this.props.user.id
-                }
-
-            } else if (this.state.algorithmLanguage === 'python') {
-
-                algorithmSubmissionObj = {
-                    name: this.state.algorithmName,
-                    javascriptSolution: this.state.localAlgorithmInput,
-                    functionName: this.state.algorithmFunctionName,
-                    javascriptTestFile: this.state.localTestInput,
-                    description: this.state.localDescriptionInput,
-                    difficulty: this.state.algorithmDifficulty,
-                    category: this.state.algorithmCategory,
-                    published: false,
-                    userId: this.props.user.id
-                }
-
-            }
-
-            this.props.toPostUserAlgorithmQuestion(algorithmSubmissionObj)
+            this.props.toPostUserAlgorithmQuestion({
+                name: this.state.algorithmName,
+                javascriptSolution: this.state.localJavascriptAlgorithmInput,
+                functionName: this.state.algorithmFunctionName,
+                javascriptTestFile: this.state.localJavascriptTestInput,
+                description: this.state.localDescriptionInput,
+                difficulty: this.state.algorithmDifficulty,
+                category: this.state.algorithmCategory,
+                published: false,
+                userId: this.props.user.id,
+                pythonTestFile: this.state.localPythonTestInput,
+                pythonSolution: this.state.localPythonAlgorithmInput,
+                existingId: this.props.currentQuestion && this.props.currentQuestion.id
+            })
 
         } else {
             this.setState({ needAlgorithmName: true })
@@ -186,11 +175,14 @@ class UserAlgorithmSubmissionPage extends Component {
     setInitialStateOnSubmissionPage() {
         this.setState({
             algorithmName: this.props.currentQuestion.name,
-            algorithmCategory: this.props.currentQuestion.category,
+            algorithmCategory: this.props.currentQuestion.category.name,
             algorithmFunctionName: this.props.currentQuestion.functionName,
             localDescriptionInput: this.props.currentQuestion.description,
-            localTestInput: this.props.currentQuestion.javascriptTestFile,
-            localAlgorithmInput: this.props.currentQuestion.javascriptSolution
+            localJavascriptTestInput: this.props.currentQuestion.javascriptTestFile,
+            localJavascriptAlgorithmInput: this.props.currentQuestion.javascriptSolution,
+            localPythonTestInput: this.props.currentQuestion.pythonTestFile,
+            localPythonAlgorithmInput: this.props.currentQuestion.pythonSolution,
+            algorithmDifficulty: this.props.currentQuestion.difficulty.name
         })
     }
 
@@ -257,7 +249,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                 mode={this.state.algorithmLanguage}
                                 theme="chrome"
                                 onChange={this.onSolutionChange}
-                                value={this.state.localAlgorithmInput}
+                                value={this.state[`local${this.state.algorithmLanguage[0].toUpperCase() + this.state.algorithmLanguage.slice(1)}AlgorithmInput`]}
                                 name="algorithm-input"
                                 editorProps={{ $blockScrolling: true }}
                                 width="100%"
@@ -278,7 +270,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                         mode={this.state.algorithmLanguage}
                                         theme="chrome"
                                         onChange={this.onTestChange}
-                                        value={this.state.localTestInput}
+                                        value={this.state[`local${this.state.algorithmLanguage[0].toUpperCase() + this.state.algorithmLanguage.slice(1)}TestInput`]}
                                         name="test-input"
                                         editorProps={{ $blockScrolling: true }}
                                         width="100%"
