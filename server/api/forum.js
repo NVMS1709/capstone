@@ -4,13 +4,18 @@ const { Forum, ForumComment, User } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  Forum.findAll()
+  Forum.findAll({ include: [{ model: User, required: true }] })
+    .then(comments => res.json(comments))
+    .catch(next)
+})
+
+router.post('/', (req, res, next) => {
+  Forum.create(req.body)
     .then(comments => res.json(comments))
     .catch(next)
 })
 
 router.post('/comments', (req, res, next) => {
-  console.log('BACKENDDDDDD', req.body)
   Forum.findOne({ where: { title: req.body.title } })
     .then(comments =>
       ForumComment.findAll({
@@ -22,14 +27,20 @@ router.post('/comments', (req, res, next) => {
     .catch(next)
 })
 
+router.post('/comment/new', (req, res, next) => {
+  ForumComment.create(req.body)
+    .then(comments => res.json(comments))
+    .catch(next)
+})
+
+router.delete('/comments/:id', (req, res, next) => {
+  ForumComment.destroy({ where: { id: req.params.id } })
+    .then(comments => res.json(comments))
+    .catch(next)
+})
+
 // router.post('/', (req, res, next) => {
 //   Comment.create(req.body)
-//     .then(comment => res.json(comment))
-//     .catch(next)
-// })
-
-// router.delete('/:id', (req, res, next) => {
-//   Comment.destroy({ where: { id: req.params.id } })
 //     .then(comment => res.json(comment))
 //     .catch(next)
 // })

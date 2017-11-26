@@ -21,9 +21,38 @@ export const forumComments = comments => ({ type: GET_COMMENTS, comments })
  */
 export const getForumComments = title => {
   return function thunk(dispatch) {
-    console.log('THUNK', title)
     axios
       .post('/api/forum/comments', { title })
+      .then(res => {
+        const comments = res.data
+        dispatch(forumComments(comments))
+      })
+      .catch(console.err)
+  }
+}
+
+export const newCommentForum = comment => {
+  return function thunk(dispatch) {
+    axios
+      .post('/api/forum/comment/new', comment)
+      .then(() => {
+        return axios.post('/api/forum/comments', comment)
+      })
+      .then(res => {
+        const comments = res.data
+        dispatch(forumComments(comments))
+      })
+      .catch(console.err)
+  }
+}
+
+export const deleteForumComment = (id, title) => {
+  return function thunk(dispatch) {
+    axios
+      .delete(`/api/forum/comments/${id}`)
+      .then(() => {
+        return axios.post('/api/forum/comments', { title })
+      })
       .then(res => {
         const comments = res.data
         dispatch(forumComments(comments))

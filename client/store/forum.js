@@ -31,6 +31,21 @@ export const getForumTitles = () => {
   }
 }
 
+export const addTopic = topic => {
+  return function thunk(dispatch) {
+    console.log(topic)
+    axios
+      .post('/api/forum', topic)
+      .then(() =>
+        axios.get('/api/forum').then(res => {
+          const forum = res.data
+          dispatch(getForum(forum))
+        })
+      )
+      .catch(console.err)
+  }
+}
+
 // export const postComment = comment => {
 //   return function thunk(dispatch) {
 //     axios
