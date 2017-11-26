@@ -225,8 +225,52 @@ body {
                 width: 100%;
                 padding: 10px;
 
-                .algorithm-submissions {
-                    border: 1px solid red;
+                #submissions-title {
+                    text-align: center;
+                }
+
+                #submissions-container {
+                    display: flex;
+
+                    #userpage-algorithms-button-container {
+                        display: flex;
+                        flex-direction: column;
+                        margin-right: 15px;
+
+                        button {
+                            padding: 0px;
+                            background-color: #212325;
+                            color: white;
+                            border: none;
+                            font-size: 15px;
+                            margin-top: 10px;
+                            margin-bottom: 10px;
+                        
+                        }
+                    }
+
+                    #user-page-algorithms-list-container {
+                        display: flex;
+                        flex-direction: column;
+                        font-size: 15px;
+
+                        .user-page-submission-questions-list{
+                            display: flex;
+                            margin-top: 10px;
+                            margin-bottom: 10px;
+                            .user-page-submission-questions-list-name {
+                               margin-right: 30px;
+                            }
+                            .user-page-submission-questions-list-button {
+                                padding: 0px;
+                                background-color: #212325;
+                                color: white;
+                                border: none;
+                                font-size: 15px;
+                                margin: 0px;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -721,8 +765,6 @@ body {
                     width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
                     overflow: scroll;
                 }
-
-  
             }
         }
     }

@@ -144,8 +144,7 @@ class UserAlgorithmSubmissionPage extends Component {
         if (this.state.algorithmName) {
 
             let algorithmSubmissionObj = {}
-            //also check if there is an existing question with an ID!!!!!
-            
+
             if (this.state.algorithmLanguage === 'javascript') {
 
                 algorithmSubmissionObj = {
@@ -186,9 +185,9 @@ class UserAlgorithmSubmissionPage extends Component {
     /* eslint-disable complexity */
     render() {
 
-        const { difficulties, categories, validationCustomResult, validationResult } = this.props
+        const { difficulties, categories, validationCustomResult, validationResult, user, currentQuestion } = this.props
 
-        return (
+        const SubmissionPage = (
             <div id="submission-page" >
                 <div id="submission-control-buttons-container">
                     <button onClick={this.onSave}>Save</button>
@@ -299,16 +298,30 @@ class UserAlgorithmSubmissionPage extends Component {
                 </div>
             </div>
         )
+
+        return (
+            <div>
+                {
+                    currentQuestion && currentQuestion.userId === user.id
+                        ?
+                        SubmissionPage
+                        :
+                        <div>Unauthorized</div>
+                }
+            </div>
+        )
     }
 }
 
-const mapState = state => {
+const mapState = (state, ownProps) => {
     return {
         user: state.user,
         categories: state.categories,
         difficulties: state.difficulties,
         validationResult: state.validationResult,
         validationCustomResult: state.validationCustomResult,
+        currentQuestion: state.questions
+            && state.questions.find(question => question.name === ownProps.match.params.questionName)
     }
 }
 
