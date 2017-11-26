@@ -12,6 +12,7 @@ import UserPage from './components/user-account-page/index.js'
 import UserAlgorithmSubmissionPage from './components/user-new-algorithm-submission-page/index.js'
 import Payment from './components/payment/payment'
 import Forum from './components/forum/index'
+import Discussion from './components/forum/discussionIndex'
 
 /**
  * COMPONENT
@@ -35,11 +36,13 @@ class Routes extends Component {
                 {/* Routes placed here are only available after logging in */}
                 <Route path="/home" component={HomePage} />
                 <Route
-                  exact path="/user-submission"
+                  exact
+                  path="/user-submission"
                   component={UserAlgorithmSubmissionPage}
                 />
                 <Route
-                  exact path="/user-submission/:questionName"
+                  exact
+                  path="/user-submission/:questionName"
                   component={UserAlgorithmSubmissionPage}
                 />
                 <Route exact path="/" component={HomePage} />
@@ -49,7 +52,8 @@ class Routes extends Component {
                 />
                 <Route path="/user" component={UserPage} />
                 <Route path="/payment" component={Payment} />
-                <Route path="/forum" component={Forum} />
+                <Route exact path="/forum" component={Forum} />
+                <Route path="/forum:discussionName" component={Discussion} />
               </Switch>
             )}
             {/* Displays our Login component as a fallback */}

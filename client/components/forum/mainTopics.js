@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getForumTitles } from '../../store'
+import { Link } from 'react-router-dom'
 
 class Topics extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Topics extends Component {
       this.props &&
       this.props.forum.filter(forum => {
         let tempForum = forum.title.toLowerCase()
-        let tempSearchFilter = this.state.searchFilter
+        let tempSearchFilter = this.state.searchFilter.toLowerCase()
         return tempForum.indexOf(tempSearchFilter) > -1
       })
     return (
@@ -65,7 +66,9 @@ class Topics extends Component {
               return (
                 <div key={forum.title} className="forum-main">
                   <div key={forum.id} className="forum-main-item-title">
-                    <p>{forum.title}</p>
+                    <Link to={`/forum/${forum.title}`} className="forum-link">
+                      {forum.title}
+                    </Link>
                     <div key={forum.userId} className="forum-main-item-details">
                       <p>Threads: {forum.commentNum}, (posted) 01/01/1900</p>
                     </div>
