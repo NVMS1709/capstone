@@ -41,6 +41,7 @@ class UserAlgorithmSubmissionPage extends Component {
         this.onSave = this.onSave.bind(this)
         this.handleOutputMode = this.handleOutputMode.bind(this)
         this.setAlgorithmFunctionName = this.setAlgorithmFunctionName.bind(this)
+        this.setInitialStateOnSubmissionPage = this.setInitialStateOnSubmissionPage.bind(this)
     }
 
     setAlgorithmName(event) {
@@ -182,10 +183,22 @@ class UserAlgorithmSubmissionPage extends Component {
         }
     }
 
+    setInitialStateOnSubmissionPage() {
+        this.setState({
+            algorithmName: this.props.currentQuestion.name,
+            algorithmCategory: this.props.currentQuestion.category,
+            algorithmFunctionName: this.props.currentQuestion.functionName,
+            localDescriptionInput: this.props.currentQuestion.description,
+            localTestInput: this.props.currentQuestion.javascriptTestFile,
+            localAlgorithmInput: this.props.currentQuestion.javascriptSolution
+        })
+    }
+
     /* eslint-disable complexity */
     render() {
 
         const { difficulties, categories, validationCustomResult, validationResult, user, currentQuestion } = this.props
+        console.log("CURRENT QUESTION", currentQuestion)
 
         const SubmissionPage = (
             <div id="submission-page" >
@@ -200,7 +213,7 @@ class UserAlgorithmSubmissionPage extends Component {
                         <div className="input-row"><label>Name{this.state.needAlgorithmName ? <span style={{ color: 'red' }}> required</span> : ''}</label><input onChange={this.setAlgorithmName} value={this.state.algorithmName} /></div>
                         <div className="input-row">
                             <label>Category</label>
-                            <select onChange={this.setAlgorithmCategory}>
+                            <select onChange={this.setAlgorithmCategory} value={this.state.algorithmCategory}>
                                 {categories && categories.map(category => (
                                     <option key={category.id} value={category.name}>{category.name}</option>
                                 ))}
@@ -208,7 +221,7 @@ class UserAlgorithmSubmissionPage extends Component {
                         </div>
                         <div className="input-row">
                             <label>Estimated Difficulty</label>
-                            <select onChange={this.setAlgorithmDifficulty}>
+                            <select onChange={this.setAlgorithmDifficulty} value={this.state.algorithmDifficulty}>
                                 {difficulties && difficulties.map(difficulty => (
                                     <option key={difficulty.id} value={difficulty.name}>{difficulty.name}</option>
                                 ))}
@@ -299,14 +312,37 @@ class UserAlgorithmSubmissionPage extends Component {
             </div>
         )
 
+        /* eslint-disable no-nested-ternary */
         return (
             <div>
                 {
+                    /* NOT A VERY GOOD PRACTICE!
+                    Render methods should be a pure function of props and state.
+                    Maybe we can move the logic to `componentWillMount`;
+                    however, we need to figure out how to make sure that
+                    we only `this.setState()` after the field  `this.props.currentQuestion` is loaded */
                     currentQuestion && currentQuestion.userId === user.id
                         ?
-                        SubmissionPage
+                        (function setPage() {
+                            if (!this.state.algorithmName) {
+                                (new Promise(resolve => {
+                                    resolve(this.setInitialStateOnSubmissionPage())
+                                })).then(() => {
+                                    return SubmissionPage
+                                })
+                                    .catch(err => {
+                                        console.error(err)
+                                    })
+                            } else {
+                                return SubmissionPage
+                            }
+                        }).bind(this)()
                         :
-                        <div>Unauthorized</div>
+                        currentQuestion
+                            ?
+                            <div>Unauthorized</div>
+                            :
+                            SubmissionPage
                 }
             </div>
         )
