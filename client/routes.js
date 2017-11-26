@@ -53,7 +53,7 @@ class Routes extends Component {
                 <Route path="/user" component={UserPage} />
                 <Route path="/payment" component={Payment} />
                 <Route exact path="/forum" component={Forum} />
-                <Route path="/forum:discussionName" component={Discussion} />
+                <Route path="/forum/:discussionName" component={Discussion} />
               </Switch>
             )}
             {/* Displays our Login component as a fallback */}

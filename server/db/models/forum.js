@@ -7,6 +7,10 @@ const Forum = db.define('forum', {
   },
   commentNum: {
     type: Sequelize.INTEGER
+  },
+  comment: {
+    type: Sequelize.STRING(3000),
+    defaultValue: ''
   }
 })
 
