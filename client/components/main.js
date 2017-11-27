@@ -47,14 +47,14 @@ class Main extends Component {
           {
             <div className="navbar">
               <div className="navbar-left">
-                <NavLink to="/about" className="link">
-                  <span className="small-head">About</span>
-                </NavLink>
                 <NavLink to="/home" className="link">
                   <span className="small-head">Questions</span>
                 </NavLink>
                 <NavLink to="/payment" className="link">
                   <span className="small-head">Payment</span>
+                </NavLink>
+                <NavLink to="/forum" className="link">
+                  <span className="small-head">Forum</span>
                 </NavLink>
               </div>
               <div className="navbar-central">
