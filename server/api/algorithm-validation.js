@@ -69,79 +69,80 @@ router.post('/javascript', (req, res, next) => {
       )
     })
 
-  ;(async function(algorithmInput, algorithmTest) {
-    const [
-      algorithmTestTempDirectory,
-      cleanupCB
-    ] = await createAlgorithmTestTempDirectory()
+    ; (async function (algorithmInput, algorithmTest) {
+      const [
+        algorithmTestTempDirectory,
+        cleanupCB
+      ] = await createAlgorithmTestTempDirectory()
 
-    const algorithmTestFile = createAlgorithmTestFile(
-      algorithmTest,
-      algorithmTestTempDirectory
-    )
-
-    const algorithmInputFile = createAlgorithmInputFile(
-      algorithmInput,
-      algorithmTestTempDirectory
-    )
-
-    return [
-      algorithmTestTempDirectory,
-      cleanupCB,
-      await algorithmInputFile,
-      await algorithmTestFile
-    ]
-  })(req.body.submission.algorithmInput, req.body.submission.testFile)
-    .then(([algorithmTestTempDirectory, cleanupCB]) => {
-      exec(
-        `npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(
-          algorithmTestTempDirectory.lastIndexOf('/')
-        )}/algorithm-test.js`,
-        { timeout: 5000 },
-        (err, stdout, stderr) => {
-          try {
-            const { testCasesStr, revisedStdoutStr } = getTestCaseOutcomes(
-              stdout
-            )
-
-            const testCasesArr = JSON.parse(testCasesStr.trim())
-
-            if (err) {
-              cleanupCB()
-              console.error('EXECUTION ERROR______________________', err)
-            }
-
-            cleanupCB()
-
-            let results
-
-            if (
-              testCasesArr &&
-              !testCasesArr.find(testCase => testCase.outcome === 'failed')
-            ) {
-              results = {
-                testCasesArr,
-                rawOutput: '\n' + stderr + '\n' + revisedStdoutStr,
-                allPassed: true
-              }
-            } else {
-              results = {
-                testCasesArr,
-                rawOutput: '\n' + stderr + '\n' + revisedStdoutStr,
-                allPassed: false
-              }
-            }
-
-            res.send(results)
-          } catch (err1) {
-            cleanupCB()
-            console.error('CAUGHT ERROR____________________', err1)
-            next(err1)
-          }
-        }
+      const algorithmTestFile = createAlgorithmTestFile(
+        algorithmTest,
+        algorithmTestTempDirectory
       )
-    })
-    .catch(error => {
-      console.error(error)
-    })
+
+      const algorithmInputFile = createAlgorithmInputFile(
+        algorithmInput,
+        algorithmTestTempDirectory
+      )
+
+      return [
+        algorithmTestTempDirectory,
+        cleanupCB,
+        await algorithmInputFile,
+        await algorithmTestFile
+      ]
+
+    })(req.body.submission.algorithmInput, req.body.submission.testFile)
+      .then(([algorithmTestTempDirectory, cleanupCB]) => {
+        exec(
+          `npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(
+            algorithmTestTempDirectory.lastIndexOf('/')
+          )}/algorithm-test.js`,
+          { timeout: 5000 },
+          (err, stdout, stderr) => {
+            try {
+              const { testCasesStr, revisedStdoutStr } = getTestCaseOutcomes(
+                stdout
+              )
+
+              const testCasesArr = JSON.parse(testCasesStr.trim())
+
+              if (err) {
+                cleanupCB()
+                console.error('EXECUTION ERROR______________________', err)
+              }
+
+              cleanupCB()
+
+              let results
+
+              if (
+                testCasesArr &&
+                !testCasesArr.find(testCase => testCase.outcome === 'failed')
+              ) {
+                results = {
+                  testCasesArr,
+                  rawOutput: '\n' + stderr + '\n' + revisedStdoutStr,
+                  allPassed: true
+                }
+              } else {
+                results = {
+                  testCasesArr,
+                  rawOutput: '\n' + stderr + '\n' + revisedStdoutStr,
+                  allPassed: false
+                }
+              }
+
+              res.send(results)
+            } catch (err1) {
+              cleanupCB()
+              console.error('CAUGHT ERROR____________________', err1)
+              next(err1)
+            }
+          }
+        )
+      })
+      .catch(error => {
+        console.error(error)
+      })
 })
