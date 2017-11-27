@@ -5,13 +5,18 @@ import getRandomQuestion from './randomQuestion_util'
 
 const RandomQuestion = (props) => {
 
-    const { questions, user } = props
-    let currentRandomQuestion = {};
+    let { questions, user } = props
+
+    questions = questions.filter(question => question.published)
+
+    let currentRandomQuestion = {}
+
     if (user.questionsSolved) {
         currentRandomQuestion = getRandomQuestion(user.questionsSolved, questions)
     } else {
         currentRandomQuestion = getRandomQuestion([], questions)
     }
+
     return (
         <div id="random-question-container">
             <div id="question-column-container">
