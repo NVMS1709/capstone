@@ -27,7 +27,11 @@ class UserAlgorithmSubmissionPage extends Component {
             needFunctionName: false,
             needAlgorithmName: false,
             colorValidationButton: false,
-            needDescription: false
+            colorSaveButton: false,
+            colorPublishButton: false,
+            needDescription: false,
+            needUniqueAlgorithmName: false,
+            setInitialState: true
         }
 
         this.setAlgorithmName = this.setAlgorithmName.bind(this)
@@ -39,24 +43,40 @@ class UserAlgorithmSubmissionPage extends Component {
         this.onTestChange = this.onTestChange.bind(this)
         this.onValidate = this.onValidate.bind(this)
         this.onSave = this.onSave.bind(this)
+        this.onPublish = this.onPublish.bind(this)
         this.handleOutputMode = this.handleOutputMode.bind(this)
         this.setAlgorithmFunctionName = this.setAlgorithmFunctionName.bind(this)
         this.setInitialStateOnSubmissionPage = this.setInitialStateOnSubmissionPage.bind(this)
     }
 
     setAlgorithmName(event) {
+        const targetValue = event.target.value;
 
-        const promisifiedSetAlgorithmName = new Promise((resolve) => {
-            resolve(this.setState({ algorithmName: event.target.value }))
-        })
-
-        promisifiedSetAlgorithmName.then(() => {
-            if (!this.state.algorithmName) {
-                this.setState({ needAlgorithmName: true })
-            } else {
-                this.setState({ needAlgorithmName: false })
-            }
-        })
+        (new Promise(resolve => {
+            resolve(
+                this.setState({
+                    needUniqueAlgorithmName: false,
+                    needAlgorithmName: false
+                })
+            )
+        }))
+            .then(() => new Promise((resolve) => {
+                resolve(
+                    this.setState({ algorithmName: targetValue })
+                )
+            }))
+            .then(() => {
+                if (!this.state.algorithmName) {
+                    this.setState({ needAlgorithmName: true })
+                } else if (this.props.questions.find(
+                    question => question.name === this.state.algorithmName
+                )) {
+                    this.setState({ needUniqueAlgorithmName: true })
+                }
+            })
+            .catch(err => {
+                console.error(err)
+            });
 
     }
 
@@ -73,23 +93,34 @@ class UserAlgorithmSubmissionPage extends Component {
     }
 
     setAlgorithmFunctionName(event) {
+        const targetValue = event.target.value;
 
-        const promisifiedSetFunctionName = new Promise((resolve) => {
-            resolve(this.setState({ algorithmFunctionName: event.target.value }))
-        })
-
-        promisifiedSetFunctionName.then(() => {
-            if (!this.state.algorithmFunctionName) {
-                this.setState({ needFunctionName: true })
-            } else {
-                this.setState({ needFunctionName: false })
-            }
-        })
+        (new Promise((resolve) => {
+            resolve(this.setState({ algorithmFunctionName: targetValue }))
+        }))
+            .then(() => {
+                if (!this.state.algorithmFunctionName) {
+                    this.setState({ needFunctionName: true })
+                } else {
+                    this.setState({ needFunctionName: false })
+                }
+            });
 
     }
 
     setLocalDescriptionInput(event) {
-        this.setState({ localDescriptionInput: event.target.value })
+        const targetValue = event.target.value;
+
+        (new Promise(resolve => {
+            resolve(this.setState({ localDescriptionInput: targetValue }))
+        }))
+            .then(() => {
+                if (this.state.localDescriptionInput.length > 1000) {
+                    this.setState({ needDescription: false })
+                } else {
+                    this.setState({ needDescription: true })
+                }
+            })
     }
 
     handleOutputMode(event) {
@@ -112,7 +143,7 @@ class UserAlgorithmSubmissionPage extends Component {
 
     onTestChange(newValue) {
         if (this.state.algorithmLanguage === 'javascript') {
-        this.setState({ localJavascriptTestInput: newValue })
+            this.setState({ localJavascriptTestInput: newValue })
         } else {
             this.setState({ localPythonTestInput: newValue })
         }
@@ -128,7 +159,7 @@ class UserAlgorithmSubmissionPage extends Component {
 
             setTimeout(() => {
                 this.setState({ colorValidationButton: false })
-            }, 50)
+            }, 50);
 
             this.props.toPostAlgorithmValidationSubmission(
                 {
@@ -148,27 +179,178 @@ class UserAlgorithmSubmissionPage extends Component {
     }
 
     onSave(event) {
+
         event.preventDefault()
 
-        if (this.state.algorithmName) {
+        if (this.state.algorithmName && !this.state.needUniqueAlgorithmName) {
 
-            this.props.toPostUserAlgorithmQuestion({
-                name: this.state.algorithmName,
-                javascriptSolution: this.state.localJavascriptAlgorithmInput,
-                functionName: this.state.algorithmFunctionName,
-                javascriptTestFile: this.state.localJavascriptTestInput,
-                description: this.state.localDescriptionInput,
-                difficulty: this.state.algorithmDifficulty,
-                category: this.state.algorithmCategory,
-                published: false,
-                userId: this.props.user.id,
-                pythonTestFile: this.state.localPythonTestInput,
-                pythonSolution: this.state.localPythonAlgorithmInput,
-                existingId: this.props.currentQuestion && this.props.currentQuestion.id
+            this.setState({ colorSaveButton: true })
+
+            setTimeout(() => {
+                this.setState({ colorSaveButton: false })
+            }, 50);
+
+            (new Promise(resolve => {
+                resolve(
+                    this.props.toPostUserAlgorithmQuestion({
+                        name: this.state.algorithmName,
+                        javascriptSolution: this.state.localJavascriptAlgorithmInput,
+                        functionName: this.state.algorithmFunctionName,
+                        javascriptTestFile: this.state.localJavascriptTestInput,
+                        description: this.state.localDescriptionInput,
+                        difficulty: this.state.algorithmDifficulty,
+                        category: this.state.algorithmCategory,
+                        published: false,
+                        userId: this.props.user.id,
+                        pythonTestFile: this.state.localPythonTestInput,
+                        pythonSolution: this.state.localPythonAlgorithmInput,
+                        existingId: this.props.currentQuestion && this.props.currentQuestion.id
+                    })
+                )
+            })).then(updatedQuestion => {
+                if (updatedQuestion) {
+
+                    this.setState({ processingInfo: 'SAVED' })
+
+                    setTimeout(() => {
+                        this.setState({ processingInfo: '' })
+                    }, 4000)
+
+                } else {
+                    this.setState({ processingInfo: 'FAILED TO SAVE' })
+
+                    setTimeout(() => {
+                        this.setState({ processingInfo: '' })
+                    }, 4000)
+                }
             })
+                .catch(error => {
+                    this.setState({ processingInfo: 'FAILED TO SAVE' })
+
+                    setTimeout(() => {
+                        this.setState({ processingInfo: '' })
+                    }, 4000)
+
+                    console.error(error)
+                })
+
+        } else if (!this.state.algorithmName) {
+            this.setState({ needAlgorithmName: true })
+        } else {
+            this.setState({ needUniqueAlgorithmName: true })
+        }
+
+    }
+
+    onPublish(event) {
+        event.preventDefault()
+
+        if (this.state.algorithmFunctionName
+            && this.state.algorithmName
+            && !this.state.needUniqueAlgorithmName
+            && this.state.localDescriptionInput.length > 1000) {
+
+            this.setState({ colorValidationButton: true })
+
+            setTimeout(() => {
+                this.setState({ colorValidationButton: false })
+            }, 50)
+
+            this.setState({ colorPublishButton: true })
+
+            setTimeout(() => {
+                this.setState({ colorPublishButton: false })
+            }, 50);
+
+            (new Promise(resolve => {
+                resolve(this.props.toPostAlgorithmValidationSubmission(
+                    {
+                        algorithmInput: this.state.localJavascriptAlgorithmInput,
+                        language: this.state.algorithmLanguage,
+                        functionName: this.state.algorithmFunctionName,
+                        testFile: this.state.localJavascriptTestInput
+                    },
+                    this.props.user
+                ))
+            })).then(testCasesArr => {
+
+                if (!testCasesArr.find(testCase => testCase.outcome === 'failed')) {
+
+                    console.log('CAN PUBLISH');
+
+                    (new Promise(resolve => {
+                        resolve(this.props.toPostUserAlgorithmQuestion({
+                            name: this.state.algorithmName,
+                            javascriptSolution: this.state.localJavascriptAlgorithmInput,
+                            functionName: this.state.algorithmFunctionName,
+                            javascriptTestFile: this.state.localJavascriptTestInput,
+                            description: this.state.localDescriptionInput,
+                            difficulty: this.state.algorithmDifficulty,
+                            category: this.state.algorithmCategory,
+                            published: true,
+                            userId: this.props.user.id,
+                            pythonTestFile: this.state.localPythonTestInput,
+                            pythonSolution: this.state.localPythonAlgorithmInput,
+                            existingId: this.props.currentQuestion && this.props.currentQuestion.id
+                        }))
+                    }))
+                        .then(updatedQuestion => {
+                            if (updatedQuestion) {
+
+                                this.setState({ processingInfo: 'PUBLISHED' })
+
+                                setTimeout(() => {
+                                    this.setState({ processingInfo: '' })
+                                }, 4000)
+
+                            } else {
+                                this.setState({ processingInfo: 'FAILED TO PUBLISH' })
+
+                                setTimeout(() => {
+                                    this.setState({ processingInfo: '' })
+                                }, 4000)
+                            }
+                        })
+                        .catch(error => {
+                            this.setState({ processingInfo: 'FAILED TO PUBLISH' })
+
+                            setTimeout(() => {
+                                this.setState({ processingInfo: '' })
+                            }, 4000)
+
+                            console.error(error)
+                        })
+
+                } else {
+                    this.setState({ processingInfo: 'FAILED TO PUBLISH' })
+
+                    setTimeout(() => {
+                        this.setState({ processingInfo: '' })
+                    }, 4000)
+
+                    console.log('CANNOT PUBLISH')
+                }
+            })
+                .catch(error => {
+                    console.log('CANNOT PUBLISH')
+                    console.error(error)
+                });
+
+            this.setState({ outputMode: 'ValidationCustomOutput' })
 
         } else {
-            this.setState({ needAlgorithmName: true })
+            if (!this.state.algorithmFunctionName) {
+                this.setState({ needFunctionName: true })
+            }
+            if (!this.state.algorithmName) {
+                this.setState({ needAlgorithmName: true })
+            }
+            if (this.state.localDescriptionInput < 1000) {
+                this.setState({ needDescription: true })
+            }
+            if (this.state.needUniqueAlgorithmName) {
+                this.setState({ needUniqueAlgorithmName: true })
+            }
         }
     }
 
@@ -182,7 +364,8 @@ class UserAlgorithmSubmissionPage extends Component {
             localJavascriptAlgorithmInput: this.props.currentQuestion.javascriptSolution,
             localPythonTestInput: this.props.currentQuestion.pythonTestFile,
             localPythonAlgorithmInput: this.props.currentQuestion.pythonSolution,
-            algorithmDifficulty: this.props.currentQuestion.difficulty.name
+            algorithmDifficulty: this.props.currentQuestion.difficulty.name,
+            setInitialState: false
         })
     }
 
@@ -190,19 +373,70 @@ class UserAlgorithmSubmissionPage extends Component {
     render() {
 
         const { difficulties, categories, validationCustomResult, validationResult, user, currentQuestion } = this.props
-        console.log("CURRENT QUESTION", currentQuestion)
 
         const SubmissionPage = (
             <div id="submission-page" >
                 <div id="submission-control-buttons-container">
-                    <button onClick={this.onSave}>Save</button>
+                    <button
+                        onClick={this.onSave}
+                        style={this.state.colorSaveButton
+                            ?
+                            { backgroundColor: 'grey' }
+                            :
+                            {}}>
+                        Save
+                    </button>
                     <button>Reset</button>
-                    <button>Publish</button>
+                    <button
+                        onClick={this.onPublish}
+                        style={this.state.colorPublishButton
+                            ?
+                            { backgroundColor: 'grey' }
+                            :
+                            {}}>
+                        Publish
+                    </button>
                     <button>Delete</button>
+                    {this.state.processingInfo
+                        ?
+                        <button
+                            id="processing-info"
+                            style={this.state.processingInfo.includes('FAILED')
+                                ?
+                                {
+                                    backgroundColor: 'red',
+                                    border: '1px solid red'
+                                }
+                                :
+                                {
+                                    backgroundColor: 'green',
+                                    border: '1px solid green'
+
+                                }}>
+                            {this.state.processingInfo}
+                        </button>
+                        :
+                        ''}
                 </div>
                 <div id="question-info">
                     <div id="submission-info-form-container">
-                        <div className="input-row"><label>Name{this.state.needAlgorithmName ? <span style={{ color: 'red' }}> required</span> : ''}</label><input onChange={this.setAlgorithmName} value={this.state.algorithmName} /></div>
+                        <div className="input-row">
+                            <label>Name{
+                                this.state.needAlgorithmName
+                                    ?
+                                    <span style={{ color: 'red' }}> required</span>
+                                    :
+                                    ''
+                            }{
+                                    this.state.needUniqueAlgorithmName
+                                        ?
+                                        <span style={{ color: 'red' }}> already taken</span>
+                                        :
+                                        ''
+                                }
+                            </label>
+                            <input onChange={this.setAlgorithmName} value={this.state.algorithmName} />
+                        </div>
                         <div className="input-row">
                             <label>Category</label>
                             <select onChange={this.setAlgorithmCategory} value={this.state.algorithmCategory}>
@@ -227,12 +461,30 @@ class UserAlgorithmSubmissionPage extends Component {
                             </select>
                         </div>
                         <div className="input-row">
-                            <label>Export Function Name{this.state.needFunctionName ? <span style={{ color: 'red' }}> required</span> : ''}</label>
+                            <label>
+                                Export Function Name
+                            {
+                                    this.state.needFunctionName
+                                        ?
+                                        <span style={{ color: 'red' }}> required</span>
+                                        :
+                                        ''
+                                }
+                            </label>
                             <input onChange={this.setAlgorithmFunctionName} value={this.state.algorithmFunctionName} />
                         </div>
                     </div>
                     <div id="description-container">
-                        <div id="description-title">Description</div>
+                        <div id="description-title">
+                            Description
+                        {this.state.needDescription
+                                ?
+                                <span style={{ color: 'red' }}>
+                                    1000 characters minimum
+                             </span>
+                                :
+                                ''}
+                        </div>
                         <div>
                             <textarea onChange={this.setLocalDescriptionInput} value={this.state.localDescriptionInput} />
                         </div>
@@ -241,7 +493,15 @@ class UserAlgorithmSubmissionPage extends Component {
                 <div id="solution-test-container">
                     <div id="submission-solution">
                         <div id="validate-button-container">
-                            <button onClick={this.onValidate} style={this.state.colorValidationButton ? { backgroundColor: 'green' } : {}}>Validate Solution</button>
+                            <button
+                                onClick={this.onValidate}
+                                style={this.state.colorValidationButton
+                                    ?
+                                    { backgroundColor: 'white' }
+                                    :
+                                    {}}>
+                                ➩ Validate Solution
+                            </button>
                         </div>
                         <div id="submission-code-editor">
                             <AceEditor
@@ -258,9 +518,33 @@ class UserAlgorithmSubmissionPage extends Component {
                     </div>
                     <div id="test-solution">
                         <div id="tests-button-container">
-                            <button onClick={this.handleOutputMode} style={this.state.outputMode === 'TestCases' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Test Cases</button>
-                            <button onClick={this.handleOutputMode} style={this.state.outputMode === 'ValidationCustomOutput' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Validation Custom Output</button>
-                            <button onClick={this.handleOutputMode} style={this.state.outputMode === 'ValidationRawOutput' ? { border: '1px solid black', borderBottom: 'none' } : {}}>Validation Raw Output</button>
+                            <button
+                                onClick={this.handleOutputMode}
+                                style={this.state.outputMode === 'TestCases'
+                                    ?
+                                    { border: '1px solid black', borderBottom: 'none' }
+                                    :
+                                    {}}>
+                                Test Cases
+                            </button>
+                            <button
+                                onClick={this.handleOutputMode}
+                                style={this.state.outputMode === 'ValidationCustomOutput'
+                                    ?
+                                    { border: '1px solid black', borderBottom: 'none' }
+                                    :
+                                    {}}>
+                                Validation Custom Output
+                            </button>
+                            <button
+                                onClick={this.handleOutputMode}
+                                style={this.state.outputMode === 'ValidationRawOutput'
+                                    ?
+                                    { border: '1px solid black', borderBottom: 'none' }
+                                    :
+                                    {}}>
+                                Validation Raw Output
+                            </button>
                         </div>
                         {
                             this.state.outputMode === 'TestCases'
@@ -283,7 +567,15 @@ class UserAlgorithmSubmissionPage extends Component {
                                 ? <div className="scroll-viewer" >
                                     <pre className="raw-output">
                                         {validationCustomResult.map(result => (
-                                            <p key={result.title + ' ' + result.outcome} style={result.outcome === 'passed' ? { color: 'green' } : { color: 'red' }}>{result.title + ' ' + result.outcome}</p>
+                                            <p
+                                                key={result.title + ' ' + result.outcome}
+                                                style={result.outcome === 'passed'
+                                                    ?
+                                                    { color: 'green' }
+                                                    :
+                                                    { color: 'red' }}>
+                                                {result.title + ' ' + result.outcome}
+                                            </p>
                                         )
                                         )}
                                     </pre>
@@ -316,7 +608,7 @@ class UserAlgorithmSubmissionPage extends Component {
                     currentQuestion && currentQuestion.userId === user.id
                         ?
                         (function setPage() {
-                            if (!this.state.algorithmName) {
+                            if (this.state.setInitialState) {
                                 (new Promise(resolve => {
                                     resolve(this.setInitialStateOnSubmissionPage())
                                 })).then(() => {
@@ -343,22 +635,36 @@ class UserAlgorithmSubmissionPage extends Component {
 
 const mapState = (state, ownProps) => {
     return {
+        questions: state.questions,
         user: state.user,
         categories: state.categories,
         difficulties: state.difficulties,
         validationResult: state.validationResult,
         validationCustomResult: state.validationCustomResult,
         currentQuestion: state.questions
-            && state.questions.find(question => question.name === ownProps.match.params.questionName)
+            && state.questions
+                .find(question => question.name === ownProps.match.params.questionName)
     }
 }
 
 const mapDispatch = dispatch => {
     return {
-        toPostAlgorithmValidationSubmission: (submission, user) =>
-            dispatch(postAlgorithmValidationInput(submission, user)),
-        toPostUserAlgorithmQuestion: (questionSubmission) =>
-            dispatch(postUserAlgorithmQuestion(questionSubmission))
+        toPostAlgorithmValidationSubmission: (submission, user) => (new Promise(resolve => {
+            resolve(dispatch(
+                postAlgorithmValidationInput(submission, user)
+            ))
+        }))
+            .then(testCases => {
+                return testCases
+            }),
+        toPostUserAlgorithmQuestion: (questionSubmission) => (new Promise(resolve => {
+            resolve(dispatch(
+                postUserAlgorithmQuestion(questionSubmission)
+            ))
+        }))
+            .then(updatedQuestion => {
+                return updatedQuestion
+            })
     }
 }
 

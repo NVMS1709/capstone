@@ -21,15 +21,23 @@ export const getAlgorithmValidationInput = input => ({ type: ALGORITHM_VALIDATIO
  */
 export const postAlgorithmValidationInput = (submission, user) => {
     return function thunk(dispatch) {
-        axios
+        return axios
             .post(`/api/algorithm-validation/${submission.language}`, {
                 submission,
                 user
             })
             .then(res => {
                 const results = res.data
-                dispatch(setValidationResult(results.rawOutput))
-                dispatch(setValidationCustomResult(results.testCasesArr))
+                return Promise.all([
+                    new Promise(resolve => {
+                        resolve(dispatch(setValidationResult(results.rawOutput)))
+                    }),
+                    new Promise(resolve => {
+                        resolve(dispatch(setValidationCustomResult(results.testCasesArr)))
+                    })
+                ]).then(() => {
+                    return results.testCasesArr
+                })
             })
             .catch(console.error)
     }
