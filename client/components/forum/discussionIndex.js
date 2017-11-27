@@ -5,7 +5,8 @@ import {
   getForumComments,
   newCommentForum,
   deleteForumComment,
-  deleteTopic
+  deleteTopic,
+  forumCommentEdit
 } from '../../store'
 
 class Discussion extends Component {
@@ -21,20 +22,16 @@ class Discussion extends Component {
     this.onChange = this.onChange.bind(this)
     this.deleteComment = this.deleteComment.bind(this)
     this.deleteTopic = this.deleteTopic.bind(this)
-    // this.editComment = this.editComment.bind(this)
-    // this.discardChanges = this.discardChanges.bind(this)
-    // this.onChangeEdit = this.onChangeEdit.bind(this)
-    // this.onSubmitEdit = this.onSubmitEdit.bind(this)
+    this.editComment = this.editComment.bind(this)
+    this.discardChanges = this.discardChanges.bind(this)
+    this.onChangeEdit = this.onChangeEdit.bind(this)
+    this.onSubmitEdit = this.onSubmitEdit.bind(this)
     this.forumTitle = []
   }
 
   componentDidMount() {
     this.props.getForumTitles()
     this.props.getForumComments(this.props.titleForum)
-  }
-
-  discardChanges() {
-    this.setState({ editToggle: '' })
   }
 
   deleteTopic(id) {
@@ -57,6 +54,28 @@ class Discussion extends Component {
     this.newComment.title = this.forumTitle.title
     this.props.newCommentForum(this.newComment)
     this.setState({ newComment: '' })
+  }
+
+  editComment(commentId, comment) {
+    this.setState({ editToggle: commentId, comment })
+  }
+
+  onChangeEdit(event) {
+    this.setState({ comment: event.target.value })
+  }
+
+  onSubmitEdit(event) {
+    event.preventDefault()
+    this.props.forumCommentEdit(
+      this.state.editToggle,
+      this.state.comment,
+      this.forumTitle.title
+    )
+    this.setState({ editToggle: '' })
+  }
+
+  discardChanges() {
+    this.setState({ editToggle: '' })
   }
 
   render() {
@@ -192,7 +211,9 @@ const mapDispatch = dispatch => {
       dispatch(newCommentForum(comment, userId, forumId, title)),
     deleteForumComment: (id, forumTitle) =>
       dispatch(deleteForumComment(id, forumTitle)),
-    deleteTopic: id => dispatch(deleteTopic(id))
+    deleteTopic: id => dispatch(deleteTopic(id)),
+    forumCommentEdit: (id, comment, title) =>
+      dispatch(forumCommentEdit(id, comment, title))
   }
 }
 

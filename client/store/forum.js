@@ -49,7 +49,6 @@ export const addTopic = topic => {
 
 export const deleteTopic = id => {
   return function thunk(dispatch) {
-    console.log(id)
     axios
       .delete(`/api/forum/${id}`)
       .then(() =>
@@ -62,48 +61,6 @@ export const deleteTopic = id => {
       .catch(console.err)
   }
 }
-
-// export const postComment = comment => {
-//   return function thunk(dispatch) {
-//     axios
-//       .post('/api/comments', comment)
-//       .then(() => {
-//         return axios.get('/api/comments').then(res => {
-//           const comments = res.data
-//           dispatch(getComments(comments))
-//         })
-//       })
-//       .catch(console.err)
-//   }
-// }
-
-// export const commentDelete = id => {
-//   return function thunk(dispatch) {
-//     axios
-//       .delete(`/api/comments/${id}`)
-//       .then(() => {
-//         return axios.get('/api/comments').then(res => {
-//           const comments = res.data
-//           dispatch(getComments(comments))
-//         })
-//       })
-//       .catch(console.err)
-//   }
-// }
-
-// export const commentEdit = (id, comment) => {
-//   return function thunk(dispatch) {
-//     axios
-//       .put(`/api/comments/${id}`, { comment })
-//       .then(() => {
-//         return axios.get('/api/comments').then(res => {
-//           const comments = res.data
-//           dispatch(getComments(comments))
-//         })
-//       })
-//       .catch(console.err)
-//   }
-// }
 
 /**
  * REDUCER
