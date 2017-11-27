@@ -75,6 +75,10 @@ async function seed() {
       name: 'Strings',
       description:
         'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    }),
+    Category.create({
+      name: 'Puzzle',
+      description: 'Mind teasing questions'
     })
   ])
 
@@ -903,6 +907,55 @@ function postOrderTraverse(tree, array) {
       pythonTestFile: '',
       categoryId: 8,
       difficultyId: 3
+    }),
+    Question.create({
+      name: 'even_or_odd',
+      published: true,
+      description: 'Create a function that takes an integer as an argument and returns \'even\' for even numbers, or \'odd\' for odd numbers.',
+      javascriptSolution: `
+        function even_or_odd(number) {
+          if (number % 2 === 0) {
+            return 'even'
+          } else {
+            return 'odd'
+          }
+        }
+      `,
+      pythonSolution: '',
+      functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      jsWalkThrough: [`
+      Function: even_or_odd\n
+
+      Step One: Create a function named "even_or_odd" that takes an a variable called number.
+      `, `
+      Step Two: Create an if statement that will return 'even' if the number is an even number.
+      Hint: To determine if a number is even or odd, user the '%' (modulus) operator. 
+      `, `
+      Step Three: Now that your if statement is setup, you must return 'odd' if your if statement is odd.
+      Hint: You can use the else {} statement after an if {} block. This tells your program to execute the code inside of the else {} block if the if {} block does not pass the conditional.`],
+      jsSolutionWT: [`
+      function even_or_odd(number) {
+        // Your logic goes here...
+      }
+      `, `
+      function even_or_odd(number) {
+        if (number % 2 === 0) {
+          return 'even'
+        }
+      }
+      `, `
+      function even_or_odd(number) {
+        if (number % 2 === 0) {
+          return 'even'
+        } else {
+          return 'odd'
+        }
+      }
+      `],
+      categoryId: 8,
+      difficultyId: 1
     })
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
