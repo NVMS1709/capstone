@@ -11,7 +11,6 @@ class Topics extends Component {
       searchFilter: '',
       forumAdd: true
     }
-    this.onSubmit = this.onSubmit.bind(this)
     this.onChange = this.onChange.bind(this)
     this.toggleForumAdd = this.toggleForumAdd.bind(this)
   }
@@ -27,8 +26,6 @@ class Topics extends Component {
   onChange(event) {
     this.setState({ searchFilter: event.target.value })
   }
-
-  onSubmit(event) {}
 
   render() {
     const filteredForum =

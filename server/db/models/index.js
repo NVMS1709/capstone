@@ -14,13 +14,13 @@ const ForumComment = require('./forumComment')
  */
 
 ForumComment.belongsTo(Forum)
-Forum.hasMany(ForumComment)
+Forum.hasMany(ForumComment, { onDelete: 'cascade', hooks: true })
 
 ForumComment.belongsTo(User)
-User.hasMany(ForumComment)
+User.hasMany(ForumComment, { onDelete: 'cascade', hooks: true })
 
 Forum.belongsTo(User)
-User.hasMany(Forum)
+User.hasMany(Forum, { onDelete: 'cascade', hooks: true })
 
 Category.hasMany(Question)
 Question.belongsTo(Category)
@@ -31,10 +31,10 @@ Question.belongsTo(Difficulty)
 Question.belongsTo(User)
 User.hasMany(Question)
 
-Question.hasMany(Comment)
+Question.hasMany(Comment, { onDelete: 'cascade', hooks: true })
 Comment.belongsTo(Question)
 
-User.hasMany(Comment)
+User.hasMany(Comment, { onDelete: 'cascade', hooks: true })
 Comment.belongsTo(User)
 
 /**
