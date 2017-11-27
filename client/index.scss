@@ -248,61 +248,28 @@ body {
             }
           }
 
-            .submissions {
-                margin: 0 10px 0 10px;
-                border: 1px solid white;
-                border-radius: 10px;
-                width: 100%;
-                padding: 10px;
+          #user-page-algorithms-list-container {
+            display: flex;
+            flex-direction: column;
+            font-size: 15px;
 
-                #submissions-title {
-                    text-align: center;
-                }
+            .user-page-submission-questions-list {
+              display: flex;
+              margin-top: 10px;
+              margin-bottom: 10px;
 
-                #submissions-container {
-                    display: flex;
+              .user-page-submission-questions-list-name {
+                margin-right: 30px;
+              }
 
-                    #userpage-algorithms-button-container {
-                        display: flex;
-                        flex-direction: column;
-                        margin-right: 15px;
-
-                        button {
-                            padding: 0px;
-                            background-color: #212325;
-                            color: white;
-                            border: none;
-                            font-size: 15px;
-                            margin-top: 10px;
-                            margin-bottom: 10px;
-                        }
-                    }
-
-                    #user-page-algorithms-list-container {
-                        display: flex;
-                        flex-direction: column;
-                        font-size: 15px;
-
-                        .user-page-submission-questions-list {
-                            display: flex;
-                            margin-top: 10px;
-                            margin-bottom: 10px;
-
-                            .user-page-submission-questions-list-name {
-                                margin-right: 30px;
-                            }
-
-                            .user-page-submission-questions-list-button {
-                                padding: 0px;
-                                background-color: #212325;
-                                color: white;
-                                border: none;
-                                font-size: 15px;
-                                margin: 0px;
-                            }
-                        }
-                    }
-                }
+              .user-page-submission-questions-list-button {
+                padding: 0px;
+                background-color: #212325;
+                color: white;
+                border: none;
+                font-size: 15px;
+                margin: 0px;
+              }
             }
           }
         }
@@ -647,44 +614,90 @@ body {
       display: flex;
       align-items: flex-end;
 
-            button {
-                margin-left: 20px;
-                border: 1px solid black;
-                border-radius: 0px;
-                background-color: white;
-                color: black;
-                font-size: 13px;
-                outline: none;
-                cursor: pointer;
-            }
+      button {
+        margin-left: 20px;
+        border: 1px solid black;
+        border-radius: 0px;
+        background-color: white;
+        color: black;
+        font-size: 13px;
+        outline: none;
+        cursor: pointer;
+      }
 
-            @keyframes fadeInOut {
-                0% {
-                    opacity: 0;
-                }
+      @keyframes fadeInOut {
+        0% {
+          opacity: 0;
+        }
 
-                20% {
-                    opacity: 1;
-                }
+        20% {
+          opacity: 1;
+        }
 
-                80% {
-                    opacity: 1;
-                }
+        80% {
+          opacity: 1;
+        }
 
-                100% {
-                    opacity: 0;
-                }
-            }
+        100% {
+          opacity: 0;
+        }
+      }
 
-            #processing-info {
-                margin-left: 20px;
-                color: black;
-                font-size: 13px;
-                outline: none;
-                cursor: pointer;
-                width: 150px;
-                animation: fadeInOut 4s forwards;
-            }
+      #processing-info {
+        margin-left: 20px;
+        color: black;
+        font-size: 13px;
+        outline: none;
+        cursor: pointer;
+        width: 150px;
+        animation: fadeInOut 4s forwards;
+      }
+    }
+
+    #question-info {
+      display: flex;
+      height: calc((100vh - 70px - 40px - 60px) * 0.4);
+
+      #submission-info-form-container {
+        width: calc((100vw - 40px - 40px) * 0.45);
+        font-size: 13px;
+        padding-right: 30px;
+
+        .input-row {
+          height: calc((100vh - 70px - 40px - 60px) * 0.4 / 5);
+          width: calc(((100vw - 40px - 40px) * 0.45) - 30px);
+          margin-left: 0px !important;
+          margin-right: 0px;
+          padding-top: 10px;
+
+          label {
+            margin-bottom: 5px;
+          }
+
+          select {
+            border: 1px solid black;
+            width: calc(((100vw - 40px - 40px) * 0.45) - 30px);
+            outline: none;
+          }
+
+          input {
+            border: 1px solid black;
+            width: calc(((100vw - 40px - 40px) * 0.45) - 30px);
+            outline: none;
+          }
+        }
+      }
+
+      #description-container {
+        width: calc((100vw - 40px - 40px) * 0.55);
+
+        #description-title {
+          padding-top: 8px;
+          font-size: 13px;
+          padding-left: 5px;
+          padding-bottom: 8px;
+          border: 1px solid black;
+          height: 30px;
         }
 
         textarea {
@@ -715,7 +728,7 @@ body {
           height: 30px;
 
           button {
-            background-color: white;
+            background-color: rgb(12, 180, 12);
             padding: 0px;
             color: black;
             border-bottom: none;
@@ -725,7 +738,7 @@ body {
             border-top: 1px solid black;
             height: 30px;
             outline: none;
-            width: 100px;
+            width: 120px;
             font-size: 11px;
           }
         }
@@ -753,54 +766,26 @@ body {
         }
       }
 
-        #solution-test-container {
-            display: flex;
-            padding-top: 30px;
-            height: calc((100vh - 70px - 40px - 60px) * 0.6);
-            width: calc(100vw - 40px - 40px);
+      #test-solution {
+        width: calc((100vw - 40px - 40px) * 0.5);
+        height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px);
+        padding-left: 15px;
 
-            #submission-solution {
-                width: calc((100vw - 40px - 40px) * 0.5);
-                height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px);
-                padding-right: 15px;
+        #tests-button-container {
+          height: 30px;
+          width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
 
-                #validate-button-container {
-                    height: 30px;
-
-                    button {
-                        background-color: rgb(12, 180, 12);
-                        padding: 0px;
-                        color: black;
-                        border-bottom: none;
-                        border-radius: 0px;
-                        border-left: 1px solid black;
-                        border-right: 1px solid black;
-                        border-top: 1px solid black;
-                        height: 30px;
-                        outline: none;
-                        width: 120px;
-                        font-size: 11px;
-                    }
-                }
-
-                #submission-code-editor {
-                    height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px);
-
-                    .ace-editor {
-                        border: 1px solid black;
-                        display: relative;
-                        height: calc( ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px ) !important;
-
-                        .ace_print-margin {
-                            visibility: hidden !important;
-                        }
-
-                        .ace_content {
-                            height: calc( ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px ) !important;
-                        }
-                    }
-                }
-            }
+          button {
+            background-color: white;
+            color: black;
+            border-radius: 0px;
+            height: 30px;
+            outline: none;
+            border: none;
+            font-size: 13px;
+            border-bottom: none;
+          }
+        }
 
         #submission-test-code-editor {
           font-size: 13px;
