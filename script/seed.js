@@ -922,8 +922,50 @@ function postOrderTraverse(tree, array) {
         }
       `,
       pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
+      functionName: 'even_or_odd',
+      javascriptTestFile: `
+      const even_or_odd = require('./even_or_odd.js')
+      const chai = require('chai')
+      let expect = chai.expect;
+      
+      describe('Solution for even_or_odd', () => {
+      
+        let even_or_oddFunc
+        beforeEach(function() {
+          even_or_oddFunc = even_or_odd
+        })
+      
+        it('Test Case 1', function () {
+          let result = even_or_oddFunc(5)
+          expect(result).to.deep.equal('odd');
+        });
+      
+        it('Test Case 2', function () {
+          let result = even_or_oddFunc(6)
+          expect(result).to.deep.equal('even');
+        });
+      
+        it('Test Case 3', function () {
+          let result = even_or_oddFunc(-6)
+          expect(result).to.deep.equal('even');
+        });
+      
+        it('Test Case 4', function () {
+          let result = even_or_oddFunc(99)
+          expect(result).to.deep.equal('odd');
+        });
+      
+        it('Test Case 5', function () {
+          let result = even_or_oddFunc(0)
+          expect(result).to.deep.equal('even');
+        });
+      
+        it('Test Case 6', function() {
+          let result = even_or_oddFunc(33)
+          expect(result).to.deep.equal('odd');
+        })
+      })
+        `,
       pythonTestFile: '',
       jsWalkThrough: [`
       Function: even_or_odd\n

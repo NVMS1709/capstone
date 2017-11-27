@@ -22,45 +22,45 @@ export const getQuestion = question => ({ type: GET_QUESTION, question })
  * THUNK CREATORS
  */
 export const fetchQuestions = () => {
-    return function thunk(dispatch) {
-        axios.get('/api/questions')
-            .then(res => {
-                const questions = res.data
-                dispatch(getQuestions(questions))
-            })
-            .catch(console.err)
-    }
+  return function thunk(dispatch) {
+    axios.get('/api/questions')
+      .then(res => {
+        const questions = res.data
+        dispatch(getQuestions(questions))
+      })
+      .catch(console.err)
+  }
 }
 
 //TODO dispatch to get new questions
 export const postUserAlgorithmQuestion = questionSubmission => {
-    return function thunk(dispatch) {
-        return axios
-            .post('/api/questions', questionSubmission)
-            .then((res) => {
-                return new Promise(resolve => {
-                    resolve(dispatch(getQuestion(res.data)))
-                })
-                    .then(() => {
-                        return res.data
-                    })
-            })
-            .catch(console.err)
-    }
+  return function thunk(dispatch) {
+    return axios
+      .post('/api/questions', questionSubmission)
+      .then((res) => {
+        return new Promise(resolve => {
+          resolve(dispatch(getQuestion(res.data)))
+        })
+          .then(() => {
+            return res.data
+          })
+      })
+      .catch(console.err)
+  }
 }
 
 /**
  * REDUCER
  */
 export default function (state = defaultQuestions, action) {
-    let newState = Object.create([], state)
-    switch (action.type) {
-        case GET_QUESTIONS:
-            newState = action.questions
-            return newState
-        case GET_QUESTION:
-            return [...state, action.question]
-        default:
-            return state
-    }
+  let newState = Object.create([], state)
+  switch (action.type) {
+    case GET_QUESTIONS:
+      newState = action.questions
+      return newState
+    case GET_QUESTION:
+      return [...state, action.question]
+    default:
+      return state
+  }
 }
