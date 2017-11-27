@@ -10,7 +10,13 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const { User, Question, Category, Difficulty } = require('../server/db/models')
+const {
+  User,
+  Question,
+  Category,
+  Difficulty,
+  Forum
+} = require('../server/db/models')
 
 async function seed() {
   await db.sync({ force: true })
@@ -19,11 +25,34 @@ async function seed() {
   // executed until that promise resolves!
 
   const users = await Promise.all([
+<<<<<<< HEAD
+    User.create({ name: 'admin', email: 'admin@email.com', password: '123' }),
+    User.create({ name: 'cody', email: 'cody@email.com', password: '123' }),
+    User.create({ name: 'murphy', email: 'murphy@email.com', password: '123' })
+=======
     User.create({ email: 'cody@email.com', password: '123' }),
     User.create({ email: 'murphy@email.com', password: '123' })
+>>>>>>> master
   ])
 
   console.log(`seeded ${users.length} users`)
+
+  const forums = await Promise.all([
+    Forum.create({
+      title: 'Report Bugs',
+      comment:
+        'Use this thread to submit bugs that you come across while using the Algorithms website.  Reports will be reviewed by the site administator in the order that they are received.',
+      userId: 1
+    }),
+    Forum.create({
+      title: 'Site Design',
+      comment:
+        'Use this thread to submit comments and or suggestions on site design and usability.  Suggestions will be reviewed by the site administator in the order that they are received.',
+      userId: 1
+    })
+  ])
+
+  console.log(`seeded ${forums.length} forums`)
 
   const categories = await Promise.all([
     Category.create({
