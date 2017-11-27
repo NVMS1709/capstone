@@ -5,6 +5,7 @@ import axios from 'axios'
  * ACTION TYPES
  */
 const GET_QUESTIONS = 'GET_QUESTIONS'
+const GET_QUESTION = 'GET_QUESTION'
 
 /**
  * INITIAL STATE
@@ -15,6 +16,7 @@ const defaultQuestions = []
  * ACTION CREATORS
  */
 export const getQuestions = questions => ({ type: GET_QUESTIONS, questions })
+export const getQuestion = question => ({ type: GET_QUESTION, question })
 
 /**
  * THUNK CREATORS
@@ -30,12 +32,18 @@ export const fetchQuestions = () => {
     }
 }
 
+//TODO dispatch to get new questions
 export const postUserAlgorithmQuestion = questionSubmission => {
     return function thunk(dispatch) {
-        axios
+        return axios
             .post('/api/questions', questionSubmission)
-            .then((questionSaved) => {
-                console.log('QUESTION SAVED', questionSaved)
+            .then((res) => {
+                return new Promise(resolve => {
+                    resolve(dispatch(getQuestion(res.data)))
+                })
+                    .then(() => {
+                        return res.data
+                    })
             })
             .catch(console.err)
     }
@@ -50,7 +58,8 @@ export default function (state = defaultQuestions, action) {
         case GET_QUESTIONS:
             newState = action.questions
             return newState
-
+        case GET_QUESTION:
+            return [...state, action.question]
         default:
             return state
     }

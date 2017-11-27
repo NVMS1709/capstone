@@ -6,11 +6,11 @@ import PropTypes from 'prop-types'
 class QuestionBox extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             showQuestions: 0,
             groupBy: 'Group by Category'
         }
+
         this.showQuestions = this.showQuestions.bind(this)
         this.hideQuestions = this.hideQuestions.bind(this)
         this.setGroupBy = this.setGroupBy.bind(this)
@@ -31,7 +31,19 @@ class QuestionBox extends Component {
     }
 
     render() {
-        const { categories, difficulties } = this.props
+
+        let { categories, difficulties } = this.props
+
+        categories = categories.map(category => {
+            category.questions = category.questions.filter(question => question.published)
+            return category
+        })
+
+        difficulties = difficulties.map(difficulty => {
+            difficulty.questions = difficulty.questions.filter(question => question.published)
+            return difficulty
+        })
+
         return (
             <div id="homepage-bottom-container">
                 <div id="sidebar">
