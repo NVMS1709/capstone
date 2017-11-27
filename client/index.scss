@@ -657,6 +657,7 @@ body {
                 border: 1px solid black;
                 animation: fadeInOut 20s forwards;
             }
+
         }
 
         #question-info {
@@ -807,7 +808,7 @@ body {
                 .scroll-viewer {
                     padding: 15px;
                     border: 1px solid black;
-                    height: calc( ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px );
+                    height: calc( ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px);
                     width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
                     overflow: scroll;
                 }
@@ -895,8 +896,6 @@ body {
     display: row;
 
     .posted-chat-container {
-        //height: 280px;
-        // border: 1px solid black;
         line-height: 25px;
         margin-left: 41px;
         margin-right: 41px;
@@ -955,4 +954,166 @@ body {
         margin: 7px;
         border-radius: 0;
     }
+}
+
+.header-forum {
+    margin-top: 11px;
+    margin-bottom: 11px;
+    margin-left: 43px;
+    margin-right: 40px;
+
+    p {
+        margin-left: 17px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .search-forum {
+        background-color: rgb(245, 245, 245);
+        font-weight: bold;
+        border: 1px solid black;
+        width: calc(100vw - 92px);
+        font-size: 13px;
+        height: 30px;
+
+        button {
+            float: right;
+            font-weight: bold;
+            margin-top: 4.5px;
+            margin-bottom: 4px;
+            margin-right: 20px;
+            border-radius: 0;
+        }
+
+        p {
+            float: left;
+        }
+    }
+
+    .filter-search {
+        display: flex;
+        justify-content: center;
+        margin: 17px;
+
+        .search-color {
+            color: rgb(157, 157, 157);
+        }
+    }
+}
+
+.forum-main {
+    margin-top: 19px;
+    margin-bottom: 19px;
+    margin-left: 40px;
+    margin-right: 40px;
+    display: flex;
+    width: calc(100vw - 90px);
+    height: 55px;
+
+    .forum-link {
+        display: block;
+        color: black;
+        margin-left: 18px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+
+    .forum-link:hover {
+        display: block;
+        color: rgb(89, 89, 157);
+        margin-left: 18px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+
+    p {
+        margin-left: 18px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+
+    .forum-main-item-title {
+        background-color: rgb(245, 245, 245);
+        font-weight: bold;
+        border: 1px solid black;
+        justify-content: left;
+        width: calc(100vw - 90px);
+        font-size: 16px;
+        margin-left: 5px;
+        height: 57px;
+        margin-bottom: 15px;
+
+        .forum-main-item-details {
+            background-color: white;
+            font-weight: lighter;
+            border: 1px solid black;
+            justify-content: left;
+            width: calc(90vw - 30px);
+            font-size: 13px;
+            margin-left: 14px;
+            margin-right: 10%;
+        }
+    }
+}
+
+.comments-top-box {
+    background-color: rgb(245, 245, 245);
+    font-weight: bold;
+    border: 1px solid black;
+    width: calc(100vw - 90px);
+    font-size: 16px;
+    margin-left: 47px;
+    height: 25px;
+    margin-bottom: 15px;
+    margin-top: 76px;
+
+    h3 {
+        margin: 0px;
+        justify-content: center;
+        display: flex;
+    }
+
+    button {
+        margin: 0px;
+        justify-content: center;
+        border-radius: 0;
+    }
+}
+
+.comments-user-box {
+    background-color: rgb(245, 245, 245);
+    font-weight: bold;
+    border: 1px solid black;
+    width: calc(100vw - 90px);
+    font-size: 16px;
+    margin-left: 47px;
+    height: 25px;
+    margin-bottom: 15px;
+    margin-top: 14px;
+
+    .forum-comments-user {
+        font-size: 13px;
+        font-weight: normal;
+        margin-top: 4px;
+        justify-content: center;
+        display: flex;
+    }
+}
+
+.comments-comment-box {
+    width: calc(100vw - 90px);
+    font-size: 13px;
+    margin-left: 47px;
+    font-weight: normal;
+    margin-top: 2px;
+    display: flex;
+}
+
+.delete-topic-button {
+    font-size: 9px;
+    margin-left: 47px;
+    font-weight: normal;
+    margin-top: 2px;
+    display: flex;
+    border-radius: none;
 }
