@@ -2,7 +2,7 @@ const router = require('express').Router()
 const fs = require('fs')
 const path = require('path')
 const { exec } = require('child_process')
-const { getTestCaseOutcomes } = require('./algorithm-execution-util')
+const { getTestCaseOutcomes, wrapTestfile } = require('./algorithm-execution-util')
 const tmp = require('tmp')
 
 module.exports = router
@@ -10,6 +10,13 @@ router.post('/javascript', (req, res, next) => {
   req.body.algorithmContent =
     req.body.algorithmContent +
     `\n module.exports = ${req.body.question.functionName}`
+
+  let wrappedTestFile = wrapTestfile(
+    req.body.question.javascriptTestFile,
+    req.body.question.functionName
+  )
+
+  console.log("WRAPPED", wrappedTestFile)
 
   const createAlgorithmTestTempDirectory = () =>
     new Promise((resolve, reject) => {
@@ -82,7 +89,7 @@ router.post('/javascript', (req, res, next) => {
         await algorithmTestFile
       ]
 
-    })(req.body.algorithmContent, req.body.question.javascriptTestFile)
+    })(req.body.algorithmContent, wrappedTestFile)
       .then(([algorithmTestTempDirectory, cleanupCB]) => {
         exec(
           `npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(

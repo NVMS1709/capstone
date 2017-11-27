@@ -25,9 +25,14 @@ async function seed() {
   // executed until that promise resolves!
 
   const users = await Promise.all([
+<<<<<<< HEAD
     User.create({ name: 'admin', email: 'admin@email.com', password: '123' }),
     User.create({ name: 'cody', email: 'cody@email.com', password: '123' }),
     User.create({ name: 'murphy', email: 'murphy@email.com', password: '123' })
+=======
+    User.create({ email: 'cody@email.com', password: '123' }),
+    User.create({ email: 'murphy@email.com', password: '123' })
+>>>>>>> master
   ])
 
   console.log(`seeded ${users.length} users`)
@@ -99,6 +104,10 @@ async function seed() {
       name: 'Strings',
       description:
         'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+    }),
+    Category.create({
+      name: 'Puzzle',
+      description: 'Mind teasing questions'
     })
   ])
 
@@ -311,19 +320,7 @@ function inOrderTraverse(tree, array) {
   return array;
 }
 
-describe('BST', function () {
-
-  let testCaseOutcomes = [];
-
-  afterEach(function(){
-    testCaseOutcomes.push({title: this.currentTest.title, outcome: this.currentTest.state});
-  });
-
-  after(function(){
-    console.log("*****Eventually the testCaseOutcomes", JSON.stringify(testCaseOutcomes), "*****End the testCaseOutcomes")
-  })
-
-   it('Test Case #1', function () {
+  it('Test Case #1', function () {
     expect(test1.left.value).to.deep.equal(5);
   });
 
@@ -394,8 +391,6 @@ describe('BST', function () {
   it('Test Case #18', function () {
     expect(test4.right.right.left.value).to.deep.equal(16);
   });
-
-});
       `,
       pythonTestFile: `
 import program
@@ -927,6 +922,96 @@ function postOrderTraverse(tree, array) {
       pythonTestFile: '',
       categoryId: 8,
       difficultyId: 3
+    }),
+    Question.create({
+      name: 'even_or_odd',
+      published: true,
+      description: 'Create a function that takes an integer as an argument and returns \'even\' for even numbers, or \'odd\' for odd numbers.',
+      javascriptSolution: `
+        function even_or_odd(number) {
+          if (number % 2 === 0) {
+            return 'even'
+          } else {
+            return 'odd'
+          }
+        }
+      `,
+      pythonSolution: '',
+      functionName: 'even_or_odd',
+      javascriptTestFile: `
+      const chai = require('chai')
+      let expect = chai.expect;
+      
+      describe('Solution for even_or_odd', () => {
+      
+        let even_or_oddFunc
+        beforeEach(function() {
+          even_or_oddFunc = even_or_odd
+        })
+      
+        it('Test Case 1', function () {
+          let result = even_or_oddFunc(5)
+          expect(result).to.deep.equal('odd');
+        });
+      
+        it('Test Case 2', function () {
+          let result = even_or_oddFunc(6)
+          expect(result).to.deep.equal('even');
+        });
+      
+        it('Test Case 3', function () {
+          let result = even_or_oddFunc(-6)
+          expect(result).to.deep.equal('even');
+        });
+      
+        it('Test Case 4', function () {
+          let result = even_or_oddFunc(99)
+          expect(result).to.deep.equal('odd');
+        });
+      
+        it('Test Case 5', function () {
+          let result = even_or_oddFunc(0)
+          expect(result).to.deep.equal('even');
+        });
+      
+        it('Test Case 6', function() {
+          let result = even_or_oddFunc(33)
+          expect(result).to.deep.equal('odd');
+        })
+      })
+        `,
+      pythonTestFile: '',
+      jsWalkThrough: [`
+      Function: even_or_odd\n
+
+      Step One: Create a function named "even_or_odd" that takes an a variable called number.
+      `, `
+      Step Two: Create an if statement that will return 'even' if the number is an even number.
+      Hint: To determine if a number is even or odd, user the '%' (modulus) operator. 
+      `, `
+      Step Three: Now that your if statement is setup, you must return 'odd' if your if statement is odd.
+      Hint: You can use the else {} statement after an if {} block. This tells your program to execute the code inside of the else {} block if the if {} block does not pass the conditional.`],
+      jsSolutionWT: [`
+      function even_or_odd(number) {
+        // Your logic goes here...
+      }
+      `, `
+      function even_or_odd(number) {
+        if (number % 2 === 0) {
+          return 'even'
+        }
+      }
+      `, `
+      function even_or_odd(number) {
+        if (number % 2 === 0) {
+          return 'even'
+        } else {
+          return 'odd'
+        }
+      }
+      `],
+      categoryId: 8,
+      difficultyId: 1
     })
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
