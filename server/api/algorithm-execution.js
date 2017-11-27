@@ -5,8 +5,6 @@ const { exec } = require('child_process')
 const { getTestCaseOutcomes } = require('./algorithm-execution-util')
 const tmp = require('tmp')
 
-// todo: sanitize the code input
-
 module.exports = router
 router.post('/javascript', (req, res, next) => {
   req.body.algorithmContent =

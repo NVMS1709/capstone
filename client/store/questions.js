@@ -30,6 +30,17 @@ export const fetchQuestions = () => {
     }
 }
 
+export const postUserAlgorithmQuestion = questionSubmission => {
+    return function thunk(dispatch) {
+        axios
+            .post('/api/questions', questionSubmission)
+            .then((questionSaved) => {
+                console.log('QUESTION SAVED', questionSaved)
+            })
+            .catch(console.err)
+    }
+}
+
 /**
  * REDUCER
  */
