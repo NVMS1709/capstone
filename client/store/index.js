@@ -13,6 +13,8 @@ import testCustomResult from './testCustomResult'
 import validationResult from './validationResult'
 import validationCustomResult from './validationCustomResult'
 import comments from './comments'
+import forum from './forum'
+import forumComments from './forumComments'
 
 const reducer = combineReducers({
   user,
@@ -25,7 +27,9 @@ const reducer = combineReducers({
   algorithmValidationInput,
   validationResult,
   validationCustomResult,
-  comments
+  comments,
+  forum,
+  forumComments
 })
 
 const middleware = composeWithDevTools(
@@ -46,3 +50,5 @@ export * from './algorithm-validation-input'
 export * from './validationResult'
 export * from './validationCustomResult'
 export * from './comments'
+export * from './forum'
+export * from './forumComments'

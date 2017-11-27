@@ -3,6 +3,8 @@ const User = require('./user')
 const Category = require('./category')
 const Difficulty = require('./difficulty')
 const Comment = require('./comment')
+const Forum = require('./forum')
+const ForumComment = require('./forumComment')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -10,6 +12,16 @@ const Comment = require('./comment')
  *
  *    BlogPost.belongsTo(User)
  */
+
+ForumComment.belongsTo(Forum)
+Forum.hasMany(ForumComment)
+
+ForumComment.belongsTo(User)
+User.hasMany(ForumComment)
+
+Forum.belongsTo(User)
+User.hasMany(Forum)
+
 Category.hasMany(Question)
 Question.belongsTo(Category)
 
@@ -36,5 +48,7 @@ module.exports = {
   User,
   Category,
   Difficulty,
-  Comment
+  Comment,
+  Forum,
+  ForumComment
 }

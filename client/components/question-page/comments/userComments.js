@@ -75,15 +75,16 @@ class Comments extends Component {
     return (
       <div className="question-chat">
         <div className="post-chat-container">
-          <p style={{ fontSize: '18px' }}>Comments:</p>
+          <p style={{ fontSize: '18px' }}>Discussion:</p>
           <form onSubmit={this.onSubmit}>
             <textarea
-              rows="3"
+              rows="2"
+              style={{ borderStyle: 'none none solid none' }}
               name="comment"
               value={this.state.newComment}
               onChange={this.onChange}
             />
-            <button type="submit">Submit New Comment</button>
+            <button type="submit">Submit</button>
           </form>
         </div>
         <div className="posted-chat-container">

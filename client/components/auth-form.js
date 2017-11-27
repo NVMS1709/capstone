@@ -54,12 +54,12 @@ class AuthForm extends Component {
               </div>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <a href="/auth/github">
-                  <img src="github.png" style={{ height: 35 }} />
+                  <img src="/github.png" style={{ height: 35 }} />
                 </a>
               </div>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <a href="/auth/google">
-                  <img src="google.png" style={{ height: 35.75 }} />
+                  <img src="/google.png" style={{ height: 35.75 }} />
                 </a>
               </div>
               <div className="not-user-sign-up">
