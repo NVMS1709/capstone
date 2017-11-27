@@ -15,6 +15,13 @@ import AuthForm from './auth-form'
 class Main extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      loading: false
+    }
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ loading: true }), 500)
   }
 
   render() {
@@ -25,23 +32,29 @@ class Main extends Component {
           {user.id ? (
             ''
           ) : (
-            <Modal>
-              <AuthForm />
-            </Modal>
+            <div>
+              {this.state.loading ? (
+                <Modal>
+                  <AuthForm />
+                </Modal>
+              ) : (
+                ''
+              )}
+            </div>
           )}
         </div>
         <nav>
           {
             <div className="navbar">
               <div className="navbar-left">
-                <NavLink to="/about" className="link">
-                  <span className="small-head">About</span>
-                </NavLink>
                 <NavLink to="/home" className="link">
                   <span className="small-head">Questions</span>
                 </NavLink>
                 <NavLink to="/payment" className="link">
                   <span className="small-head">Payment</span>
+                </NavLink>
+                <NavLink to="/forum" className="link">
+                  <span className="small-head">Forum</span>
                 </NavLink>
               </div>
               <div className="navbar-central">

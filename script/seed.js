@@ -291,19 +291,7 @@ function inOrderTraverse(tree, array) {
   return array;
 }
 
-describe('BST', function () {
-
-  let testCaseOutcomes = [];
-
-  afterEach(function(){
-    testCaseOutcomes.push({title: this.currentTest.title, outcome: this.currentTest.state});
-  });
-
-  after(function(){
-    console.log("*****Eventually the testCaseOutcomes", JSON.stringify(testCaseOutcomes), "*****End the testCaseOutcomes")
-  })
-
-   it('Test Case #1', function () {
+  it('Test Case #1', function () {
     expect(test1.left.value).to.deep.equal(5);
   });
 
@@ -374,8 +362,6 @@ describe('BST', function () {
   it('Test Case #18', function () {
     expect(test4.right.right.left.value).to.deep.equal(16);
   });
-
-});
       `,
       pythonTestFile: `
 import program
@@ -924,7 +910,6 @@ function postOrderTraverse(tree, array) {
       pythonSolution: '',
       functionName: 'even_or_odd',
       javascriptTestFile: `
-      const even_or_odd = require('./even_or_odd.js')
       const chai = require('chai')
       let expect = chai.expect;
       

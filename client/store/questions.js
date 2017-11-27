@@ -6,6 +6,7 @@ import axios from 'axios'
  */
 const GET_QUESTIONS = 'GET_QUESTIONS'
 const GET_QUESTION = 'GET_QUESTION'
+const REMOVE_QUESTION = 'REMOVE_QUESTION'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultQuestions = []
  */
 export const getQuestions = questions => ({ type: GET_QUESTIONS, questions })
 export const getQuestion = question => ({ type: GET_QUESTION, question })
+export const removeQuestion = questionId => ({ type: REMOVE_QUESTION, questionId })
 
 /**
  * THUNK CREATORS
@@ -28,7 +30,9 @@ export const fetchQuestions = () => {
         const questions = res.data
         dispatch(getQuestions(questions))
       })
-      .catch(console.err)
+      .catch((error) => {
+        console.error(error)
+      })
   }
 }
 
@@ -45,7 +49,29 @@ export const postUserAlgorithmQuestion = questionSubmission => {
             return res.data
           })
       })
-      .catch(console.err)
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+}
+
+export const deleteUserAlgorithmQuestion = question => {
+  return function thunk(dispatch) {
+    return axios.delete(`/api/questions/${question.id}`)
+      .then(res => res.data)
+      .then((message) => {
+        if (message === 'DELETE SUCCESS') {
+          return new Promise(resolve => {
+            resolve(dispatch(removeQuestion(question.id)))
+          })
+            .then(() => {
+              return
+            })
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 }
 
@@ -60,6 +86,11 @@ export default function (state = defaultQuestions, action) {
       return newState
     case GET_QUESTION:
       return [...state, action.question]
+    case REMOVE_QUESTION:
+      let index = state.indexOf(state.find(question => +action.questionId === +question.id))
+      let firstPart = state.slice(0, index)
+      let secondPart = state.slice(index + 1)
+      return firstPart.concat(secondPart)
     default:
       return state
   }

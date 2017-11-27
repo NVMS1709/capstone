@@ -2,7 +2,7 @@ const router = require('express').Router()
 const fs = require('fs')
 const path = require('path')
 const { exec } = require('child_process')
-const { getTestCaseOutcomes } = require('./algorithm-execution-util')
+const { getTestCaseOutcomes, wrapTestfile } = require('./algorithm-execution-util')
 const tmp = require('tmp')
 
 module.exports = router
@@ -10,6 +10,13 @@ router.post('/javascript', (req, res, next) => {
   req.body.algorithmContent =
     req.body.algorithmContent +
     `\n module.exports = ${req.body.question.functionName}`
+
+  let wrappedTestFile = wrapTestfile(
+    req.body.question.javascriptTestFile,
+    req.body.question.functionName
+  )
+
+  console.log("WRAPPED", wrappedTestFile)
 
   const createAlgorithmTestTempDirectory = () =>
     new Promise((resolve, reject) => {
@@ -42,7 +49,7 @@ router.post('/javascript', (req, res, next) => {
           resolve()
         }
       )
-    });
+    })
 
   const createAlgorithmTestFile = (algorithmTest, tempDirectory) =>
     new Promise((resolve, reject) => {
@@ -57,91 +64,82 @@ router.post('/javascript', (req, res, next) => {
           resolve()
         }
       )
-    });
+    })
 
-  (async function (algorithmInput, algorithmTest) {
-    const [
-      algorithmTestTempDirectory,
-      cleanupCB
-    ] = await createAlgorithmTestTempDirectory()
-    const algorithmTestFile = createAlgorithmTestFile(
-      algorithmTest,
-      algorithmTestTempDirectory
-    )
-    const algorithmInputFile = createAlgorithmInputFile(
-      algorithmInput,
-      algorithmTestTempDirectory
-    )
-    return [
-      algorithmTestTempDirectory,
-      cleanupCB,
-      await algorithmInputFile,
-      await algorithmTestFile
-    ]
-  })(
-    req.body.algorithmContent,
-    req.body.question.javascriptTestFile
-    )
-    .then(([
-      algorithmTestTempDirectory,
-      cleanupCB
-    ]) => {
-      exec(
-        `npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(
-          algorithmTestTempDirectory.lastIndexOf('/')
-        )}/algorithm-test.js`,
-        { timeout: 5000 },
-        (err, stdout, stderr) => {
+    ; (async function (algorithmInput, algorithmTest) {
+      const [
+        algorithmTestTempDirectory,
+        cleanupCB
+      ] = await createAlgorithmTestTempDirectory()
 
-          try {
+      const algorithmTestFile = createAlgorithmTestFile(
+        algorithmTest,
+        algorithmTestTempDirectory
+      )
 
-            if (err) {
+      const algorithmInputFile = createAlgorithmInputFile(
+        algorithmInput,
+        algorithmTestTempDirectory
+      )
+
+      return [
+        algorithmTestTempDirectory,
+        cleanupCB,
+        await algorithmInputFile,
+        await algorithmTestFile
+      ]
+
+    })(req.body.algorithmContent, wrappedTestFile)
+      .then(([algorithmTestTempDirectory, cleanupCB]) => {
+        exec(
+          `npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(
+            algorithmTestTempDirectory.lastIndexOf('/')
+          )}/algorithm-test.js`,
+          { timeout: 5000 },
+          (err, stdout, stderr) => {
+
+            try {
+
+              const { testCasesStr, revisedStdoutStr } = getTestCaseOutcomes(
+                stdout
+              )
+
+              console.log("TESTCASESSTR", testCasesStr)
+
+              const testCasesArr = JSON.parse(testCasesStr.trim())
+
+              console.log("TESTCASESARRAY", testCasesArr)
+
+              if (err) {
+                console.error('EXECUTION ERROR______________________', err)
+              }
+
               cleanupCB()
-              console.log('ERROR WITH EXEC______________________-', err)
-              res.send({ rawOutput: err.message })
-              return
-              // next(err) CANNOT USE next(err)
-            }
 
-            cleanupCB()
+              let results
 
-            const {
-              testCasesStr,
-              revisedStdoutStr
-              } = getTestCaseOutcomes(stdout)
 
-            const testCasesArr = JSON.parse(testCasesStr.trim())
-
-            let results
-
-            if (req.session.passport
-              && req.session.passport.user
-              && testCasesArr
-              && !testCasesArr.find(testCase => testCase.outcome === 'failed')) {
               results = {
                 testCasesArr,
                 rawOutput: '/n' + stderr + '\n' + revisedStdoutStr,
                 userId: req.session.passport.user,
                 questionsSolved: req.body.questionsSolved
               }
-            } else {
-              results = {
-                testCasesArr,
-                rawOutput: stderr + '\n' + revisedStdoutStr
-              }
+
+
+              res.send(results)
+
+            } catch (error) {
+              cleanupCB()
+              console.log('CAUGHT THE ERROR____________________')
+              next(error)
             }
-            res.send(results)
-          } catch (error) {
-            cleanupCB()
-            console.log('CAUGHT THE ERROR____________________')
-            next(error)
           }
-        }
-      )
-    })
-    .catch(error => {
-      console.error(error)
-    })
+        )
+      })
+      .catch(error => {
+        console.error(error)
+      })
 })
 
 router.post('/python', (req, res, next) => {
@@ -192,7 +190,6 @@ router.post('/python', (req, res, next) => {
         }
       )
     })
-
     ; (async function (algorithmInput, algorithmTest) {
       const [
         algorithmTestTempDirectory,
