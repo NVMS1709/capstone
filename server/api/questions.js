@@ -78,3 +78,15 @@ router.post('/', (req, res, next) => {
     })
   }
 })
+
+router.delete('/:questionId', (req, res, next) => {
+  Question.findById(req.params.questionId)
+    .then(questionFound => {
+      return questionFound.destroy()
+    })
+    .then(() => {
+      res.json('DELETE SUCCESS')
+    })
+    .catch(next)
+})
+

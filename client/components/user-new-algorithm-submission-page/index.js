@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { postAlgorithmValidationInput, postUserAlgorithmQuestion } from '../../store'
+import { postAlgorithmValidationInput, postUserAlgorithmQuestion, deleteUserAlgorithmQuestion } from '../../store'
 import { connect } from 'react-redux'
 import AceEditor from 'react-ace'
 import 'brace/mode/python'
@@ -29,9 +29,13 @@ class UserAlgorithmSubmissionPage extends Component {
             colorValidationButton: false,
             colorSaveButton: false,
             colorPublishButton: false,
+            colorResetButton: false,
+            colorDeleteButton: false,
             needDescription: false,
             needUniqueAlgorithmName: false,
-            setInitialState: true
+            setInitialState: true,
+            processingInfo: '',
+            makeSure: ''
         }
 
         this.setAlgorithmName = this.setAlgorithmName.bind(this)
@@ -44,6 +48,9 @@ class UserAlgorithmSubmissionPage extends Component {
         this.onValidate = this.onValidate.bind(this)
         this.onSave = this.onSave.bind(this)
         this.onPublish = this.onPublish.bind(this)
+        this.onReset = this.onReset.bind(this)
+        this.onDelete = this.onDelete.bind(this)
+        this.confirmOrCancel = this.confirmOrCancel.bind(this)
         this.handleOutputMode = this.handleOutputMode.bind(this)
         this.setAlgorithmFunctionName = this.setAlgorithmFunctionName.bind(this)
         this.setInitialStateOnSubmissionPage = this.setInitialStateOnSubmissionPage.bind(this)
@@ -185,6 +192,7 @@ class UserAlgorithmSubmissionPage extends Component {
         if (this.state.algorithmName && !this.state.needUniqueAlgorithmName) {
 
             this.setState({ colorSaveButton: true })
+            this.setState({ processingInfo: 'Saving...' })
 
             setTimeout(() => {
                 this.setState({ colorSaveButton: false })
@@ -207,29 +215,46 @@ class UserAlgorithmSubmissionPage extends Component {
                         existingId: this.props.currentQuestion && this.props.currentQuestion.id
                     })
                 )
-            })).then(updatedQuestion => {
-                if (updatedQuestion) {
+            }))
+                .then(updatedQuestion => {
+                    if (updatedQuestion) {
 
-                    this.setState({ processingInfo: 'SAVED' })
+                        setTimeout(() => {
+                            (new Promise(resolve => {
+                                resolve(this.setState({ processingInfo: 'SAVED' }))
+                            }))
+                                .then(() => {
+                                    setTimeout(() => {
+                                        this.setState({ processingInfo: '' })
+                                    }, 2000)
+                                })
+                        }, 1000)
 
-                    setTimeout(() => {
-                        this.setState({ processingInfo: '' })
-                    }, 4000)
-
-                } else {
-                    this.setState({ processingInfo: 'FAILED TO SAVE' })
-
-                    setTimeout(() => {
-                        this.setState({ processingInfo: '' })
-                    }, 4000)
-                }
-            })
+                    } else {
+                        setTimeout(() => {
+                            (new Promise(resolve => {
+                                resolve(this.setState({ processingInfo: 'FAILED TO SAVE' }))
+                            }))
+                                .then(() => {
+                                    setTimeout(() => {
+                                        this.setState({ processingInfo: '' })
+                                    }, 2000)
+                                })
+                        }, 1000)
+                    }
+                })
                 .catch(error => {
-                    this.setState({ processingInfo: 'FAILED TO SAVE' })
 
                     setTimeout(() => {
-                        this.setState({ processingInfo: '' })
-                    }, 4000)
+                        (new Promise(resolve => {
+                            resolve(this.setState({ processingInfo: 'FAILED TO SAVE' }))
+                        }))
+                            .then(() => {
+                                setTimeout(() => {
+                                    this.setState({ processingInfo: '' })
+                                }, 2000)
+                            })
+                    }, 1000)
 
                     console.error(error)
                 })
@@ -251,6 +276,7 @@ class UserAlgorithmSubmissionPage extends Component {
             && this.state.localDescriptionInput.length > 1000) {
 
             this.setState({ colorValidationButton: true })
+            this.setState({ processingInfo: 'validating...' })
 
             setTimeout(() => {
                 this.setState({ colorValidationButton: false })
@@ -276,63 +302,101 @@ class UserAlgorithmSubmissionPage extends Component {
 
                 if (!testCasesArr.find(testCase => testCase.outcome === 'failed')) {
 
-                    console.log('CAN PUBLISH');
+                    this.setState({ processingInfo: 'validated' });
 
                     (new Promise(resolve => {
-                        resolve(this.props.toPostUserAlgorithmQuestion({
-                            name: this.state.algorithmName,
-                            javascriptSolution: this.state.localJavascriptAlgorithmInput,
-                            functionName: this.state.algorithmFunctionName,
-                            javascriptTestFile: this.state.localJavascriptTestInput,
-                            description: this.state.localDescriptionInput,
-                            difficulty: this.state.algorithmDifficulty,
-                            category: this.state.algorithmCategory,
-                            published: true,
-                            userId: this.props.user.id,
-                            pythonTestFile: this.state.localPythonTestInput,
-                            pythonSolution: this.state.localPythonAlgorithmInput,
-                            existingId: this.props.currentQuestion && this.props.currentQuestion.id
-                        }))
+                        setTimeout(() => {
+                            resolve(this.setState({ processingInfo: 'publishing...' }))
+                        }, 1000)
                     }))
-                        .then(updatedQuestion => {
-                            if (updatedQuestion) {
+                        .then(() => {
+                            (new Promise(resolve => {
+                                resolve(this.props.toPostUserAlgorithmQuestion({
+                                    name: this.state.algorithmName,
+                                    javascriptSolution: this.state.localJavascriptAlgorithmInput,
+                                    functionName: this.state.algorithmFunctionName,
+                                    javascriptTestFile: this.state.localJavascriptTestInput,
+                                    description: this.state.localDescriptionInput,
+                                    difficulty: this.state.algorithmDifficulty,
+                                    category: this.state.algorithmCategory,
+                                    published: true,
+                                    userId: this.props.user.id,
+                                    pythonTestFile: this.state.localPythonTestInput,
+                                    pythonSolution: this.state.localPythonAlgorithmInput,
+                                    existingId: this.props.currentQuestion && this.props.currentQuestion.id
+                                }))
+                            }))
+                                .then(updatedQuestion => {
+                                    if (updatedQuestion) {
 
-                                this.setState({ processingInfo: 'PUBLISHED' })
+                                        setTimeout(() => {
+                                            (new Promise(resolve => {
+                                                resolve(this.setState({ processingInfo: 'PUBLISHED' }))
+                                            }))
+                                                .then(() => {
+                                                    setTimeout(() => {
+                                                        this.setState({ processingInfo: '' })
+                                                    }, 2000)
+                                                })
+                                        }, 1000)
 
-                                setTimeout(() => {
-                                    this.setState({ processingInfo: '' })
-                                }, 4000)
+                                    } else {
+                                        setTimeout(() => {
+                                            (new Promise(resolve => {
+                                                resolve(this.setState({ processingInfo: 'FAILED TO PUBLISH' }))
+                                            }))
+                                                .then(() => {
+                                                    setTimeout(() => {
+                                                        this.setState({ processingInfo: '' })
+                                                    }, 2000)
+                                                })
+                                        }, 1000)
+                                    }
+                                })
+                                .catch(error => {
+                                    setTimeout(() => {
+                                        (new Promise(resolve => {
+                                            resolve(this.setState({ processingInfo: 'FAILED TO PUBLISH' }))
+                                        }))
+                                            .then(() => {
+                                                setTimeout(() => {
+                                                    this.setState({ processingInfo: '' })
+                                                }, 2000)
+                                            })
+                                    }, 1000)
 
-                            } else {
-                                this.setState({ processingInfo: 'FAILED TO PUBLISH' })
-
-                                setTimeout(() => {
-                                    this.setState({ processingInfo: '' })
-                                }, 4000)
-                            }
-                        })
-                        .catch(error => {
-                            this.setState({ processingInfo: 'FAILED TO PUBLISH' })
-
-                            setTimeout(() => {
-                                this.setState({ processingInfo: '' })
-                            }, 4000)
-
-                            console.error(error)
+                                    console.error(error)
+                                })
                         })
 
                 } else {
-                    this.setState({ processingInfo: 'FAILED TO PUBLISH' })
 
                     setTimeout(() => {
-                        this.setState({ processingInfo: '' })
-                    }, 4000)
+                        (new Promise(resolve => {
+                            resolve(this.setState({ processingInfo: 'FAILED TO VALIDATE' }))
+                        }))
+                            .then(() => {
+                                setTimeout(() => {
+                                    this.setState({ processingInfo: '' })
+                                }, 2000)
+                            })
+                    }, 1000)
 
-                    console.log('CANNOT PUBLISH')
                 }
             })
                 .catch(error => {
-                    console.log('CANNOT PUBLISH')
+
+                    setTimeout(() => {
+                        (new Promise(resolve => {
+                            resolve(this.setState({ processingInfo: 'FAILED TO VALIDATE' }))
+                        }))
+                            .then(() => {
+                                setTimeout(() => {
+                                    this.setState({ processingInfo: '' })
+                                }, 2000)
+                            })
+                    }, 1000)
+
                     console.error(error)
                 });
 
@@ -354,6 +418,141 @@ class UserAlgorithmSubmissionPage extends Component {
         }
     }
 
+    onReset(event) {
+        event.preventDefault()
+
+        this.setState({ colorResetButton: true })
+
+        setTimeout(() => {
+            this.setState({ colorResetButton: false })
+        }, 50)
+
+        this.setState({ makeSure: 'Are you sure to reset?' })
+
+        setTimeout(() => {
+            this.setState({ makeSure: '' })
+        }, 20000)
+
+    }
+
+    onDelete(event) {
+        event.preventDefault()
+
+        this.setState({ colorDeleteButton: true })
+
+        setTimeout(() => {
+            this.setState({ colorDeleteButton: false })
+        }, 50)
+
+        this.setState({ makeSure: 'Are you sure to delete?' })
+
+        setTimeout(() => {
+            this.setState({ makeSure: '' })
+        }, 20000)
+
+    }
+
+    confirmOrCancel(event) {
+
+        if (
+            event.target.value === 'Are you sure to reset?'
+            && event.target.textContent === 'Confirm'
+        ) {
+
+
+            (new Promise(resolve => {
+                resolve(this.setState({ processingInfo: 'resetting' }))
+            }))
+                .then(() => {
+                    return new Promise(resolve => {
+                        resolve(
+                            this.props.toPostUserAlgorithmQuestion({
+                                name: this.state.algorithmName,
+                                javascriptSolution: '',
+                                functionName: '',
+                                javascriptTestFile: '',
+                                description: '',
+                                difficulty: 'easy',
+                                category: 'Arrays',
+                                published: false,
+                                userId: this.props.user.id,
+                                pythonTestFile: '',
+                                pythonSolution: '',
+                                existingId: this.props.currentQuestion && this.props.currentQuestion.id
+                            })
+                        )
+                    })
+                })
+                .then(() => {
+                    (new Promise(resolve => {
+                        setTimeout(() => {
+                            resolve(this.setState({ processingInfo: 'SAVED' }))
+                        }, 1000)
+                    }))
+                        .then(() => {
+                            setTimeout(() => {
+                                this.setState({ processingInfo: '' })
+                            }, 2000)
+                        })
+                })
+                .catch((error) => {
+                    (new Promise(resolve => {
+                        setTimeout(() => {
+                            resolve(this.setState({ processingInfo: 'FAILED TO SAVE' }))
+                        }, 1000)
+                    }))
+                        .then(() => {
+                            setTimeout(() => {
+                                this.setState({ processingInfo: '' })
+                            }, 2000)
+                        })
+                    console.error(error)
+                })
+        }
+
+        if (event.target.value === 'Are you sure to delete?' && event.target.textContent === 'Confirm') {
+            (new Promise(resolve => {
+                resolve(this.setState({ processingInfo: 'deleting...' }))
+            }))
+                .then(() => {
+                    return new Promise(resolve => {
+                        resolve(
+                            this.props.toDeleteUserAlgorithmQuestion(this.props.currentQuestion)
+                        )
+                    })
+                })
+                .then(() => {
+
+                    //NEED TO REDIRECT TO user-submission with the message "DELETED", currently redirect to UNAUTHORIZED
+                    (new Promise(resolve => {
+                        setTimeout(() => {
+                            resolve(this.setState({ processingInfo: 'DELETED' }))
+                        }, 1000)
+                    }))
+                        .then(() => {
+                            setTimeout(() => {
+                                this.setState({ processingInfo: '' })
+                            }, 2000)
+                        })
+                })
+                .catch((error) => {
+                    (new Promise(resolve => {
+                        setTimeout(() => {
+                            resolve(this.setState({ processingInfo: 'FAILED TO DELETE' }))
+                        }, 1000)
+                    }))
+                        .then(() => {
+                            setTimeout(() => {
+                                this.setState({ processingInfo: '' })
+                            }, 2000)
+                        })
+                    console.error(error)
+                })
+        }
+
+        this.setState({ makeSure: '' })
+    }
+
     setInitialStateOnSubmissionPage() {
         this.setState({
             algorithmName: this.props.currentQuestion.name,
@@ -369,10 +568,18 @@ class UserAlgorithmSubmissionPage extends Component {
         })
     }
 
-    /* eslint-disable complexity */
+    /* eslint-disable complexity*/
+    /* eslint-disable no-nested-ternary*/
     render() {
 
-        const { difficulties, categories, validationCustomResult, validationResult, user, currentQuestion } = this.props
+        const {
+            difficulties,
+            categories,
+            validationCustomResult,
+            validationResult,
+            user,
+            currentQuestion
+        } = this.props
 
         const SubmissionPage = (
             <div id="submission-page" >
@@ -386,7 +593,15 @@ class UserAlgorithmSubmissionPage extends Component {
                             {}}>
                         Save
                     </button>
-                    <button>Reset</button>
+                    <button
+                        onClick={this.onReset}
+                        style={this.state.colorResetButton
+                            ?
+                            { backgroundColor: 'grey' }
+                            :
+                            {}}>
+                        Reset
+                    </button>
                     <button
                         onClick={this.onPublish}
                         style={this.state.colorPublishButton
@@ -396,27 +611,52 @@ class UserAlgorithmSubmissionPage extends Component {
                             {}}>
                         Publish
                     </button>
-                    <button>Delete</button>
+                    <button
+                        onClick={this.onDelete}
+                        style={this.state.colorDeleteButton
+                            ?
+                            { backgroundColor: 'grey' }
+                            :
+                            {}}>
+                        Delete
+                    </button>
                     {this.state.processingInfo
                         ?
-                        <button
+                        <button //not a real button, use button for easier CSS
                             id="processing-info"
                             style={this.state.processingInfo.includes('FAILED')
                                 ?
                                 {
-                                    backgroundColor: 'red',
-                                    border: '1px solid red'
+                                    color: 'red'
                                 }
                                 :
-                                {
-                                    backgroundColor: 'green',
-                                    border: '1px solid green'
-
-                                }}>
+                                this.state.processingInfo.includes('ing')
+                                    ?
+                                    {
+                                        color: 'black'
+                                    }
+                                    :
+                                    {
+                                        color: 'green'
+                                    }}>
                             {this.state.processingInfo}
                         </button>
                         :
-                        ''}
+                        ''
+                    }
+                    {this.state.makeSure
+                        ?
+                        <div>
+                            <button //not a real button, use button for easier CSS
+                                id="makesure">
+                                {this.state.makeSure}
+                            </button>
+                            <button className="confirm-cancel" onClick={this.confirmOrCancel} value={this.state.makeSure}>Confirm</button>
+                            <button className="confirm-cancel" onClick={this.confirmOrCancel} value={this.state.makeSure}>Cancel</button>
+                        </div>
+                        :
+                        ''
+                    }
                 </div>
                 <div id="question-info">
                     <div id="submission-info-form-container">
@@ -462,7 +702,7 @@ class UserAlgorithmSubmissionPage extends Component {
                         </div>
                         <div className="input-row">
                             <label>
-                                Export Function Name
+                                Export Function Name (for both python and javascript)
                             {
                                     this.state.needFunctionName
                                         ?
@@ -593,7 +833,7 @@ class UserAlgorithmSubmissionPage extends Component {
                         }
                     </div>
                 </div>
-            </div>
+            </div >
         )
 
         /* eslint-disable no-nested-ternary */
@@ -607,26 +847,24 @@ class UserAlgorithmSubmissionPage extends Component {
                     we only `this.setState()` after the field  `this.props.currentQuestion` is loaded */
                     currentQuestion && currentQuestion.userId === user.id
                         ?
-                        (function setPage() {
+                        (() => {
                             if (this.state.setInitialState) {
                                 (new Promise(resolve => {
                                     resolve(this.setInitialStateOnSubmissionPage())
-                                })).then(() => {
-                                    return SubmissionPage
-                                })
+                                })).then(() => SubmissionPage)
                                     .catch(err => {
                                         console.error(err)
                                     })
                             } else {
                                 return SubmissionPage
                             }
-                        }).bind(this)()
+                        })()
                         :
-                        currentQuestion
+                        this.props.match.path === '/user-submission'
                             ?
-                            <div>Unauthorized</div>
-                            :
                             SubmissionPage
+                            :
+                            <div>Unauthorized</div>
                 }
             </div>
         )
@@ -657,13 +895,19 @@ const mapDispatch = dispatch => {
             .then(testCases => {
                 return testCases
             }),
-        toPostUserAlgorithmQuestion: (questionSubmission) => (new Promise(resolve => {
+        toPostUserAlgorithmQuestion: questionSubmission => (new Promise(resolve => {
             resolve(dispatch(
                 postUserAlgorithmQuestion(questionSubmission)
             ))
         }))
             .then(updatedQuestion => {
                 return updatedQuestion
+            }),
+        toDeleteUserAlgorithmQuestion: question => (new Promise(resolve => {
+            resolve(dispatch(deleteUserAlgorithmQuestion(question)))
+        }))
+            .then(() => {
+                return
             })
     }
 }
