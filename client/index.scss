@@ -633,12 +633,29 @@ body {
 
             #processing-info {
                 margin-left: 20px;
+                font-size: 13px;
+                outline: none;
+                width: 150px;
+                background-color: white;
+                border: 1px solid white;
+            }
+
+            #makesure {
+                margin-left: 20px;
                 color: black;
                 font-size: 13px;
                 outline: none;
-                cursor: pointer;
-                width: 150px;
-                animation: fadeInOut 4s forwards;
+                border: 1px solid white;
+                animation: fadeInOut 20s forwards;
+            }
+
+            .confirm-cancel {
+                margin-left: 10px;
+                color: black;
+                font-size: 13px;
+                outline: none;
+                border: 1px solid black;
+                animation: fadeInOut 20s forwards;
             }
         }
 
