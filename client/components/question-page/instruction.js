@@ -61,7 +61,6 @@ class InstructionMode extends Component {
             )}
             {this.state.index > 0 ? (
               <button
-                button
                 stye={{
                   borderRadius: '0',
                   float: 'right',
@@ -78,7 +77,6 @@ class InstructionMode extends Component {
               </button>
             ) : (
               <button
-                button
                 style={{
                   borderRadius: '0',
                   float: 'left',
