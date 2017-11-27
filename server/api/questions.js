@@ -9,52 +9,44 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-
   if (req.body.existingId) {
-
-    Question.findById(req.body.existingId)
-      .then(questionFound => {
-
-        Promise.all([
-
-          Difficulty.findOne({
-            where: {
-              name: req.body.difficulty
-            }
+    Question.findById(req.body.existingId).then(questionFound => {
+      Promise.all([
+        Difficulty.findOne({
+          where: {
+            name: req.body.difficulty
+          }
+        })
+          .then(difficulty => {
+            return difficulty.id
           })
-            .then(difficulty => {
-              return difficulty.id
-            })
-            .catch(next),
+          .catch(next),
 
-          Category.findOne({
-            where: {
-              name: req.body.category
-            }
-          })
-            .then(category => {
-              return category.id
-            })
-            .catch(next),
-
-        ])
-          .then(([difficultyId, categoryId]) => {
-            req.body.difficultyId = difficultyId
-            req.body.categoryId = categoryId
-
-            questionFound.update(req.body)
-              .then((questionUpdated) => {
-                res.json(questionUpdated)
-              })
-              .catch(next)
+        Category.findOne({
+          where: {
+            name: req.body.category
+          }
+        })
+          .then(category => {
+            return category.id
           })
           .catch(next)
-      })
+      ])
+        .then(([difficultyId, categoryId]) => {
+          req.body.difficultyId = difficultyId
+          req.body.categoryId = categoryId
 
+          questionFound
+            .update(req.body)
+            .then(questionUpdated => {
+              res.json(questionUpdated)
+            })
+            .catch(next)
+        })
+        .catch(next)
+    })
   } else {
-
     Promise.all([
-
       Difficulty.findOne({
         where: {
           name: req.body.difficulty
@@ -73,20 +65,16 @@ router.post('/', (req, res, next) => {
         .then(category => {
           return category.id
         })
-        .catch(next),
+        .catch(next)
+    ]).then(([difficultyId, categoryId]) => {
+      req.body.difficultyId = difficultyId
+      req.body.categoryId = categoryId
 
-    ])
-      .then(([difficultyId, categoryId]) => {
-
-        req.body.difficultyId = difficultyId
-        req.body.categoryId = categoryId
-
-        Question.create(req.body)
-          .then((questionCreated) => {
-            res.json(questionCreated)
-          })
-          .catch(next)
-      })
-
+      Question.create(req.body)
+        .then(questionCreated => {
+          res.json(questionCreated)
+        })
+        .catch(next)
+    })
   }
 })

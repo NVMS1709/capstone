@@ -9,6 +9,7 @@ router.use('/algorithm-execution', require('./algorithm-execution'))
 router.use('/algorithm-validation', require('./algorithm-validation'))
 router.use('/payment', require('./payment'))
 router.use('/comments', require('./comments'))
+router.use('/forum', require('./forum'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
