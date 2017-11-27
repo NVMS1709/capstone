@@ -78,14 +78,7 @@ class Main extends Component {
                     </NavLink>
                   </div>
                 ) : (
-                  <div>
-                    <NavLink to="/login" className="link" id="link-left-space">
-                      <span className="small-head">LOG IN</span>
-                    </NavLink>
-                    <NavLink to="/signup" className="link">
-                      <span className="small-head">SIGN UP</span>
-                    </NavLink>
-                  </div>
+                  <div />
                 )}
               </div>
             </div>

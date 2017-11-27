@@ -46,6 +46,21 @@ export const newCommentForum = comment => {
   }
 }
 
+export const forumCommentEdit = (id, comment, title) => {
+  return function thunk(dispatch) {
+    axios
+      .put(`/api/forum/comments/${id}`, { comment })
+      .then(() => {
+        return axios.post('/api/forum/comments', { title })
+      })
+      .then(res => {
+        const comments = res.data
+        dispatch(forumComments(comments))
+      })
+      .catch(console.err)
+  }
+}
+
 export const deleteForumComment = (id, title) => {
   return function thunk(dispatch) {
     axios
