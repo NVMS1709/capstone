@@ -21,7 +21,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => this.setState({ loading: true }), 400)
+    setTimeout(() => this.setState({ loading: true }), 500)
   }
 
   render() {
