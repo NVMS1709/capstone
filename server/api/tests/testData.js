@@ -59,14 +59,28 @@ const Categories = [
   }
 ]
 
-const Question = [
+const Questions = [
   {
     name: 'Is Unique',
     description:
       'Implement an algorithm to determine if a string has all unique characters. What if you cannot use additional data structures?',
-    difficulty: 'easy',
+    difficulty: 3,
     categoryId: 1 // Arrays
   }
 ]
 
-module.exports = { Categories, Question }
+const Users = [
+  {
+    name: 'Cody',
+    email: 'cody@puppybook.com',
+    questionsSolved: []
+  },
+  {
+    name: 'Stephanie',
+    email: 'stephis@thebest.com',
+    questionsSolved: []
+  }
+
+]
+
+module.exports = { Categories, Questions, Users }
