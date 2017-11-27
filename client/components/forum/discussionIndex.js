@@ -7,7 +7,6 @@ import {
   deleteForumComment,
   deleteTopic
 } from '../../store'
-import history from '../../history'
 
 class Discussion extends Component {
   constructor(props) {
@@ -40,7 +39,6 @@ class Discussion extends Component {
 
   deleteTopic(id) {
     this.props.deleteTopic(id)
-    history.push('/forum')
   }
 
   deleteComment(id, forumTitle) {

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 // import history from '../history'
 
 /**
@@ -55,6 +56,7 @@ export const deleteTopic = id => {
         axios.get('/api/forum').then(res => {
           const forum = res.data
           dispatch(getForum(forum))
+          history.push('/forum')
         })
       )
       .catch(console.err)
