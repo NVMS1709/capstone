@@ -95,7 +95,6 @@ router.post('/javascript', (req, res, next) => {
           `npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(
             algorithmTestTempDirectory.lastIndexOf('/')
           )}/algorithm-test.js`,
-          { timeout: 5000 },
           (err, stdout, stderr) => {
 
             try {
