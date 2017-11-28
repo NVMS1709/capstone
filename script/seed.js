@@ -804,14 +804,117 @@ function postOrderTraverse(tree, array) {
       difficultyId: 3
     }),
     Question.create({
-      name: 'Bubble Sort',
+      name: 'bubbleSort',
       published: true,
-      description: '',
-      javascriptSolution: '',
+      description: `Implement the bubble sort algorithm that will sort any given array.`,
+      javascriptSolution: `
+      function bubbleSort(array) {
+        let swapped;
+        do {
+          swapped = false;
+          for(let i = 0; i < array.length; i++) {
+            if(array[i] && array[i + 1] && array[i] > array[i + 1]) {
+              [array[i], array[i + 1]] = [array[i + 1], array[i]];
+              swapped = true;
+            }
+          }
+        } while(swapped);
+        return array;
+      }`,
       pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
+      functionName: 'bubbleSort',
+      javascriptTestFile: `
+      const chai = require('chai')
+      let expect = chai.expect;
+      
+      describe('Solution for bubble sort', () => {
+          let bubble_sort_func
+      
+          beforeEach(() => {
+              bubble_sort_func = bubbleSort
+          })
+      
+          it('Sorts an unordered array', () => {
+              let result = bubble_sort_func([3, 7, 2, 1, 8])
+              expect(result).to.deep.equal([1,2,3,7,8])
+          })
+      
+          it('Returns original array value for already sorted array', () => {
+              let result = bubble_sort_func([1,2,3])
+              expect(result).to.deep.equal([1,2,3])
+          })
+      
+          it('Can sort a mixed array of positive and negative numbers', () => {
+            let result = bubble_sort_func([5, -6, 9, -2])
+            expect(result).to.deep.equal([-6, -2, 5, 9])
+          })
+      
+          it('Sorts an array of negative numbers', () => {
+            let result = bubble_sort_func([-3, -5, -2, -8])
+            expect(result).to.deep.equal([-8, -5, -3, -2])
+          })
+      
+          it('Sorts an array with duplicate values', () => {
+            let result = bubble_sort_func([2, 5, 5, 3, 8, 3])
+            expect(result).to.deep.equal([2, 3, 3, 5, 5, 8])
+          })
+      })`,
       pythonTestFile: '',
+      jsWalkThrough: [
+        `Step One: Create a function definition called "bubbleSort" which takes an array and takes a parameter named "array", return the parameter as well`,
+        `Step Two: Create a boolean flag that will keep track of when a swap will occur inside of a do "while loop"`,
+        `Step Three: Create a loop that will iterate through the array.`,
+        `Step Four: Create a conditional statement that will determine if adjacent values are bigger or smaller than the other.`,
+        `Step Five: Upon a succesful conditional entering, swap the adjacent values`
+      ],
+      jsSolutionWT: [
+        `
+        function bubbleSort(array) {
+          return array
+        }
+        `, `
+        function bubbleSort(array) {
+          do {
+            swapped = false;
+            // more stuff
+          } while(swapped);
+          return array
+        }
+        `, `
+        function bubbleSort(array) {
+          do {
+            swapped = false;
+            for (let i = 0; i < array.length; i++) {
+              // set up conditional at this point
+            }
+          } while(swapped);
+          return array
+        }
+        `, `
+        function bubbleSort(array) {
+          do {
+            swapped = false;
+            for(let i = 0; i < array.length; i++) {
+              if(array[i] && array[i + 1] && array[i] > array[i + 1]) {
+                // Now swap these values! Can you figure out how?
+              }
+            }
+          } while(swapped);
+          return array
+        }`, `
+        function bubbleSort(array) {
+          do {
+            swapped = false;
+            for(let i = 0; i < array.length; i++) {
+              if(array[i] && array[i + 1] && array[i] > array[i + 1]) {
+                [array[i], array[i + 1]] = [array[i + 1], array[i]];
+                swapped = true;
+              }
+            }
+          } while(swapped);
+          return array
+        }`
+      ],
       categoryId: 8,
       difficultyId: 1
     }),
