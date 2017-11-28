@@ -897,7 +897,38 @@ function postOrderTraverse(tree, array) {
       `,
       pythonSolution: '',
       functionName: 'Queue',
-      javascriptTestFile: '',
+      javascriptTestFile: `
+      const chai = require('chai')
+      let expect = chai.expect
+      
+      describe('Selection Sort', () => {
+      
+        it('return an array', function() {
+          let result = selectionSort([])
+          expect(result).to.deep.equal([])
+        })
+      
+         it('sorts an array with random positive values', function () {
+          let result = selectionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
+          expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        })
+      
+        it('sorts an array in reverse order', function () {
+          let result = selectionSort([8, 7, 6, 5, 4])
+          expect(result).to.deep.equal([4, 5, 6, 7, 8])
+        })
+      
+        it('sorts an array with mixed values', function () {
+          let result = selectionSort([8, -7, 6, -5, 4])
+          expect(result).to.deep.equal([-7, -5, 4, 6, 8])
+        })
+      
+        it('sorts an array with negative values', function () {
+          let result = selectionSort([-1, -5, -22, -11, -7])
+          expect(result).to.deep.equal([-22, -11, -7, -5, -1])
+        })
+      })
+      `,
       pythonTestFile: '',
       categoryId: 4,
       difficultyId: 1
