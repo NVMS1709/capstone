@@ -744,6 +744,77 @@ function postOrderTraverse(tree, array) {
       difficultyId: 3
     }),
     Question.create({
+      name: 'Merge Sort Top Down',
+      published: true,
+      description: `Implement the algorithm for a merge sort. The idea behind this algorithm is that it combines two ordered arrays together`,
+      javascriptSolution: `
+      function mergeSortTopDown(array) {
+        if(array.length < 2) {
+          return array;
+        }
+      
+        const middle = Math.floor(array.length / 2);
+        const left = array.slice(0, middle);
+        const right = array.slice(middle);
+      
+        return mergeTopDown(mergeSortTopDown(left), mergeSortTopDown(right));
+      }
+      
+      function mergeTopDown(left, right) {
+        const array = [];
+      
+        while(left.length && right.length) {
+          if(left[0] < right[0]) {
+            array.push(left.shift());
+          } else {
+            array.push(right.shift());
+          }
+        }
+        return array.concat(left.slice()).concat(right.slice());
+      }
+      
+      module.exports = mergeSortTopDown, mergeTopDown
+      `,
+      pythonSolution: '',
+      functionName: 'mergeSortTopDown',
+      javascriptTestFile: `
+      const mergeSortTopDown = require('../problems/mergeSortTopDown')
+      const chai = require('chai')
+      let expect = chai.expect
+      
+      describe('Merge Sort(Top-Down Implemention)', function() {
+      
+        it('return an array', function() {
+          let result = mergeSortTopDown([])
+          expect(result).to.deep.equal([])
+        })
+      
+         it('sorts an array with random positive values', function () {
+          let result = mergeSortTopDown([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
+          expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        })
+      
+        it('sorts an array in reverse order', function () {
+          let result = mergeSortTopDown([8, 7, 6, 5, 4])
+          expect(result).to.deep.equal([4, 5, 6, 7, 8])
+        })
+      
+        it('sorts an array with mixed values', function () {
+          let result = mergeSortTopDown([8, -7, 6, -5, 4])
+          expect(result).to.deep.equal([-7, -5, 4, 6, 8])
+        })
+      
+        it('sorts an array with negative values', function () {
+          let result = mergeSortTopDown([-1, -5, -22, -11, -7])
+          expect(result).to.deep.equal([-22, -11, -7, -5, -1])
+        }) 
+      })
+      `,
+      pythonTestFile: '',
+      categoryId: 4,
+      difficultyId: 1
+    }),
+    Question.create({
       name: 'Depth-first Search',
       published: true,
       description: '',
@@ -804,7 +875,7 @@ function postOrderTraverse(tree, array) {
       difficultyId: 3
     }),
     Question.create({
-      name: 'bubbleSort',
+      name: 'Bubble Sort',
       published: true,
       description: `Implement the bubble sort algorithm that will sort any given array.`,
       javascriptSolution: `
@@ -921,11 +992,57 @@ function postOrderTraverse(tree, array) {
     Question.create({
       name: 'Insertion Sort',
       published: true,
-      description: '',
-      javascriptSolution: '',
+      description: 'Implement the insertionSort function to sort any array',
+      javascriptSolution: `
+      function insertionSort(array) {
+        for (let i = 0; i < array.length; i++) {
+          let temp = array[i];
+          let j = i - 1;
+          while (j >= 0 && array[j] > temp) {
+            array[j + 1] = array[j];
+            j--;
+          }
+          array[j + 1] = temp;
+        }
+        return array;
+      }
+      
+      module.exports = insertionSort
+      `,
       pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
+      functionName: 'insertionSort',
+      javascriptTestFile: `
+      const chai = require('chai')
+      let expect = chai.expect
+      
+      describe('Insertion Sort', function () {
+      
+        it('sorts an array with random positive values', function () {
+          let result = insertionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
+          expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        })
+      
+        it('sorts an array in reverse order', function () {
+          let result = insertionSort([8, 7, 6, 5, 4])
+          expect(result).to.deep.equal([4, 5, 6, 7, 8])
+        })
+      
+        it('sorts an array with mixed values', function () {
+          let result = insertionSort([8, -7, 6, -5, 4])
+          expect(result).to.deep.equal([-7, -5, 4, 6, 8])
+        })
+      
+        it('sorts an array with negative values', function () {
+          let result = insertionSort([-1, -5, -22, -11, -7])
+          expect(result).to.deep.equal([-22, -11, -7, -5, -1])
+        })
+      
+        it('returns an array', function () {
+          let result = insertionSort([])
+          expect(result).to.deep.equal([])
+        })
+      })
+      `,
       pythonTestFile: '',
       categoryId: 8,
       difficultyId: 2
@@ -999,7 +1116,7 @@ function postOrderTraverse(tree, array) {
           expect(result).to.deep.equal('odd');
         })
       })
-        `,
+      `,
       pythonTestFile: '',
       jsWalkThrough: [
         `
