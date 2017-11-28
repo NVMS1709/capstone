@@ -104,11 +104,7 @@ router.post('/javascript', (req, res, next) => {
                 stdout
               )
 
-              console.log("TESTCASESSTR", testCasesStr)
-
               const testCasesArr = JSON.parse(testCasesStr.trim())
-
-              console.log("TESTCASESARRAY", testCasesArr)
 
               if (err) {
                 console.error('EXECUTION ERROR______________________', err)
@@ -116,23 +112,23 @@ router.post('/javascript', (req, res, next) => {
 
               cleanupCB()
 
-              let results
-
-              console.log("REQ USER".req.user)
-              results = {
-                testCasesArr,
-                rawOutput: '/n' + stderr + '\n' + revisedStdoutStr,
-                userId: req.session.passport.user,
-                questionsSolved: req.body.questionsSolved
+              if (testCasesArr) {
+                res.send({
+                  testCasesArr,
+                  rawOutput: '/n' + stderr + '\n' + revisedStdoutStr,
+                  userId: req.session.passport.user,
+                  questionsSolved: req.body.questionsSolved
+                })
               }
-
-
-              res.send(results)
 
             } catch (error) {
               cleanupCB()
-              console.log('CAUGHT THE ERROR____________________')
-              next(error)
+              res.send({
+                testCasesArr: [{ title: 'Code execution', outcome: 'failed' }],
+                rawOutput: '\n' + error,
+                allPassed: false
+              })
+              console.error('CAUGHT ERROR____________________', error)
             }
           }
         )
