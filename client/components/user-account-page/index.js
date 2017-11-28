@@ -1,44 +1,65 @@
 import React, { Component } from 'react'
-import history from '../../history'
 import { connect } from 'react-redux'
-import UserInfo from './userInfo'
 import UserEdit from './userEdit'
-import CategoryMap from './categoryMap'
-import UsersAlgos from './usersAlgos'
-import FontAwesome from 'react-fontawesome'
+import CompletedQuestions from './completed-questions'
+import AuthoredQuestions from './authored-questions'
+import ChangePassword from './password-change'
+import { Link } from 'react-router-dom'
 
-class UserIndex extends Component {
+
+class UserPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      userEdit: false
+      editView: 'Account Info'
     }
     this.toggleEditView = this.toggleEditView.bind(this)
   }
 
-  toggleEditView() {
-    this.setState({ userEdit: !this.state.userEdit })
+  toggleEditView(event) {
+    this.setState({ editView: event.target.textContent })
   }
 
+  /*    eslint-disable complexity */
   render() {
     return (
-      <div className="user-dashboard">
-        <div className="user-form-layer-0">
-
-          {this.state.userEdit ? (
-            <button className="user-info-button" onClick={this.toggleEditView}>Go Back</button>
-          ) : (
-              <button className="user-info-button" onClick={this.toggleEditView}><FontAwesome name="cogs" size="3x" /></button>
-            )}
-          {this.state.userEdit ? <UserEdit /> : <UserInfo />}
+      <div id="user-dashboard">
+        <div id="user-dashboard-sidebar">
+          <Link className="sidebar-link" to="/user/account info" onClick={this.toggleEditView} style={this.state.editView === 'Account Info' ? { textDecoration: 'underline' } : {}}>Account Info</Link>
+          <Link className="sidebar-link" to="/user/completed questions" onClick={this.toggleEditView} style={this.state.editView === 'Completed Questions' ? { textDecoration: 'underline' } : {}}>Completed Questions</Link>
+          <Link className="sidebar-link" to="/user/authored questions" onClick={this.toggleEditView} style={this.state.editView === 'Authored Questions' ? { textDecoration: 'underline' } : {}}>Authored Questions</Link>
+          <Link className="sidebar-link" to="/user/change password" onClick={this.toggleEditView} style={this.state.editView === 'Change Password' ? { textDecoration: 'underline' } : {}}>Change Password</Link>
         </div>
-        <div className="user-form-layer-1">
-          <CategoryMap />
-          <UsersAlgos />
+        <div id="user-setting-container">
+          {
+            this.state.editView === 'Account Info'
+              ?
+              <UserEdit />
+              :
+              ''
+          }
+          {
+            this.state.editView === 'Completed Questions'
+              ?
+              <CompletedQuestions />
+              :
+              ''
+          }
+          {
+            this.state.editView === 'Authored Questions'
+              ?
+              <AuthoredQuestions />
+              :
+              ''
+          }
+          {
+            this.state.editView === 'Change Password'
+              ?
+              <ChangePassword />
+              :
+              ''
+          }
         </div>
-        <button onClick={() => history.push('/user-submission')}>
-          Submit Algorithm
-        </button>
       </div>
     )
   }
@@ -51,4 +72,4 @@ const mapState = state => {
   }
 }
 
-export default connect(mapState)(UserIndex)
+export default connect(mapState)(UserPage)
