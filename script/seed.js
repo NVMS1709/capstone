@@ -25,9 +25,9 @@ async function seed() {
   // executed until that promise resolves!
 
   const users = await Promise.all([
-    User.create({ name: 'admin', email: 'admin@email.com', password: '123' }),
-    User.create({ name: '', email: 'cody@email.com', password: '123' }),
-    User.create({ name: '', email: 'murphy@email.com', password: '123' })
+    User.create({ name: 'admin', email: 'admin@email.com', password: '123', questionsSolved: [1, 4, 6, 8] }),
+    User.create({ name: 'cody', email: 'cody@email.com', password: '123' }),
+    User.create({ name: 'murphy', email: 'murphy@email.com', password: '123' })
   ])
 
   console.log(`seeded ${users.length} users`)
@@ -119,6 +119,7 @@ async function seed() {
   const questions = await Promise.all([
     Question.create({
       name: 'BST Construction',
+      userId: 1,
       published: true,
       description:
         'Write a Binary Search Tree (BST) class named "BST". The BST class should have a "value" property set to be an integer, as well as "left" and "right" properties, both of which should point to either the None (null) value or to another BST. A node is said to be a BST node if and only if it satisfies the BST property: its value is strictly greater than the values of every node to its left; its value is less than or equal to the values of every node to its right; and both of its children nodes are either BST nodes themselves or None (null) values. The BST class should support three methods, viz., "insert", "contains", and "remove". The "contains" method return a boolean value indicating whether the value is contained in the BST tree or not. The "remove" method should only remove the first instance of the target value.',
@@ -660,6 +661,7 @@ if __name__ == "__main__":
     }),
     Question.create({
       name: 'BST Traversal',
+      userId: 1,
       published: true,
       description:
         'Write three functions, viz., "inOrderTraverse", "preOrderTraverse", and "postOrderTraverse", that take in an empty array, traverse the BST, add its nodes\' values to the input array, and return that array. The three functions should traverse the BST using the in-order traversal, pre-order traversal, and post-order traversal techniques, respectively. You are given a BST data structure consisting of BST nodes. Each BST node has an integer value stored in a property called "value" and two children nodes stored in properties called "left" ani "right," respectively. A node is said to be a BST node if and only if it satisfies the BST property: its value is strictly greater than the values of every node to its left; its value is less than or equal to the values of every node to its right; and both of its children nodes are either BST nodes themselves or None (null) values.',
@@ -782,7 +784,7 @@ function postOrderTraverse(tree, array) {
     }),
     Question.create({
       name: 'Search In Sorted Matrix',
-      published: true,
+      published: false,
       description: '',
       javascriptSolution: '',
       pythonSolution: '',
@@ -790,11 +792,12 @@ function postOrderTraverse(tree, array) {
       javascriptTestFile: '',
       pythonTestFile: '',
       categoryId: 7,
-      difficultyId: 2
+      difficultyId: 2,
+      userId: 1,
     }),
     Question.create({
       name: 'Shifted Binary Search',
-      published: true,
+      published: false,
       description: '',
       javascriptSolution: '',
       pythonSolution: '',
@@ -802,7 +805,8 @@ function postOrderTraverse(tree, array) {
       javascriptTestFile: '',
       pythonTestFile: '',
       categoryId: 7,
-      difficultyId: 3
+      difficultyId: 3,
+      userId: 1,
     }),
     Question.create({
       name: 'Bubble Sort',

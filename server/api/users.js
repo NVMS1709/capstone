@@ -13,8 +13,31 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.put('/:id', (req, res, next) => {
-  User.update(req.body, { where: { id: req.params.id } })
-    .then(result => res.json(result))
+router.put('/:userId', (req, res, next) => {
+  User.findById(req.params.userId)
+    .then(user => {
+      if (!user.correctPassword(req.body.password)) {
+        res.status(401).send('Password Incorrect')
+      } else {
+        user.update(req.body, { fields: ['name', 'email'] })
+          .then(updatedUser => res.json(updatedUser))
+      }
+    })
     .catch(next)
+
+})
+
+router.put('/password/:userId', (req, res, next) => {
+  console.log("IN BACKEND____________________-")
+  User.findById(req.params.userId)
+    .then(user => {
+      if (!user.correctPassword(req.body.oldPassword)) {
+        res.status(401).send('Password Incorrect')
+      } else {
+        user.update(req.body, { fields: ['password'] })
+          .then(updatedUser => res.json(updatedUser))
+      }
+    })
+    .catch(next)
+
 })

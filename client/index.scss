@@ -104,173 +104,162 @@ body {
         }
     }
 
-    .user-dashboard {
-        background-color: #212325;
-        color: white;
+    #user-dashboard {
+        width: 100vw;
+        margin-bottom: 200px;
+        margin-top: 150px;
+        display: flex;
 
-        .user-form-layer-0 {
+        #user-dashboard-sidebar {
+            width: 180px;
+            margin-left: 80px;
             display: flex;
-            flex-direction: row;
-            padding: 20px;
+            flex-direction: column;
 
-            .user-info-button {
-                max-height: 75px;
-                min-height: 75px;
-                max-width: 75px;
-                min-width: 75px;
-                margin-right: 2rem;
-                background-color: #4c4ce0;
-                color: white;
+            .sidebar-link {
+                margin-bottom: 10px;
+                padding: 0px;
+                border: none;
+                cursor: pointer;
+                font-size: 13px;
+                text-align: left;
+                outline: none;
+                color: black;
             }
 
-            .user-info {
-                border: 1px solid white;
-                padding: 10px;
+            .sidebar-link:hover {
+                text-decoration: underline;
             }
+        }
 
-            .user-edit {
-                border: 1px solid white;
+        #user-setting-container {
+            width: calc(100vw - 200px);
 
-                .wrapper {
-                    list-style-type: none;
-                    padding: 0;
-                    border-radius: 3px;
-                }
+            #user-info-setting-container {
+                padding-right: 150px;
+                display: flex;
+                justify-content: center;
 
-                .form-row {
-                    display: flex;
-                    justify-content: flex-end;
-                    padding: 0.5em;
+                #inputs-container {
+                    margin: 0px;
+                    width: 300px;
 
-                    label {
-                        padding: 0.5em 1em 0.5em 0;
-                        flex: 1;
+                    .form-row {
+                        margin-bottom: 20px;
+                        margin-top: 0px;
+                        margin-left: 0px;
+                        margin-right: 0px;
+                        display: flex;
+                        flex-direction: column;
+
+                        label {
+                            margin-bottom: 5px;
+                            font-size: 13px;
+                        }
+
+                        .info {
+                            margin: 0px;
+                            font-size: 13px;
+                        }
+
+                        input {
+                            height: 18px;
+                            border: 1px solid black;
+                            outline: none;
+                        }
+
+                        button {
+                            border: none;
+                            height: 18px;
+                            background-color: black;
+                            color: white;
+                            width: 80px;
+                        }
                     }
 
-                    input {
-                        flex: 1;
-                    }
+                    .button-row {
+                        margin-bottom: 20px;
+                        margin-top: 0px;
+                        margin-left: 0px;
+                        margin-right: 0px;
+                        display: flex;
 
-                    input,
-                    button {
-                        padding: 0.5em;
-                    }
+                        button {
+                            border: none;
+                            height: 18px;
+                            background-color: black;
+                            color: white;
+                            width: 80px;
+                            outline: none;
+                        }
 
-                    button {
-                        background: gray;
-                        color: white;
-                        border: 0;
+                        #fake-button {
+                            border: none;
+                            height: 18px;
+                            background-color: white;
+                            width: 200px;
+                            margin-left: 10px;
+                            outline: none;
+                        }
                     }
                 }
             }
         }
 
-        .user-form-layer-1 {
+        #completed-questions {
             display: flex;
-            flex-direction: row;
-            padding: 20px;
+            padding-right: 200px;
+            justify-content: center;
 
-            .categories-section {
-                border: 1px solid white;
-                border-radius: 10px;
-                align-items: center;
-                padding: 5px;
+            div {
+                display: flex;
+                flex-direction: column;
 
-                .categories {
-                    display: flex;
-                    flex-flow: row wrap;
-                    align-items: center;
-                    justify-content: center;
+                .completed-questions-link {
+                    width: 250px;
+                    font-size: 13px;
+                    margin-bottom: 10px;
+                    border: none;
+                    cursor: pointer;
+                    color: black;
+                }
 
-                    .category-child:nth-child(3n + 1) {
-                        background-color: #4a4a4a;
-                    }
-
-                    .category-child:nth-child(3n + 2) {
-                        background-color: #ff3751;
-                    }
-
-                    .category-child:nth-child(3n + 3) {
-                        background-color: rgb(255, 143, 0);
-                    } // .category-child:nth-child(4n+4) {
-                    //   background-color:#7070e6;
-                    // }
-                    .category-child {
-                        flex: 0 1 30%;
-                        height: 100px;
-                        min-width: 50px;
-                        text-align: center;
-                        margin: 10px 0 0 10px;
-                        border-radius: 10px;
-
-                        .half-child {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            align-self: center;
-                            flex: 0 0 100%;
-                            max-height: 50%;
-                            min-height: 50%;
-                            padding: 0.5em;
-                            overflow: hidden;
-                        }
-                    }
+                .completed-questions-link:hover {
+                    text-decoration: underline;
                 }
             }
+        }
 
-            .submissions {
-                margin: 0 10px 0 10px;
-                border: 1px solid white;
-                border-radius: 10px;
-                width: 100%;
-                padding: 10px;
+        #authored-questions {
+            display: flex;
+            padding-right: 200px;
+            justify-content: center;
 
-                #submissions-title {
-                    text-align: center;
-                }
+            div {
+                display: flex;
 
-                #submissions-container {
+                .questions-column {
                     display: flex;
+                    flex-direction: column;
+                    width: 250px;
+                    font-size: 14px;
 
-                    #userpage-algorithms-button-container {
-                        display: flex;
-                        flex-direction: column;
-                        margin-right: 15px;
-
-                        button {
-                            padding: 0px;
-                            background-color: #212325;
-                            color: white;
-                            border: none;
-                            font-size: 15px;
-                            margin-top: 10px;
-                            margin-bottom: 10px;
-                        }
+                    .completed-questions-title {
+                        margin-bottom: 20px;
+                        font-style: italic;
                     }
 
-                    #user-page-algorithms-list-container {
-                        display: flex;
-                        flex-direction: column;
-                        font-size: 15px;
+                    .authored-questions-link {
+                        width: 250px;
+                        font-size: 13px;
+                        margin-bottom: 10px;
+                        border: none;
+                        cursor: pointer;
+                        color: black;
+                    }
 
-                        .user-page-submission-questions-list {
-                            display: flex;
-                            margin-top: 10px;
-                            margin-bottom: 10px;
-
-                            .user-page-submission-questions-list-name {
-                                margin-right: 30px;
-                            }
-
-                            .user-page-submission-questions-list-button {
-                                padding: 0px;
-                                background-color: #212325;
-                                color: white;
-                                border: none;
-                                font-size: 15px;
-                                margin: 0px;
-                            }
-                        }
+                    .authored-questions-link:hover {
+                        text-decoration: underline;
                     }
                 }
             }
@@ -657,7 +646,6 @@ body {
                 border: 1px solid black;
                 animation: fadeInOut 20s forwards;
             }
-
         }
 
         #question-info {
