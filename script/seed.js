@@ -1296,32 +1296,32 @@ function postOrderTraverse(tree, array) {
           even_or_oddFunc = even_or_odd
         })
 
-        it('Test Case 1', function () {
+        it('returns odd for number 5', function () {
           let result = even_or_oddFunc(5)
           expect(result).to.deep.equal('odd');
         });
 
-        it('Test Case 2', function () {
+        it('return even for number 6', function () {
           let result = even_or_oddFunc(6)
           expect(result).to.deep.equal('even');
         });
 
-        it('Test Case 3', function () {
+        it('returns even for -6', function () {
           let result = even_or_oddFunc(-6)
           expect(result).to.deep.equal('even');
         });
 
-        it('Test Case 4', function () {
+        it('returns odd for 99', function () {
           let result = even_or_oddFunc(99)
           expect(result).to.deep.equal('odd');
         });
 
-        it('Test Case 5', function () {
+        it('returns even the value 0', function () {
           let result = even_or_oddFunc(0)
           expect(result).to.deep.equal('even');
         });
 
-        it('Test Case 6', function() {
+        it('returns odd for the number 33', function() {
           let result = even_or_oddFunc(33)
           expect(result).to.deep.equal('odd');
         })
