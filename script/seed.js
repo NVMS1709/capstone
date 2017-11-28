@@ -818,34 +818,57 @@ function postOrderTraverse(tree, array) {
       published: true,
       description: 'selectSort',
       javascriptSolution: `
-      it('returns an array', function() {
-        let result = mergeSortTopDown([])
-        expect(result).to.deep.equal([])
-      })
-    
-       it('sorts an array with random positive values', function () {
-        let result = mergeSortTopDown([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
-        expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-      })
-    
-      it('sorts an array in reverse order', function () {
-        let result = mergeSortTopDown([8, 7, 6, 5, 4])
-        expect(result).to.deep.equal([4, 5, 6, 7, 8])
-      })
-    
-      it('sorts an array with mixed values', function () {
-        let result = mergeSortTopDown([8, -7, 6, -5, 4])
-        expect(result).to.deep.equal([-7, -5, 4, 6, 8])
-      })
-    
-      it('sorts an array with negative values', function () {
-        let result = mergeSortTopDown([-1, -5, -22, -11, -7])
-        expect(result).to.deep.equal([-22, -11, -7, -5, -1])
-      })
+      function selectionSort(array) {
+        for (let i = 0; i < array.length; i++) {
+          let min = i;
+          for(let j = i + 1; j < array.length; j++) {
+            if(array[j] < array[min]) {
+              min = j;
+            }
+          }
+          if(i !== min) {
+            [array[i], array[min]] = [array[min], array[i]];
+          }
+        }
+        return array;
+      }
+      
+      module.exports = selectionSort
       `,
       pythonSolution: '',
       functionName: 'selectSort',
-      javascriptTestFile: '',
+      javascriptTestFile: `
+      const chai = require('chai')
+      let expect = chai.expect
+      
+      describe('Selection Sort', () => {
+      
+        it('returns an array', function() {
+          let result = selectionSort([])
+          expect(result).to.deep.equal([])
+        })
+      
+         it('sorts an array with random positive values', function () {
+          let result = selectionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
+          expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        })
+      
+        it('sorts an array in reverse order', function () {
+          let result = selectionSort([8, 7, 6, 5, 4])
+          expect(result).to.deep.equal([4, 5, 6, 7, 8])
+        })
+      
+        it('sorts an array with mixed values', function () {
+          let result = selectionSort([8, -7, 6, -5, 4])
+          expect(result).to.deep.equal([-7, -5, 4, 6, 8])
+        })
+      
+        it('sorts an array with negative values', function () {
+          let result = selectionSort([-1, -5, -22, -11, -7])
+          expect(result).to.deep.equal([-22, -11, -7, -5, -1])
+        })
+      })
+      `,
       pythonTestFile: '',
       categoryId: 4,
       difficultyId: 1
@@ -901,31 +924,111 @@ function postOrderTraverse(tree, array) {
       const chai = require('chai')
       let expect = chai.expect
       
-      describe('Selection Sort', () => {
+      describe('Queue', function () {
       
-        it('return an array', function() {
-          let result = selectionSort([])
-          expect(result).to.deep.equal([])
+        let queue
+        beforeEach(function () {
+          queue = new Queue()
         })
       
-         it('sorts an array with random positive values', function () {
-          let result = selectionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
-          expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        describe('Enqueue Method', () => {
+          beforeEach(() => {
+            queue.enqueue(1)
+            queue.enqueue(3)
+            queue.enqueue(5)
+            queue.enqueue(7)
+          })
+      
+          it('enqueue method adds values to the queue', () => {
+            expect(queue.queue.length).to.deep.equal(4)
+          })
+      
+          it('values are added in a FIFO manner', () => {
+            const dequeued = queue.dequeue()
+      
+            expect(dequeued).to.deep.equal(1)
+            expect(queue.queue[0]).to.deep.equal(3)
+            expect(queue.queue[2]).to.deep.equal(7)
+          })
         })
       
-        it('sorts an array in reverse order', function () {
-          let result = selectionSort([8, 7, 6, 5, 4])
-          expect(result).to.deep.equal([4, 5, 6, 7, 8])
+        describe('Dequeue Method', () => {
+          beforeEach(() => {
+            queue.enqueue(1)
+            queue.enqueue(3)
+            queue.enqueue(5)
+          })
+      
+          it('popped values return the element as soon as they are removed', () => {
+            expect(queue.dequeue()).to.deep.equal(1)
+          })
+      
+          it('the value in the array after a pop should be the head', () => {
+            queue.dequeue()
+            expect(queue.queue[0]).to.deep.equal(3)
+            queue.dequeue()
+            expect(queue.queue[0]).to.deep.equal(5)
+          })
+      
+          it('should return undefined if the queue is empty', () => {
+            queue.dequeue()
+            queue.dequeue()
+            queue.dequeue()
+            expect(queue.dequeue()).to.deep.equal(undefined)
+            expect(queue[0]).to.deep.equal(undefined)
+          })
         })
       
-        it('sorts an array with mixed values', function () {
-          let result = selectionSort([8, -7, 6, -5, 4])
-          expect(result).to.deep.equal([-7, -5, 4, 6, 8])
+        describe('Peek Method', () => {
+      
+          it('should return the first value in the method without removing it', () => {
+            queue.enqueue(1)
+            queue.enqueue(3)
+            queue.enqueue(5)
+            expect(queue.peek()).to.deep.equal(1)
+            expect(queue.queue[0]).to.deep.equal(1)
+          })
+      
+          it('should return undefined for an empty queue', () => {
+            expect(queue.peek()).to.deep.equal(undefined)
+          })
         })
       
-        it('sorts an array with negative values', function () {
-          let result = selectionSort([-1, -5, -22, -11, -7])
-          expect(result).to.deep.equal([-22, -11, -7, -5, -1])
+        describe('Length Method', () => {
+          
+          beforeEach(() => {
+            queue.enqueue(1)
+            queue.enqueue(3)
+            queue.enqueue(5)
+          })
+      
+          it('should return a correct length', () => {
+            expect(queue.length()).to.deep.equal(3)
+          })
+      
+          it('should return the correct value after values have been removed from the queue. NOTE, dequeue must be implemented for this to work.', () => {
+            queue.dequeue()
+            queue.dequeue()
+            expect(queue.length()).to.deep.equal(1)
+          })
+      
+          it('should return an 0 if the queue is empty', () => {
+            queue.dequeue()
+            queue.dequeue()
+            queue.dequeue()
+            expect(queue.length()).to.deep.equal(0)
+          })
+        })
+      
+        describe('Print Method', () => {
+          it('should correctly print out all of the values in the array', () => {
+            queue.enqueue(1)
+            queue.enqueue(3)
+            queue.enqueue(5)
+            queue.enqueue(7)
+            queue.print(); 
+            expect(queue.queue).to.deep.equal([1, 3, 5, 7])
+          })
         })
       })
       `,
