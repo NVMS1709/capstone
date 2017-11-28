@@ -5,6 +5,7 @@ import Instructions from './instruction'
 import QuestionDescription from './question'
 import { connect } from 'react-redux'
 import Comments from './comments/index'
+import { setCustomResult, setResult } from '../../store'
 
 class QuestionPage extends Component {
   constructor(props) {
@@ -15,6 +16,11 @@ class QuestionPage extends Component {
     }
     this.setMode = this.setMode.bind(this)
     this.setLanguage = this.setLanguage.bind(this)
+  }
+
+  componentWillUnmount() {
+    this.props.setCustomResult([])
+    this.props.setResult('')
   }
 
   setMode(event) {
@@ -143,4 +149,11 @@ const mapState = (state, ownProps) => {
   }
 }
 
-export default connect(mapState, null)(QuestionPage)
+const mapDispatch = dispatch => {
+  return {
+    setResult: result => dispatch(setResult(result)),
+    setCustomResult: result => dispatch(setCustomResult(result))
+  }
+}
+
+export default connect(mapState, mapDispatch)(QuestionPage)
