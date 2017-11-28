@@ -282,7 +282,6 @@ class BST:
       difficultyId: 2,
       functionName: 'BST',
       javascriptTestFile: `
-const BST = require('./algorithm-input');
 const chai = require('chai')
 let expect = chai.expect;
 const test1 = new BST(10).insert(5).insert(15).insert(5).insert(2)

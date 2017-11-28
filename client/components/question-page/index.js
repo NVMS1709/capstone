@@ -5,6 +5,7 @@ import Instructions from './instruction'
 import QuestionDescription from './question'
 import { connect } from 'react-redux'
 import Comments from './comments/index'
+import { setCustomResult, setResult } from '../../store'
 
 class QuestionPage extends Component {
   constructor(props) {
@@ -17,6 +18,11 @@ class QuestionPage extends Component {
     this.setLanguage = this.setLanguage.bind(this)
   }
 
+  componentWillUnmount() {
+    this.props.setCustomResult([])
+    this.props.setResult('')
+  }
+
   setMode(event) {
     this.setState({ mode: event.target.textContent })
   }
@@ -26,6 +32,10 @@ class QuestionPage extends Component {
   }
 
   render() {
+    console.log(
+      this.props.currentQuestion &&
+        this.props.currentQuestion.jsWalkThrough.length > 1
+    )
     return (
       <div>
         <div className="repl-container">
@@ -49,16 +59,21 @@ class QuestionPage extends Component {
               >
                 Prompt
               </button>
-              <button
-                onClick={this.setMode}
-                style={
-                  this.state.mode === 'Instructions'
-                    ? { border: '1px solid black', borderBottom: 'none' }
-                    : {}
-                }
-              >
-                Instructions
-              </button>
+              {this.props.currentQuestion &&
+              this.props.currentQuestion.jsWalkThrough.length > 1 ? (
+                <button
+                  onClick={this.setMode}
+                  style={
+                    this.state.mode === 'Instructions'
+                      ? { border: '1px solid black', borderBottom: 'none' }
+                      : {}
+                  }
+                >
+                  Instructions
+                </button>
+              ) : (
+                ''
+              )}
             </div>
             {this.state.mode === 'Prompt' ? (
               <QuestionDescription
@@ -80,16 +95,21 @@ class QuestionPage extends Component {
               >
                 Javascript
               </button>
-              <button
-                onClick={this.setLanguage}
-                style={
-                  this.state.language === 'Python'
-                    ? { backgroundColor: 'grey', color: 'white' }
-                    : {}
-                }
-              >
-                Python
-              </button>
+              {this.props.currentQuestion &&
+              this.props.currentQuestion.pythonSolution.length > 0 ? (
+                <button
+                  onClick={this.setLanguage}
+                  style={
+                    this.state.language === 'Python'
+                      ? { backgroundColor: 'grey', color: 'white' }
+                      : {}
+                  }
+                >
+                  Python
+                </button>
+              ) : (
+                ''
+              )}
             </div>
             <div className="solution-button-container">
               <button
@@ -129,4 +149,11 @@ const mapState = (state, ownProps) => {
   }
 }
 
-export default connect(mapState, null)(QuestionPage)
+const mapDispatch = dispatch => {
+  return {
+    setResult: result => dispatch(setResult(result)),
+    setCustomResult: result => dispatch(setCustomResult(result))
+  }
+}
+
+export default connect(mapState, mapDispatch)(QuestionPage)
