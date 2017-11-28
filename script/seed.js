@@ -778,7 +778,6 @@ function postOrderTraverse(tree, array) {
       pythonSolution: '',
       functionName: 'mergeSortTopDown',
       javascriptTestFile: `
-      const mergeSortTopDown = require('../problems/mergeSortTopDown')
       const chai = require('chai')
       let expect = chai.expect
       
@@ -815,12 +814,89 @@ function postOrderTraverse(tree, array) {
       difficultyId: 1
     }),
     Question.create({
+      name: 'Select Sort',
+      published: true,
+      description: 'selectSort',
+      javascriptSolution: `
+      it('return an array', function() {
+        let result = mergeSortTopDown([])
+        expect(result).to.deep.equal([])
+      })
+    
+       it('sorts an array with random positive values', function () {
+        let result = mergeSortTopDown([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
+        expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+      })
+    
+      it('sorts an array in reverse order', function () {
+        let result = mergeSortTopDown([8, 7, 6, 5, 4])
+        expect(result).to.deep.equal([4, 5, 6, 7, 8])
+      })
+    
+      it('sorts an array with mixed values', function () {
+        let result = mergeSortTopDown([8, -7, 6, -5, 4])
+        expect(result).to.deep.equal([-7, -5, 4, 6, 8])
+      })
+    
+      it('sorts an array with negative values', function () {
+        let result = mergeSortTopDown([-1, -5, -22, -11, -7])
+        expect(result).to.deep.equal([-22, -11, -7, -5, -1])
+      })
+      `,
+      pythonSolution: '',
+      functionName: 'selectSort',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 4,
+      difficultyId: 1
+    }),
+    Question.create({
       name: 'Depth-first Search',
       published: true,
       description: '',
       javascriptSolution: '',
       pythonSolution: '',
       functionName: '',
+      javascriptTestFile: '',
+      pythonTestFile: '',
+      categoryId: 4,
+      difficultyId: 1
+    }),
+    Question.create({
+      name: 'Queue',
+      published: true,
+      description: `Implement the Queue Data Structure. It contains the following methods: enqueue(), dequeue(), peek(), and print(). enqueue adds elements to the data structure, dequeue removes elements from the data structure, peek shows the first values in the queue but doesn't remove it, and print will just log all of the values.`,
+      javascriptSolution: `
+      class Queue {
+        constructor() {
+          this.queue = [];
+        }
+      
+        enqueue(value) {
+          this.queue.push(value);
+        }
+      
+        dequeue() {
+          return this.queue.shift();
+        }
+      
+        peek() {
+          return this.queue[0];
+        }
+      
+        length() {
+          return this.queue.length;
+        }
+      
+        print() {
+          console.log(this.queue.join(' '));
+        }
+      }
+      
+      module.exports = Queue
+      `,
+      pythonSolution: '',
+      functionName: 'Queue',
       javascriptTestFile: '',
       pythonTestFile: '',
       categoryId: 4,
@@ -1120,7 +1196,6 @@ function postOrderTraverse(tree, array) {
       pythonTestFile: '',
       jsWalkThrough: [
         `
-      Function: even_or_odd\n
       Step One: Create a function named "even_or_odd" that takes an a variable called number.
       `,
         `
