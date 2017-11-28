@@ -26,6 +26,10 @@ class QuestionPage extends Component {
   }
 
   render() {
+    console.log(
+      this.props.currentQuestion &&
+        this.props.currentQuestion.jsWalkThrough.length > 1
+    )
     return (
       <div>
         <div className="repl-container">
@@ -49,16 +53,21 @@ class QuestionPage extends Component {
               >
                 Prompt
               </button>
-              <button
-                onClick={this.setMode}
-                style={
-                  this.state.mode === 'Instructions'
-                    ? { border: '1px solid black', borderBottom: 'none' }
-                    : {}
-                }
-              >
-                Instructions
-              </button>
+              {this.props.currentQuestion &&
+              this.props.currentQuestion.jsWalkThrough.length > 1 ? (
+                <button
+                  onClick={this.setMode}
+                  style={
+                    this.state.mode === 'Instructions'
+                      ? { border: '1px solid black', borderBottom: 'none' }
+                      : {}
+                  }
+                >
+                  Instructions
+                </button>
+              ) : (
+                ''
+              )}
             </div>
             {this.state.mode === 'Prompt' ? (
               <QuestionDescription
@@ -80,16 +89,21 @@ class QuestionPage extends Component {
               >
                 Javascript
               </button>
-              <button
-                onClick={this.setLanguage}
-                style={
-                  this.state.language === 'Python'
-                    ? { backgroundColor: 'grey', color: 'white' }
-                    : {}
-                }
-              >
-                Python
-              </button>
+              {this.props.currentQuestion &&
+              this.props.currentQuestion.pythonSolution.length > 0 ? (
+                <button
+                  onClick={this.setLanguage}
+                  style={
+                    this.state.language === 'Python'
+                      ? { backgroundColor: 'grey', color: 'white' }
+                      : {}
+                  }
+                >
+                  Python
+                </button>
+              ) : (
+                ''
+              )}
             </div>
             <div className="solution-button-container">
               <button
