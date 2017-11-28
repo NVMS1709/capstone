@@ -45,9 +45,6 @@ export const postUserAlgorithmQuestion = questionSubmission => {
                 return new Promise(resolve => {
                     resolve(dispatch(getQuestion(res.data)))
                 })
-                    .then(() => {
-                        return res.data
-                    })
             })
             .catch((error) => {
                 console.error(error)

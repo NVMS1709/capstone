@@ -60,17 +60,21 @@ class UserAlgorithmSubmissionPage extends Component {
         const targetValue = event.target.value;
 
         (new Promise(resolve => {
-            resolve(
-                this.setState({
-                    needUniqueAlgorithmName: false,
-                    needAlgorithmName: false
-                })
-            )
+            this.setState({
+                needUniqueAlgorithmName: false,
+                needAlgorithmName: false
+            }, () => {
+                resolve()
+            })
+
         }))
-            .then(() => new Promise((resolve) => {
-                resolve(
-                    this.setState({ algorithmName: targetValue })
-                )
+            .then(() => new Promise(resolve => {
+
+                this.setState({ algorithmName: targetValue },
+                    () => {
+                        resolve()
+                    })
+
             }))
             .then(() => {
                 if (!this.state.algorithmName) {
@@ -103,7 +107,9 @@ class UserAlgorithmSubmissionPage extends Component {
         const targetValue = event.target.value;
 
         (new Promise((resolve) => {
-            resolve(this.setState({ algorithmFunctionName: targetValue }))
+            this.setState({ algorithmFunctionName: targetValue }, () => {
+                resolve()
+            })
         }))
             .then(() => {
                 if (!this.state.algorithmFunctionName) {
@@ -119,7 +125,9 @@ class UserAlgorithmSubmissionPage extends Component {
         const targetValue = event.target.value;
 
         (new Promise(resolve => {
-            resolve(this.setState({ localDescriptionInput: targetValue }))
+            this.setState({ localDescriptionInput: targetValue }, () => {
+                resolve()
+            })
         }))
             .then(() => {
                 if (this.state.localDescriptionInput.length > 1000) {
@@ -221,40 +229,46 @@ class UserAlgorithmSubmissionPage extends Component {
 
                         setTimeout(() => {
                             (new Promise(resolve => {
-                                resolve(this.setState({ processingInfo: 'SAVED' }))
+                                this.setState({ processingInfo: 'SAVED' }, () => {
+                                    resolve()
+                                })
                             }))
                                 .then(() => {
                                     setTimeout(() => {
                                         this.setState({ processingInfo: '' })
-                                    }, 2000)
+                                    }, 2000) //set to 2000ms, so the 'SAVED' message will display for 2000ms
                                 })
-                        }, 1000)
+                        }, 1000) // not a necessary setTimeout, set 1000ms to prolong the display of 'saving...' message for possibly better user experience
 
                     } else {
                         setTimeout(() => {
                             (new Promise(resolve => {
-                                resolve(this.setState({ processingInfo: 'FAILED TO SAVE' }))
+                                this.setState({ processingInfo: 'FAILED TO SAVE' }, () => {
+                                    resolve()
+                                })
                             }))
                                 .then(() => {
                                     setTimeout(() => {
                                         this.setState({ processingInfo: '' })
-                                    }, 2000)
+                                    }, 2000) //set to 2000ms, so the 'SAVED' message will display for 2000ms
                                 })
-                        }, 1000)
+                        }, 1000) // not a necessary setTimeout, set 1000ms to prolong the display of 'saving...' message for possibly better user experience
                     }
                 })
                 .catch(error => {
 
                     setTimeout(() => {
                         (new Promise(resolve => {
-                            resolve(this.setState({ processingInfo: 'FAILED TO SAVE' }))
+                            this.setState({ processingInfo: 'FAILED TO SAVE' }, () => {
+                                resolve()
+                            })
                         }))
                             .then(() => {
                                 setTimeout(() => {
                                     this.setState({ processingInfo: '' })
-                                }, 2000)
+                                }, 2000)//set to 2000ms, so the 'SAVED' message will display for 2000ms 
                             })
-                    }, 1000)
+                    }, 1000)// not a necessary setTimeout, set 1000ms to prolong the display of 'saving...' message for possibly better user experience
 
                     console.error(error)
                 })
@@ -306,7 +320,9 @@ class UserAlgorithmSubmissionPage extends Component {
 
                     (new Promise(resolve => {
                         setTimeout(() => {
-                            resolve(this.setState({ processingInfo: 'publishing...' }))
+                            this.setState({ processingInfo: 'publishing...' }, () => {
+                                resolve()
+                            })
                         }, 1000)
                     }))
                         .then(() => {
@@ -331,39 +347,47 @@ class UserAlgorithmSubmissionPage extends Component {
 
                                         setTimeout(() => {
                                             (new Promise(resolve => {
-                                                resolve(this.setState({ processingInfo: 'PUBLISHED' }))
+                                                this.setState({ processingInfo: 'PUBLISHED' }, () => {
+                                                    resolve()
+                                                })
                                             }))
                                                 .then(() => {
                                                     setTimeout(() => {
                                                         this.setState({ processingInfo: '' })
-                                                    }, 2000)
+                                                    }, 2000) //same as above
                                                 })
-                                        }, 1000)
+                                        }, 1000) //same as above
 
                                     } else {
+
                                         setTimeout(() => {
                                             (new Promise(resolve => {
-                                                resolve(this.setState({ processingInfo: 'FAILED TO PUBLISH' }))
+                                                this.setState({ processingInfo: 'FAILED TO PUBLISH' }, () => {
+                                                    resolve()
+                                                })
                                             }))
                                                 .then(() => {
                                                     setTimeout(() => {
                                                         this.setState({ processingInfo: '' })
-                                                    }, 2000)
+                                                    }, 2000) //same as above
                                                 })
-                                        }, 1000)
+                                        }, 1000) // same as above
+
                                     }
                                 })
                                 .catch(error => {
                                     setTimeout(() => {
                                         (new Promise(resolve => {
-                                            resolve(this.setState({ processingInfo: 'FAILED TO PUBLISH' }))
+                                            this.setState({ processingInfo: 'FAILED TO PUBLISH' }, () => {
+                                                resolve()
+                                            })
                                         }))
                                             .then(() => {
                                                 setTimeout(() => {
                                                     this.setState({ processingInfo: '' })
-                                                }, 2000)
+                                                }, 2000) // same as above
                                             })
-                                    }, 1000)
+                                    }, 1000) // same as above
 
                                     console.error(error)
                                 })
@@ -373,14 +397,16 @@ class UserAlgorithmSubmissionPage extends Component {
 
                     setTimeout(() => {
                         (new Promise(resolve => {
-                            resolve(this.setState({ processingInfo: 'FAILED TO VALIDATE' }))
+                            this.setState({ processingInfo: 'FAILED TO VALIDATE' }, () => {
+                                resolve()
+                            })
                         }))
                             .then(() => {
                                 setTimeout(() => {
                                     this.setState({ processingInfo: '' })
-                                }, 2000)
+                                }, 2000) // same as above
                             })
-                    }, 1000)
+                    }, 1000) // same as above
 
                 }
             })
@@ -388,15 +414,16 @@ class UserAlgorithmSubmissionPage extends Component {
 
                     setTimeout(() => {
                         (new Promise(resolve => {
-                            resolve(this.setState({ processingInfo: 'FAILED TO VALIDATE' }))
+                            this.setState({ processingInfo: 'FAILED TO VALIDATE' }, () => {
+                                resolve()
+                            })
                         }))
                             .then(() => {
                                 setTimeout(() => {
                                     this.setState({ processingInfo: '' })
-                                }, 2000)
+                                }, 2000) //same as above
                             })
-                    }, 1000)
-
+                    }, 1000) // same as above
                     console.error(error)
                 });
 
@@ -459,9 +486,10 @@ class UserAlgorithmSubmissionPage extends Component {
             && event.target.textContent === 'Confirm'
         ) {
 
-
             (new Promise(resolve => {
-                resolve(this.setState({ processingInfo: 'resetting' }))
+                this.setState({ processingInfo: 'resetting' }, () => {
+                    resolve()
+                })
             }))
                 .then(() => {
                     return new Promise(resolve => {
@@ -486,7 +514,9 @@ class UserAlgorithmSubmissionPage extends Component {
                 .then(() => {
                     (new Promise(resolve => {
                         setTimeout(() => {
-                            resolve(this.setState({ processingInfo: 'SAVED' }))
+                            this.setState({ processingInfo: 'RESETTED' }, () => {
+                                resolve()
+                            })
                         }, 1000)
                     }))
                         .then(() => {
@@ -498,7 +528,9 @@ class UserAlgorithmSubmissionPage extends Component {
                 .catch((error) => {
                     (new Promise(resolve => {
                         setTimeout(() => {
-                            resolve(this.setState({ processingInfo: 'FAILED TO SAVE' }))
+                            this.setState({ processingInfo: 'FAILED TO RESET' }, () => {
+                                resolve()
+                            })
                         }, 1000)
                     }))
                         .then(() => {
@@ -512,7 +544,9 @@ class UserAlgorithmSubmissionPage extends Component {
 
         if (event.target.value === 'Are you sure to delete?' && event.target.textContent === 'Confirm') {
             (new Promise(resolve => {
-                resolve(this.setState({ processingInfo: 'deleting...' }))
+                this.setState({ processingInfo: 'deleting...' }, () => {
+                    resolve()
+                })
             }))
                 .then(() => {
                     return new Promise(resolve => {
@@ -526,7 +560,9 @@ class UserAlgorithmSubmissionPage extends Component {
                     //NEED TO REDIRECT TO user-submission with the message "DELETED", currently redirect to UNAUTHORIZED
                     (new Promise(resolve => {
                         setTimeout(() => {
-                            resolve(this.setState({ processingInfo: 'DELETED' }))
+                            this.setState({ processingInfo: 'DELETED' }, () => {
+                                resolve()
+                            })
                         }, 1000)
                     }))
                         .then(() => {
@@ -538,7 +574,9 @@ class UserAlgorithmSubmissionPage extends Component {
                 .catch((error) => {
                     (new Promise(resolve => {
                         setTimeout(() => {
-                            resolve(this.setState({ processingInfo: 'FAILED TO DELETE' }))
+                            this.setState({ processingInfo: 'FAILED TO DELETE' }, ()=>{
+                                resolve()
+                            })
                         }, 1000)
                     }))
                         .then(() => {
@@ -553,7 +591,8 @@ class UserAlgorithmSubmissionPage extends Component {
         this.setState({ makeSure: '' })
     }
 
-    setInitialStateOnSubmissionPage() {
+    setInitialStateOnSubmissionPage(resolve) {
+        console.log('IN PROTOTYPE FUNCTION, BEFORE SETSTATE', this.state.algorithmDifficulty)
         this.setState({
             algorithmName: this.props.currentQuestion.name,
             algorithmCategory: this.props.currentQuestion.category.name,
@@ -565,8 +604,12 @@ class UserAlgorithmSubmissionPage extends Component {
             localPythonAlgorithmInput: this.props.currentQuestion.pythonSolution,
             algorithmDifficulty: this.props.currentQuestion.difficulty.name,
             setInitialState: false
+        }, () => {
+            console.log('IN PROTOTYPE FUNCTION, AFTER SETSTATE', this.state.algorithmDifficulty)
+            resolve()
         })
     }
+
 
     /* eslint-disable complexity*/
     /* eslint-disable no-nested-ternary*/
@@ -836,24 +879,33 @@ class UserAlgorithmSubmissionPage extends Component {
             </div >
         )
 
+
         /* eslint-disable no-nested-ternary */
         return (
             <div>
                 {
-                    /* NOT A VERY GOOD PRACTICE!
+                    /*
+                    NOT A VERY GOOD PRACTICE!
                     Render methods should be a pure function of props and state.
-                    Maybe we can move the logic to `componentWillMount`;
+                    Maybe we can move the logic to `componentDidMount`, but linter will complain!
                     however, we need to figure out how to make sure that
-                    we only `this.setState()` after the field  `this.props.currentQuestion` is loaded */
+                    we only `this.setState()` after the field  `this.props.currentQuestion` is loaded
+                    */
                     currentQuestion && currentQuestion.userId === user.id
                         ?
                         (() => {
                             if (this.state.setInitialState) {
                                 (new Promise(resolve => {
-                                    resolve(this.setInitialStateOnSubmissionPage())
-                                })).then(() => SubmissionPage)
-                                    .catch(err => {
-                                        console.error(err)
+                                    console.log('IN PROMISE BEFORE CALL PROTOTYPE FUNCTION', this.state.algorithmDifficulty)
+                                    /*
+                                    passing resolve to this.setInitialStateOnSubmissionPage, will resolve() in the callback of this.setState();
+                                    in order to make sure that the submissionPage is rendered only after the the local state is initialized
+                                    */
+                                    this.setInitialStateOnSubmissionPage(resolve)
+                                }))
+                                    .then(() => {
+                                        console.log('AFTER PROMISE RESOLVED', this.state.algorithmDifficulty)
+                                        return SubmissionPage
                                     })
                             } else {
                                 return SubmissionPage
