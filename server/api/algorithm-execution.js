@@ -95,14 +95,18 @@ router.post('/javascript', (req, res, next) => {
           `npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(
             algorithmTestTempDirectory.lastIndexOf('/')
           )}/algorithm-test.js`,
-          { timeout: 5000 },
           (err, stdout, stderr) => {
 
             try {
+              console.log("STANDARD_OUTPUT___________", stdout, "__________END STANDARD_OUTPUT")
+              console.log("STANDARD_ERROR___________", err, "__________END ERROR")
+              console.log("STANDARD_STDERR___________", err, "__________END STANDARD_ERROR")
 
               const { testCasesStr, revisedStdoutStr } = getTestCaseOutcomes(
                 stdout
               )
+
+              console.log("TEST_CASES_STR_____________\n", testCasesStr, "\n___________END TEST_CASES_STR")
 
               const testCasesArr = JSON.parse(testCasesStr.trim())
 
