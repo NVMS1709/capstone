@@ -818,7 +818,7 @@ function postOrderTraverse(tree, array) {
       published: true,
       description: 'selectSort',
       javascriptSolution: `
-      it('return an array', function() {
+      it('returns an array', function() {
         let result = mergeSortTopDown([])
         expect(result).to.deep.equal([])
       })
