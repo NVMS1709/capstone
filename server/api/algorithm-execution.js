@@ -99,7 +99,10 @@ router.post('/javascript', (req, res, next) => {
           (err, stdout, stderr) => {
 
             try {
-
+              console.log("STANDARD_OUTPUT___________", stdout, "__________END STANDARD_OUTPUT")
+              console.log("STANDARD_ERROR___________", error, "__________END ERROR")
+              console.log("STANDARD_STDERR___________", error, "__________END STANDARD_ERROR")
+              
               const { testCasesStr, revisedStdoutStr } = getTestCaseOutcomes(
                 stdout
               )
