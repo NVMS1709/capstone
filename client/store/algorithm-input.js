@@ -61,7 +61,7 @@ export const postNewAlgo = newAlgorithm => dispatch => {
  * REDUCER
  */
 export default function (state = defaultInput, action) {
-  let newState = Object.assign('', state) // weird and interesting !!!!!!
+  let newState = Object.assign('', state)
   switch (action.type) {
     case ALGORITHM_INPUT:
       newState = action.input

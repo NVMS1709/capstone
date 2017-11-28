@@ -50,6 +50,12 @@ router.delete('/comments/:id', (req, res, next) => {
     .catch(next)
 })
 
+router.put('/comments/:id', (req, res, next) => {
+  ForumComment.update(req.body, { where: { id: req.params.id } })
+    .then(comments => res.json(comments))
+    .catch(next)
+})
+
 // router.post('/', (req, res, next) => {
 //   Comment.create(req.body)
 //     .then(comment => res.json(comment))

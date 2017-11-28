@@ -30,7 +30,6 @@ class Routes extends Component {
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
-            <Route path="/home" component={HomePage} />
             {isLoggedIn && (
               <Switch>
                 {/* Routes placed here are only available after logging in */}
@@ -57,7 +56,7 @@ class Routes extends Component {
               </Switch>
             )}
             {/* Displays our Login component as a fallback */}
-            <Route component={HomePage} />
+            <Route path="/home" component={HomePage} />
           </Switch>
         </Main>
       </Router>
