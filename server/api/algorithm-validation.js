@@ -101,6 +101,7 @@ router.post('/javascript', (req, res, next) => {
           { timeout: 5000 },
           (err, stdout, stderr) => {
             try {
+
               const { testCasesStr, revisedStdoutStr } = getTestCaseOutcomes(
                 stdout
               )
@@ -116,28 +117,35 @@ router.post('/javascript', (req, res, next) => {
 
               let results
 
-              if (
-                testCasesArr &&
-                !testCasesArr.find(testCase => testCase.outcome === 'failed')
-              ) {
-                results = {
-                  testCasesArr,
-                  rawOutput: '\n' + stderr + '\n' + revisedStdoutStr,
-                  allPassed: true
+              if (testCasesArr) {
+                console.log("AM I HERE IN TESTCASESARR")
+                if (
+                  !testCasesArr.find(testCase => testCase.outcome === 'failed')
+                ) {
+                  results = {
+                    testCasesArr,
+                    rawOutput: '\n' + stderr + '\n' + revisedStdoutStr,
+                    allPassed: true
+                  }
+
+                } else {
+                  results = {
+                    testCasesArr,
+                    rawOutput: '\n' + stderr + '\n' + revisedStdoutStr,
+                    allPassed: false
+                  }
                 }
-              } else {
-                results = {
-                  testCasesArr,
-                  rawOutput: '\n' + stderr + '\n' + revisedStdoutStr,
-                  allPassed: false
-                }
+                res.send(results)
               }
 
-              res.send(results)
             } catch (err1) {
               cleanupCB()
+              res.send({
+                testCasesArr: [{ title: 'Code execution failed', outcome: 'failed' }],
+                rawOutput: '\n' + err1,
+                allPassed: false
+              })
               console.error('CAUGHT ERROR____________________', err1)
-              next(err1)
             }
           }
         )

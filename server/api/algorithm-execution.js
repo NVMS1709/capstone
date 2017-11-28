@@ -118,7 +118,7 @@ router.post('/javascript', (req, res, next) => {
 
               let results
 
-
+              console.log("REQ USER".req.user)
               results = {
                 testCasesArr,
                 rawOutput: '/n' + stderr + '\n' + revisedStdoutStr,
