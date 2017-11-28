@@ -104,7 +104,7 @@ router.post('/javascript', (req, res, next) => {
                 stdout
               )
 
-              console.log("TEST_CASES_STR_____________\n", testCasesStr)
+              console.log("TEST_CASES_STR_____________\n", testCasesStr, "\n___________END TEST_CASES_STR")
 
               const testCasesArr = JSON.parse(testCasesStr.trim())
 
