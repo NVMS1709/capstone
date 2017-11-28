@@ -805,9 +805,9 @@ function postOrderTraverse(tree, array) {
       difficultyId: 3
     }),
     Question.create({
-      name: 'Bubble Sort',
+      name: 'bubbleSort',
       published: true,
-      description: `Implement the bubble sort algorithm that will sort any givin array.`,
+      description: `Implement the bubble sort algorithm that will sort any given array.`,
       javascriptSolution: `
       function bubbleSort(array) {
         let swapped;
@@ -823,9 +823,8 @@ function postOrderTraverse(tree, array) {
         return array;
       }`,
       pythonSolution: '',
-      functionName: 'Bubble Sort',
+      functionName: 'bubbleSort',
       javascriptTestFile: `
-      const bubbleSort = require('../problems/bubbleSort')
       const chai = require('chai')
       let expect = chai.expect;
       
@@ -863,10 +862,10 @@ function postOrderTraverse(tree, array) {
       })`,
       pythonTestFile: '',
       jsWalkThrough: [
-        `Step One: Create a function definition called "bubbleSort" which takes an array and takes a parameter named "array", return the parameter as well`, 
+        `Step One: Create a function definition called "bubbleSort" which takes an array and takes a parameter named "array", return the parameter as well`,
         `Step Two: Create a boolean flag that will keep track of when a swap will occur inside of a do "while loop"`,
         `Step Three: Create a loop that will iterate through the array.`,
-        `Step Four: Create a conditional statement that will determine if adjacent values are bigger or smaller than the other.`, 
+        `Step Four: Create a conditional statement that will determine if adjacent values are bigger or smaller than the other.`,
         `Step Five: Upon a succesful conditional entering, swap the adjacent values`
       ],
       jsSolutionWT: [
