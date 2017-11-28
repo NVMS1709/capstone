@@ -32,16 +32,16 @@ class Main extends Component {
           {user.id ? (
             ''
           ) : (
-            <div>
-              {this.state.loading ? (
-                <Modal>
-                  <AuthForm />
-                </Modal>
-              ) : (
-                ''
-              )}
-            </div>
-          )}
+              <div>
+                {this.state.loading ? (
+                  <Modal>
+                    <AuthForm />
+                  </Modal>
+                ) : (
+                    ''
+                  )}
+              </div>
+            )}
         </div>
         <nav>
           {
@@ -75,8 +75,8 @@ class Main extends Component {
                     </NavLink>
                   </div>
                 ) : (
-                  <div />
-                )}
+                    <div />
+                  )}
               </div>
             </div>
           }
