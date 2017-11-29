@@ -95,52 +95,52 @@ async function seed() {
     Category.create({
       name: 'Arrays',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Array data structure is a data structure consisting of a collection of elements (values or variables), each identified by at least one array index or key.'
     }),
     Category.create({
       name: 'Binary Search Trees',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Binary Search Tree is a node-based data structure in which each node has no more than two child nodes. Each child must either be a leaf node or the root of another binary search tree.'
     }),
     Category.create({
       name: 'Dynamic Programming',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Dynamic Programming is a method for solving a complex problem by breaking it down into a collection of simpler subproblems, solving each of those subproblems just once, and storing their solutions.'
     }),
     Category.create({
       name: 'Graphs',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Graph data structure is set of items connected by edges. Each item is called a vertex or node. Formally, a graph is a set of vertices and a binary relation between vertices, adjacency.'
     }),
     Category.create({
       name: 'Heaps',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Heap"s algorithm generates all possible permutations of n objects'
     }),
     Category.create({
       name: 'Recursion',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Recursive algorithm is an algorithm which calls itself with "smaller (or simpler)" input values, and which obtains the result for the current input by applying simple operations to the returned value for the smaller (or simpler) input.'
     }),
     Category.create({
       name: 'Searching',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Search algorithm is the step-by-step procedure used to locate specific data among a collection of data.'
     }),
     Category.create({
       name: 'Sorting',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Sorting algorithm is an algorithm that puts elements of a list in a certain order.'
     }),
     Category.create({
       name: 'Stacks',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Stack is an ordered list in which all insertions and deletions are made at one end, called the top.'
     }),
     Category.create({
       name: 'Strings',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Strig algorithm tries to find a place where one or several strings (also called patterns) are found within a larger string or text. '
     }),
     Category.create({
       name: 'Puzzle',
@@ -834,8 +834,6 @@ function postOrderTraverse(tree, array) {
         }
         return array.concat(left.slice()).concat(right.slice());
       }
-
-      module.exports = mergeSortTopDown, mergeTopDown
       `,
       pythonSolution: '',
       functionName: 'mergeSortTopDown',
@@ -895,8 +893,6 @@ function postOrderTraverse(tree, array) {
         }
         return array;
       }
-
-      module.exports = selectionSort
       `,
       pythonSolution: '',
       functionName: 'selectSort',
@@ -980,8 +976,6 @@ function postOrderTraverse(tree, array) {
           console.log(this.queue.join(' '));
         }
       }
-
-      module.exports = Queue
       `,
       pythonSolution: '',
       functionName: 'Queue',
@@ -1098,7 +1092,7 @@ function postOrderTraverse(tree, array) {
       })
       `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj.Arrays,
+      categoryId: categoryIdsObj.Queue,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -1291,8 +1285,6 @@ function postOrderTraverse(tree, array) {
         }
         return array;
       }
-
-      module.exports = insertionSort
       `,
       pythonSolution: '',
       functionName: 'insertionSort',
