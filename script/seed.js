@@ -754,17 +754,165 @@ function postOrderTraverse(tree, array) {
       pythonTestFile: ''
     }),
     Question.create({
-      name: 'Two Number Sum',
+      name: 'Duplicates',
       published: true,
-      description: '',
-      javascriptSolution: '',
+      description:
+        'Write a function that finds all duplicates in an array.  The array should only contain integers.  Attempt to utilize a hash table to store each element as we go throguh the array.',
+      javascriptSolution: `function duplicatesHash(arr) {
+        var hashTable = [];
+        var dups = [];
+        for (var i = 0; i < arr.length; i++) {
+          if (hashTable[arr[i].toString()] === undefined) {
+            hashTable[arr[i].toString()] = true;
+          }
+          else { dups.push(arr[i]); }
+        }
+        return dups;
+      }`,
       pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
+      functionName: 'duplicatesHash',
+      javascriptTestFile: `const chai = require('chai')
+      let expect = chai.expect
+
+      describe('Find Duplicate', function() {
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([1, 21, -4, 103, 21, 4, 1])
+          expect(result.sort()).to.deep.equal([1, 21])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([2, 24, 52, -103, -21, 24, 1])
+          expect(result.sort()).to.deep.equal([24])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([
+            473,
+            572,
+            1118,
+            4848,
+            4911,
+            10,
+            -31,
+            -41,
+            3450,
+            -25251,
+            12451425,
+            64,
+            13,
+            572,
+            592,
+            473
+          ])
+          expect(result.sort()).to.deep.equal([473, 572])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([355, 24, 52, 1311, -21, -52, -24, 1])
+          expect(result.sort()).to.deep.equal([])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([355, 24, 52, 1311, -21, -52, -24, 1])
+          expect(result.sort()).to.deep.equal([])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([
+            57132,
+            47343,
+            57132,
+            1323576,
+            523672,
+            48235748,
+            49235711,
+            1023572357,
+            -323571,
+            -41,
+            34630,
+            -25251,
+            12425,
+            623574,
+            123643,
+            523672,
+            591732,
+            34630,
+            4723573
+          ])
+          expect(result.sort()).to.deep.equal([34630, 523672, 57132])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([
+            1313,
+            4246911,
+            51312,
+            1357288,
+            99948,
+            4246911,
+            10,
+            -324691,
+            -4991,
+            296450,
+            -24921,
+            999224645,
+            26442964,
+            2469913,
+            5246972,
+            269592,
+            999224645,
+            2469429473,
+            10,
+            -324691
+          ])
+          expect(result.sort()).to.deep.equal([-324691, 10, 4246911, 999224645])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([355, 355, 24, 52, 1311, -21, -52, -24, 1])
+          expect(result.sort()).to.deep.equal([355])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([473, 572, 1118, 4848, 4911, 473])
+          expect(result.sort()).to.deep.equal([473])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([
+            2345,
+            23,
+            4578,
+            2354,
+            236,
+            2356236236,
+            235635,
+            567,
+            25623,
+            56235,
+            635,
+            6,
+            347,
+            548,
+            34,
+            73,
+            68,
+            4578,
+            3457,
+            36,
+            84,
+            567,
+            437,
+            458
+          ])
+          expect(result.sort()).to.deep.equal([4578, 567])
+        })
+      })`,
       pythonTestFile: '',
       categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin
+      userId: userIdsObj.admin,
+      companyId: companyIdsObj.Facebook
     }),
     Question.create({
       name: 'Three Number Sum',
