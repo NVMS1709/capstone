@@ -15,13 +15,15 @@ const {
   Question,
   Category,
   Difficulty,
-  Forum
+  Forum,
+  Company
 } = require('../server/db/models')
 
 async function seed() {
   let userIdsObj = {}
   let forumIdsObj = {}
   let questionIdsObj = {}
+  let companyIdsObj = {}
   let categoryIdsObj = {}
   let difficultyIdsObj = {}
 
@@ -30,19 +32,38 @@ async function seed() {
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
 
+  const companies = await Promise.all([
+    Company.create({ name: 'Google' }),
+    Company.create({ name: 'Facebook' }),
+    Company.create({ name: 'Microsoft' })
+  ]).then(companiesArr => {
+    companiesArr.forEach(company => {
+      companyIdsObj[company.name] = company.id
+    })
+    return companiesArr
+  })
+
+  console.log('User Ids Obj', companyIdsObj)
+
+  console.log(`seeded ${companies.length} users`)
+
   const users = await Promise.all([
-    User.create({ name: 'admin', email: 'admin@email.com', password: '123', questionsSolved: [1, 4, 6, 8] }),
+    User.create({
+      name: 'admin',
+      email: 'admin@email.com',
+      password: '123',
+      questionsSolved: [1, 4, 6, 8]
+    }),
     User.create({ name: 'cody', email: 'cody@email.com', password: '123' }),
     User.create({ name: 'murphy', email: 'murphy@email.com', password: '123' })
-  ])
-    .then(usersArr => {
-      usersArr.forEach(user => {
-        userIdsObj[user.name] = user.id
-      })
-      return usersArr
+  ]).then(usersArr => {
+    usersArr.forEach(user => {
+      userIdsObj[user.name] = user.id
     })
+    return usersArr
+  })
 
-  console.log("User Ids Obj", userIdsObj)
+  console.log('User Ids Obj', userIdsObj)
 
   console.log(`seeded ${users.length} users`)
 
@@ -59,15 +80,14 @@ async function seed() {
         'Use this thread to submit comments and or suggestions on site design and usability.  Suggestions will be reviewed by the site administator in the order that they are received.',
       userId: 1
     })
-  ])
-    .then(forumsArr => {
-      forumsArr.forEach(forum => {
-        forumIdsObj[forum.name] = forum.id
-      })
-      return forumsArr
+  ]).then(forumsArr => {
+    forumsArr.forEach(forum => {
+      forumIdsObj[forum.name] = forum.id
     })
+    return forumsArr
+  })
 
-  console.log("Forum Ids Obj", forumIdsObj)
+  console.log('Forum Ids Obj', forumIdsObj)
 
   console.log(`seeded ${forums.length} forums`)
 
@@ -126,15 +146,14 @@ async function seed() {
       name: 'Puzzle',
       description: 'Mind teasing questions'
     })
-  ])
-    .then(categoriesArr => {
-      categoriesArr.forEach(category => {
-        categoryIdsObj[category.name] = category.id
-      })
-      return categoriesArr
+  ]).then(categoriesArr => {
+    categoriesArr.forEach(category => {
+      categoryIdsObj[category.name] = category.id
     })
+    return categoriesArr
+  })
 
-  console.log("Category Ids Obj", categoryIdsObj)
+  console.log('Category Ids Obj', categoryIdsObj)
 
   console.log(`seeded ${categories.length} categories`)
 
@@ -142,16 +161,14 @@ async function seed() {
     Difficulty.create({ name: 'easy' }),
     Difficulty.create({ name: 'medium' }),
     Difficulty.create({ name: 'difficult' })
-  ])
-    .then(difficultiesArr => {
-      difficultiesArr.forEach(difficulty => {
-        difficultyIdsObj[difficulty.name] = difficulty.id
-      })
-      return difficultiesArr
+  ]).then(difficultiesArr => {
+    difficultiesArr.forEach(difficulty => {
+      difficultyIdsObj[difficulty.name] = difficulty.id
     })
+    return difficultiesArr
+  })
 
-  console.log("Difficulty Ids Obj", difficultyIdsObj)
-
+  console.log('Difficulty Ids Obj', difficultyIdsObj)
 
   console.log(`seeded ${difficulties.length} difficulties`)
 
@@ -745,7 +762,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Arrays'],
+      categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin
     }),
@@ -758,7 +775,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Arrays'],
+      categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin
     }),
@@ -797,17 +814,17 @@ function postOrderTraverse(tree, array) {
         if(array.length < 2) {
           return array;
         }
-      
+
         const middle = Math.floor(array.length / 2);
         const left = array.slice(0, middle);
         const right = array.slice(middle);
-      
+
         return mergeTopDown(mergeSortTopDown(left), mergeSortTopDown(right));
       }
-      
+
       function mergeTopDown(left, right) {
         const array = [];
-      
+
         while(left.length && right.length) {
           if(left[0] < right[0]) {
             array.push(left.shift());
@@ -817,7 +834,7 @@ function postOrderTraverse(tree, array) {
         }
         return array.concat(left.slice()).concat(right.slice());
       }
-      
+
       module.exports = mergeSortTopDown, mergeTopDown
       `,
       pythonSolution: '',
@@ -825,37 +842,37 @@ function postOrderTraverse(tree, array) {
       javascriptTestFile: `
       const chai = require('chai')
       let expect = chai.expect
-      
+
       describe('Merge Sort(Top-Down Implemention)', function() {
-      
+
         it('return an array', function() {
           let result = mergeSortTopDown([])
           expect(result).to.deep.equal([])
         })
-      
+
          it('sorts an array with random positive values', function () {
           let result = mergeSortTopDown([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
           expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         })
-      
+
         it('sorts an array in reverse order', function () {
           let result = mergeSortTopDown([8, 7, 6, 5, 4])
           expect(result).to.deep.equal([4, 5, 6, 7, 8])
         })
-      
+
         it('sorts an array with mixed values', function () {
           let result = mergeSortTopDown([8, -7, 6, -5, 4])
           expect(result).to.deep.equal([-7, -5, 4, 6, 8])
         })
-      
+
         it('sorts an array with negative values', function () {
           let result = mergeSortTopDown([-1, -5, -22, -11, -7])
           expect(result).to.deep.equal([-22, -11, -7, -5, -1])
-        }) 
+        })
       })
       `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Sorting'],
+      categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -878,7 +895,7 @@ function postOrderTraverse(tree, array) {
         }
         return array;
       }
-      
+
       module.exports = selectionSort
       `,
       pythonSolution: '',
@@ -886,29 +903,29 @@ function postOrderTraverse(tree, array) {
       javascriptTestFile: `
       const chai = require('chai')
       let expect = chai.expect
-      
+
       describe('Selection Sort', () => {
-      
+
         it('returns an array', function() {
           let result = selectionSort([])
           expect(result).to.deep.equal([])
         })
-      
+
          it('sorts an array with random positive values', function () {
           let result = selectionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
           expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         })
-      
+
         it('sorts an array in reverse order', function () {
           let result = selectionSort([8, 7, 6, 5, 4])
           expect(result).to.deep.equal([4, 5, 6, 7, 8])
         })
-      
+
         it('sorts an array with mixed values', function () {
           let result = selectionSort([8, -7, 6, -5, 4])
           expect(result).to.deep.equal([-7, -5, 4, 6, 8])
         })
-      
+
         it('sorts an array with negative values', function () {
           let result = selectionSort([-1, -5, -22, -11, -7])
           expect(result).to.deep.equal([-22, -11, -7, -5, -1])
@@ -916,7 +933,7 @@ function postOrderTraverse(tree, array) {
       })
       `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Sorting'],
+      categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -929,7 +946,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Searching'],
+      categoryId: categoryIdsObj.Searching,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -942,28 +959,28 @@ function postOrderTraverse(tree, array) {
         constructor() {
           this.queue = [];
         }
-      
+
         enqueue(value) {
           this.queue.push(value);
         }
-      
+
         dequeue() {
           return this.queue.shift();
         }
-      
+
         peek() {
           return this.queue[0];
         }
-      
+
         length() {
           return this.queue.length;
         }
-      
+
         print() {
           console.log(this.queue.join(' '));
         }
       }
-      
+
       module.exports = Queue
       `,
       pythonSolution: '',
@@ -971,14 +988,14 @@ function postOrderTraverse(tree, array) {
       javascriptTestFile: `
       const chai = require('chai')
       let expect = chai.expect
-      
+
       describe('Queue', function () {
-      
+
         let queue
         beforeEach(function () {
           queue = new Queue()
         })
-      
+
         describe('Enqueue Method', () => {
           beforeEach(() => {
             queue.enqueue(1)
@@ -986,38 +1003,38 @@ function postOrderTraverse(tree, array) {
             queue.enqueue(5)
             queue.enqueue(7)
           })
-      
+
           it('enqueue method adds values to the queue', () => {
             expect(queue.queue.length).to.deep.equal(4)
           })
-      
+
           it('values are added in a FIFO manner', () => {
             const dequeued = queue.dequeue()
-      
+
             expect(dequeued).to.deep.equal(1)
             expect(queue.queue[0]).to.deep.equal(3)
             expect(queue.queue[2]).to.deep.equal(7)
           })
         })
-      
+
         describe('Dequeue Method', () => {
           beforeEach(() => {
             queue.enqueue(1)
             queue.enqueue(3)
             queue.enqueue(5)
           })
-      
+
           it('popped values return the element as soon as they are removed', () => {
             expect(queue.dequeue()).to.deep.equal(1)
           })
-      
+
           it('the value in the array after a pop should be the head', () => {
             queue.dequeue()
             expect(queue.queue[0]).to.deep.equal(3)
             queue.dequeue()
             expect(queue.queue[0]).to.deep.equal(5)
           })
-      
+
           it('should return undefined if the queue is empty', () => {
             queue.dequeue()
             queue.dequeue()
@@ -1026,9 +1043,9 @@ function postOrderTraverse(tree, array) {
             expect(queue[0]).to.deep.equal(undefined)
           })
         })
-      
+
         describe('Peek Method', () => {
-      
+
           it('should return the first value in the method without removing it', () => {
             queue.enqueue(1)
             queue.enqueue(3)
@@ -1036,30 +1053,30 @@ function postOrderTraverse(tree, array) {
             expect(queue.peek()).to.deep.equal(1)
             expect(queue.queue[0]).to.deep.equal(1)
           })
-      
+
           it('should return undefined for an empty queue', () => {
             expect(queue.peek()).to.deep.equal(undefined)
           })
         })
-      
+
         describe('Length Method', () => {
-          
+
           beforeEach(() => {
             queue.enqueue(1)
             queue.enqueue(3)
             queue.enqueue(5)
           })
-      
+
           it('should return a correct length', () => {
             expect(queue.length()).to.deep.equal(3)
           })
-      
+
           it('should return the correct value after values have been removed from the queue. NOTE, dequeue must be implemented for this to work.', () => {
             queue.dequeue()
             queue.dequeue()
             expect(queue.length()).to.deep.equal(1)
           })
-      
+
           it('should return an 0 if the queue is empty', () => {
             queue.dequeue()
             queue.dequeue()
@@ -1067,21 +1084,21 @@ function postOrderTraverse(tree, array) {
             expect(queue.length()).to.deep.equal(0)
           })
         })
-      
+
         describe('Print Method', () => {
           it('should correctly print out all of the values in the array', () => {
             queue.enqueue(1)
             queue.enqueue(3)
             queue.enqueue(5)
             queue.enqueue(7)
-            queue.print(); 
+            queue.print();
             expect(queue.queue).to.deep.equal([1, 3, 5, 7])
           })
         })
       })
       `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Arrays'],
+      categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -1094,7 +1111,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Searching'],
+      categoryId: categoryIdsObj.Searching,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin
     }),
@@ -1107,7 +1124,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Searching'],
+      categoryId: categoryIdsObj.Searching,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -1120,9 +1137,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Searching'],
+      categoryId: categoryIdsObj.Searching,
       difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Shifted Binary Search',
@@ -1133,9 +1150,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Searching'],
+      categoryId: categoryIdsObj.Searching,
       difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Bubble Sort',
@@ -1160,34 +1177,34 @@ function postOrderTraverse(tree, array) {
       javascriptTestFile: `
       const chai = require('chai')
       let expect = chai.expect;
-      
+
       describe('Solution for bubble sort', () => {
           let bubble_sort_func
-      
+
           beforeEach(() => {
               bubble_sort_func = bubbleSort
           })
-      
+
           it('Sorts an unordered array', () => {
               let result = bubble_sort_func([3, 7, 2, 1, 8])
               expect(result).to.deep.equal([1,2,3,7,8])
           })
-      
+
           it('Returns original array value for already sorted array', () => {
               let result = bubble_sort_func([1,2,3])
               expect(result).to.deep.equal([1,2,3])
           })
-      
+
           it('Can sort a mixed array of positive and negative numbers', () => {
             let result = bubble_sort_func([5, -6, 9, -2])
             expect(result).to.deep.equal([-6, -2, 5, 9])
           })
-      
+
           it('Sorts an array of negative numbers', () => {
             let result = bubble_sort_func([-3, -5, -2, -8])
             expect(result).to.deep.equal([-8, -5, -3, -2])
           })
-      
+
           it('Sorts an array with duplicate values', () => {
             let result = bubble_sort_func([2, 5, 5, 3, 8, 3])
             expect(result).to.deep.equal([2, 3, 3, 5, 5, 8])
@@ -1206,7 +1223,8 @@ function postOrderTraverse(tree, array) {
         function bubbleSort(array) {
           return array
         }
-        `, `
+        `,
+        `
         function bubbleSort(array) {
           do {
             swapped = false;
@@ -1214,7 +1232,8 @@ function postOrderTraverse(tree, array) {
           } while(swapped);
           return array
         }
-        `, `
+        `,
+        `
         function bubbleSort(array) {
           do {
             swapped = false;
@@ -1224,7 +1243,8 @@ function postOrderTraverse(tree, array) {
           } while(swapped);
           return array
         }
-        `, `
+        `,
+        `
         function bubbleSort(array) {
           do {
             swapped = false;
@@ -1235,7 +1255,8 @@ function postOrderTraverse(tree, array) {
             }
           } while(swapped);
           return array
-        }`, `
+        }`,
+        `
         function bubbleSort(array) {
           do {
             swapped = false;
@@ -1249,7 +1270,7 @@ function postOrderTraverse(tree, array) {
           return array
         }`
       ],
-      categoryId: categoryIdsObj['Sorting'],
+      categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -1270,7 +1291,7 @@ function postOrderTraverse(tree, array) {
         }
         return array;
       }
-      
+
       module.exports = insertionSort
       `,
       pythonSolution: '',
@@ -1278,29 +1299,29 @@ function postOrderTraverse(tree, array) {
       javascriptTestFile: `
       const chai = require('chai')
       let expect = chai.expect
-      
+
       describe('Insertion Sort', function () {
-      
+
         it('sorts an array with random positive values', function () {
           let result = insertionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
           expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         })
-      
+
         it('sorts an array in reverse order', function () {
           let result = insertionSort([8, 7, 6, 5, 4])
           expect(result).to.deep.equal([4, 5, 6, 7, 8])
         })
-      
+
         it('sorts an array with mixed values', function () {
           let result = insertionSort([8, -7, 6, -5, 4])
           expect(result).to.deep.equal([-7, -5, 4, 6, 8])
         })
-      
+
         it('sorts an array with negative values', function () {
           let result = insertionSort([-1, -5, -22, -11, -7])
           expect(result).to.deep.equal([-22, -11, -7, -5, -1])
         })
-      
+
         it('returns an array', function () {
           let result = insertionSort([])
           expect(result).to.deep.equal([])
@@ -1308,7 +1329,7 @@ function postOrderTraverse(tree, array) {
       })
       `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Sorting'],
+      categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -1321,7 +1342,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Sorting'],
+      categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin
     }),
@@ -1419,7 +1440,7 @@ function postOrderTraverse(tree, array) {
       }
       `
       ],
-      categoryId: categoryIdsObj['Puzzle'],
+      categoryId: categoryIdsObj.Puzzle,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     })

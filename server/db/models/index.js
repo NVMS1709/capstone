@@ -5,6 +5,7 @@ const Difficulty = require('./difficulty')
 const Comment = require('./comment')
 const Forum = require('./forum')
 const ForumComment = require('./forumComment')
+const Company = require('./company')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -12,6 +13,9 @@ const ForumComment = require('./forumComment')
  *
  *    BlogPost.belongsTo(User)
  */
+
+Question.belongsTo(Company)
+Company.hasMany(Question, { onDelete: 'cascade', hooks: true })
 
 ForumComment.belongsTo(Forum)
 Forum.hasMany(ForumComment, { onDelete: 'cascade', hooks: true })
@@ -50,5 +54,6 @@ module.exports = {
   Difficulty,
   Comment,
   Forum,
-  ForumComment
+  ForumComment,
+  Company
 }
