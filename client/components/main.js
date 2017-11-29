@@ -51,12 +51,12 @@ class Main extends Component {
                   <span className="small-head">HOME</span>
                 </NavLink>
                 <NavLink to="/forum" className="link">
-                  <span className="small-head">Forum</span>
+                  <span className="small-head">FORUM</span>
                 </NavLink>
               </div>
               <div className="navbar-central">
                 <NavLink to="/home" id="head-link">
-                  <span id="head">A L G O R I T H M</span>
+                  <span id="head">A L G O - S O L V E</span>
                 </NavLink>
               </div>
               <div className="navbar-right">

@@ -18,8 +18,30 @@ import Discussion from './components/forum/discussionIndex'
  * COMPONENT
  */
 class Routes extends Component {
+  constructor() {
+    super();
+    this.state = {
+      height: window.innerHeight,
+      width: window.innerWidth
+    };
+    this.updateDimensions = this.updateDimensions.bind(this);
+  }
+
+  updateDimensions() {
+    this.setState({
+      height: window.innerHeight,
+      width: window.innerWidth
+    })
+    console.log("HEIGHT", this.state.height, "WIDTH", this.state.width)
+  }
+
   componentDidMount() {
     this.props.loadInitialData()
+    window.addEventListener('resize', this.updateDimensions)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions)
   }
 
   render() {
@@ -27,38 +49,54 @@ class Routes extends Component {
 
     return (
       <Router history={history}>
-        <Main>
-          <Switch>
-            {/* Routes placed here are available to all visitors */}
-            {isLoggedIn && (
-              <Switch>
-                {/* Routes placed here are only available after logging in */}
-                <Route path="/home" component={HomePage} />
-                <Route
-                  exact
-                  path="/user-submission"
-                  component={UserAlgorithmSubmissionPage}
-                />
-                <Route
-                  exact
-                  path="/user-submission/:questionName"
-                  component={UserAlgorithmSubmissionPage}
-                />
-                <Route exact path="/" component={HomePage} />
-                <Route
-                  path="/questions/:questionName"
-                  component={QuestionPage}
-                />
-                <Route path="/user" component={UserPage} />
-                <Route path="/payment" component={Payment} />
-                <Route exact path="/forum" component={Forum} />
-                <Route path="/forum/:discussionName" component={Discussion} />
-              </Switch>
-            )}
-            {/* Displays our Login component as a fallback */}
-            <Route path="/home" component={HomePage} />
-          </Switch>
-        </Main>
+        {this.state.height <= 830 && this.state.width <= 1196
+          ?
+          <div id="small-window">
+            <div id="small-window-message-container">
+              <div>Our web app does not support small browser windows yet :(</div>
+              <div>Please enlarge your browser window or visit our web app on a larger device.</div>
+              <div>We apologize for the inconvenience!</div>
+              <div>▐ ﹒︣ Ĺ̯ ﹒︣ ▐</div>
+              <div>┏༼ ◉ ╭╮ ◉༽┓</div>
+              <div>(๑◕︵◕๑)</div>
+              <div>٩꒰´·⌢•｀꒱۶⁼³₌₃</div>
+              <div>( ᵒ̴̶̷̥́ _ᵒ̴̶̷̣̥̀ )</div>
+            </div>
+          </div>
+          :
+          <Main>
+            <Switch>
+              {/* Routes placed here are available to all visitors */}
+              {isLoggedIn && (
+                <Switch>
+                  {/* Routes placed here are only available after logging in */}
+                  <Route path="/home" component={HomePage} />
+                  <Route
+                    exact
+                    path="/user-submission"
+                    component={UserAlgorithmSubmissionPage}
+                  />
+                  <Route
+                    exact
+                    path="/user-submission/:questionName"
+                    component={UserAlgorithmSubmissionPage}
+                  />
+                  <Route exact path="/" component={HomePage} />
+                  <Route
+                    path="/questions/:questionName"
+                    component={QuestionPage}
+                  />
+                  <Route path="/user" component={UserPage} />
+                  <Route path="/payment" component={Payment} />
+                  <Route exact path="/forum" component={Forum} />
+                  <Route path="/forum/:discussionName" component={Discussion} />
+                </Switch>
+              )}
+              {/* Displays our Login component as a fallback */}
+              <Route path="/home" component={HomePage} />
+            </Switch>
+          </Main>
+        }
       </Router>
     )
   }
