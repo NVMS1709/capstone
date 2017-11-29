@@ -98,15 +98,11 @@ router.post('/javascript', (req, res, next) => {
           (err, stdout, stderr) => {
 
             try {
-              console.log("STANDARD_OUTPUT___________", stdout, "__________END STANDARD_OUTPUT")
-              console.log("STANDARD_ERROR___________", err, "__________END ERROR")
-              console.log("STANDARD_STDERR___________", err, "__________END STANDARD_ERROR")
+              cleanupCB()
 
               const { testCasesStr, revisedStdoutStr } = getTestCaseOutcomes(
                 stdout
               )
-
-              console.log("TEST_CASES_STR_____________\n", testCasesStr, "\n___________END TEST_CASES_STR")
 
               const testCasesArr = JSON.parse(testCasesStr.trim())
 
@@ -114,12 +110,10 @@ router.post('/javascript', (req, res, next) => {
                 console.error('EXECUTION ERROR______________________', err)
               }
 
-              cleanupCB()
-
               if (testCasesArr) {
                 res.send({
                   testCasesArr,
-                  rawOutput: '/n' + stderr + '\n' + revisedStdoutStr,
+                  rawOutput: '\n' + stderr + '\n' + revisedStdoutStr,
                   userId: req.session.passport.user,
                   questionsSolved: req.body.questionsSolved
                 })
@@ -127,9 +121,12 @@ router.post('/javascript', (req, res, next) => {
 
             } catch (error) {
               cleanupCB()
+              console.error("ERROR", error)
+              console.error("STDERR", stderr)
+
               res.send({
-                testCasesArr: [{ title: 'Code execution', outcome: 'failed' }],
-                rawOutput: '\n' + error,
+                testCasesArr: [{ title: 'code execution', outcome: 'failed' }],
+                rawOutput: '\n' + stderr + '\n' + stderr,
                 allPassed: false
               })
               console.error('CAUGHT ERROR____________________', error)

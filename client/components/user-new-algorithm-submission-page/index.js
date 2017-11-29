@@ -139,11 +139,11 @@ class UserAlgorithmSubmissionPage extends Component {
     }
 
     handleOutputMode(event) {
-        if (event.target.textContent === 'Validation Custom Output') {
+        if (event.target.textContent === 'Validation Test Output') {
             this.setState({ outputMode: 'ValidationCustomOutput' })
         } else if (event.target.textContent === 'Test Cases') {
             this.setState({ outputMode: 'TestCases' })
-        } else if (event.target.textContent === 'Validation Raw Output') {
+        } else if (event.target.textContent === 'Validation Detailed Output') {
             this.setState({ outputMode: 'ValidationRawOutput' })
         }
     }
@@ -817,7 +817,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                     { border: '1px solid black', borderBottom: 'none' }
                                     :
                                     {}}>
-                                Validation Custom Output
+                                Validation Test Output
                             </button>
                             <button
                                 onClick={this.handleOutputMode}
@@ -826,7 +826,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                     { border: '1px solid black', borderBottom: 'none' }
                                     :
                                     {}}>
-                                Validation Raw Output
+                                Validation Detailed Output
                             </button>
                         </div>
                         {
