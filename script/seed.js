@@ -75,52 +75,52 @@ async function seed() {
     Category.create({
       name: 'Arrays',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Array data structure is a data structure consisting of a collection of elements (values or variables), each identified by at least one array index or key.'
     }),
     Category.create({
       name: 'Binary Search Trees',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Binary Search Tree is a node-based data structure in which each node has no more than two child nodes. Each child must either be a leaf node or the root of another binary search tree.'
     }),
     Category.create({
       name: 'Dynamic Programming',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Dynamic Programming is a method for solving a complex problem by breaking it down into a collection of simpler subproblems, solving each of those subproblems just once, and storing their solutions.'
     }),
     Category.create({
       name: 'Graphs',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Graph data structure is set of items connected by edges. Each item is called a vertex or node. Formally, a graph is a set of vertices and a binary relation between vertices, adjacency.'
     }),
     Category.create({
       name: 'Heaps',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Heap"s algorithm generates all possible permutations of n objects'
     }),
     Category.create({
       name: 'Recursion',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Recursive algorithm is an algorithm which calls itself with "smaller (or simpler)" input values, and which obtains the result for the current input by applying simple operations to the returned value for the smaller (or simpler) input.'
     }),
     Category.create({
       name: 'Searching',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Search algorithm is the step-by-step procedure used to locate specific data among a collection of data.'
     }),
     Category.create({
       name: 'Sorting',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Sorting algorithm is an algorithm that puts elements of a list in a certain order.'
     }),
     Category.create({
       name: 'Stacks',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Stack is an ordered list in which all insertions and deletions are made at one end, called the top.'
     }),
     Category.create({
       name: 'Strings',
       description:
-        'Lorem ipsum dolor sit amet, mei ad exerci tincidunt sadipscing, eu choro quidam vivendo nec, ea sit amet impetus probatus. Libris iuvaret ius te. Ex mei rebum elitr maluisset, justo error eam ad. Eam ea graecis dissentiet, malis postea delicata usu id. No veritus interpretaris quo.'
+        'Strig algorithm tries to find a place where one or several strings (also called patterns) are found within a larger string or text. '
     }),
     Category.create({
       name: 'Puzzle',
@@ -797,17 +797,17 @@ function postOrderTraverse(tree, array) {
         if(array.length < 2) {
           return array;
         }
-      
+
         const middle = Math.floor(array.length / 2);
         const left = array.slice(0, middle);
         const right = array.slice(middle);
-      
+
         return mergeTopDown(mergeSortTopDown(left), mergeSortTopDown(right));
       }
-      
+
       function mergeTopDown(left, right) {
         const array = [];
-      
+
         while(left.length && right.length) {
           if(left[0] < right[0]) {
             array.push(left.shift());
@@ -817,41 +817,39 @@ function postOrderTraverse(tree, array) {
         }
         return array.concat(left.slice()).concat(right.slice());
       }
-      
-      module.exports = mergeSortTopDown, mergeTopDown
       `,
       pythonSolution: '',
       functionName: 'mergeSortTopDown',
       javascriptTestFile: `
       const chai = require('chai')
       let expect = chai.expect
-      
+
       describe('Merge Sort(Top-Down Implemention)', function() {
-      
+
         it('return an array', function() {
           let result = mergeSortTopDown([])
           expect(result).to.deep.equal([])
         })
-      
+
          it('sorts an array with random positive values', function () {
           let result = mergeSortTopDown([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
           expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         })
-      
+
         it('sorts an array in reverse order', function () {
           let result = mergeSortTopDown([8, 7, 6, 5, 4])
           expect(result).to.deep.equal([4, 5, 6, 7, 8])
         })
-      
+
         it('sorts an array with mixed values', function () {
           let result = mergeSortTopDown([8, -7, 6, -5, 4])
           expect(result).to.deep.equal([-7, -5, 4, 6, 8])
         })
-      
+
         it('sorts an array with negative values', function () {
           let result = mergeSortTopDown([-1, -5, -22, -11, -7])
           expect(result).to.deep.equal([-22, -11, -7, -5, -1])
-        }) 
+        })
       })
       `,
       pythonTestFile: '',
@@ -878,37 +876,35 @@ function postOrderTraverse(tree, array) {
         }
         return array;
       }
-      
-      module.exports = selectionSort
       `,
       pythonSolution: '',
       functionName: 'selectSort',
       javascriptTestFile: `
       const chai = require('chai')
       let expect = chai.expect
-      
+
       describe('Selection Sort', () => {
-      
+
         it('returns an array', function() {
           let result = selectionSort([])
           expect(result).to.deep.equal([])
         })
-      
+
          it('sorts an array with random positive values', function () {
           let result = selectionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
           expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         })
-      
+
         it('sorts an array in reverse order', function () {
           let result = selectionSort([8, 7, 6, 5, 4])
           expect(result).to.deep.equal([4, 5, 6, 7, 8])
         })
-      
+
         it('sorts an array with mixed values', function () {
           let result = selectionSort([8, -7, 6, -5, 4])
           expect(result).to.deep.equal([-7, -5, 4, 6, 8])
         })
-      
+
         it('sorts an array with negative values', function () {
           let result = selectionSort([-1, -5, -22, -11, -7])
           expect(result).to.deep.equal([-22, -11, -7, -5, -1])
@@ -942,43 +938,41 @@ function postOrderTraverse(tree, array) {
         constructor() {
           this.queue = [];
         }
-      
+
         enqueue(value) {
           this.queue.push(value);
         }
-      
+
         dequeue() {
           return this.queue.shift();
         }
-      
+
         peek() {
           return this.queue[0];
         }
-      
+
         length() {
           return this.queue.length;
         }
-      
+
         print() {
           console.log(this.queue.join(' '));
         }
       }
-      
-      module.exports = Queue
       `,
       pythonSolution: '',
       functionName: 'Queue',
       javascriptTestFile: `
       const chai = require('chai')
       let expect = chai.expect
-      
+
       describe('Queue', function () {
-      
+
         let queue
         beforeEach(function () {
           queue = new Queue()
         })
-      
+
         describe('Enqueue Method', () => {
           beforeEach(() => {
             queue.enqueue(1)
@@ -986,38 +980,38 @@ function postOrderTraverse(tree, array) {
             queue.enqueue(5)
             queue.enqueue(7)
           })
-      
+
           it('enqueue method adds values to the queue', () => {
             expect(queue.queue.length).to.deep.equal(4)
           })
-      
+
           it('values are added in a FIFO manner', () => {
             const dequeued = queue.dequeue()
-      
+
             expect(dequeued).to.deep.equal(1)
             expect(queue.queue[0]).to.deep.equal(3)
             expect(queue.queue[2]).to.deep.equal(7)
           })
         })
-      
+
         describe('Dequeue Method', () => {
           beforeEach(() => {
             queue.enqueue(1)
             queue.enqueue(3)
             queue.enqueue(5)
           })
-      
+
           it('popped values return the element as soon as they are removed', () => {
             expect(queue.dequeue()).to.deep.equal(1)
           })
-      
+
           it('the value in the array after a pop should be the head', () => {
             queue.dequeue()
             expect(queue.queue[0]).to.deep.equal(3)
             queue.dequeue()
             expect(queue.queue[0]).to.deep.equal(5)
           })
-      
+
           it('should return undefined if the queue is empty', () => {
             queue.dequeue()
             queue.dequeue()
@@ -1026,9 +1020,9 @@ function postOrderTraverse(tree, array) {
             expect(queue[0]).to.deep.equal(undefined)
           })
         })
-      
+
         describe('Peek Method', () => {
-      
+
           it('should return the first value in the method without removing it', () => {
             queue.enqueue(1)
             queue.enqueue(3)
@@ -1036,30 +1030,30 @@ function postOrderTraverse(tree, array) {
             expect(queue.peek()).to.deep.equal(1)
             expect(queue.queue[0]).to.deep.equal(1)
           })
-      
+
           it('should return undefined for an empty queue', () => {
             expect(queue.peek()).to.deep.equal(undefined)
           })
         })
-      
+
         describe('Length Method', () => {
-          
+
           beforeEach(() => {
             queue.enqueue(1)
             queue.enqueue(3)
             queue.enqueue(5)
           })
-      
+
           it('should return a correct length', () => {
             expect(queue.length()).to.deep.equal(3)
           })
-      
+
           it('should return the correct value after values have been removed from the queue. NOTE, dequeue must be implemented for this to work.', () => {
             queue.dequeue()
             queue.dequeue()
             expect(queue.length()).to.deep.equal(1)
           })
-      
+
           it('should return an 0 if the queue is empty', () => {
             queue.dequeue()
             queue.dequeue()
@@ -1067,21 +1061,21 @@ function postOrderTraverse(tree, array) {
             expect(queue.length()).to.deep.equal(0)
           })
         })
-      
+
         describe('Print Method', () => {
           it('should correctly print out all of the values in the array', () => {
             queue.enqueue(1)
             queue.enqueue(3)
             queue.enqueue(5)
             queue.enqueue(7)
-            queue.print(); 
+            queue.print();
             expect(queue.queue).to.deep.equal([1, 3, 5, 7])
           })
         })
       })
       `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Arrays'],
+      categoryId: categoryIdsObj['Queue'],
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -1160,34 +1154,34 @@ function postOrderTraverse(tree, array) {
       javascriptTestFile: `
       const chai = require('chai')
       let expect = chai.expect;
-      
+
       describe('Solution for bubble sort', () => {
           let bubble_sort_func
-      
+
           beforeEach(() => {
               bubble_sort_func = bubbleSort
           })
-      
+
           it('Sorts an unordered array', () => {
               let result = bubble_sort_func([3, 7, 2, 1, 8])
               expect(result).to.deep.equal([1,2,3,7,8])
           })
-      
+
           it('Returns original array value for already sorted array', () => {
               let result = bubble_sort_func([1,2,3])
               expect(result).to.deep.equal([1,2,3])
           })
-      
+
           it('Can sort a mixed array of positive and negative numbers', () => {
             let result = bubble_sort_func([5, -6, 9, -2])
             expect(result).to.deep.equal([-6, -2, 5, 9])
           })
-      
+
           it('Sorts an array of negative numbers', () => {
             let result = bubble_sort_func([-3, -5, -2, -8])
             expect(result).to.deep.equal([-8, -5, -3, -2])
           })
-      
+
           it('Sorts an array with duplicate values', () => {
             let result = bubble_sort_func([2, 5, 5, 3, 8, 3])
             expect(result).to.deep.equal([2, 3, 3, 5, 5, 8])
@@ -1270,37 +1264,35 @@ function postOrderTraverse(tree, array) {
         }
         return array;
       }
-      
-      module.exports = insertionSort
       `,
       pythonSolution: '',
       functionName: 'insertionSort',
       javascriptTestFile: `
       const chai = require('chai')
       let expect = chai.expect
-      
+
       describe('Insertion Sort', function () {
-      
+
         it('sorts an array with random positive values', function () {
           let result = insertionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
           expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         })
-      
+
         it('sorts an array in reverse order', function () {
           let result = insertionSort([8, 7, 6, 5, 4])
           expect(result).to.deep.equal([4, 5, 6, 7, 8])
         })
-      
+
         it('sorts an array with mixed values', function () {
           let result = insertionSort([8, -7, 6, -5, 4])
           expect(result).to.deep.equal([-7, -5, 4, 6, 8])
         })
-      
+
         it('sorts an array with negative values', function () {
           let result = insertionSort([-1, -5, -22, -11, -7])
           expect(result).to.deep.equal([-22, -11, -7, -5, -1])
         })
-      
+
         it('returns an array', function () {
           let result = insertionSort([])
           expect(result).to.deep.equal([])
