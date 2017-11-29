@@ -775,17 +775,17 @@ function postOrderTraverse(tree, array) {
       let expect = chai.expect
 
       describe('Find Duplicate', function() {
-        it('produces desired result using Hash Table', function() {
+        it('Test Case #1', function() {
           let result = duplicatesHash([1, 21, -4, 103, 21, 4, 1])
           expect(result.sort()).to.deep.equal([1, 21])
         })
 
-        it('produces desired result using Hash Table', function() {
+        it('Test Case #2', function() {
           let result = duplicatesHash([2, 24, 52, -103, -21, 24, 1])
           expect(result.sort()).to.deep.equal([24])
         })
 
-        it('produces desired result using Hash Table', function() {
+        it('Test Case #3', function() {
           let result = duplicatesHash([
             473,
             572,
@@ -807,17 +807,17 @@ function postOrderTraverse(tree, array) {
           expect(result.sort()).to.deep.equal([473, 572])
         })
 
-        it('produces desired result using Hash Table', function() {
+        it('Test Case #4', function() {
           let result = duplicatesHash([355, 24, 52, 1311, -21, -52, -24, 1])
           expect(result.sort()).to.deep.equal([])
         })
 
-        it('produces desired result using Hash Table', function() {
+        it('Test Case #5', function() {
           let result = duplicatesHash([355, 24, 52, 1311, -21, -52, -24, 1])
           expect(result.sort()).to.deep.equal([])
         })
 
-        it('produces desired result using Hash Table', function() {
+        it('Test Case #6', function() {
           let result = duplicatesHash([
             57132,
             47343,
@@ -842,7 +842,7 @@ function postOrderTraverse(tree, array) {
           expect(result.sort()).to.deep.equal([34630, 523672, 57132])
         })
 
-        it('produces desired result using Hash Table', function() {
+        it('Test Case #7', function() {
           let result = duplicatesHash([
             1313,
             4246911,
@@ -868,17 +868,17 @@ function postOrderTraverse(tree, array) {
           expect(result.sort()).to.deep.equal([-324691, 10, 4246911, 999224645])
         })
 
-        it('produces desired result using Hash Table', function() {
+        it('Test Case #8', function() {
           let result = duplicatesHash([355, 355, 24, 52, 1311, -21, -52, -24, 1])
           expect(result.sort()).to.deep.equal([355])
         })
 
-        it('produces desired result using Hash Table', function() {
+        it('Test Case #9', function() {
           let result = duplicatesHash([473, 572, 1118, 4848, 4911, 473])
           expect(result.sort()).to.deep.equal([473])
         })
 
-        it('produces desired result using Hash Table', function() {
+        it('Test Case #10', function() {
           let result = duplicatesHash([
             2345,
             23,
@@ -947,32 +947,32 @@ function postOrderTraverse(tree, array) {
       let expect = chai.expect
 
       describe('Dutch Flag Sort', function() {
-        it('produces desired result with', function() {
+        it('Test Case #1', function() {
           let result = dutchFlag([2, 2, 0, 1, 0, 0, 1, 2])
           expect(result).to.deep.equal([0, 0, 0, 1, 1, 2, 2, 2])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #2', function() {
           let result = dutchFlag([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
           expect(result).to.deep.equal([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #3', function() {
           let result = dutchFlag([1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1])
           expect(result).to.deep.equal([0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #4', function() {
           let result = dutchFlag([2, 2, 0, 1, 1, 0, 1, 2])
           expect(result).to.deep.equal([0, 0, 1, 1, 1, 2, 2, 2])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #5', function() {
           let result = dutchFlag([2, 2, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 2])
           expect(result).to.deep.equal([0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #6', function() {
           let result = dutchFlag([
             1,
             1,
@@ -1017,7 +1017,7 @@ function postOrderTraverse(tree, array) {
           ])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #7', function() {
           let result = dutchFlag([
             2,
             2,
@@ -1064,7 +1064,7 @@ function postOrderTraverse(tree, array) {
           ])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #8', function() {
           let result = dutchFlag([
             2,
             2,
@@ -1165,27 +1165,27 @@ function postOrderTraverse(tree, array) {
 
       describe('Merge Sort(Top-Down Implemention)', function() {
 
-        it('return an array', function() {
+        it('Test Case #1', function() {
           let result = mergeSortTopDown([])
           expect(result).to.deep.equal([])
         })
 
-         it('sorts an array with random positive values', function () {
+         it('Test Case #2', function () {
           let result = mergeSortTopDown([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
           expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         })
 
-        it('sorts an array in reverse order', function () {
+        it('Test Case #3', function () {
           let result = mergeSortTopDown([8, 7, 6, 5, 4])
           expect(result).to.deep.equal([4, 5, 6, 7, 8])
         })
 
-        it('sorts an array with mixed values', function () {
+        it('Test Case #4', function () {
           let result = mergeSortTopDown([8, -7, 6, -5, 4])
           expect(result).to.deep.equal([-7, -5, 4, 6, 8])
         })
 
-        it('sorts an array with negative values', function () {
+        it('Test Case #5', function () {
           let result = mergeSortTopDown([-1, -5, -22, -11, -7])
           expect(result).to.deep.equal([-22, -11, -7, -5, -1])
         })
@@ -1224,27 +1224,27 @@ function postOrderTraverse(tree, array) {
 
       describe('Selection Sort', () => {
 
-        it('returns an array', function() {
+        it('Test Case #1', function() {
           let result = selectionSort([])
           expect(result).to.deep.equal([])
         })
 
-         it('sorts an array with random positive values', function () {
+         it('Test Case #2', function () {
           let result = selectionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
           expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         })
 
-        it('sorts an array in reverse order', function () {
+        it('Test Case #3', function () {
           let result = selectionSort([8, 7, 6, 5, 4])
           expect(result).to.deep.equal([4, 5, 6, 7, 8])
         })
 
-        it('sorts an array with mixed values', function () {
+        it('Test Case #4', function () {
           let result = selectionSort([8, -7, 6, -5, 4])
           expect(result).to.deep.equal([-7, -5, 4, 6, 8])
         })
 
-        it('sorts an array with negative values', function () {
+        it('Test Case #5', function () {
           let result = selectionSort([-1, -5, -22, -11, -7])
           expect(result).to.deep.equal([-22, -11, -7, -5, -1])
         })
@@ -1320,11 +1320,11 @@ function postOrderTraverse(tree, array) {
             queue.enqueue(7)
           })
 
-          it('enqueue method adds values to the queue', () => {
+          it('Test Case #1', () => {
             expect(queue.queue.length).to.deep.equal(4)
           })
 
-          it('values are added in a FIFO manner', () => {
+          it('Test Case #2', () => {
             const dequeued = queue.dequeue()
 
             expect(dequeued).to.deep.equal(1)
@@ -1340,18 +1340,18 @@ function postOrderTraverse(tree, array) {
             queue.enqueue(5)
           })
 
-          it('popped values return the element as soon as they are removed', () => {
+          it('Test Case #3', () => {
             expect(queue.dequeue()).to.deep.equal(1)
           })
 
-          it('the value in the array after a pop should be the head', () => {
+          it('Test Case #4', () => {
             queue.dequeue()
             expect(queue.queue[0]).to.deep.equal(3)
             queue.dequeue()
             expect(queue.queue[0]).to.deep.equal(5)
           })
 
-          it('should return undefined if the queue is empty', () => {
+          it('Test Case #5', () => {
             queue.dequeue()
             queue.dequeue()
             queue.dequeue()
@@ -1362,7 +1362,7 @@ function postOrderTraverse(tree, array) {
 
         describe('Peek Method', () => {
 
-          it('should return the first value in the method without removing it', () => {
+          it('Test Case #6', () => {
             queue.enqueue(1)
             queue.enqueue(3)
             queue.enqueue(5)
@@ -1370,7 +1370,7 @@ function postOrderTraverse(tree, array) {
             expect(queue.queue[0]).to.deep.equal(1)
           })
 
-          it('should return undefined for an empty queue', () => {
+          it('Test Case #7', () => {
             expect(queue.peek()).to.deep.equal(undefined)
           })
         })
@@ -1383,17 +1383,17 @@ function postOrderTraverse(tree, array) {
             queue.enqueue(5)
           })
 
-          it('should return a correct length', () => {
+          it('Test Case #8', () => {
             expect(queue.length()).to.deep.equal(3)
           })
 
-          it('should return the correct value after values have been removed from the queue. NOTE, dequeue must be implemented for this to work.', () => {
+          it('Test Case #9', () => {
             queue.dequeue()
             queue.dequeue()
             expect(queue.length()).to.deep.equal(1)
           })
 
-          it('should return an 0 if the queue is empty', () => {
+          it('Test Case #10', () => {
             queue.dequeue()
             queue.dequeue()
             queue.dequeue()
@@ -1419,43 +1419,415 @@ function postOrderTraverse(tree, array) {
       userId: userIdsObj.admin
     }),
     Question.create({
-      name: 'Breadth-first Search',
+      name: 'Counting Steps',
       published: true,
-      description: '',
-      javascriptSolution: '',
+      description:
+        'Write a function that will count the total number of ways someone can climb a particular set of stairs.  The function will take the total number of steps as a parameter.  In this situation the climber only moves up the steps and can climb 1 step or 2 steps at a time.  The function will return the total number of ways that they can climb the staircase.  For example, a staircase with only 3 steps can be climbed 3 different ways.  They can climb 1 step at a time.  They can climb 1 step and then 2 steps or they can climb 2 steps and then 2 step.',
+      javascriptSolution: `function countSteps(N) {
+        if (N === 1) {
+          return 1
+        }
+        if (N === 2) {
+          return 2
+        }
+        return countSteps(N - 1) + countSteps(N - 2)
+      }`,
       pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
+      functionName: 'countSteps',
+      javascriptTestFile: `const chai = require('chai')
+      let expect = chai.expect
+
+      describe('Power Set Solution', function() {
+        it('produces desired result', function() {
+          let result = countSteps(6)
+          expect(result).to.deep.equal(13)
+        })
+
+        it('produces desired result', function() {
+          let result = countSteps(13)
+          expect(result).to.deep.equal(377)
+        })
+
+        it('produces desired result', function() {
+          let result = countSteps(1)
+          expect(result).to.deep.equal(1)
+        })
+
+        it('produces desired result', function() {
+          let result = countSteps(23)
+          expect(result).to.deep.equal(46368)
+        })
+
+        it('produces desired result', function() {
+          let result = countSteps(3)
+          expect(result).to.deep.equal(3)
+        })
+
+        it('produces desired result', function() {
+          let result = countSteps(4)
+          expect(result).to.deep.equal(5)
+        })
+
+        it('produces desired result', function() {
+          let result = countSteps(10)
+          expect(result).to.deep.equal(89)
+        })
+
+        it('produces desired result', function() {
+          let result = countSteps(17)
+          expect(result).to.deep.equal(2584)
+        })
+
+        it('produces desired result', function() {
+          let result = countSteps(15)
+          expect(result).to.deep.equal(987)
+        })
+
+        it('produces desired result', function() {
+          let result = countSteps(20)
+          expect(result).to.deep.equal(10946)
+        })
+      })
+      `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj.Searching,
+      categoryId: categoryIdsObj.Recursion,
       difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin
+      userId: userIdsObj.admin,
+      companyId: companyIdsObj.Google
     }),
     Question.create({
-      name: 'Binary Search',
+      name: 'Insert Interval',
       published: true,
-      description: '',
-      javascriptSolution: '',
+      description:
+        'Create a function called instertInterval.  The input is a sorted list of disjoint intervals, and your goal is to insert a new interval and merge all necessary intervals returning a final new list. For example, if the interval list is [[1,5], [10,15], [20,25]] and you need to insert the interval [12,27], then your program should return the new list: [[1,5], [10,27]].',
+      javascriptSolution: `function insertInterval(arr, interval) {
+        var newSet = []
+        var endSet = []
+        var i = 0
+        while (i < arr.length && arr[i][1] < interval[0]) {
+          newSet.push(arr[i])
+          i++
+        }
+        newSet.push(interval)
+        while (i < arr.length) {
+          var last = newSet[newSet.length - 1]
+          if (arr[i][0] < last[1]) {
+            var newInterval = [
+              Math.min.apply(null, [last[0], arr[i][0]]),
+              Math.max.apply(null, [last[1], arr[i][1]])
+            ]
+            newSet[newSet.length - 1] = newInterval
+          } else {
+            endSet.push(arr[i])
+          }
+          i++
+        }
+        return newSet.concat(endSet)
+      }`,
       pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
+      functionName: 'insterInterval',
+      javascriptTestFile: `const chai = require('chai')
+      let expect = chai.expect
+
+      describe('Insert Interval Solution', function() {
+        it('produces desired result', function() {
+          let result = insertInterval([[1, 5], [10, 15], [20, 25]], [12, 27])
+          expect(result.length).to.deep.equal(2)
+          expect(result).to.deep.equal([[1, 5], [10, 27]])
+        })
+
+        it('produces desired result', function() {
+          let result = insertInterval([[11, 55], [10, 15], [20, 55]], [11, 27])
+          expect(result.length).to.deep.equal(1)
+          expect(result).to.deep.equal([[10, 55]])
+        })
+
+        it('produces desired result', function() {
+          let result = insertInterval(
+            [
+              [13293602354, 99112002293553],
+              [299321555, 3562903],
+              [12493364, 62679651],
+              [1926042, 261],
+              [262923685, 112482],
+              [20865, 86806],
+              [6048, 86296942]
+            ],
+            [272, 8354]
+          )
+          expect(result.length).to.deep.equal(7)
+          expect(result).to.deep.equal([
+            [272, 86296942],
+            [13293602354, 99112002293553],
+            [299321555, 3562903],
+            [12493364, 62679651],
+            [1926042, 261],
+            [262923685, 112482],
+            [20865, 86806]
+          ])
+        })
+
+        it('produces desired result', function() {
+          let result = insertInterval([[100, 54], [100, 15], [200, 250]], [12, 54])
+          expect(result.length).to.deep.equal(4)
+          expect(result).to.deep.equal([[12, 54], [100, 54], [100, 15], [200, 250]])
+        })
+
+        it('produces desired result', function() {
+          let result = insertInterval([[1, 5], [1, 5], [2, 2]], [2, 54])
+          expect(result.length).to.deep.equal(1)
+          expect(result).to.deep.equal([[1, 54]])
+        })
+
+        it('produces desired result', function() {
+          let result = insertInterval([[-100, -54], [-100, 15], [200, 250]], [12, 54])
+          expect(result.length).to.deep.equal(3)
+          expect(result).to.deep.equal([[-100, -54], [-100, 54], [200, 250]])
+        })
+
+        it('produces desired result', function() {
+          let result = insertInterval(
+            [
+              [132354, 1123553],
+              [321555, 33],
+              [13364, 679651],
+              [1042, 61],
+              [23685, 112482],
+              [20865, 86806],
+              [6048, 8642]
+            ],
+            [2, 54]
+          )
+          expect(result.length).to.deep.equal(8)
+          expect(result).to.deep.equal([
+            [2, 54],
+            [132354, 1123553],
+            [321555, 33],
+            [13364, 679651],
+            [1042, 61],
+            [23685, 112482],
+            [20865, 86806],
+            [6048, 8642]
+          ])
+        })
+
+        it('produces desired result', function() {
+          let result = insertInterval(
+            [
+              [134, 153],
+              [325, 33],
+              [134, 651],
+              [162, 61],
+              [235, 1122],
+              [25, 86],
+              [68, 862]
+            ],
+            [2, 54]
+          )
+          expect(result.length).to.deep.equal(6)
+          expect(result).to.deep.equal([
+            [2, 862],
+            [134, 153],
+            [325, 33],
+            [134, 651],
+            [162, 61],
+            [235, 1122]
+          ])
+        })
+      })
+      `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj.Searching,
-      difficultyId: difficultyIdsObj.easy,
-      userId: userIdsObj.admin
+      categoryId: categoryIdsObj.Array,
+      difficultyId: difficultyIdsObj.medium,
+      userId: userIdsObj.admin,
+      companyId: companyIdsObj.Google
     }),
     Question.create({
-      name: 'Search In Sorted Matrix',
-      published: false,
-      description: '',
-      javascriptSolution: '',
+      name: 'Power Set',
+      published: true,
+      description: `Create a function called powerSet.  The input for this function will be an array of numbers representing a set, which only contains unique numbers, and your goal is to print every possible set combination, otherwise known as the power set. For example:
+
+      input set = [1, 2, 3]
+      power set = [[], [1], [2], [3], [1, 2], [2, 3], [1, 3] [1, 2, 3]]
+
+      The power set contains every possible combination of numbers. It also includes the empty set which contains no numbers from the original set.
+      `,
+      javascriptSolution: `function powerSet(arr) {
+        var powers = []
+        var total = Math.pow(2, arr.length)
+        for (var i = 0; i < total; i++) {
+          var tempSet = []
+          var num = i.toString(2)
+          while (num.length < arr.length) {
+            num = '0' + num
+          }
+          for (var b = 0; b < num.length; b++) {
+            if (num[b] === '1') {
+              tempSet.push(arr[b])
+            }
+          }
+          powers.push(tempSet)
+        }
+        return powers
+      }`,
       pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
+      functionName: 'powerSet',
+      javascriptTestFile: `const chai = require('chai')
+      let expect = chai.expect
+
+      describe('Power Set Solution', function() {
+        it('produces desired result', function() {
+          let result = powerSet([1, 2, 3])
+          expect(result.length).to.deep.equal(8)
+        })
+
+        it('produces desired result', function() {
+          let result = powerSet([1, 1])
+          expect(result.length).to.deep.equal(4)
+          expect(result).to.deep.equal([[], [1], [1], [1, 1]])
+        })
+
+        it('produces desired result', function() {
+          let result = powerSet([21, 24, 3])
+          expect(result.length).to.deep.equal(8)
+          expect(result).to.deep.equal([
+            [],
+            [3],
+            [24],
+            [24, 3],
+            [21],
+            [21, 3],
+            [21, 24],
+            [21, 24, 3]
+          ])
+        })
+
+        it('produces desired result', function() {
+          let result = powerSet([221, 2144, 31414])
+          expect(result.length).to.deep.equal(8)
+          expect(result).to.deep.equal([
+            [],
+            [31414],
+            [2144],
+            [2144, 31414],
+            [221],
+            [221, 31414],
+            [221, 2144],
+            [221, 2144, 31414]
+          ])
+        })
+
+        it('produces desired result', function() {
+          let result = powerSet([28180505040421, 2123728144, 9999369396])
+          expect(result.length).to.deep.equal(8)
+          expect(result).to.deep.equal([
+            [],
+            [9999369396],
+            [2123728144],
+            [2123728144, 9999369396],
+            [28180505040421],
+            [28180505040421, 9999369396],
+            [28180505040421, 2123728144],
+            [28180505040421, 2123728144, 9999369396]
+          ])
+        })
+
+        it('produces desired result', function() {
+          let result = powerSet([
+            28180505040421,
+            2123728144,
+            9999369396,
+            4824824,
+            29249249185258
+          ])
+          expect(result.length).to.deep.equal(32)
+          expect(result).to.deep.equal([
+            [],
+            [29249249185258],
+            [4824824],
+            [4824824, 29249249185258],
+            [9999369396],
+            [9999369396, 29249249185258],
+            [9999369396, 4824824],
+            [9999369396, 4824824, 29249249185258],
+            [2123728144],
+            [2123728144, 29249249185258],
+            [2123728144, 4824824],
+            [2123728144, 4824824, 29249249185258],
+            [2123728144, 9999369396],
+            [2123728144, 9999369396, 29249249185258],
+            [2123728144, 9999369396, 4824824],
+            [2123728144, 9999369396, 4824824, 29249249185258],
+            [28180505040421],
+            [28180505040421, 29249249185258],
+            [28180505040421, 4824824],
+            [28180505040421, 4824824, 29249249185258],
+            [28180505040421, 9999369396],
+            [28180505040421, 9999369396, 29249249185258],
+            [28180505040421, 9999369396, 4824824],
+            [28180505040421, 9999369396, 4824824, 29249249185258],
+            [28180505040421, 2123728144],
+            [28180505040421, 2123728144, 29249249185258],
+            [28180505040421, 2123728144, 4824824],
+            [28180505040421, 2123728144, 4824824, 29249249185258],
+            [28180505040421, 2123728144, 9999369396],
+            [28180505040421, 2123728144, 9999369396, 29249249185258],
+            [28180505040421, 2123728144, 9999369396, 4824824],
+            [28180505040421, 2123728144, 9999369396, 4824824, 29249249185258]
+          ])
+        })
+
+        it('produces desired result', function() {
+          let result = powerSet([
+            28180505040421,
+            2123728144,
+            9999369396,
+            4824824,
+            29249249185258
+          ])
+          expect(result.length).to.deep.equal(32)
+          expect(result).to.deep.equal([
+            [],
+            [29249249185258],
+            [4824824],
+            [4824824, 29249249185258],
+            [9999369396],
+            [9999369396, 29249249185258],
+            [9999369396, 4824824],
+            [9999369396, 4824824, 29249249185258],
+            [2123728144],
+            [2123728144, 29249249185258],
+            [2123728144, 4824824],
+            [2123728144, 4824824, 29249249185258],
+            [2123728144, 9999369396],
+            [2123728144, 9999369396, 29249249185258],
+            [2123728144, 9999369396, 4824824],
+            [2123728144, 9999369396, 4824824, 29249249185258],
+            [28180505040421],
+            [28180505040421, 29249249185258],
+            [28180505040421, 4824824],
+            [28180505040421, 4824824, 29249249185258],
+            [28180505040421, 9999369396],
+            [28180505040421, 9999369396, 29249249185258],
+            [28180505040421, 9999369396, 4824824],
+            [28180505040421, 9999369396, 4824824, 29249249185258],
+            [28180505040421, 2123728144],
+            [28180505040421, 2123728144, 29249249185258],
+            [28180505040421, 2123728144, 4824824],
+            [28180505040421, 2123728144, 4824824, 29249249185258],
+            [28180505040421, 2123728144, 9999369396],
+            [28180505040421, 2123728144, 9999369396, 29249249185258],
+            [28180505040421, 2123728144, 9999369396, 4824824],
+            [28180505040421, 2123728144, 9999369396, 4824824, 29249249185258]
+          ])
+        })
+      })
+      `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj.Searching,
+      categoryId: categoryIdsObj.Array,
       difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin
+      userId: userIdsObj.admin,
+      companyId: companyIdsObj.Google
     }),
     Question.create({
       name: 'Shifted Binary Search',
@@ -1501,27 +1873,27 @@ function postOrderTraverse(tree, array) {
               bubble_sort_func = bubbleSort
           })
 
-          it('Sorts an unordered array', () => {
+          it('Test Case #1', () => {
               let result = bubble_sort_func([3, 7, 2, 1, 8])
               expect(result).to.deep.equal([1,2,3,7,8])
           })
 
-          it('Returns original array value for already sorted array', () => {
+          it('Test Case #2', () => {
               let result = bubble_sort_func([1,2,3])
               expect(result).to.deep.equal([1,2,3])
           })
 
-          it('Can sort a mixed array of positive and negative numbers', () => {
+          it('Test Case #3', () => {
             let result = bubble_sort_func([5, -6, 9, -2])
             expect(result).to.deep.equal([-6, -2, 5, 9])
           })
 
-          it('Sorts an array of negative numbers', () => {
+          it('Test Case #4', () => {
             let result = bubble_sort_func([-3, -5, -2, -8])
             expect(result).to.deep.equal([-8, -5, -3, -2])
           })
 
-          it('Sorts an array with duplicate values', () => {
+          it('Test Case #5', () => {
             let result = bubble_sort_func([2, 5, 5, 3, 8, 3])
             expect(result).to.deep.equal([2, 3, 3, 5, 5, 8])
           })
@@ -1616,27 +1988,27 @@ function postOrderTraverse(tree, array) {
 
       describe('Insertion Sort', function () {
 
-        it('sorts an array with random positive values', function () {
+        it('Test Case #1', function () {
           let result = insertionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
           expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         })
 
-        it('sorts an array in reverse order', function () {
+        it('Test Case #2', function () {
           let result = insertionSort([8, 7, 6, 5, 4])
           expect(result).to.deep.equal([4, 5, 6, 7, 8])
         })
 
-        it('sorts an array with mixed values', function () {
+        it('Test Case #3', function () {
           let result = insertionSort([8, -7, 6, -5, 4])
           expect(result).to.deep.equal([-7, -5, 4, 6, 8])
         })
 
-        it('sorts an array with negative values', function () {
+        it('Test Case #4', function () {
           let result = insertionSort([-1, -5, -22, -11, -7])
           expect(result).to.deep.equal([-22, -11, -7, -5, -1])
         })
 
-        it('returns an array', function () {
+        it('Test Case #5', function () {
           let result = insertionSort([])
           expect(result).to.deep.equal([])
         })
@@ -1687,32 +2059,32 @@ function postOrderTraverse(tree, array) {
           even_or_oddFunc = even_or_odd
         })
 
-        it('returns odd for number 5', function () {
+        it('Test Case #1', function () {
           let result = even_or_oddFunc(5)
           expect(result).to.deep.equal('odd');
         });
 
-        it('return even for number 6', function () {
+        it('Test Case #2', function () {
           let result = even_or_oddFunc(6)
           expect(result).to.deep.equal('even');
         });
 
-        it('returns even for -6', function () {
+        it('Test Case #3', function () {
           let result = even_or_oddFunc(-6)
           expect(result).to.deep.equal('even');
         });
 
-        it('returns odd for 99', function () {
+        it('Test Case #4', function () {
           let result = even_or_oddFunc(99)
           expect(result).to.deep.equal('odd');
         });
 
-        it('returns even the value 0', function () {
+        it('Test Case #5', function () {
           let result = even_or_oddFunc(0)
           expect(result).to.deep.equal('even');
         });
 
-        it('returns odd for the number 33', function() {
+        it('Test Case #6', function() {
           let result = even_or_oddFunc(33)
           expect(result).to.deep.equal('odd');
         })
