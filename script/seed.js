@@ -754,43 +754,365 @@ function postOrderTraverse(tree, array) {
       pythonTestFile: ''
     }),
     Question.create({
-      name: 'Two Number Sum',
+      name: 'Duplicates',
       published: true,
-      description: '',
-      javascriptSolution: '',
+      description:
+        'Write a function that finds all duplicates in an array.  The array should only contain integers.  Attempt to utilize a hash table to store each element as we go throguh the array.',
+      javascriptSolution: `function duplicatesHash(arr) {
+        var hashTable = [];
+        var dups = [];
+        for (var i = 0; i < arr.length; i++) {
+          if (hashTable[arr[i].toString()] === undefined) {
+            hashTable[arr[i].toString()] = true;
+          }
+          else { dups.push(arr[i]); }
+        }
+        return dups;
+      }`,
       pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
+      functionName: 'duplicatesHash',
+      javascriptTestFile: `const chai = require('chai')
+      let expect = chai.expect
+
+      describe('Find Duplicate', function() {
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([1, 21, -4, 103, 21, 4, 1])
+          expect(result.sort()).to.deep.equal([1, 21])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([2, 24, 52, -103, -21, 24, 1])
+          expect(result.sort()).to.deep.equal([24])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([
+            473,
+            572,
+            1118,
+            4848,
+            4911,
+            10,
+            -31,
+            -41,
+            3450,
+            -25251,
+            12451425,
+            64,
+            13,
+            572,
+            592,
+            473
+          ])
+          expect(result.sort()).to.deep.equal([473, 572])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([355, 24, 52, 1311, -21, -52, -24, 1])
+          expect(result.sort()).to.deep.equal([])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([355, 24, 52, 1311, -21, -52, -24, 1])
+          expect(result.sort()).to.deep.equal([])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([
+            57132,
+            47343,
+            57132,
+            1323576,
+            523672,
+            48235748,
+            49235711,
+            1023572357,
+            -323571,
+            -41,
+            34630,
+            -25251,
+            12425,
+            623574,
+            123643,
+            523672,
+            591732,
+            34630,
+            4723573
+          ])
+          expect(result.sort()).to.deep.equal([34630, 523672, 57132])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([
+            1313,
+            4246911,
+            51312,
+            1357288,
+            99948,
+            4246911,
+            10,
+            -324691,
+            -4991,
+            296450,
+            -24921,
+            999224645,
+            26442964,
+            2469913,
+            5246972,
+            269592,
+            999224645,
+            2469429473,
+            10,
+            -324691
+          ])
+          expect(result.sort()).to.deep.equal([-324691, 10, 4246911, 999224645])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([355, 355, 24, 52, 1311, -21, -52, -24, 1])
+          expect(result.sort()).to.deep.equal([355])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([473, 572, 1118, 4848, 4911, 473])
+          expect(result.sort()).to.deep.equal([473])
+        })
+
+        it('produces desired result using Hash Table', function() {
+          let result = duplicatesHash([
+            2345,
+            23,
+            4578,
+            2354,
+            236,
+            2356236236,
+            235635,
+            567,
+            25623,
+            56235,
+            635,
+            6,
+            347,
+            548,
+            34,
+            73,
+            68,
+            4578,
+            3457,
+            36,
+            84,
+            567,
+            437,
+            458
+          ])
+          expect(result.sort()).to.deep.equal([4578, 567])
+        })
+      })`,
       pythonTestFile: '',
       categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin
+      userId: userIdsObj.admin,
+      companyId: companyIdsObj.Facebook
     }),
     Question.create({
-      name: 'Three Number Sum',
+      name: 'Dutch Flag',
       published: true,
-      description: '',
-      javascriptSolution: '',
+      description:
+        'Create a function that will take an array.  This array should not contain any value outside of 0, 1 and 2.  The array can have any number of these stated values and the values can appear in any order.  The function should take the array and sort it in ascending order.  Example, the function is given the following array [ 0, 2, 2, 0, 1 ].  The return value of the function should be [ 0, 0, 1, 2, 2]',
+      javascriptSolution: `function swap(arr, i1, i2) {
+        var temp = arr[i1]
+        arr[i1] = arr[i2]
+        arr[i2] = temp
+      }
+
+      function dutchFlag(arr) {
+        var low = 0
+        var mid = 0
+        var high = arr.length - 1
+        while (mid <= high) {
+          if (arr[mid] === 0) {
+            swap(arr, low++, mid++)
+          } else if (arr[mid] === 2) {
+            swap(arr, mid, high--)
+          } else if (arr[mid] === 1) {
+            mid++
+          }
+        }
+
+        return arr
+      }`,
       pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
+      functionName: 'dutchFlag',
+      javascriptTestFile: `const chai = require('chai')
+      let expect = chai.expect
+
+      describe('Dutch Flag Sort', function() {
+        it('produces desired result with', function() {
+          let result = dutchFlag([2, 2, 0, 1, 0, 0, 1, 2])
+          expect(result).to.deep.equal([0, 0, 0, 1, 1, 2, 2, 2])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+          expect(result).to.deep.equal([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1])
+          expect(result).to.deep.equal([0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([2, 2, 0, 1, 1, 0, 1, 2])
+          expect(result).to.deep.equal([0, 0, 1, 1, 1, 2, 2, 2])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([2, 2, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 2])
+          expect(result).to.deep.equal([0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            2
+          ])
+          expect(result).to.deep.equal([
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            2
+          ])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([
+            2,
+            2,
+            0,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            2,
+            1,
+            0,
+            0,
+            1,
+            2
+          ])
+          expect(result).to.deep.equal([
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([
+            2,
+            2,
+            0,
+            1,
+            1,
+            0,
+            1,
+            2,
+            2,
+            1,
+            0,
+            1,
+            1,
+            0,
+            2,
+            2,
+            1,
+            2
+          ])
+          expect(result).to.deep.equal([
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ])
+        })
+      })
+      `,
       pythonTestFile: '',
       categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin
-    }),
-    Question.create({
-      name: 'Max SubsetSum No Adjacent',
-      published: true,
-      description: '',
-      javascriptSolution: '',
-      pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
-      pythonTestFile: '',
-      categoryId: categoryIdsObj['Dynamic Programming'],
-      difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin
+      userId: userIdsObj.admin,
+      companyId: companyIdsObj.Facebook
     }),
     Question.create({
       name: 'Max Sum Increasing Subsequence',

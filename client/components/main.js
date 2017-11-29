@@ -60,7 +60,7 @@ class Main extends Component {
                 ) : (
                   <div>
                     <NavLink to="/login" className="link" id="link-left-space">
-                      <span className="small-head">LOG IN</span>
+                      <span className="small-head">LOG IN / SIGN UP</span>
                     </NavLink>
                   </div>
                 )}

@@ -83,7 +83,13 @@ class AuthForm extends Component {
           <div className="oauth-box">
             <div className="login-box">
               <div>
-                <form onSubmit={handleSubmit} name="signup">
+                <form
+                  onSubmit={event => {
+                    event.preventDefault()
+                    handleSubmit(event, this.props.history.location.pathname)
+                  }}
+                  name="signup"
+                >
                   <div className="inputs">
                     <label htmlFor="email">
                       <small>Email</small>
