@@ -48,7 +48,7 @@ class Routes extends Component {
 
     return (
       <Router history={history}>
-        {this.state.height <= 830 || this.state.width <= 1196
+        {this.state.height <= 500 || this.state.width <= 800
           ?
           <div id="small-window">
             <div id="small-window-message-container">
