@@ -19,6 +19,12 @@ const {
 } = require('../server/db/models')
 
 async function seed() {
+  let userIdsObj = {}
+  let forumIdsObj = {}
+  let questionIdsObj = {}
+  let categoryIdsObj = {}
+  let difficultyIdsObj = {}
+
   await db.sync({ force: true })
   console.log('db synced!')
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
@@ -29,6 +35,14 @@ async function seed() {
     User.create({ name: 'cody', email: 'cody@email.com', password: '123' }),
     User.create({ name: 'murphy', email: 'murphy@email.com', password: '123' })
   ])
+    .then(usersArr => {
+      usersArr.forEach(user => {
+        userIdsObj[user.name] = user.id
+      })
+      return usersArr
+    })
+
+  console.log("User Ids Obj", userIdsObj)
 
   console.log(`seeded ${users.length} users`)
 
@@ -46,6 +60,14 @@ async function seed() {
       userId: 1
     })
   ])
+    .then(forumsArr => {
+      forumsArr.forEach(forum => {
+        forumIdsObj[forum.name] = forum.id
+      })
+      return forumsArr
+    })
+
+  console.log("Forum Ids Obj", forumIdsObj)
 
   console.log(`seeded ${forums.length} forums`)
 
@@ -105,6 +127,14 @@ async function seed() {
       description: 'Mind teasing questions'
     })
   ])
+    .then(categoriesArr => {
+      categoriesArr.forEach(category => {
+        categoryIdsObj[category.name] = category.id
+      })
+      return categoriesArr
+    })
+
+  console.log("Category Ids Obj", categoryIdsObj)
 
   console.log(`seeded ${categories.length} categories`)
 
@@ -113,13 +143,22 @@ async function seed() {
     Difficulty.create({ name: 'medium' }),
     Difficulty.create({ name: 'difficult' })
   ])
+    .then(difficultiesArr => {
+      difficultiesArr.forEach(difficulty => {
+        difficultyIdsObj[difficulty.name] = difficulty.id
+      })
+      return difficultiesArr
+    })
+
+  console.log("Difficulty Ids Obj", difficultyIdsObj)
+
 
   console.log(`seeded ${difficulties.length} difficulties`)
 
   const questions = await Promise.all([
     Question.create({
       name: 'BST Construction',
-      userId: 1,
+      userId: userIdsObj.admin,
       published: true,
       description:
         'Write a Binary Search Tree (BST) class named "BST". The BST class should have a "value" property set to be an integer, as well as "left" and "right" properties, both of which should point to either the None (null) value or to another BST. A node is said to be a BST node if and only if it satisfies the BST property: its value is strictly greater than the values of every node to its left; its value is less than or equal to the values of every node to its right; and both of its children nodes are either BST nodes themselves or None (null) values. The BST class should support three methods, viz., "insert", "contains", and "remove". The "contains" method return a boolean value indicating whether the value is contained in the BST tree or not. The "remove" method should only remove the first instance of the target value.',
@@ -279,8 +318,8 @@ class BST:
             currentNode = currentNode.left
         return currentNode.value
 `,
-      categoryId: 2,
-      difficultyId: 2,
+      categoryId: categoryIdsObj['Binary Search Trees'],
+      difficultyId: difficultyIdsObj.medium,
       functionName: 'BST',
       javascriptTestFile: `
 const chai = require('chai')
@@ -660,7 +699,7 @@ if __name__ == "__main__":
     }),
     Question.create({
       name: 'BST Traversal',
-      userId: 1,
+      userId: userIdsObj.admin,
       published: true,
       description:
         'Write three functions, viz., "inOrderTraverse", "preOrderTraverse", and "postOrderTraverse", that take in an empty array, traverse the BST, add its nodes\' values to the input array, and return that array. The three functions should traverse the BST using the in-order traversal, pre-order traversal, and post-order traversal techniques, respectively. You are given a BST data structure consisting of BST nodes. Each BST node has an integer value stored in a property called "value" and two children nodes stored in properties called "left" ani "right," respectively. A node is said to be a BST node if and only if it satisfies the BST property: its value is strictly greater than the values of every node to its left; its value is less than or equal to the values of every node to its right; and both of its children nodes are either BST nodes themselves or None (null) values.',
@@ -691,8 +730,8 @@ function postOrderTraverse(tree, array) {
 }
 `,
       pythonSolution: '',
-      categoryId: 2,
-      difficultyId: 2,
+      categoryId: categoryIdsObj['Binary Search Trees'],
+      difficultyId: difficultyIdsObj.easy,
       functionName: 'inOrderTraverse, preOrderTraverse, postOrderTraverse',
       javascriptTestFile: '',
       pythonTestFile: ''
@@ -706,8 +745,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: 1,
-      difficultyId: 1
+      categoryId: categoryIdsObj['Arrays'],
+      difficultyId: difficultyIdsObj.medium,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Three Number Sum',
@@ -718,8 +758,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: 1,
-      difficultyId: 2
+      categoryId: categoryIdsObj['Arrays'],
+      difficultyId: difficultyIdsObj.medium,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Max SubsetSum No Adjacent',
@@ -730,8 +771,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: 3,
-      difficultyId: 2
+      categoryId: categoryIdsObj['Dynamic Programming'],
+      difficultyId: difficultyIdsObj.medium,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Max Sum Increasing Subsequence',
@@ -742,8 +784,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: 3,
-      difficultyId: 3
+      categoryId: categoryIdsObj['Dynamic Programming'],
+      difficultyId: difficultyIdsObj.difficult,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Merge Sort Top Down',
@@ -812,8 +855,9 @@ function postOrderTraverse(tree, array) {
       })
       `,
       pythonTestFile: '',
-      categoryId: 4,
-      difficultyId: 1
+      categoryId: categoryIdsObj['Sorting'],
+      difficultyId: difficultyIdsObj.easy,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Select Sort',
@@ -872,8 +916,9 @@ function postOrderTraverse(tree, array) {
       })
       `,
       pythonTestFile: '',
-      categoryId: 4,
-      difficultyId: 1
+      categoryId: categoryIdsObj['Sorting'],
+      difficultyId: difficultyIdsObj.easy,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Depth-first Search',
@@ -884,8 +929,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: 4,
-      difficultyId: 1
+      categoryId: categoryIdsObj['Searching'],
+      difficultyId: difficultyIdsObj.easy,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Queue',
@@ -1035,8 +1081,9 @@ function postOrderTraverse(tree, array) {
       })
       `,
       pythonTestFile: '',
-      categoryId: 4,
-      difficultyId: 1
+      categoryId: categoryIdsObj['Arrays'],
+      difficultyId: difficultyIdsObj.easy,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Breadth-first Search',
@@ -1047,8 +1094,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: 4,
-      difficultyId: 2
+      categoryId: categoryIdsObj['Searching'],
+      difficultyId: difficultyIdsObj.medium,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Binary Search',
@@ -1059,8 +1107,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: 7,
-      difficultyId: 1
+      categoryId: categoryIdsObj['Searching'],
+      difficultyId: difficultyIdsObj.easy,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Search In Sorted Matrix',
@@ -1071,9 +1120,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: 7,
-      difficultyId: 2,
-      userId: 1,
+      categoryId: categoryIdsObj['Searching'],
+      difficultyId: difficultyIdsObj.medium,
+      userId: userIdsObj.admin,
     }),
     Question.create({
       name: 'Shifted Binary Search',
@@ -1084,9 +1133,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: 7,
-      difficultyId: 3,
-      userId: 1,
+      categoryId: categoryIdsObj['Searching'],
+      difficultyId: difficultyIdsObj.medium,
+      userId: userIdsObj.admin,
     }),
     Question.create({
       name: 'Bubble Sort',
@@ -1200,8 +1249,9 @@ function postOrderTraverse(tree, array) {
           return array
         }`
       ],
-      categoryId: 8,
-      difficultyId: 1
+      categoryId: categoryIdsObj['Sorting'],
+      difficultyId: difficultyIdsObj.easy,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Insertion Sort',
@@ -1258,8 +1308,9 @@ function postOrderTraverse(tree, array) {
       })
       `,
       pythonTestFile: '',
-      categoryId: 8,
-      difficultyId: 2
+      categoryId: categoryIdsObj['Sorting'],
+      difficultyId: difficultyIdsObj.easy,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Heap Sort',
@@ -1270,8 +1321,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: 8,
-      difficultyId: 3
+      categoryId: categoryIdsObj['Sorting'],
+      difficultyId: difficultyIdsObj.medium,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'even_or_odd',
@@ -1367,8 +1419,9 @@ function postOrderTraverse(tree, array) {
       }
       `
       ],
-      categoryId: 8,
-      difficultyId: 1
+      categoryId: categoryIdsObj['Puzzle'],
+      difficultyId: difficultyIdsObj.easy,
+      userId: userIdsObj.admin
     })
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
