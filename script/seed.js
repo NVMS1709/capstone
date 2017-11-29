@@ -769,7 +769,26 @@ function postOrderTraverse(tree, array) {
         }
         return dups;
       }`,
-      pythonSolution: '',
+      pythonSolution: `
+def duplicatesHash(arr):
+          
+    # our hash table to store each element
+    # in the list as we pass through it
+    hashTable = {}
+    # store duplicates
+    dups = []
+    # check each element in the array
+    for i in range(0, len(arr)):
+    # if element does not exist in hash table
+    # then insert it
+        if arr[i] not in hashTable:
+            hashTable[arr[i]] = True
+    # if element does exist in hash table
+    # then we know it is a duplicate
+        else:
+            dups.append(arr[i])
+    return dups
+      `,
       functionName: 'duplicatesHash',
       javascriptTestFile: `const chai = require('chai')
       let expect = chai.expect
@@ -908,7 +927,42 @@ function postOrderTraverse(tree, array) {
           expect(result.sort()).to.deep.equal([4578, 567])
         })
       })`,
-      pythonTestFile: '',
+      pythonTestFile: `
+import program
+import unittest
+    
+class TestProgram(unittest.TestCase):
+
+    def test_case_1(self):
+        self.assertEqual(program.duplicatesHash([1, 3, 6, 8, 33, 10, 13, 15, 17, 37, 33]), [33])
+
+    def test_case_2(self):
+        self.assertEqual(program.duplicatesHash([1, 3, 6, 8, 9, 22, 22, 22, 22, 13, 15, 17, 33, 37, 33]), [22, 22, 22, 33 ])
+
+    def test_case_3(self):
+        self.assertEqual(program.duplicatesHash([0, 0, -1, 8, -22, 22, 22, 22, 13, 15, -33, 33, 37, 33]), [0, 22, 22, 33])
+      
+    def test_case_4(self):
+        self.assertEqual(program.duplicatesHash([0, 0, -1, 8, -22, 22, 22, 22, -0, -0, 'hello', 'hello', 15, -33, 33, 37, 33]), [0, 22, 22, 0, 0, 'hello', 33])
+      
+    def test_case_5(self):
+        self.assertEqual(program.duplicatesHash([0, 0, -1, 8, 3, -22, 22, 22, 22, -0, -0, 'heLlo', 'hello', 15, -33, 33, 37, 33, 10 + 12, 30 + 3]), [0, 22, 22, 0, 0, 33, 22, 33])
+      
+    def test_case_6(self):
+        self.assertEqual(program.duplicatesHash(['4', 4, 'Beautiful', int('4')]), [4])
+      
+    def test_case_7(self):
+        self.assertEqual(program.duplicatesHash(['4', 4, 'Beautiful', float('4'), 23.5, -34.0, -34.0000]), [4.0, -34.0])
+      
+    def test_case_8(self):
+        self.assertEqual(program.duplicatesHash(['4', 4, 'Beautiful', float('4'), 23.5, int(-34.0), int(-34.0000)]), [4.0, -34])
+      
+    def test_case_9(self):
+        self.assertEqual(program.duplicatesHash(['4', 4, 'Beautiful', str('-0'), 0, 3423.5, int(-34.0), int(-34.0000)]), [-34])
+      
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+          `,
       categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,
@@ -941,8 +995,32 @@ function postOrderTraverse(tree, array) {
 
         return arr
       }`,
-      pythonSolution: '',
-      functionName: 'dutchFlag',
+      pythonSolution: `
+def swap(arr, i1, i2):
+    temp = arr[i1]
+    arr[i1] = arr[i2]
+    arr[i2] = temp
+
+def dutchFlag(arr):
+    low = 0
+    mid = 0
+    high = len(arr) - 1
+
+# one pass through the array swapping
+# the necessary elements in place
+    while mid <= high:
+        if arr[mid] == 0:
+            swap(arr, low, mid)
+            low += 1
+            mid += 1
+        elif arr[mid] == 2:
+            swap(arr, mid, high)
+            high -= 1
+        elif arr[mid] == 1:
+            mid += 1
+    return arr
+      `,
+functionName: 'dutchFlag',
       javascriptTestFile: `const chai = require('chai')
       let expect = chai.expect
 
@@ -1108,7 +1186,36 @@ function postOrderTraverse(tree, array) {
         })
       })
       `,
-      pythonTestFile: '',
+      pythonTestFile: `
+import program
+import unittest
+      
+class TestProgram(unittest.TestCase):
+      
+    def test_case_1(self):
+        self.assertEqual(program.dutchFlag([2, 2, 0, 1, 0, 0, 1, 2]), [0, 0, 0, 1, 1, 2, 2, 2])
+      
+    def test_case_2(self):
+        self.assertEqual(program.dutchFlag([0, 1, 2, 2, 0, 1, 0]), [0, 0, 0, 1, 1, 2, 2])
+      
+    def test_case_3(self):
+        self.assertEqual(program.dutchFlag([2, 1, 2, 2, 0, 1, 0, 0, 0, 1]), [0, 0, 0, 0, 1, 1, 1, 2, 2, 2])
+      
+    def test_case_4(self):
+        self.assertEqual(program.dutchFlag([]), [])
+      
+    def test_case_5(self):
+        self.assertEqual(program.dutchFlag([2, 0]), [0, 2])
+      
+    def test_case_6(self):
+        self.assertEqual(program.dutchFlag([0, 0]), [0, 0])
+      
+    def test_case_7(self):
+        self.assertEqual(program.dutchFlag([0, 0, 1, 2, 2, 1, 1, 0, 2, 1, 0, 0, 0, 0, 0, 2, 1, 1, 2, 0, 1, 2]), [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2])
+      
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+          `,
       categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,

@@ -12,7 +12,17 @@ const getTestCaseOutcomes = (rawOutputStr) => {
 const getPythonTestCaseOutcomes = (rawOutputStr) => {
 
     const start = rawOutputStr.indexOf('test_case_1 (__main__.TestProgram) ...')
-    const end = rawOutputStr.indexOf('test_case_9 (__main__.TestProgram) ...')
+    
+    let end = 1;
+
+    for (let i = 2; i <= 9; i++) {
+        if (rawOutputStr.indexOf(`test_case_${i} (__main__.TestProgram) ...`) !== -1) {
+            end = rawOutputStr.indexOf(`test_case_${i} (__main__.TestProgram) ...`)
+        } else {
+            break
+        }
+    }
+
     const testCasesStr = rawOutputStr.slice(start, end + 41)
 
 
