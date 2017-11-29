@@ -101,6 +101,7 @@ router.post('/javascript', (req, res, next) => {
           { timeout: 5000 },
           (err, stdout, stderr) => {
             try {
+              cleanupCB()
 
               const { testCasesStr, revisedStdoutStr } = getTestCaseOutcomes(
                 stdout
@@ -109,11 +110,8 @@ router.post('/javascript', (req, res, next) => {
               const testCasesArr = JSON.parse(testCasesStr.trim())
 
               if (err) {
-                cleanupCB()
                 console.error('EXECUTION ERROR______________________', err)
               }
-
-              cleanupCB()
 
               let results
 
@@ -141,8 +139,8 @@ router.post('/javascript', (req, res, next) => {
             } catch (err1) {
               cleanupCB()
               res.send({
-                testCasesArr: [{ title: 'Code execution failed', outcome: 'failed' }],
-                rawOutput: '\n' + err1,
+                testCasesArr: [{ title: 'Code validation', outcome: 'failed' }],
+                rawOutput: err ? '\n' + stderr + '\n' + err : '\n' + stderr,
                 allPassed: false
               })
               console.error('CAUGHT ERROR____________________', err1)
