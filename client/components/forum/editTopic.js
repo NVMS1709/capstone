@@ -12,9 +12,16 @@ class EditTopic extends Component {
       editToggle: '',
       editForum: true
     }
+
+    this.toggleView = this.toggleView.bind(this)
+  }
+
+  toggleView() {
+    this.props.toggle()
   }
 
   render() {
+    console.log('MY PROPS', this.props)
     return (
       <div>
         <div className="comments-top-box">

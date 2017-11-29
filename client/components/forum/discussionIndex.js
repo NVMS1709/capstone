@@ -206,7 +206,7 @@ class Discussion extends Component {
             </div>
           </div>
         ) : (
-          <EditTopic />
+          <EditTopic toggle={this.toggleEditForum} />
         )
     )
   }
