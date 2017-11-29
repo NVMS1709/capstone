@@ -574,7 +574,7 @@ class UserAlgorithmSubmissionPage extends Component {
                 .catch((error) => {
                     (new Promise(resolve => {
                         setTimeout(() => {
-                            this.setState({ processingInfo: 'FAILED TO DELETE' }, ()=>{
+                            this.setState({ processingInfo: 'FAILED TO DELETE' }, () => {
                                 resolve()
                             })
                         }, 1000)
@@ -805,7 +805,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                 onClick={this.handleOutputMode}
                                 style={this.state.outputMode === 'TestCases'
                                     ?
-                                    { border: '1px solid black', borderBottom: 'none' }
+                                    { border: '1px solid black' }
                                     :
                                     {}}>
                                 Test Cases
@@ -814,7 +814,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                 onClick={this.handleOutputMode}
                                 style={this.state.outputMode === 'ValidationCustomOutput'
                                     ?
-                                    { border: '1px solid black', borderBottom: 'none' }
+                                    { border: '1px solid black' }
                                     :
                                     {}}>
                                 Validation Test Output
@@ -823,7 +823,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                 onClick={this.handleOutputMode}
                                 style={this.state.outputMode === 'ValidationRawOutput'
                                     ?
-                                    { border: '1px solid black', borderBottom: 'none' }
+                                    { border: '1px solid black' }
                                     :
                                     {}}>
                                 Validation Detailed Output
