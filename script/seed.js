@@ -915,30 +915,204 @@ function postOrderTraverse(tree, array) {
       companyId: companyIdsObj.Facebook
     }),
     Question.create({
-      name: 'Three Number Sum',
+      name: 'Dutch Flag',
       published: true,
-      description: '',
-      javascriptSolution: '',
+      description:
+        'Create a function that will take an array.  This array should not contain any value outside of 0, 1 and 2.  The array can have any number of these stated values and the values can appear in any order.  The function should take the array and sort it in ascending order.  Example, the function is given the following array [ 0, 2, 2, 0, 1 ].  The return value of the function should be [ 0, 0, 1, 2, 2]',
+      javascriptSolution: `function swap(arr, i1, i2) {
+        var temp = arr[i1]
+        arr[i1] = arr[i2]
+        arr[i2] = temp
+      }
+
+      function dutchFlag(arr) {
+        var low = 0
+        var mid = 0
+        var high = arr.length - 1
+        while (mid <= high) {
+          if (arr[mid] === 0) {
+            swap(arr, low++, mid++)
+          } else if (arr[mid] === 2) {
+            swap(arr, mid, high--)
+          } else if (arr[mid] === 1) {
+            mid++
+          }
+        }
+
+        return arr
+      }`,
       pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
+      functionName: 'dutchFlag',
+      javascriptTestFile: `const chai = require('chai')
+      let expect = chai.expect
+
+      describe('Dutch Flag Sort', function() {
+        it('produces desired result with', function() {
+          let result = dutchFlag([2, 2, 0, 1, 0, 0, 1, 2])
+          expect(result).to.deep.equal([0, 0, 0, 1, 1, 2, 2, 2])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+          expect(result).to.deep.equal([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1])
+          expect(result).to.deep.equal([0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([2, 2, 0, 1, 1, 0, 1, 2])
+          expect(result).to.deep.equal([0, 0, 1, 1, 1, 2, 2, 2])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([2, 2, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 2])
+          expect(result).to.deep.equal([0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            2
+          ])
+          expect(result).to.deep.equal([
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            2
+          ])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([
+            2,
+            2,
+            0,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            2,
+            1,
+            0,
+            0,
+            1,
+            2
+          ])
+          expect(result).to.deep.equal([
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ])
+        })
+
+        it('produces desired result with', function() {
+          let result = dutchFlag([
+            2,
+            2,
+            0,
+            1,
+            1,
+            0,
+            1,
+            2,
+            2,
+            1,
+            0,
+            1,
+            1,
+            0,
+            2,
+            2,
+            1,
+            2
+          ])
+          expect(result).to.deep.equal([
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ])
+        })
+      })
+      `,
       pythonTestFile: '',
       categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin
-    }),
-    Question.create({
-      name: 'Max SubsetSum No Adjacent',
-      published: true,
-      description: '',
-      javascriptSolution: '',
-      pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
-      pythonTestFile: '',
-      categoryId: categoryIdsObj['Dynamic Programming'],
-      difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin
+      userId: userIdsObj.admin,
+      companyId: companyIdsObj.Facebook
     }),
     Question.create({
       name: 'Max Sum Increasing Subsequence',
