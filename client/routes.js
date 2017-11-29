@@ -61,6 +61,7 @@ class Routes extends Component {
               <div>(๑◕︵◕๑)</div>
               <div>٩꒰´·⌢•｀꒱۶⁼³₌₃</div>
               <div>( ᵒ̴̶̷̥́ _ᵒ̴̶̷̣̥̀ )</div>
+              <div>...好伤心, 我要哭了...</div>
             </div>
           </div>
           :
