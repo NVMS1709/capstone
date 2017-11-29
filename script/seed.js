@@ -408,7 +408,7 @@ class TestProgram(unittest.TestCase):
     def test_case_18(self):
         self.assertEqual(test4.right.right.left.value, 16)
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(verbosity=2)
       `,
       jsWalkThrough: [
         `Function: 'BST'

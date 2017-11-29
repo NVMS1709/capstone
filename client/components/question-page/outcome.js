@@ -36,7 +36,7 @@ class Outcome extends Component {
             onClick={this.handleOutputMode}
             style={
               this.state.outputMode === 'customOutput'
-                ? { border: '1px solid black', borderBottom: 'none' }
+                ? { border: '1px solid black' }
                 : {}
             }
           >
@@ -46,7 +46,7 @@ class Outcome extends Component {
             onClick={this.handleOutputMode}
             style={
               this.state.outputMode === 'rawOutput'
-                ? { border: '1px solid black', borderBottom: 'none' }
+                ? { border: '1px solid black' }
                 : {}
             }
           >
@@ -56,7 +56,7 @@ class Outcome extends Component {
             onClick={this.handleOutputMode}
             style={
               this.state.outputMode === 'tests'
-                ? { border: '1px solid black', borderBottom: 'none' }
+                ? { border: '1px solid black' }
                 : {}
             }
           >
