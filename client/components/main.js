@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, NavLink } from 'react-router-dom'
 import { logout } from '../store'
-import Modal from './modal'
-import AuthForm from './auth-form'
+import history from '../history'
 
 /**
  * COMPONENT
@@ -15,34 +14,18 @@ import AuthForm from './auth-form'
 class Main extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      loading: false
-    }
+    this.handleLogin = this.handleLogin.bind(this)
   }
 
-  componentDidMount() {
-    setTimeout(() => this.setState({ loading: true }), 500)
+  handleLogin() {
+    history.push('/login')
   }
 
   render() {
     const { user, children, handleLogout, isLoggedIn } = this.props
     return (
       <div id="navbar-container">
-        <div className="custom-right">
-          {user.id ? (
-            ''
-          ) : (
-              <div>
-                {this.state.loading ? (
-                  <Modal>
-                    <AuthForm />
-                  </Modal>
-                ) : (
-                    ''
-                  )}
-              </div>
-            )}
-        </div>
+        <div className="custom-right" />
         <nav>
           {
             <div className="navbar">
@@ -51,7 +34,7 @@ class Main extends Component {
                   <span className="small-head">HOME</span>
                 </NavLink>
                 <NavLink to="/forum" className="link">
-                  <span className="small-head">Forum</span>
+                  <span className="small-head">FORUM</span>
                 </NavLink>
               </div>
               <div className="navbar-central">
@@ -66,7 +49,7 @@ class Main extends Component {
                       <span className="small-head">USER</span>
                     </NavLink>
                     <NavLink
-                      to="/homepage"
+                      to="/home"
                       className="link"
                       id="link-left-space"
                       onClick={handleLogout}
@@ -75,8 +58,12 @@ class Main extends Component {
                     </NavLink>
                   </div>
                 ) : (
-                    <div />
-                  )}
+                  <div>
+                    <NavLink to="/login" className="link" id="link-left-space">
+                      <span className="small-head">LOG IN</span>
+                    </NavLink>
+                  </div>
+                )}
               </div>
             </div>
           }

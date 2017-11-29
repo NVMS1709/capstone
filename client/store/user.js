@@ -41,7 +41,7 @@ export const logout = () => dispatch =>
     .post('/auth/logout')
     .then(_ => {
       dispatch(removeUser())
-      history.push('/login')
+      history.push('/home')
     })
     .catch(err => console.log(err))
 
@@ -58,7 +58,7 @@ export const userUpdate = (id, user) => dispatch => {
 }
 
 export const passwordUpdate = (id, user) => dispatch => {
-  console.log("HERE IN THUNK")
+  console.log('HERE IN THUNK')
   return axios
     .put(`/api/users/password/${id}`, user)
     .then(results => {
@@ -87,7 +87,7 @@ export const sendPayment = (token, userId) => dispatch => {
 /**
  * REDUCER
  */
-export default function (state = defaultUser, action) {
+export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user

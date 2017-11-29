@@ -20,6 +20,7 @@ class AuthForm extends Component {
   }
 
   render() {
+    console.log('AUTH', this.props.history)
     const { handleSubmit, error } = this.props
     return (
       <div>

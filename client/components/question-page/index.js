@@ -6,16 +6,23 @@ import QuestionDescription from './question'
 import { connect } from 'react-redux'
 import Comments from './comments/index'
 import { setCustomResult, setResult } from '../../store'
+import Modal from '../modal'
+import AuthForm from '../auth-form'
 
 class QuestionPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       mode: 'Prompt',
-      language: 'Javascript'
+      language: 'Javascript',
+      loading: false
     }
     this.setMode = this.setMode.bind(this)
     this.setLanguage = this.setLanguage.bind(this)
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ loading: true }), 600)
   }
 
   componentWillUnmount() {
@@ -32,9 +39,23 @@ class QuestionPage extends Component {
   }
 
   render() {
-
+    const user = this.props.user
+    console.log('OWNPROPS', this.props.ownProps)
     return (
       <div>
+        {user.id ? (
+          ''
+        ) : (
+          <div>
+            {this.state.loading ? (
+              <Modal>
+                <AuthForm history={this.props.ownProps} />
+              </Modal>
+            ) : (
+              ''
+            )}
+          </div>
+        )}
         <div className="repl-container">
           <div className="left-container">
             {this.props.currentQuestion && (
@@ -57,28 +78,28 @@ class QuestionPage extends Component {
                 Prompt
               </button>
               {this.props.currentQuestion &&
-                this.props.currentQuestion.jsWalkThrough.length > 1 ? (
-                  <button
-                    onClick={this.setMode}
-                    style={
-                      this.state.mode === 'Instructions'
-                        ? { border: '1px solid black', borderBottom: 'none' }
-                        : {}
-                    }
-                  >
-                    Instructions
+              this.props.currentQuestion.jsWalkThrough.length > 1 ? (
+                <button
+                  onClick={this.setMode}
+                  style={
+                    this.state.mode === 'Instructions'
+                      ? { border: '1px solid black', borderBottom: 'none' }
+                      : {}
+                  }
+                >
+                  Instructions
                 </button>
-                ) : (
-                  ''
-                )}
+              ) : (
+                ''
+              )}
             </div>
             {this.state.mode === 'Prompt' ? (
               <QuestionDescription
                 currentQuestion={this.props.currentQuestion}
               />
             ) : (
-                <Instructions currentQuestion={this.props.currentQuestion} />
-              )}
+              <Instructions currentQuestion={this.props.currentQuestion} />
+            )}
           </div>
           <div className="right-container">
             <div className="language-buttons-container">
@@ -93,20 +114,20 @@ class QuestionPage extends Component {
                 Javascript
               </button>
               {this.props.currentQuestion &&
-                this.props.currentQuestion.pythonSolution.length > 0 ? (
-                  <button
-                    onClick={this.setLanguage}
-                    style={
-                      this.state.language === 'Python'
-                        ? { backgroundColor: 'grey', color: 'white' }
-                        : {}
-                    }
-                  >
-                    Python
+              this.props.currentQuestion.pythonSolution.length > 0 ? (
+                <button
+                  onClick={this.setLanguage}
+                  style={
+                    this.state.language === 'Python'
+                      ? { backgroundColor: 'grey', color: 'white' }
+                      : {}
+                  }
+                >
+                  Python
                 </button>
-                ) : (
-                  ''
-                )}
+              ) : (
+                ''
+              )}
             </div>
             <div className="solution-button-container">
               <button
@@ -117,10 +138,14 @@ class QuestionPage extends Component {
               </button>
             </div>
             <div className="top">
-              <AceEditor
-                currentQuestion={this.props.currentQuestion}
-                language={this.state.language.toLowerCase()}
-              />
+              {user.id || !this.state.loading ? (
+                <AceEditor
+                  currentQuestion={this.props.currentQuestion}
+                  language={this.state.language.toLowerCase()}
+                />
+              ) : (
+                ''
+              )}
             </div>
             <div className="bottom">
               <Outcome
@@ -138,6 +163,8 @@ class QuestionPage extends Component {
 
 const mapState = (state, ownProps) => {
   return {
+    ownProps: ownProps,
+    user: state.user,
     currentQuestion:
       state.questions &&
       state.questions.find(
