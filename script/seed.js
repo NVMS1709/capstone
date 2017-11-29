@@ -15,13 +15,15 @@ const {
   Question,
   Category,
   Difficulty,
-  Forum
+  Forum,
+  Company
 } = require('../server/db/models')
 
 async function seed() {
   let userIdsObj = {}
   let forumIdsObj = {}
   let questionIdsObj = {}
+  let companyIdsObj = {}
   let categoryIdsObj = {}
   let difficultyIdsObj = {}
 
@@ -30,19 +32,38 @@ async function seed() {
   // Whoa! Because we `await` the promise that db.sync returns, the next line will not be
   // executed until that promise resolves!
 
+  const companies = await Promise.all([
+    Company.create({ name: 'Google' }),
+    Company.create({ name: 'Facebook' }),
+    Company.create({ name: 'Microsoft' })
+  ]).then(companiesArr => {
+    companiesArr.forEach(company => {
+      companyIdsObj[company.name] = company.id
+    })
+    return companiesArr
+  })
+
+  console.log('User Ids Obj', companyIdsObj)
+
+  console.log(`seeded ${companies.length} users`)
+
   const users = await Promise.all([
-    User.create({ name: 'admin', email: 'admin@email.com', password: '123', questionsSolved: [1, 4, 6, 8] }),
+    User.create({
+      name: 'admin',
+      email: 'admin@email.com',
+      password: '123',
+      questionsSolved: [1, 4, 6, 8]
+    }),
     User.create({ name: 'cody', email: 'cody@email.com', password: '123' }),
     User.create({ name: 'murphy', email: 'murphy@email.com', password: '123' })
-  ])
-    .then(usersArr => {
-      usersArr.forEach(user => {
-        userIdsObj[user.name] = user.id
-      })
-      return usersArr
+  ]).then(usersArr => {
+    usersArr.forEach(user => {
+      userIdsObj[user.name] = user.id
     })
+    return usersArr
+  })
 
-  console.log("User Ids Obj", userIdsObj)
+  console.log('User Ids Obj', userIdsObj)
 
   console.log(`seeded ${users.length} users`)
 
@@ -59,15 +80,14 @@ async function seed() {
         'Use this thread to submit comments and or suggestions on site design and usability.  Suggestions will be reviewed by the site administator in the order that they are received.',
       userId: 1
     })
-  ])
-    .then(forumsArr => {
-      forumsArr.forEach(forum => {
-        forumIdsObj[forum.name] = forum.id
-      })
-      return forumsArr
+  ]).then(forumsArr => {
+    forumsArr.forEach(forum => {
+      forumIdsObj[forum.name] = forum.id
     })
+    return forumsArr
+  })
 
-  console.log("Forum Ids Obj", forumIdsObj)
+  console.log('Forum Ids Obj', forumIdsObj)
 
   console.log(`seeded ${forums.length} forums`)
 
@@ -126,15 +146,14 @@ async function seed() {
       name: 'Puzzle',
       description: 'Mind teasing questions'
     })
-  ])
-    .then(categoriesArr => {
-      categoriesArr.forEach(category => {
-        categoryIdsObj[category.name] = category.id
-      })
-      return categoriesArr
+  ]).then(categoriesArr => {
+    categoriesArr.forEach(category => {
+      categoryIdsObj[category.name] = category.id
     })
+    return categoriesArr
+  })
 
-  console.log("Category Ids Obj", categoryIdsObj)
+  console.log('Category Ids Obj', categoryIdsObj)
 
   console.log(`seeded ${categories.length} categories`)
 
@@ -142,16 +161,14 @@ async function seed() {
     Difficulty.create({ name: 'easy' }),
     Difficulty.create({ name: 'medium' }),
     Difficulty.create({ name: 'difficult' })
-  ])
-    .then(difficultiesArr => {
-      difficultiesArr.forEach(difficulty => {
-        difficultyIdsObj[difficulty.name] = difficulty.id
-      })
-      return difficultiesArr
+  ]).then(difficultiesArr => {
+    difficultiesArr.forEach(difficulty => {
+      difficultyIdsObj[difficulty.name] = difficulty.id
     })
+    return difficultiesArr
+  })
 
-  console.log("Difficulty Ids Obj", difficultyIdsObj)
-
+  console.log('Difficulty Ids Obj', difficultyIdsObj)
 
   console.log(`seeded ${difficulties.length} difficulties`)
 
@@ -745,7 +762,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Arrays'],
+      categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin
     }),
@@ -758,7 +775,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Arrays'],
+      categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin
     }),
@@ -853,7 +870,7 @@ function postOrderTraverse(tree, array) {
       })
       `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Sorting'],
+      categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -912,7 +929,7 @@ function postOrderTraverse(tree, array) {
       })
       `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Sorting'],
+      categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -925,7 +942,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Searching'],
+      categoryId: categoryIdsObj.Searching,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -1075,7 +1092,7 @@ function postOrderTraverse(tree, array) {
       })
       `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Queue'],
+      categoryId: categoryIdsObj.Queue,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -1088,7 +1105,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Searching'],
+      categoryId: categoryIdsObj.Searching,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin
     }),
@@ -1101,7 +1118,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Searching'],
+      categoryId: categoryIdsObj.Searching,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -1114,9 +1131,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Searching'],
+      categoryId: categoryIdsObj.Searching,
       difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Shifted Binary Search',
@@ -1127,9 +1144,9 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Searching'],
+      categoryId: categoryIdsObj.Searching,
       difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin,
+      userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Bubble Sort',
@@ -1200,7 +1217,8 @@ function postOrderTraverse(tree, array) {
         function bubbleSort(array) {
           return array
         }
-        `, `
+        `,
+        `
         function bubbleSort(array) {
           do {
             swapped = false;
@@ -1208,7 +1226,8 @@ function postOrderTraverse(tree, array) {
           } while(swapped);
           return array
         }
-        `, `
+        `,
+        `
         function bubbleSort(array) {
           do {
             swapped = false;
@@ -1218,7 +1237,8 @@ function postOrderTraverse(tree, array) {
           } while(swapped);
           return array
         }
-        `, `
+        `,
+        `
         function bubbleSort(array) {
           do {
             swapped = false;
@@ -1229,7 +1249,8 @@ function postOrderTraverse(tree, array) {
             }
           } while(swapped);
           return array
-        }`, `
+        }`,
+        `
         function bubbleSort(array) {
           do {
             swapped = false;
@@ -1243,7 +1264,7 @@ function postOrderTraverse(tree, array) {
           return array
         }`
       ],
-      categoryId: categoryIdsObj['Sorting'],
+      categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -1300,7 +1321,7 @@ function postOrderTraverse(tree, array) {
       })
       `,
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Sorting'],
+      categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -1313,7 +1334,7 @@ function postOrderTraverse(tree, array) {
       functionName: '',
       javascriptTestFile: '',
       pythonTestFile: '',
-      categoryId: categoryIdsObj['Sorting'],
+      categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin
     }),
@@ -1411,7 +1432,7 @@ function postOrderTraverse(tree, array) {
       }
       `
       ],
-      categoryId: categoryIdsObj['Puzzle'],
+      categoryId: categoryIdsObj.Puzzle,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     })

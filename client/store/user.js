@@ -27,12 +27,15 @@ export const me = () => dispatch =>
     .then(res => dispatch(getUser(res.data || defaultUser)))
     .catch(err => console.log(err))
 
-export const auth = (email, password, method) => dispatch =>
+export const auth = (email, password, method, currentLocation) => dispatch =>
   axios
     .post(`/auth/${method}`, { email, password })
     .then(res => {
       dispatch(getUser(res.data))
-      history.push('/home')
+      if (currentLocation === '/login') {history.push('/home')}
+      else {
+        history.push(currentLocation)
+      }
     })
     .catch(error => dispatch(getUser({ error })))
 
@@ -41,7 +44,7 @@ export const logout = () => dispatch =>
     .post('/auth/logout')
     .then(_ => {
       dispatch(removeUser())
-      history.push('/login')
+      history.push('/home')
     })
     .catch(err => console.log(err))
 
@@ -58,7 +61,7 @@ export const userUpdate = (id, user) => dispatch => {
 }
 
 export const passwordUpdate = (id, user) => dispatch => {
-  console.log("HERE IN THUNK")
+  console.log('HERE IN THUNK')
   return axios
     .put(`/api/users/password/${id}`, user)
     .then(results => {
@@ -87,7 +90,7 @@ export const sendPayment = (token, userId) => dispatch => {
 /**
  * REDUCER
  */
-export default function (state = defaultUser, action) {
+export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
       return action.user
