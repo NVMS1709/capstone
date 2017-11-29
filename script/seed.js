@@ -1539,64 +1539,101 @@ if __name__ == "__main__":
         }
         return countSteps(N - 1) + countSteps(N - 2)
       }`,
-      pythonSolution: '',
+      pythonSolution: `
+def countSteps(N):
+          
+    # just as in our solution explanation above, we know that to climb 1 step
+    # there is only 1 solution, and for 2 steps there are 2 solutions
+    if N == 1:
+        return 1
+      
+    if N == 2:
+        return 2
+          
+    # for all N > 2, we add the previous (N - 1) + (N - 2) steps to get
+    # an answer recursively
+    return countSteps(N - 1) + countSteps(N - 2)
+      `,
       functionName: 'countSteps',
       javascriptTestFile: `const chai = require('chai')
       let expect = chai.expect
 
       describe('Power Set Solution', function() {
-        it('produces desired result', function() {
+        it('Test Case #1', function() {
           let result = countSteps(6)
           expect(result).to.deep.equal(13)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #2', function() {
           let result = countSteps(13)
           expect(result).to.deep.equal(377)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #3', function() {
           let result = countSteps(1)
           expect(result).to.deep.equal(1)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #4', function() {
           let result = countSteps(23)
           expect(result).to.deep.equal(46368)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #5', function() {
           let result = countSteps(3)
           expect(result).to.deep.equal(3)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #6', function() {
           let result = countSteps(4)
           expect(result).to.deep.equal(5)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #7', function() {
           let result = countSteps(10)
           expect(result).to.deep.equal(89)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #8', function() {
           let result = countSteps(17)
           expect(result).to.deep.equal(2584)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #9', function() {
           let result = countSteps(15)
           expect(result).to.deep.equal(987)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #10', function() {
           let result = countSteps(20)
           expect(result).to.deep.equal(10946)
         })
       })
       `,
-      pythonTestFile: '',
+      pythonTestFile: `
+import program
+import unittest
+      
+class TestProgram(unittest.TestCase):
+
+    def test_case_1(self):
+        self.assertEqual(program.countSteps(29), 832040)
+      
+    def test_case_2(self):
+        self.assertEqual(program.countSteps(1), 1)
+      
+    def test_case_3(self):
+        self.assertEqual(program.countSteps(32), 3524578)
+      
+    def test_case_4(self):
+        self.assertEqual(program.countSteps(10), 89)
+      
+    def test_case_5(self):
+        self.assertEqual(program.countSteps(18), 4181)
+          
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+          `,
       categoryId: categoryIdsObj.Recursion,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,
@@ -1631,25 +1668,52 @@ if __name__ == "__main__":
         }
         return newSet.concat(endSet)
       }`,
-      pythonSolution: '',
-      functionName: 'insterInterval',
+      pythonSolution: `
+def insertInterval(arr, interval):
+
+    newSet = []
+    endSet = []
+    i = 0
+
+    # add intervals that come before the new interval
+    while i < len(arr) and arr[i][1] < interval[0]:
+        newSet.append(arr[i])
+        i += 1
+      
+    # add our new interval to this final list
+    newSet.append(interval)
+
+    # check each interval that comes after the new interval to determine if we can merge
+    # if no merges are required then populate a list of the remaining intervals
+    while i < len(arr):
+        last = newSet[-1]
+        if arr[i][0] < last[1]:
+            newInterval = [min([last[0], arr[i][0]]), max([last[1], arr[i][1]])]
+            newSet[-1] = newInterval
+        else:
+            endSet.append(arr[i])
+        i += 1
+
+    return newSet + endSet
+      `,
+      functionName: 'insertInterval',
       javascriptTestFile: `const chai = require('chai')
       let expect = chai.expect
 
       describe('Insert Interval Solution', function() {
-        it('produces desired result', function() {
+        it('Test Case #1', function() {
           let result = insertInterval([[1, 5], [10, 15], [20, 25]], [12, 27])
           expect(result.length).to.deep.equal(2)
           expect(result).to.deep.equal([[1, 5], [10, 27]])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #2', function() {
           let result = insertInterval([[11, 55], [10, 15], [20, 55]], [11, 27])
           expect(result.length).to.deep.equal(1)
           expect(result).to.deep.equal([[10, 55]])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #3', function() {
           let result = insertInterval(
             [
               [13293602354, 99112002293553],
@@ -1674,25 +1738,25 @@ if __name__ == "__main__":
           ])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #4', function() {
           let result = insertInterval([[100, 54], [100, 15], [200, 250]], [12, 54])
           expect(result.length).to.deep.equal(4)
           expect(result).to.deep.equal([[12, 54], [100, 54], [100, 15], [200, 250]])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #5', function() {
           let result = insertInterval([[1, 5], [1, 5], [2, 2]], [2, 54])
           expect(result.length).to.deep.equal(1)
           expect(result).to.deep.equal([[1, 54]])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #6', function() {
           let result = insertInterval([[-100, -54], [-100, 15], [200, 250]], [12, 54])
           expect(result.length).to.deep.equal(3)
           expect(result).to.deep.equal([[-100, -54], [-100, 54], [200, 250]])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #7', function() {
           let result = insertInterval(
             [
               [132354, 1123553],
@@ -1718,7 +1782,7 @@ if __name__ == "__main__":
           ])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #8', function() {
           let result = insertInterval(
             [
               [134, 153],
@@ -1743,8 +1807,37 @@ if __name__ == "__main__":
         })
       })
       `,
-      pythonTestFile: '',
-      categoryId: categoryIdsObj.Array,
+      pythonTestFile: `
+import program
+import unittest
+
+class TestProgram(unittest.TestCase):
+
+    def test_case_1(self):
+        self.assertEqual(program.insertInterval([[1,5],[10,15],[20,25]], [12,27]), [[1, 5], [10, 27]])
+
+    def test_case_2(self):
+        self.assertEqual(program.insertInterval([[6,7]], [1,9]), [[1, 9]])
+
+    def test_case_3(self):
+        self.assertEqual(program.insertInterval([[6,7]], [1,5]), [[1, 5], [6, 7]])
+
+    def test_case_4(self):
+        self.assertEqual(program.insertInterval([[1,5]], [6,7]), [[1, 5], [6, 7]])
+
+    def test_case_5(self):
+        self.assertEqual(program.insertInterval([[1,5],[6,11],[13,20],[40,50]], [12,19]), [[1, 5], [6, 11], [12, 20], [40, 50]])
+
+    def test_case_6(self):
+        self.assertEqual(program.insertInterval([[1,5],[6,11],[13,20],[25,30],[32,55]], [12,45]), [[1, 5], [6, 11], [12, 55]])
+
+    def test_case_7(self):
+        self.assertEqual(program.insertInterval([[1,5],[6,11],[20,22]], [24,45]), [[1, 5], [6, 11], [20, 22], [24, 45]])
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+          `,
+      categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,
       companyId: companyIdsObj.Google
@@ -1777,7 +1870,38 @@ if __name__ == "__main__":
         }
         return powers
       }`,
-      pythonSolution: '',
+      pythonSolution: `
+import math
+
+def powerSet(arr):
+
+    # the final power set
+    powers = []
+
+    # the total number of sets that the power set will contain
+    total = int(math.pow(2, len(arr)))
+
+    # loop through each value from 0 to 2^n
+    for i in range(0, total):
+
+        # our set that we add to the power set
+        tempSet = []
+    
+        # convert the integer to binary
+        num = "{0:b}".format(i)
+    
+        # pad the binary number so 1 becomes 001 for example
+        while len(num) < len(arr):
+            num = '0' + num
+    
+        # build the set that matches the 1's in the binary number
+            for b in range(0, len(num)):
+                if num[b] == '1':
+                    tempSet.append(arr[b])
+        # add this set to the final power set
+        powers.append(tempSet)
+    return powers
+      `,
       functionName: 'powerSet',
       javascriptTestFile: `const chai = require('chai')
       let expect = chai.expect
@@ -1930,7 +2054,30 @@ if __name__ == "__main__":
         })
       })
       `,
-      pythonTestFile: '',
+      pythonTestFile: `
+import program
+import unittest
+
+class TestProgram(unittest.TestCase):
+
+    def test_case_1(self):
+        self.assertEqual(program.powerSet([1, 2, 3]), [[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]])
+
+    def test_case_2(self):
+        self.assertEqual(program.powerSet([1, 2, 3, 8, 16, 100, 25]), [[], [25], [100], [100, 25], [16], [16, 25], [16, 100], [16, 100, 25], [8], [8, 25], [8, 100], [8, 100, 25], [8, 16], [8, 16, 25], [8, 16, 100], [8, 16, 100, 25], [3], [3, 25], [3, 100], [3, 100, 25], [3, 16], [3, 16, 25], [3, 16, 100], [3, 16, 100, 25], [3, 8], [3, 8, 25], [3, 8, 100], [3, 8, 100, 25], [3, 8, 16], [3, 8, 16, 25], [3, 8, 16, 100], [3, 8, 16, 100, 25], [2], [2, 25], [2, 100], [2, 100, 25], [2, 16], [2, 16, 25], [2, 16, 100], [2, 16, 100, 25], [2, 8], [2, 8, 25], [2, 8, 100], [2, 8, 100, 25], [2, 8, 16], [2, 8, 16, 25], [2, 8, 16, 100], [2, 8, 16, 100, 25], [2, 3], [2, 3, 25], [2, 3, 100], [2, 3, 100, 25], [2, 3, 16], [2, 3, 16, 25], [2, 3, 16, 100], [2, 3, 16, 100, 25], [2, 3, 8], [2, 3, 8, 25], [2, 3, 8, 100], [2, 3, 8, 100, 25], [2, 3, 8, 16], [2, 3, 8, 16, 25], [2, 3, 8, 16, 100], [2, 3, 8, 16, 100, 25], [1], [1, 25], [1, 100], [1, 100, 25], [1, 16], [1, 16, 25], [1, 16, 100], [1, 16, 100, 25], [1, 8], [1, 8, 25], [1, 8, 100], [1, 8, 100, 25], [1, 8, 16], [1, 8, 16, 25], [1, 8, 16, 100], [1, 8, 16, 100, 25], [1, 3], [1, 3, 25], [1, 3, 100], [1, 3, 100, 25], [1, 3, 16], [1, 3, 16, 25], [1, 3, 16, 100], [1, 3, 16, 100, 25], [1, 3, 8], [1, 3, 8, 25], [1, 3, 8, 100], [1, 3, 8, 100, 25], [1, 3, 8, 16], [1, 3, 8, 16, 25], [1, 3, 8, 16, 100], [1, 3, 8, 16, 100, 25], [1, 2], [1, 2, 25], [1, 2, 100], [1, 2, 100, 25], [1, 2, 16], [1, 2, 16, 25], [1, 2, 16, 100], [1, 2, 16, 100, 25], [1, 2, 8], [1, 2, 8, 25], [1, 2, 8, 100], [1, 2, 8, 100, 25], [1, 2, 8, 16], [1, 2, 8, 16, 25], [1, 2, 8, 16, 100], [1, 2, 8, 16, 100, 25], [1, 2, 3], [1, 2, 3, 25], [1, 2, 3, 100], [1, 2, 3, 100, 25], [1, 2, 3, 16], [1, 2, 3, 16, 25], [1, 2, 3, 16, 100], [1, 2, 3, 16, 100, 25], [1, 2, 3, 8], [1, 2, 3, 8, 25], [1, 2, 3, 8, 100], [1, 2, 3, 8, 100, 25], [1, 2, 3, 8, 16], [1, 2, 3, 8, 16, 25], [1, 2, 3, 8, 16, 100], [1, 2, 3, 8, 16, 100, 25]])
+
+    def test_case_3(self):
+        self.assertEqual(program.powerSet([-2, 2, -3, 8, 16, 62]), [[], [62], [16], [16, 62], [8], [8, 62], [8, 16], [8, 16, 62], [-3], [-3, 62], [-3, 16], [-3, 16, 62], [-3, 8], [-3, 8, 62], [-3, 8, 16], [-3, 8, 16, 62], [2], [2, 62], [2, 16], [2, 16, 62], [2, 8], [2, 8, 62], [2, 8, 16], [2, 8, 16, 62], [2, -3], [2, -3, 62], [2, -3, 16], [2, -3, 16, 62], [2, -3, 8], [2, -3, 8, 62], [2, -3, 8, 16], [2, -3, 8, 16, 62], [-2], [-2, 62], [-2, 16], [-2, 16, 62], [-2, 8], [-2, 8, 62], [-2, 8, 16], [-2, 8, 16, 62], [-2, -3], [-2, -3, 62], [-2, -3, 16], [-2, -3, 16, 62], [-2, -3, 8], [-2, -3, 8, 62], [-2, -3, 8, 16], [-2, -3, 8, 16, 62], [-2, 2], [-2, 2, 62], [-2, 2, 16], [-2, 2, 16, 62], [-2, 2, 8], [-2, 2, 8, 62], [-2, 2, 8, 16], [-2, 2, 8, 16, 62], [-2, 2, -3], [-2, 2, -3, 62], [-2, 2, -3, 16], [-2, 2, -3, 16, 62], [-2, 2, -3, 8], [-2, 2, -3, 8, 62], [-2, 2, -3, 8, 16], [-2, 2, -3, 8, 16, 62]])
+
+    def test_case_4(self):
+        self.assertEqual(program.powerSet([-2, 0, -3, 8, 16, 62, 1, 0]), [[], [0], [1], [1, 0], [62], [62, 0], [62, 1], [62, 1, 0], [16], [16, 0], [16, 1], [16, 1, 0], [16, 62], [16, 62, 0], [16, 62, 1], [16, 62, 1, 0], [8], [8, 0], [8, 1], [8, 1, 0], [8, 62], [8, 62, 0], [8, 62, 1], [8, 62, 1, 0], [8, 16], [8, 16, 0], [8, 16, 1], [8, 16, 1, 0], [8, 16, 62], [8, 16, 62, 0], [8, 16, 62, 1], [8, 16, 62, 1, 0], [-3], [-3, 0], [-3, 1], [-3, 1, 0], [-3, 62], [-3, 62, 0], [-3, 62, 1], [-3, 62, 1, 0], [-3, 16], [-3, 16, 0], [-3, 16, 1], [-3, 16, 1, 0], [-3, 16, 62], [-3, 16, 62, 0], [-3, 16, 62, 1], [-3, 16, 62, 1, 0], [-3, 8], [-3, 8, 0], [-3, 8, 1], [-3, 8, 1, 0], [-3, 8, 62], [-3, 8, 62, 0], [-3, 8, 62, 1], [-3, 8, 62, 1, 0], [-3, 8, 16], [-3, 8, 16, 0], [-3, 8, 16, 1], [-3, 8, 16, 1, 0], [-3, 8, 16, 62], [-3, 8, 16, 62, 0], [-3, 8, 16, 62, 1], [-3, 8, 16, 62, 1, 0], [0], [0, 0], [0, 1], [0, 1, 0], [0, 62], [0, 62, 0], [0, 62, 1], [0, 62, 1, 0], [0, 16], [0, 16, 0], [0, 16, 1], [0, 16, 1, 0], [0, 16, 62], [0, 16, 62, 0], [0, 16, 62, 1], [0, 16, 62, 1, 0], [0, 8], [0, 8, 0], [0, 8, 1], [0, 8, 1, 0], [0, 8, 62], [0, 8, 62, 0], [0, 8, 62, 1], [0, 8, 62, 1, 0], [0, 8, 16], [0, 8, 16, 0], [0, 8, 16, 1], [0, 8, 16, 1, 0], [0, 8, 16, 62], [0, 8, 16, 62, 0], [0, 8, 16, 62, 1], [0, 8, 16, 62, 1, 0], [0, -3], [0, -3, 0], [0, -3, 1], [0, -3, 1, 0], [0, -3, 62], [0, -3, 62, 0], [0, -3, 62, 1], [0, -3, 62, 1, 0], [0, -3, 16], [0, -3, 16, 0], [0, -3, 16, 1], [0, -3, 16, 1, 0], [0, -3, 16, 62], [0, -3, 16, 62, 0], [0, -3, 16, 62, 1], [0, -3, 16, 62, 1, 0], [0, -3, 8], [0, -3, 8, 0], [0, -3, 8, 1], [0, -3, 8, 1, 0], [0, -3, 8, 62], [0, -3, 8, 62, 0], [0, -3, 8, 62, 1], [0, -3, 8, 62, 1, 0], [0, -3, 8, 16], [0, -3, 8, 16, 0], [0, -3, 8, 16, 1], [0, -3, 8, 16, 1, 0], [0, -3, 8, 16, 62], [0, -3, 8, 16, 62, 0], [0, -3, 8, 16, 62, 1], [0, -3, 8, 16, 62, 1, 0], [-2], [-2, 0], [-2, 1], [-2, 1, 0], [-2, 62], [-2, 62, 0], [-2, 62, 1], [-2, 62, 1, 0], [-2, 16], [-2, 16, 0], [-2, 16, 1], [-2, 16, 1, 0], [-2, 16, 62], [-2, 16, 62, 0], [-2, 16, 62, 1], [-2, 16, 62, 1, 0], [-2, 8], [-2, 8, 0], [-2, 8, 1], [-2, 8, 1, 0], [-2, 8, 62], [-2, 8, 62, 0], [-2, 8, 62, 1], [-2, 8, 62, 1, 0], [-2, 8, 16], [-2, 8, 16, 0], [-2, 8, 16, 1], [-2, 8, 16, 1, 0], [-2, 8, 16, 62], [-2, 8, 16, 62, 0], [-2, 8, 16, 62, 1], [-2, 8, 16, 62, 1, 0], [-2, -3], [-2, -3, 0], [-2, -3, 1], [-2, -3, 1, 0], [-2, -3, 62], [-2, -3, 62, 0], [-2, -3, 62, 1], [-2, -3, 62, 1, 0], [-2, -3, 16], [-2, -3, 16, 0], [-2, -3, 16, 1], [-2, -3, 16, 1, 0], [-2, -3, 16, 62], [-2, -3, 16, 62, 0], [-2, -3, 16, 62, 1], [-2, -3, 16, 62, 1, 0], [-2, -3, 8], [-2, -3, 8, 0], [-2, -3, 8, 1], [-2, -3, 8, 1, 0], [-2, -3, 8, 62], [-2, -3, 8, 62, 0], [-2, -3, 8, 62, 1], [-2, -3, 8, 62, 1, 0], [-2, -3, 8, 16], [-2, -3, 8, 16, 0], [-2, -3, 8, 16, 1], [-2, -3, 8, 16, 1, 0], [-2, -3, 8, 16, 62], [-2, -3, 8, 16, 62, 0], [-2, -3, 8, 16, 62, 1], [-2, -3, 8, 16, 62, 1, 0], [-2, 0], [-2, 0, 0], [-2, 0, 1], [-2, 0, 1, 0], [-2, 0, 62], [-2, 0, 62, 0], [-2, 0, 62, 1], [-2, 0, 62, 1, 0], [-2, 0, 16], [-2, 0, 16, 0], [-2, 0, 16, 1], [-2, 0, 16, 1, 0], [-2, 0, 16, 62], [-2, 0, 16, 62, 0], [-2, 0, 16, 62, 1], [-2, 0, 16, 62, 1, 0], [-2, 0, 8], [-2, 0, 8, 0], [-2, 0, 8, 1], [-2, 0, 8, 1, 0], [-2, 0, 8, 62], [-2, 0, 8, 62, 0], [-2, 0, 8, 62, 1], [-2, 0, 8, 62, 1, 0], [-2, 0, 8, 16], [-2, 0, 8, 16, 0], [-2, 0, 8, 16, 1], [-2, 0, 8, 16, 1, 0], [-2, 0, 8, 16, 62], [-2, 0, 8, 16, 62, 0], [-2, 0, 8, 16, 62, 1], [-2, 0, 8, 16, 62, 1, 0], [-2, 0, -3], [-2, 0, -3, 0], [-2, 0, -3, 1], [-2, 0, -3, 1, 0], [-2, 0, -3, 62], [-2, 0, -3, 62, 0], [-2, 0, -3, 62, 1], [-2, 0, -3, 62, 1, 0], [-2, 0, -3, 16], [-2, 0, -3, 16, 0], [-2, 0, -3, 16, 1], [-2, 0, -3, 16, 1, 0], [-2, 0, -3, 16, 62], [-2, 0, -3, 16, 62, 0], [-2, 0, -3, 16, 62, 1], [-2, 0, -3, 16, 62, 1, 0], [-2, 0, -3, 8], [-2, 0, -3, 8, 0], [-2, 0, -3, 8, 1], [-2, 0, -3, 8, 1, 0], [-2, 0, -3, 8, 62], [-2, 0, -3, 8, 62, 0], [-2, 0, -3, 8, 62, 1], [-2, 0, -3, 8, 62, 1, 0], [-2, 0, -3, 8, 16], [-2, 0, -3, 8, 16, 0], [-2, 0, -3, 8, 16, 1], [-2, 0, -3, 8, 16, 1, 0], [-2, 0, -3, 8, 16, 62], [-2, 0, -3, 8, 16, 62, 0], [-2, 0, -3, 8, 16, 62, 1], [-2, 0, -3, 8, 16, 62, 1, 0]])
+
+    def test_case_5(self):
+        self.assertEqual(program.powerSet([-2, -2, -2, 8, -0]), [[], [0], [8], [8, 0], [-2], [-2, 0], [-2, 8], [-2, 8, 0], [-2], [-2, 0], [-2, 8], [-2, 8, 0], [-2, -2], [-2, -2, 0], [-2, -2, 8], [-2, -2, 8, 0], [-2], [-2, 0], [-2, 8], [-2, 8, 0], [-2, -2], [-2, -2, 0], [-2, -2, 8], [-2, -2, 8, 0], [-2, -2], [-2, -2, 0], [-2, -2, 8], [-2, -2, 8, 0], [-2, -2, -2], [-2, -2, -2, 0], [-2, -2, -2, 8], [-2, -2, -2, 8, 0]])
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+          `,
       categoryId: categoryIdsObj.Array,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,
