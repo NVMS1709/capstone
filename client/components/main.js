@@ -39,7 +39,7 @@ class Main extends Component {
               </div>
               <div className="navbar-central">
                 <NavLink to="/home" id="head-link">
-                  <span id="head">A L G O R I T H M</span>
+                  <span id="head">A L G O - S O L V E</span>
                 </NavLink>
               </div>
               <div className="navbar-right">

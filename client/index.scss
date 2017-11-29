@@ -28,6 +28,19 @@ body {
   height: 100vh;
   width: 100vw;
 
+  #small-window {
+    display: flex;
+    justify-content: center;
+
+    #small-window-message-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 30px;
+      font-size: 14px;
+    }
+  }
+
   .navbar {
     width: 100vw;
     height: 30px;
@@ -273,9 +286,11 @@ body {
     flex-direction: column;
 
     #random-question-container {
-      height: 300px;
+      height: 280px;
       display: flex;
       justify-content: center;
+      background-color: rgb(37, 37, 37);
+      color: white;
 
       #question-column-container {
         display: flex;
@@ -285,7 +300,7 @@ body {
         line-height: 40px;
 
         #randomQuestionLink {
-          color: black;
+          color: white;
           text-decoration: underline;
         }
       }
@@ -296,7 +311,7 @@ body {
 
       #sidebar {
         width: 150px;
-        margin-top: 3vh;
+        margin-top: 30px;
         padding-left: 20px;
 
         button {
@@ -317,12 +332,11 @@ body {
         width: calc(100vw - 150px);
 
         .box {
-          margin-left: 1.5vw;
-          margin-right: 1.5vw;
-          margin-top: 2vh;
-          margin-bottom: 2vh;
+          margin-left: 1vw;
+          margin-right: 1vw;
+          margin-top: 30px;
+          margin-bottom: 20px;
           width: 25vw;
-          height: 200px;
           padding: 15px;
 
           .title {
@@ -347,7 +361,6 @@ body {
           }
 
           .description {
-            height: 150px;
             font-size: 13px;
             line-height: 18px;
           }
@@ -394,13 +407,14 @@ body {
   }
 
   .repl-container {
-    height: calc(100vh - 87px);
+    //height: calc(100vh - 87px);
     padding-bottom: 5px;
     display: flex;
     width: 100vw;
 
     .left-container {
-      height: calc(100vh - 70px - 40px);
+      ///height: calc(100vh - 70px - 40px);
+      //min-height: 250px;
       padding-left: 40px;
       padding-right: 13px;
       width: 40vw;
@@ -435,7 +449,9 @@ body {
       }
 
       .instructions-shell {
-        height: calc(100vh - 70px - 40px - 30px - 40px);
+        //height: calc(100vh - 70px - 40px - 30px - 40px);
+        //min-height: 250px;
+        height: 100%;
         border: 1px solid black;
         width: calc(40vw - 53px);
         padding: 15px;
@@ -446,7 +462,7 @@ body {
     }
 
     .right-container {
-      height: calc(100vh - 70px - 40px);
+      //height: calc(100vh - 70px - 40px);
       display: flex;
       padding-right: 40px;
       padding-left: 13px;
@@ -497,15 +513,14 @@ body {
       }
 
       .top {
-        height: calc(
-           ((100vh - 70px - 40px - 30px - 10px - 30px) * 0.6) + 15px
-        );
+        //height: calc( ((100vh - 70px - 40px - 30px - 10px - 30px) * 0.6) + 15px );
         padding-bottom: 15px;
 
         .code-editor {
           height: calc(
              ((100vh - 70px - 40px - 30px - 10px - 30px) * 0.6) - 30px - 15px
           );
+          min-height: 250px;
 
           .ace-editor {
             border: 1px solid black;
@@ -513,6 +528,7 @@ body {
             height: calc(
                ((100vh - 70px - 40px - 30px - 10px - 30px) * 0.6) - 30px - 15px
             ) !important;
+            min-height: 250px !important;
 
             .ace_print-margin {
               visibility: hidden !important;
@@ -544,7 +560,7 @@ body {
       }
 
       .bottom {
-        height: calc( (100vh - 70px - 40px - 30px - 10px - 30px) * 0.4);
+        //height: calc( (100vh - 70px - 40px - 30px - 10px - 30px) * 0.4);
 
         .results-button-container {
           height: 30px;
@@ -573,6 +589,7 @@ body {
           height: calc(
              ((100vh - 70px - 40px - 30px - 10px - 30px) * 0.4) - 30px
           );
+          min-height: 250px;
           overflow: scroll;
         }
 
@@ -582,6 +599,7 @@ body {
           height: calc(
              ((100vh - 70px - 40px - 30px - 10px - 30px) * 0.4) - 30px
           );
+          min-height: 250px;
           overflow: scroll;
         }
 
@@ -589,6 +607,7 @@ body {
           height: calc(
              ((100vh - 70px - 40px - 30px - 10px - 30px) * 0.4) - 30px
           );
+          min-height: 250px;
 
           .bottom-ace-editor {
             border: 1px solid black;
@@ -596,6 +615,7 @@ body {
             height: calc(
                ((100vh - 70px - 40px - 30px - 10px - 30px) * 0.4) - 30px
             ) !important;
+            min-height: 250px !important;
 
             .ace_print-margin {
               visibility: hidden !important;
@@ -678,7 +698,8 @@ body {
 
     #question-info {
       display: flex;
-      height: calc((100vh - 70px - 40px - 60px) * 0.4);
+
+      // height: calc((100vh - 70px - 40px - 60px) * 0.4);
 
       #submission-info-form-container {
         width: calc((100vw - 40px - 40px) * 0.45);
@@ -686,11 +707,12 @@ body {
         padding-right: 30px;
 
         .input-row {
-          height: calc((100vh - 70px - 40px - 60px) * 0.4 / 5);
+          // height: calc((100vh - 70px - 40px - 60px) * 0.4 / 5);
           width: calc(((100vw - 40px - 40px) * 0.45) - 30px);
           margin-left: 0px !important;
           margin-right: 0px;
           padding-top: 10px;
+          margin-bottom: 12px;
 
           label {
             margin-bottom: 5px;
@@ -724,6 +746,7 @@ body {
 
         textarea {
           font-size: 13px;
+          min-height: 250px;
           height: calc(((100vh - 70px - 40px - 60px) * 0.4) - 30px);
           padding: 10px;
           width: calc((100vw - 40px - 40px) * 0.55);
@@ -738,12 +761,14 @@ body {
     #solution-test-container {
       display: flex;
       padding-top: 30px;
-      height: calc((100vh - 70px - 40px - 60px) * 0.6);
+
+      //height: calc((100vh - 70px - 40px - 60px) * 0.6);
       width: calc(100vw - 40px - 40px);
 
       #submission-solution {
         width: calc((100vw - 40px - 40px) * 0.5);
-        height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px);
+
+        //height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px);
         padding-right: 15px;
 
         #validate-button-container {
@@ -767,6 +792,7 @@ body {
 
         #submission-code-editor {
           height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px);
+          min-height: 250px;
 
           .ace-editor {
             border: 1px solid black;
@@ -774,6 +800,7 @@ body {
             height: calc(
                ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
             ) !important;
+            min-height: 250px !important;
 
             .ace_print-margin {
               visibility: hidden !important;
@@ -790,7 +817,8 @@ body {
 
       #test-solution {
         width: calc((100vw - 40px - 40px) * 0.5);
-        height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px);
+
+        //height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px);
         padding-left: 15px;
 
         #tests-button-container {
@@ -813,6 +841,7 @@ body {
         #submission-test-code-editor {
           font-size: 13px;
           height: calc(((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px);
+          min-height: 250px;
           width: calc(((100vw - 40px - 40px) * 0.5) - 15px);
 
           .ace-test-editor {
@@ -821,6 +850,7 @@ body {
             height: calc(
                ((100vh - 70px - 40px - 60px) * 0.6) - 30px - 30px
             ) !important;
+            min-height: 250px !important;
 
             .ace_print-margin {
               visibility: hidden !important;
