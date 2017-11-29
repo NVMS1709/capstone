@@ -842,7 +842,7 @@ body {
 
 .custom-right {
   position: relative;
-  z-index: 1;
+  z-index: 5;
 }
 
 .modal {
@@ -853,7 +853,7 @@ body {
   bottom: 0;
   overflow: auto;
   background-color: rgb(0, 0, 0);
-
+  z-index: 5;
   /* RGBa with 0.6 opacity */
   background-color: rgba(0, 0, 0, 0.6);
 
@@ -875,20 +875,22 @@ body {
   margin-top: 10%;
   display: flex;
   justify-content: center;
-
+  z-index: 5;
   .login-box {
     background-color: white;
     border: 1px solid black;
     filter: hue-rotate(50%);
-
+    z-index: 5;
     .error-handled {
       font-size: 0.6em;
       display: flex;
       justify-content: center;
       color: red;
+      z-index: 5;
     }
 
     .inputs {
+      z-index: 5;
       margin-bottom: 0;
     }
 
@@ -897,21 +899,25 @@ body {
       justify-content: center;
       margin-top: 6;
       margin-bottom: 2;
+      z-index: 5;
     }
 
     .not-user-sign-up {
       font-size: 0.8em;
       display: flex;
       justify-content: center;
+      z-index: 5;
     }
 
     .toggle-view-auth-sign {
       color: blue;
+      z-index: 5;
     }
 
     .toggle-view-auth-sign:hover {
       cursor: pointer;
       margin: 4;
+      z-index: 5;
     }
   }
 }

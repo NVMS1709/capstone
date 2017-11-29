@@ -22,7 +22,7 @@ class QuestionPage extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => this.setState({ loading: true }), 600)
+    setTimeout(() => this.setState({ loading: true }), 675)
   }
 
   componentWillUnmount() {
@@ -40,7 +40,6 @@ class QuestionPage extends Component {
 
   render() {
     const user = this.props.user
-    console.log('OWNPROPS', this.props.ownProps)
     return (
       <div>
         {user.id ? (
@@ -138,14 +137,10 @@ class QuestionPage extends Component {
               </button>
             </div>
             <div className="top">
-              {user.id || !this.state.loading ? (
-                <AceEditor
-                  currentQuestion={this.props.currentQuestion}
-                  language={this.state.language.toLowerCase()}
-                />
-              ) : (
-                ''
-              )}
+              <AceEditor
+                currentQuestion={this.props.currentQuestion}
+                language={this.state.language.toLowerCase()}
+              />
             </div>
             <div className="bottom">
               <Outcome

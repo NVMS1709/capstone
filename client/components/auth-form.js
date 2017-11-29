@@ -20,7 +20,7 @@ class AuthForm extends Component {
   }
 
   render() {
-    console.log('AUTH', this.props && this.props.history.location.pathname)
+    //console.log('AUTH', this.props && this.props.history.location.pathname)
     const currentLocation = this.props && this.props.history.location.pathname
     const { handleSubmit, error } = this.props
     return (
@@ -29,7 +29,13 @@ class AuthForm extends Component {
           <div className="oauth-box">
             <div className="login-box">
               <div>
-                <form onSubmit={handleSubmit} name="login">
+                <form
+                  onSubmit={event => {
+                    event.preventDefault()
+                    handleSubmit(event, this.props.history.location.pathname)
+                  }}
+                  name="login"
+                >
                   <div className="inputs">
                     <label htmlFor="email">
                       <small>Email</small>
@@ -77,10 +83,7 @@ class AuthForm extends Component {
           <div className="oauth-box">
             <div className="login-box">
               <div>
-                <form
-                  onSubmit={event => handleSubmit(event, currentLocation)}
-                  name="signup"
-                >
+                <form onSubmit={handleSubmit} name="signup">
                   <div className="inputs">
                     <label htmlFor="email">
                       <small>Email</small>
@@ -154,12 +157,12 @@ const mapSignup = state => {
 const mapDispatch = dispatch => {
   return {
     handleSubmit(evt, currentLocation) {
-      evt.preventDefault()
-      console.log('SUB', currentLocation)
+      //evt.preventDefault()
+      //console.log('SUB', currentLocation)
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      dispatch(auth(email, password, formName, currentLocation))
     }
   }
 }
