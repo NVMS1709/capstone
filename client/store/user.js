@@ -32,7 +32,10 @@ export const auth = (email, password, method, currentLocation) => dispatch =>
     .post(`/auth/${method}`, { email, password })
     .then(res => {
       dispatch(getUser(res.data))
-      history.push(currentLocation)
+      if (currentLocation === '/login') {history.push('/home')}
+      else {
+        history.push(currentLocation)
+      }
     })
     .catch(error => dispatch(getUser({ error })))
 
