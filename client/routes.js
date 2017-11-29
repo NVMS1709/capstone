@@ -32,7 +32,6 @@ class Routes extends Component {
       height: window.innerHeight,
       width: window.innerWidth
     })
-    console.log("HEIGHT", this.state.height, "WIDTH", this.state.width)
   }
 
   componentDidMount() {
@@ -49,7 +48,7 @@ class Routes extends Component {
 
     return (
       <Router history={history}>
-        {this.state.height <= 830 && this.state.width <= 1196
+        {this.state.height <= 830 || this.state.width <= 1196
           ?
           <div id="small-window">
             <div id="small-window-message-container">
