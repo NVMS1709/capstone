@@ -23,7 +23,7 @@ const getPythonTestCaseOutcomes = (rawOutputStr) => {
     let testCasesArr = []
 
     if (testCases[0]) {
-        for (let i = 1; i < testCases.length; i++) {
+        for (let i = 1; i <= testCases.length; i++) {
             const testCaseStr = testCases.find(testCase => testCase.includes(`test_case_${i}`))
             testCasesArr.push({
                 title: `Test Case #${i}`,
