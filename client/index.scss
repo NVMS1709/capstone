@@ -349,10 +349,10 @@ body {
           }
 
           .questions {
-            height: 150px;
             font-size: 13px;
             line-height: 17px;
             margin-left: 5vw;
+            min-height: 120px;
 
             .question-link {
               text-decoration: underline;
@@ -363,6 +363,7 @@ body {
           .description {
             font-size: 13px;
             line-height: 18px;
+            min-height: 120px;
           }
         }
       }
