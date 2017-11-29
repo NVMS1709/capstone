@@ -780,7 +780,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                 onClick={this.onValidate}
                                 style={this.state.colorValidationButton
                                     ?
-                                    { backgroundColor: 'white' }
+                                    { textDecoration: 'underline' }
                                     :
                                     {}}>
                                 ➩ Validate Solution
