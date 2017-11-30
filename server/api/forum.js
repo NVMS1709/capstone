@@ -43,10 +43,9 @@ router.post('/comments', (req, res, next) => {
         where: { forumId: comments.id },
         include: [{ model: User, required: true }]
       })
-    }
-    )
+    })
     .then(comments => {
-      return res.json(comments)
+      res.json(comments)
     })
     .catch(next)
 })
