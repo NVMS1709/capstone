@@ -12,7 +12,7 @@ const getTestCaseOutcomes = (rawOutputStr) => {
 const getPythonTestCaseOutcomes = (rawOutputStr) => {
 
     const start = rawOutputStr.indexOf('test_case_1 (__main__.TestProgram) ...')
-    
+
     let end = 1;
 
     for (let i = 2; i <= 9; i++) {
@@ -29,7 +29,7 @@ const getPythonTestCaseOutcomes = (rawOutputStr) => {
     // var separators = ['ok', 'FAIL']
     // var testCases = testCasesStr.split(new RegExp(separators.join('|'), 'g'))
     let testCases = testCasesStr.split('\n')
-    console.log("TEST CASES IN UTIL_________", testCases, "____________TEST CASES IN UTIL")
+    console.log('TEST CASES IN UTIL_________', testCases, '____________TEST CASES IN UTIL')
     let testCasesArr = []
 
     if (testCases[0]) {
@@ -41,7 +41,7 @@ const getPythonTestCaseOutcomes = (rawOutputStr) => {
             })
         }
     }
-    console.log("TEST CASES ARR IN UTIL_______", testCasesArr, "_______TEST CASES ARR IN UTIL")
+    console.log('TEST CASES ARR IN UTIL_______', testCasesArr, '_______TEST CASES ARR IN UTIL')
 
     return testCasesArr
 
@@ -50,7 +50,7 @@ const getPythonTestCaseOutcomes = (rawOutputStr) => {
 const wrapTestfile = (testFile, functionName) => {
     return `
 describe('${functionName}', function () {
-    const ${functionName} = require('./algorithm-input');
+    const {${functionName}} = require('./algorithm-input');
 
     let testCaseOutcomes = [];
 
