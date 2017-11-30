@@ -21,10 +21,8 @@ router.post('/', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
-  console.log('ARE WE HERE', req.body, req.params.id)
   Forum.update(req.body, { where: { id: req.params.id } })
     .then(comments => {
-      console.log('returning stuff', comments)
       res.json(comments)
     })
     .catch(next)
@@ -40,13 +38,16 @@ router.delete('/:id', (req, res, next) => {
 
 router.post('/comments', (req, res, next) => {
   Forum.findOne({ where: { title: req.body.title } })
-    .then(comments =>
-      ForumComment.findAll({
+    .then(comments => {
+      return ForumComment.findAll({
         where: { forumId: comments.id },
         include: [{ model: User, required: true }]
       })
+    }
     )
-    .then(comments => res.json(comments))
+    .then(comments => {
+      return res.json(comments)
+    })
     .catch(next)
 })
 

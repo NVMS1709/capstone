@@ -41,7 +41,6 @@ class Discussion extends Component {
 
   toggleEditForum() {
     this.setState({ editForum: !this.state.editForum })
-    console.log('[EDIT FORUM]', this.state.editForum)
   }
 
   deleteTopic(id) {
@@ -151,7 +150,7 @@ class Discussion extends Component {
                         <div key={comment.id}>
                           <span className="user-name-comment">
                             {comment.user.name}:
-                      </span>
+                          </span>
                           <span className="posted-date">
                             {' '}
                             (posted) {month}/{day}/{year}
