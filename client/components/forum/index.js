@@ -10,15 +10,17 @@ class Index extends Component {
   render() {
     return (
       <div>
-        <MainTopics />
+        <MainTopics location={this.props.location} />
       </div>
     )
   }
 }
 
-const mapState = state => {
+const mapState = (state, ownProps) => {
+  console.log(ownProps)
   return {
-    user: state.user
+    user: state.user,
+    location: ownProps
   }
 }
 export default connect(mapState)(Index)

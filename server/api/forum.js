@@ -20,6 +20,12 @@ router.post('/', (req, res, next) => {
     .catch(next)
 })
 
+router.put('/:id', (req, res, next) => {
+  Forum.update(req.body)
+    .then(comments => res.json(comments))
+    .catch(next)
+})
+
 router.delete('/:id', (req, res, next) => {
   Forum.destroy({ where: { id: req.params.id } })
     .then(comments => res.json(comments))

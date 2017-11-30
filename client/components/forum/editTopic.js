@@ -9,19 +9,40 @@ class EditTopic extends Component {
     this.state = {
       title: '',
       newComment: '',
-      editToggle: '',
       editForum: true
     }
-
+    this.updatedForum = {}
     this.toggleView = this.toggleView.bind(this)
+    this.onChangeTitle = this.onChangeTitle.bind(this)
+    this.onChangeComment = this.onChangeComment.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   toggleView() {
     this.props.toggle()
   }
 
+  onSubmit(event) {
+    event.preventDefault()
+    const forumId = this.props.forum.filter(topic => topic.title === this.props.titleForum)[0].id
+
+    this.updatedForum.forumId = forumId
+    this.updatedForum.userId = this.props.user.id
+    this.updatedForum.title = this.state.title
+    this.updatedForum.comment = this.state.newComment
+    this.props.editTopic(this.updatedForum)
+    this.props.toggle()
+  }
+
+  onChangeTitle(event) {
+    this.setState({ title: event.target.value })
+  }
+
+  onChangeComment(event) {
+    this.setState({ newComment: event.target.value })
+  }
+
   render() {
-    console.log('MY PROPS', this.props)
     return (
       <div>
         <div className="comments-top-box">
@@ -31,17 +52,17 @@ class EditTopic extends Component {
           <div className="post-chat-container">
             <form onSubmit={this.onSubmit}>
               <span>
-                Topic:{'   '}
+                Edit Topic:{' '}
                 <input
                   name="title"
                   size="50"
                   required="required"
                   value={this.state.title}
-                  onChange={this.onChange}
+                  onChange={this.onChangeTitle}
                 />
               </span>
-
-              <p>Edit Comments:</p>
+              <span>
+              <p>Edit Comment:</p>
               <textarea
                 rows="3"
                 name="comment"
@@ -49,11 +70,9 @@ class EditTopic extends Component {
                 value={this.state.newComment}
                 onChange={this.onChangeComment}
               />
+              </span>
               <button type="submit">Submit</button>
             </form>
-          </div>
-          <div className="posted-chat-container">
-            <div className="posted-comments" />
           </div>
         </div>
         <div className="comments-top-box">
@@ -63,7 +82,6 @@ class EditTopic extends Component {
     )
   }
 }
-
 
 const mapState = state => {
   return {
