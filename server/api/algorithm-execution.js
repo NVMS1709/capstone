@@ -6,10 +6,13 @@ const { getTestCaseOutcomes, wrapTestfile, getPythonTestCaseOutcomes } = require
 const tmp = require('tmp')
 
 module.exports = router
+
 router.post('/javascript', (req, res, next) => {
   req.body.algorithmContent =
     req.body.algorithmContent +
-    `\n module.exports = ${req.body.question.functionName}`
+    `\n module.exports = {${req.body.question.functionName}}`
+
+    console.log("ALGORITHM WRAPPED CONTENT", req.body.algorithmContent)
 
   let wrappedTestFile = wrapTestfile(
     req.body.question.javascriptTestFile,
@@ -97,14 +100,19 @@ router.post('/javascript', (req, res, next) => {
 
             try {
               cleanupCB()
+              console.log('STDOUT_____________', stdout, '___________STDOUT')
+              console.log('STDERR_____________', stderr, '___________STDERR')
+              console.log('ERR_____________', err, '___________ERR')
 
               const { testCasesStr, revisedStdoutStr } = getTestCaseOutcomes(
                 stdout
               )
+              console.log("_________AFTER GET TEST CASE OUTCOMES___________")
 
               //bad way to do it maybe should imitate python's way
               const testCasesArr = JSON.parse(testCasesStr.trim())
-
+              console.log("_________JSON PARSE TEST CASES STR___________")
+              
               if (err) {
                 console.error('EXECUTION ERROR______________________', err)
               }
@@ -119,11 +127,10 @@ router.post('/javascript', (req, res, next) => {
               }
 
             } catch (error) {
-              cleanupCB()
-
+              cleanupCB()              
               res.send({
                 testCasesArr: [{ title: 'ERROR. All tests', outcome: 'failed' }],
-                rawOutput: '\n' + stderr + '\n' + stderr,
+                rawOutput: '\n' + stderr + '\n' + error,
                 allPassed: false
               })
               console.error('CAUGHT ERROR____________________', error)
@@ -214,11 +221,11 @@ router.post('/python', (req, res, next) => {
             const testCasesArr = getPythonTestCaseOutcomes(stderr)
 
             if (err) {
-              console.error("EXEC______________\n", err, "\n_________EXEC")
+              console.error('EXEC______________\n', err, '\n_________EXEC')
             }
 
-            console.log("STDERR______________\n", stderr, "\n_____________STDERR")
-            console.log("TEST CASES ARR_____________\n", testCasesArr, "\n____________TEST CASES ARR")
+            console.log('STDERR______________\n', stderr, '\n_____________STDERR')
+            console.log('TEST CASES ARR_____________\n', testCasesArr, '\n____________TEST CASES ARR')
 
             if (testCasesArr[0]) {
               res.send({
