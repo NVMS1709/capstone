@@ -24,9 +24,9 @@ class EditTopic extends Component {
 
   onSubmit(event) {
     event.preventDefault()
-    const forumId = this.props.forum.filter(topic => topic.title === this.props.titleForum)[0].id
+    const currentForum = this.props.forum.filter(topic => topic.title === this.props.titleForum)[0]
 
-    this.updatedForum.forumId = forumId
+    this.updatedForum.forumId = currentForum.id
     this.updatedForum.userId = this.props.user.id
     this.updatedForum.title = this.state.title
     this.updatedForum.comment = this.state.newComment

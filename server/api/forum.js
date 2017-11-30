@@ -21,14 +21,20 @@ router.post('/', (req, res, next) => {
 })
 
 router.put('/:id', (req, res, next) => {
-  Forum.update(req.body)
-    .then(comments => res.json(comments))
+  console.log('ARE WE HERE', req.body, req.params.id)
+  Forum.update(req.body, { where: { id: req.params.id } })
+    .then(comments => {
+      console.log('returning stuff', comments)
+      res.json(comments)
+    })
     .catch(next)
 })
 
 router.delete('/:id', (req, res, next) => {
   Forum.destroy({ where: { id: req.params.id } })
-    .then(comments => res.json(comments))
+    .then(comments => {
+      return res.json(comments)
+    })
     .catch(next)
 })
 

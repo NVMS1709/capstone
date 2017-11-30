@@ -46,16 +46,11 @@ export const addTopic = topic => {
   }
 }
 
-export const editTopic = ({userId, topic, comment}) => {
-  console.log('my id', userId)
+export const editTopic = ({forumId, userId, title, comment}) => {
+  console.log('inside store', title, comment)
   return function thunk(dispatch) {
     axios
-      .put(`/api/forum/${userId}`, { topic, comment })
-      .then(() => {
-        return axios.get(`/api/forum/${userId}`).then(res => {
-          console.log('FROM THUNK', res.data)
-        })
-      })
+      .put(`/api/forum/${forumId}`, { title, comment })
       .catch(console.error)
   }
 }
