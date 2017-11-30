@@ -104,18 +104,21 @@ class Discussion extends Component {
               <div className="comments-top-box">
                 <h3>{this.forumTitle && this.forumTitle.title}</h3>
               </div>
-              <button onClick={this.toggleEditForum}>Edit Forum Post</button>
+
               <div className="comments-comment-box">
                 <p>{this.forumTitle && this.forumTitle.comment}</p>
               </div>
             </div>
             {topicUserId === currentUserId ? (
-              <button
-                onClick={() => this.deleteTopic(this.forumTitle.id)}
-                className="delete-topic-button"
-              >
-                Delete Topic
+              <div>
+                <button
+                  onClick={() => this.deleteTopic(this.forumTitle.id)}
+                  className="delete-topic-button"
+                >
+                  Delete Topic
           </button>
+                <button className="delete-topic-button" onClick={this.toggleEditForum}>Edit Forum Post</button>
+              </div>
             ) : (
                 ''
               )}
