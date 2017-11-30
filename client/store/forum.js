@@ -28,13 +28,12 @@ export const getForumTitles = () => {
         const forum = res.data
         dispatch(getForum(forum))
       })
-      .catch(console.err)
+      .catch(console.error)
   }
 }
 
 export const addTopic = topic => {
   return function thunk(dispatch) {
-    console.log(topic)
     axios
       .post('/api/forum', topic)
       .then(() =>
@@ -43,7 +42,16 @@ export const addTopic = topic => {
           dispatch(getForum(forum))
         })
       )
-      .catch(console.err)
+      .catch(console.error)
+  }
+}
+
+export const editTopic = ({forumId, userId, title, comment}) => {
+  console.log('inside store', title, comment)
+  return function thunk(dispatch) {
+    axios
+      .put(`/api/forum/${forumId}`, { title, comment })
+      .catch(console.error)
   }
 }
 
@@ -58,14 +66,14 @@ export const deleteTopic = id => {
           history.push('/forum')
         })
       )
-      .catch(console.err)
+      .catch(console.error)
   }
 }
 
 /**
  * REDUCER
  */
-export default function(state = defaultForum, action) {
+export default function (state = defaultForum, action) {
   let newState = state
   switch (action.type) {
     case GET_FORUM:

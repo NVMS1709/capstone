@@ -9,14 +9,18 @@ import {
   forumCommentEdit
 } from '../../store'
 
+import EditTopic from './editTopic'
+
 class Discussion extends Component {
   constructor(props) {
     super(props)
     this.state = {
       newComment: '',
       editToggle: '',
-      comment: ''
+      comment: '',
+      editForum: false
     }
+
     this.newComment = {}
     this.onSubmit = this.onSubmit.bind(this)
     this.onChange = this.onChange.bind(this)
@@ -26,12 +30,17 @@ class Discussion extends Component {
     this.discardChanges = this.discardChanges.bind(this)
     this.onChangeEdit = this.onChangeEdit.bind(this)
     this.onSubmitEdit = this.onSubmitEdit.bind(this)
+    this.toggleEditForum = this.toggleEditForum.bind(this)
     this.forumTitle = []
   }
 
   componentDidMount() {
     this.props.getForumTitles()
     this.props.getForumComments(this.props.titleForum)
+  }
+
+  toggleEditForum() {
+    this.setState({ editForum: !this.state.editForum })
   }
 
   deleteTopic(id) {
@@ -89,108 +98,119 @@ class Discussion extends Component {
     let topicUserId = this.forumTitle && this.forumTitle.user.id
     let currentUserId = this.props.user && this.props.user.id
     return (
-      <div>
-        <div className="comments-top-box">
-          <h3>{this.forumTitle && this.forumTitle.title}</h3>
-        </div>
-        <div className="comments-comment-box">
-          <p>{this.forumTitle && this.forumTitle.comment}</p>
-        </div>
-        {topicUserId === currentUserId ? (
-          <button
-            onClick={() => this.deleteTopic(this.forumTitle.id)}
-            className="delete-topic-button"
-          >
-            Delete Topic
+      !this.state.editForum ?
+        (
+          <div>
+            <div className="topic-wrapper">
+              <div className="comments-top-box">
+                <h3>{this.forumTitle && this.forumTitle.title}</h3>
+              </div>
+
+              <div className="comments-comment-box">
+                <p>{this.forumTitle && this.forumTitle.comment}</p>
+              </div>
+            </div>
+            {topicUserId === currentUserId ? (
+              <div>
+                <button
+                  onClick={() => this.deleteTopic(this.forumTitle.id)}
+                  className="delete-topic-button"
+                >
+                  Delete Topic
           </button>
-        ) : (
-          ''
-        )}
-        <div className="comments-user-box">
-          <p className="forum-comments-user">
-            Submitted By: {this.forumTitle && this.forumTitle.user.name}{' '}
-            (posted) {titleMonth}/{titleDay}/{titleYear}
-          </p>
-        </div>
-        <div className="question-chat">
-          <div className="post-chat-container">
-            <p style={{ fontSize: '14px' }}>Post Comment</p>
-            <form onSubmit={this.onSubmit}>
-              <textarea
-                rows="2"
-                name="comment"
-                style={{ borderStyle: 'none none solid none' }}
-                value={this.state.newComment}
-                onChange={this.onChange}
-              />
-              <button type="submit">Submit</button>
-            </form>
-          </div>
-          <div className="posted-chat-container">
-            <div className="posted-comments">
-              {this.props &&
-                this.props.forumComments.map(comment => {
-                  let year = comment.createdAt.slice(0, 4)
-                  let month = comment.createdAt.slice(5, 7)
-                  let day = comment.createdAt.slice(8, 10)
-                  return (
-                    <div key={comment.id}>
-                      <span className="user-name-comment">
-                        {comment.user.name}:
-                      </span>
-                      <span className="posted-date">
-                        {' '}
-                        (posted) {month}/{day}/{year}
-                      </span>
-                      <div className="user-comment">
-                        <p>{comment.comment} </p>
-                        {comment.userId === this.props.user.id ? (
-                          <div>
-                            <button
-                              onClick={() =>
-                                this.deleteComment(
-                                  comment.id,
-                                  this.forumTitle.title
-                                )
-                              }
-                            >
-                              Delete
+                <button className="delete-topic-button" onClick={this.toggleEditForum}>Edit Forum Post</button>
+              </div>
+            ) : (
+                ''
+              )}
+            <div className="comments-user-box">
+              <p className="forum-comments-user">
+                Submitted By: {this.forumTitle && this.forumTitle.user.name}{' '}
+                (posted) {titleMonth}/{titleDay}/{titleYear}
+              </p>
+            </div>
+            <div className="question-chat">
+              <div className="post-chat-container">
+                <p style={{ fontSize: '14px' }}>Post Comment</p>
+                <form onSubmit={this.onSubmit}>
+                  <textarea
+                    rows="2"
+                    name="comment"
+                    style={{ borderStyle: 'none none solid none' }}
+                    value={this.state.newComment}
+                    onChange={this.onChange}
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+              </div>
+              <div className="posted-chat-container">
+                <div className="posted-comments">
+                  {this.props &&
+                    this.props.forumComments.map(comment => {
+                      let year = comment.createdAt.slice(0, 4)
+                      let month = comment.createdAt.slice(5, 7)
+                      let day = comment.createdAt.slice(8, 10)
+                      return (
+                        <div key={comment.id}>
+                          <span className="user-name-comment">
+                            {comment.user.name}:
+                          </span>
+                          <span className="posted-date">
+                            {' '}
+                            (posted) {month}/{day}/{year}
+                          </span>
+                          <div className="user-comment">
+                            <p>{comment.comment} </p>
+                            {comment.userId === this.props.user.id ? (
+                              <div>
+                                <button
+                                  onClick={() =>
+                                    this.deleteComment(
+                                      comment.id,
+                                      this.forumTitle.title
+                                    )
+                                  }
+                                >
+                                  Delete
                             </button>
-                            <button
-                              onClick={() =>
-                                this.editComment(comment.id, comment.comment)
-                              }
-                            >
-                              Edit
+                                <button
+                                  onClick={() =>
+                                    this.editComment(comment.id, comment.comment)
+                                  }
+                                >
+                                  Edit
                             </button>
+                              </div>
+                            ) : (
+                                ''
+                              )}
+                            {this.state.editToggle === comment.id ? (
+                              <form onSubmit={this.onSubmitEdit}>
+                                <textarea
+                                  rows="3"
+                                  name="comment"
+                                  value={this.state.comment}
+                                  onChange={this.onChangeEdit}
+                                />
+                                <button type="submit">Submit Edit</button>
+                                <button onClick={this.discardChanges}>
+                                  Discard Changes
+                            </button>
+                              </form>
+                            ) : (
+                                ''
+                              )}
                           </div>
-                        ) : (
-                          ''
-                        )}
-                        {this.state.editToggle === comment.id ? (
-                          <form onSubmit={this.onSubmitEdit}>
-                            <textarea
-                              rows="3"
-                              name="comment"
-                              value={this.state.comment}
-                              onChange={this.onChangeEdit}
-                            />
-                            <button type="submit">Submit Edit</button>
-                            <button onClick={this.discardChanges}>
-                              Discard Changes
-                            </button>
-                          </form>
-                        ) : (
-                          ''
-                        )}
-                      </div>
-                    </div>
-                  )
-                })}
+                        </div>
+                      )
+                    })}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        ) : (
+          <EditTopic titleForum={this.props.titleForum} toggle={this.toggleEditForum} />
+        )
     )
   }
 }

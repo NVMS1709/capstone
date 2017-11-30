@@ -22,7 +22,6 @@ const {
 async function seed() {
   let userIdsObj = {}
   let forumIdsObj = {}
-  let questionIdsObj = {}
   let companyIdsObj = {}
   let categoryIdsObj = {}
   let difficultyIdsObj = {}
@@ -746,369 +745,508 @@ function postOrderTraverse(tree, array) {
   return array;
 }
 `,
-      pythonSolution: '',
+      pythonSolution: `
+def inOrderTraverse(tree, array):
+    if tree is not None:
+        inOrderTraverse(tree.left, array)
+        array.append(tree.value)
+        inOrderTraverse(tree.right, array)
+    return array
+      `,
       categoryId: categoryIdsObj['Binary Search Trees'],
       difficultyId: difficultyIdsObj.easy,
       functionName: 'inOrderTraverse, preOrderTraverse, postOrderTraverse',
-      javascriptTestFile: '',
-      pythonTestFile: ''
+      javascriptTestFile: `
+      const chai = require('chai')
+      let expect = chai.expect;
+      
+      class BST {
+        constructor(value) {
+          this.value = value;
+          this.left = null;
+          this.right = null;
+        }
+      
+        insert(value) {
+          if (value < this.value) {
+            if (this.left === null) {
+              this.left = new BST(value);
+            } else {
+              this.left.insert(value);
+            }
+          } else {
+            if (this.right === null) {
+              this.right = new BST(value);
+            } else {
+              this.right.insert(value);
+            }
+          }
+          return this;
+        }
+      }
+      
+      const test1 = new BST(10).insert(5).insert(15);
+      
+      const test2 = new BST(10).insert(5).insert(15).insert(5).insert(2).insert(1).insert(22);
+      
+      const test3 = new BST(100).insert(5).insert(15).insert(5).insert(2).insert(1).insert(22)
+      .insert(1).insert(1).insert(3).insert(1).insert(1).insert(502).insert(55000)
+      .insert(204).insert(205).insert(207).insert(206).insert(208).insert(203);
+      
+      it('Test Case #1', function() {
+        chai.expect(inOrderTraverse(test1, [])).to.deep.equal([5, 10, 15]);
+      });
+      
+      it('Test Case #2', function() {
+        chai.expect(inOrderTraverse(test2, [])).to.deep.equal([1, 2, 5, 5, 10, 15, 22]);
+      });
+      
+      it('Test Case #3', function() {
+        chai.expect(inOrderTraverse(test3, [])).to.deep.equal([1, 1, 1, 1, 1, 2, 3, 5, 5, 15, 22, 100, 203, 204, 205, 206, 207, 208, 502, 55000]);
+      });
+      
+      it('Test Case #4', function() {
+        chai.expect(preOrderTraverse(test1, [])).to.deep.equal([10, 5, 15]);
+      });
+      
+      it('Test Case #5', function() {
+        chai.expect(preOrderTraverse(test2, [])).to.deep.equal([10, 5, 2, 1, 5, 15, 22]);
+      });
+      
+      it('Test Case #6', function() {
+        chai.expect(preOrderTraverse(test3, [])).to.deep.equal([100, 5, 2, 1, 1, 1, 1, 1, 3, 15, 5, 22, 502, 204, 203, 205, 207, 206, 208, 55000]);
+      });
+      
+      it('Test Case #7', function() {
+        chai.expect(postOrderTraverse(test1, [])).to.deep.equal([5, 15, 10]);
+      });
+      
+      it('Test Case #8', function() {
+        chai.expect(postOrderTraverse(test2, [])).to.deep.equal([1, 2, 5, 5, 22, 15, 10]);
+      });
+      
+      it('Test Case #9', function() {
+        chai.expect(postOrderTraverse(test3, [])).to.deep.equal([1, 1, 1, 1, 1, 3, 2, 5, 22, 15, 5, 203, 206, 208, 207, 205, 204, 55000, 502, 100]);
+      });      
+      `,
+      pythonTestFile:
+        `
+import program
+import unittest
+
+class BST:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+    def insert(self, value):
+        if value < self.value:
+            if self.left is None:
+                self.left = BST(value)
+            else:
+                self.left.insert(value)
+        else:
+            if self.right is None:
+                self.right = BST(value)
+            else:
+                self.right.insert(value)
+        return self
+
+test1 = BST(10).insert(5).insert(15)
+
+test2 = BST(10).insert(5).insert(15).insert(5).insert(2).insert(1).insert(22)
+
+test3 = BST(100).insert(5).insert(15).insert(5).insert(2).insert(1).insert(22) \
+.insert(1).insert(1).insert(3).insert(1).insert(1).insert(502).insert(55000) \
+.insert(204).insert(205).insert(207).insert(206).insert(208).insert(203)
+
+
+class TestProgram(unittest.TestCase):
+
+	def test_case_1(self):
+		self.assertEqual(program.inOrderTraverse(test1, []), [5, 10, 15])
+
+	def test_case_2(self):
+		self.assertEqual(program.inOrderTraverse(test2, []), [1, 2, 5, 5, 10, 15, 22])
+
+	def test_case_3(self):
+		self.assertEqual(program.inOrderTraverse(test3, []), [1, 1, 1, 1, 1, 2, 3, 5, 5, 15, 22, 100, 203, 204, 205, 206, 207, 208, 502, 55000])
+
+	def test_case_4(self):
+		self.assertEqual(program.preOrderTraverse(test1, []), [10, 5, 15])
+
+	def test_case_5(self):
+		self.assertEqual(program.preOrderTraverse(test2, []), [10, 5, 2, 1, 5, 15, 22])
+
+	def test_case_6(self):
+		self.assertEqual(program.preOrderTraverse(test3, []), [100, 5, 2, 1, 1, 1, 1, 1, 3, 15, 5, 22, 502, 204, 203, 205, 207, 206, 208, 55000])
+
+	def test_case_7(self):
+		self.assertEqual(program.postOrderTraverse(test1, []), [5, 15, 10])
+
+	def test_case_8(self):
+		self.assertEqual(program.postOrderTraverse(test2, []), [1, 2, 5, 5, 22, 15, 10])
+
+	def test_case_9(self):
+		self.assertEqual(program.postOrderTraverse(test3, []), [1, 1, 1, 1, 1, 3, 2, 5, 22, 15, 5, 203, 206, 208, 207, 205, 204, 55000, 502, 100])
+
+
+if __name__ == "__main__":
+	unittest.main(verbosity=2)
+`
     }),
     Question.create({
       name: 'Duplicates',
       published: true,
-      description:
-        'Write a function that finds all duplicates in an array.  The array should only contain integers.  Attempt to utilize a hash table to store each element as we go throguh the array.',
-      javascriptSolution: `function duplicatesHash(arr) {
-        var hashTable = [];
-        var dups = [];
-        for (var i = 0; i < arr.length; i++) {
-          if (hashTable[arr[i].toString()] === undefined) {
-            hashTable[arr[i].toString()] = true;
-          }
-          else { dups.push(arr[i]); }
-        }
-        return dups;
-      }`,
-      pythonSolution: '',
       functionName: 'duplicatesHash',
-      javascriptTestFile: `const chai = require('chai')
-      let expect = chai.expect
-
-      describe('Find Duplicate', function() {
-        it('Test Case #1', function() {
-          let result = duplicatesHash([1, 21, -4, 103, 21, 4, 1])
-          expect(result.sort()).to.deep.equal([1, 21])
-        })
-
-        it('Test Case #2', function() {
-          let result = duplicatesHash([2, 24, 52, -103, -21, 24, 1])
-          expect(result.sort()).to.deep.equal([24])
-        })
-
-        it('Test Case #3', function() {
-          let result = duplicatesHash([
-            473,
-            572,
-            1118,
-            4848,
-            4911,
-            10,
-            -31,
-            -41,
-            3450,
-            -25251,
-            12451425,
-            64,
-            13,
-            572,
-            592,
-            473
-          ])
-          expect(result.sort()).to.deep.equal([473, 572])
-        })
-
-        it('Test Case #4', function() {
-          let result = duplicatesHash([355, 24, 52, 1311, -21, -52, -24, 1])
-          expect(result.sort()).to.deep.equal([])
-        })
-
-        it('Test Case #5', function() {
-          let result = duplicatesHash([355, 24, 52, 1311, -21, -52, -24, 1])
-          expect(result.sort()).to.deep.equal([])
-        })
-
-        it('Test Case #6', function() {
-          let result = duplicatesHash([
-            57132,
-            47343,
-            57132,
-            1323576,
-            523672,
-            48235748,
-            49235711,
-            1023572357,
-            -323571,
-            -41,
-            34630,
-            -25251,
-            12425,
-            623574,
-            123643,
-            523672,
-            591732,
-            34630,
-            4723573
-          ])
-          expect(result.sort()).to.deep.equal([34630, 523672, 57132])
-        })
-
-        it('Test Case #7', function() {
-          let result = duplicatesHash([
-            1313,
-            4246911,
-            51312,
-            1357288,
-            99948,
-            4246911,
-            10,
-            -324691,
-            -4991,
-            296450,
-            -24921,
-            999224645,
-            26442964,
-            2469913,
-            5246972,
-            269592,
-            999224645,
-            2469429473,
-            10,
-            -324691
-          ])
-          expect(result.sort()).to.deep.equal([-324691, 10, 4246911, 999224645])
-        })
-
-        it('Test Case #8', function() {
-          let result = duplicatesHash([355, 355, 24, 52, 1311, -21, -52, -24, 1])
-          expect(result.sort()).to.deep.equal([355])
-        })
-
-        it('Test Case #9', function() {
-          let result = duplicatesHash([473, 572, 1118, 4848, 4911, 473])
-          expect(result.sort()).to.deep.equal([473])
-        })
-
-        it('Test Case #10', function() {
-          let result = duplicatesHash([
-            2345,
-            23,
-            4578,
-            2354,
-            236,
-            2356236236,
-            235635,
-            567,
-            25623,
-            56235,
-            635,
-            6,
-            347,
-            548,
-            34,
-            73,
-            68,
-            4578,
-            3457,
-            36,
-            84,
-            567,
-            437,
-            458
-          ])
-          expect(result.sort()).to.deep.equal([4578, 567])
-        })
-      })`,
-      pythonTestFile: '',
       categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,
-      companyId: companyIdsObj.Facebook
+      companyId: companyIdsObj.Facebook,
+      description:
+        'Write a function named "duplicatesHash" that finds all duplicates in an array.  The array should only contain integers.  Attempt to utilize a hash table to store each element as we go throguh the array.',
+      javascriptSolution:
+        `
+function duplicatesHash(arr) {
+  var hashTable = [];
+  var dups = [];
+  for (var i = 0; i < arr.length; i++) {
+    if (hashTable[arr[i].toString()] === undefined) {
+      hashTable[arr[i].toString()] = true;
+    }
+    else { dups.push(arr[i]); }
+  }
+  return dups;
+}`,
+      pythonSolution:
+        `
+def duplicatesHash(arr):
+          
+    # our hash table to store each element
+    # in the list as we pass through it
+    hashTable = {}
+    # store duplicates
+    dups = []
+    # check each element in the array
+    for i in range(0, len(arr)):
+    # if element does not exist in hash table
+    # then insert it
+        if arr[i] not in hashTable:
+            hashTable[arr[i]] = True
+    # if element does exist in hash table
+    # then we know it is a duplicate
+        else:
+            dups.append(arr[i])
+    return dups
+      `,
+      javascriptTestFile: `
+const chai = require('chai')
+  let expect = chai.expect
+
+  describe('Find Duplicate', function() {
+    it('Test Case #1', function() {
+        et result = duplicatesHash([1, 21, -4, 103, 21, 4, 1])
+      expect(result.sort()).to.deep.equal([1, 21])
+    })
+
+    it('Test Case #2', function() {
+      let result = duplicatesHash([2, 24, 52, -103, -21, 24, 1])
+      expect(result.sort()).to.deep.equal([24])
+    })
+
+    it('Test Case #3', function() {
+      let result = duplicatesHash([
+        473,
+        572,
+        1118,
+        4848,
+        4911,
+        10, 
+        -31, 
+        -41, 
+        3450, 
+        -25251, 
+        12451425, 
+        64, 
+        13, 
+        572, 
+        592, 
+        473
+      ])
+      expect(result.sort()).to.deep.equal([473, 572])
+    })
+
+    it('Test Case #4', function() {
+      let result = duplicatesHash([355, 24, 52, 1311, -21, -52, -24, 1])
+      expect(result.sort()).to.deep.equal([])
+    })
+
+    it('Test Case #5', function() {
+      let result = duplicatesHash([355, 24, 52, 1311, -21, -52, -24, 1])
+      expect(result.sort()).to.deep.equal([])
+    })
+
+    it('Test Case #6', function() {
+      let result = duplicatesHash([
+        57132,
+        47343,
+        57132,
+        1323576,
+        523672,
+        48235748,
+        49235711,
+        1023572357,
+        -323571,
+        -41,
+        34630,
+        -25251,
+        12425,
+        623574,
+        123643,
+        523672,
+        591732,
+        34630,
+        4723573
+      ])
+      expect(result.sort()).to.deep.equal([34630, 523672, 57132])
+    })
+
+    it('Test Case #7', function() {
+      let result = duplicatesHash([
+        1313,
+        4246911,
+        51312,
+        1357288,
+        99948,
+        4246911,
+        10,
+        -324691,
+        -4991,
+        296450,
+        -24921,
+        999224645,
+        26442964,
+        2469913,
+        5246972,
+        269592,
+        999224645,
+        2469429473,
+        10,
+        -324691
+      ])
+      expect(result.sort()).to.deep.equal([-324691, 10, 4246911, 999224645])
+    })
+
+    it('Test Case #8', function() {
+      let result = duplicatesHash([355, 355, 24, 52, 1311, -21, -52, -24, 1])
+      expect(result.sort()).to.deep.equal([355])
+    })
+
+    it('Test Case #9', function() {
+      let result = duplicatesHash([473, 572, 1118, 4848, 4911, 473])
+      expect(result.sort()).to.deep.equal([473])
+    })
+
+    it('Test Case #10', function() {
+      let result = duplicatesHash([
+        2345,
+        23,
+        4578,
+        2354,
+        236,
+        2356236236,
+        235635,
+        567,
+        25623,
+        56235,
+        635,
+        6,
+        347,
+        548,
+        34,
+        73,
+        68,
+        4578,
+        3457,
+        36,
+        84,
+        567,
+        437,
+        458
+      ])
+      expect(result.sort()).to.deep.equal([4578, 567])
+    })
+  })
+`,
+      pythonTestFile: `
+import program
+import unittest
+    
+class TestProgram(unittest.TestCase):
+
+    def test_case_1(self):
+        self.assertEqual(program.duplicatesHash([1, 3, 6, 8, 33, 10, 13, 15, 17, 37, 33]), [33])
+
+    def test_case_2(self):
+        self.assertEqual(program.duplicatesHash([1, 3, 6, 8, 9, 22, 22, 22, 22, 13, 15, 17, 33, 37, 33]), [22, 22, 22, 33 ])
+
+    def test_case_3(self):
+        self.assertEqual(program.duplicatesHash([0, 0, -1, 8, -22, 22, 22, 22, 13, 15, -33, 33, 37, 33]), [0, 22, 22, 33])
+      
+    def test_case_4(self):
+        self.assertEqual(program.duplicatesHash([0, 0, -1, 8, -22, 22, 22, 22, -0, -0, 'hello', 'hello', 15, -33, 33, 37, 33]), [0, 22, 22, 0, 0, 'hello', 33])
+      
+    def test_case_5(self):
+        self.assertEqual(program.duplicatesHash([0, 0, -1, 8, 3, -22, 22, 22, 22, -0, -0, 'heLlo', 'hello', 15, -33, 33, 37, 33, 10 + 12, 30 + 3]), [0, 22, 22, 0, 0, 33, 22, 33])
+      
+    def test_case_6(self):
+        self.assertEqual(program.duplicatesHash(['4', 4, 'Beautiful', int('4')]), [4])
+      
+    def test_case_7(self):
+        self.assertEqual(program.duplicatesHash(['4', 4, 'Beautiful', float('4'), 23.5, -34.0, -34.0000]), [4.0, -34.0])
+      
+    def test_case_8(self):
+        self.assertEqual(program.duplicatesHash(['4', 4, 'Beautiful', float('4'), 23.5, int(-34.0), int(-34.0000)]), [4.0, -34])
+      
+    def test_case_9(self):
+        self.assertEqual(program.duplicatesHash(['4', 4, 'Beautiful', str('-0'), 0, 3423.5, int(-34.0), int(-34.0000)]), [-34])
+      
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+          `,
     }),
     Question.create({
       name: 'Dutch Flag',
       published: true,
       description:
         'Create a function that will take an array.  This array should not contain any value outside of 0, 1 and 2.  The array can have any number of these stated values and the values can appear in any order.  The function should take the array and sort it in ascending order.  Example, the function is given the following array [ 0, 2, 2, 0, 1 ].  The return value of the function should be [ 0, 0, 1, 2, 2]',
-      javascriptSolution: `function swap(arr, i1, i2) {
-        var temp = arr[i1]
-        arr[i1] = arr[i2]
-        arr[i2] = temp
-      }
+      javascriptSolution: `
+function swap(arr, i1, i2) {
+  var temp = arr[i1]
+  arr[i1] = arr[i2]
+  arr[i2] = temp
+}
 
-      function dutchFlag(arr) {
-        var low = 0
-        var mid = 0
-        var high = arr.length - 1
-        while (mid <= high) {
-          if (arr[mid] === 0) {
-            swap(arr, low++, mid++)
-          } else if (arr[mid] === 2) {
-            swap(arr, mid, high--)
-          } else if (arr[mid] === 1) {
-            mid++
-          }
-        }
+function dutchFlag(arr) {
+  var low = 0
+  var mid = 0
+  var high = arr.length - 1
+  while (mid <= high) {
+    if (arr[mid] === 0) {
+      swap(arr, low++, mid++)
+    } else if (arr[mid] === 2) {
+      swap(arr, mid, high--)
+    } else if (arr[mid] === 1) {
+        mid++
+    }
+  }
 
-        return arr
-      }`,
-      pythonSolution: '',
-      functionName: 'dutchFlag',
-      javascriptTestFile: `const chai = require('chai')
-      let expect = chai.expect
+  return arr
+}
+`,
+      pythonSolution: `
+def swap(arr, i1, i2):
+    temp = arr[i1]
+    arr[i1] = arr[i2]
+    arr[i2] = temp
 
-      describe('Dutch Flag Sort', function() {
-        it('Test Case #1', function() {
-          let result = dutchFlag([2, 2, 0, 1, 0, 0, 1, 2])
-          expect(result).to.deep.equal([0, 0, 0, 1, 1, 2, 2, 2])
-        })
+def dutchFlag(arr):
+    low = 0
+    mid = 0
+    high = len(arr) - 1
 
-        it('Test Case #2', function() {
-          let result = dutchFlag([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
-          expect(result).to.deep.equal([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1])
-        })
-
-        it('Test Case #3', function() {
-          let result = dutchFlag([1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1])
-          expect(result).to.deep.equal([0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1])
-        })
-
-        it('Test Case #4', function() {
-          let result = dutchFlag([2, 2, 0, 1, 1, 0, 1, 2])
-          expect(result).to.deep.equal([0, 0, 1, 1, 1, 2, 2, 2])
-        })
-
-        it('Test Case #5', function() {
-          let result = dutchFlag([2, 2, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 2])
-          expect(result).to.deep.equal([0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2])
-        })
-
-        it('Test Case #6', function() {
-          let result = dutchFlag([
-            1,
-            1,
-            1,
-            1,
-            1,
-            2,
-            2,
-            0,
-            1,
-            1,
-            0,
-            1,
-            1,
-            0,
-            1,
-            1,
-            0,
-            1,
-            2
-          ])
-          expect(result).to.deep.equal([
-            0,
-            0,
-            0,
-            0,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            2,
-            2,
-            2
-          ])
-        })
-
-        it('Test Case #7', function() {
-          let result = dutchFlag([
-            2,
-            2,
-            0,
-            1,
-            1,
-            1,
-            1,
-            2,
-            2,
-            2,
-            2,
-            1,
-            1,
-            1,
-            2,
-            1,
-            0,
-            0,
-            1,
-            2
-          ])
-          expect(result).to.deep.equal([
-            0,
-            0,
-            0,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            2,
-            2,
-            2,
-            2,
-            2,
-            2,
-            2,
-            2
-          ])
-        })
-
-        it('Test Case #8', function() {
-          let result = dutchFlag([
-            2,
-            2,
-            0,
-            1,
-            1,
-            0,
-            1,
-            2,
-            2,
-            1,
-            0,
-            1,
-            1,
-            0,
-            2,
-            2,
-            1,
-            2
-          ])
-          expect(result).to.deep.equal([
-            0,
-            0,
-            0,
-            0,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            2,
-            2,
-            2,
-            2,
-            2,
-            2,
-            2
-          ])
-        })
-      })
+# one pass through the array swapping
+# the necessary elements in place
+    while mid <= high:
+        if arr[mid] == 0:
+            swap(arr, low, mid)
+            low += 1
+            mid += 1
+        elif arr[mid] == 2:
+            swap(arr, mid, high)
+            high -= 1
+        elif arr[mid] == 1:
+            mid += 1
+    return arr
       `,
-      pythonTestFile: '',
+      functionName: 'dutchFlag',
+      javascriptTestFile: `
+const chai = require('chai')
+let expect = chai.expect
+
+describe('Dutch Flag Sort', function() {
+  it('Test Case #1', function() {
+    let result = dutchFlag([2, 2, 0, 1, 0, 0, 1, 2])
+    expect(result).to.deep.equal([0, 0, 0, 1, 1, 2, 2, 2])
+  })
+
+  it('Test Case #2', function() {
+    let result = dutchFlag([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+    expect(result).to.deep.equal([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1])
+  })
+
+  it('Test Case #3', function() {
+    let result = dutchFlag([1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1])
+    expect(result).to.deep.equal([0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1])
+  })
+
+  it('Test Case #4', function() {
+    let result = dutchFlag([2, 2, 0, 1, 1, 0, 1, 2])
+    expect(result).to.deep.equal([0, 0, 1, 1, 1, 2, 2, 2])
+  })
+
+  it('Test Case #5', function() {
+    let result = dutchFlag([2, 2, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 2])
+    expect(result).to.deep.equal([0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2])
+  })
+
+  it('Test Case #6', function() {
+    let result = dutchFlag([1, 1, 1, 1, 1, 2, 2, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 2])
+    expect(result).to.deep.equal([0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2])
+  })
+
+  it('Test Case #7', function() {
+    let result = dutchFlag([2, 2, 0, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 2, 1, 0, 0, 1, 2])
+    expect(result).to.deep.equal([0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2])
+  })
+
+  it('Test Case #8', function() {
+    let result = dutchFlag([2, 2, 0, 1, 1, 0, 1, 2, 2, 1, 0, 1, 1, 0, 2, 2, 1, 2])
+    expect(result).to.deep.equal([0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2])
+  })
+})
+`,
+      pythonTestFile: `
+import program
+import unittest
+      
+class TestProgram(unittest.TestCase):
+      
+    def test_case_1(self):
+        self.assertEqual(program.dutchFlag([2, 2, 0, 1, 0, 0, 1, 2]), [0, 0, 0, 1, 1, 2, 2, 2])
+      
+    def test_case_2(self):
+        self.assertEqual(program.dutchFlag([0, 1, 2, 2, 0, 1, 0]), [0, 0, 0, 1, 1, 2, 2])
+      
+    def test_case_3(self):
+        self.assertEqual(program.dutchFlag([2, 1, 2, 2, 0, 1, 0, 0, 0, 1]), [0, 0, 0, 0, 1, 1, 1, 2, 2, 2])
+      
+    def test_case_4(self):
+        self.assertEqual(program.dutchFlag([]), [])
+      
+    def test_case_5(self):
+        self.assertEqual(program.dutchFlag([2, 0]), [0, 2])
+      
+    def test_case_6(self):
+        self.assertEqual(program.dutchFlag([0, 0]), [0, 0])
+      
+    def test_case_7(self):
+        self.assertEqual(program.dutchFlag([0, 0, 1, 2, 2, 1, 1, 0, 2, 1, 0, 0, 0, 0, 0, 2, 1, 1, 2, 0, 1, 2]), [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2])
+      
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+          `,
       categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,
@@ -1116,7 +1254,7 @@ function postOrderTraverse(tree, array) {
     }),
     Question.create({
       name: 'Max Sum Increasing Subsequence',
-      published: true,
+      published: false,
       description: '',
       javascriptSolution: '',
       pythonSolution: '',
@@ -1128,136 +1266,272 @@ function postOrderTraverse(tree, array) {
       userId: userIdsObj.admin
     }),
     Question.create({
-      name: 'Merge Sort Top Down',
+      name: 'Merge Sort',
       published: true,
-      description: `Implement the algorithm for a merge sort. The idea behind this algorithm is that it combines two ordered arrays together`,
+      description: 'Write a function named "mergeSort". The idea behind this algorithm is that it combines two ordered arrays together',
       javascriptSolution: `
-      function mergeSortTopDown(array) {
-        if(array.length < 2) {
-          return array;
-        }
+function mergeSort(array) {
+  if(array.length < 2) {
+    return array;
+  }
 
-        const middle = Math.floor(array.length / 2);
-        const left = array.slice(0, middle);
-        const right = array.slice(middle);
+  const middle = Math.floor(array.length / 2);
+  const left = array.slice(0, middle);
+  const right = array.slice(middle);
 
-        return mergeTopDown(mergeSortTopDown(left), mergeSortTopDown(right));
-      }
+  return merge(mergeSort(left), mergeSort(right));
+}
 
-      function mergeTopDown(left, right) {
-        const array = [];
+function merge(left, right) {
+  const array = [];
 
-        while(left.length && right.length) {
-          if(left[0] < right[0]) {
-            array.push(left.shift());
-          } else {
-            array.push(right.shift());
-          }
-        }
-        return array.concat(left.slice()).concat(right.slice());
-      }
-      `,
-      pythonSolution: '',
-      functionName: 'mergeSortTopDown',
+  while(left.length && right.length) {
+    if(left[0] < right[0]) {
+      array.push(left.shift());
+    } else {
+      array.push(right.shift());
+    }
+  }
+  return array.concat(left.slice()).concat(right.slice());
+}
+`,
+      pythonSolution:
+        `
+def mergeSort(nlist):
+  if len(nlist)>1:
+    mid = len(nlist)//2
+    lefthalf = nlist[:mid]
+    righthalf = nlist[mid:]
+
+    mergeSort(lefthalf)
+    mergeSort(righthalf)
+    i=j=k=0       
+    while i < len(lefthalf) and j < len(righthalf):
+        if lefthalf[i] < righthalf[j]:
+            nlist[k]=lefthalf[i]
+            i=i+1
+        else:
+            nlist[k]=righthalf[j]
+            j=j+1
+        k=k+1
+
+    while i < len(lefthalf):
+        nlist[k]=lefthalf[i]
+        i=i+1
+        k=k+1
+
+    while j < len(righthalf):
+        nlist[k]=righthalf[j]
+        j=j+1
+        k=k+1
+  return nlist
+`,
+      functionName: 'mergeSort',
       javascriptTestFile: `
-      const chai = require('chai')
-      let expect = chai.expect
+const chai = require('chai')
+let expect = chai.expect
 
-      describe('Merge Sort(Top-Down Implemention)', function() {
+describe('Merge Sort(Top-Down Implemention)', function() {
 
-        it('Test Case #1', function() {
-          let result = mergeSortTopDown([])
-          expect(result).to.deep.equal([])
-        })
+  it('Test Case #1', function() {
+    let result = mergeSortTopDown([])
+    expect(result).to.deep.equal([])
+  })
 
-         it('Test Case #2', function () {
-          let result = mergeSortTopDown([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
-          expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-        })
+  it('Test Case #2', function () {
+    let result = mergeSortTopDown([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
+    expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+  })
 
-        it('Test Case #3', function () {
-          let result = mergeSortTopDown([8, 7, 6, 5, 4])
-          expect(result).to.deep.equal([4, 5, 6, 7, 8])
-        })
+  it('Test Case #3', function () {
+    let result = mergeSortTopDown([8, 7, 6, 5, 4])
+    expect(result).to.deep.equal([4, 5, 6, 7, 8])
+  })
 
-        it('Test Case #4', function () {
-          let result = mergeSortTopDown([8, -7, 6, -5, 4])
-          expect(result).to.deep.equal([-7, -5, 4, 6, 8])
-        })
+  it('Test Case #4', function () {
+    let result = mergeSortTopDown([8, -7, 6, -5, 4])
+    expect(result).to.deep.equal([-7, -5, 4, 6, 8])
+  })
 
-        it('Test Case #5', function () {
-          let result = mergeSortTopDown([-1, -5, -22, -11, -7])
-          expect(result).to.deep.equal([-22, -11, -7, -5, -1])
-        })
-      })
-      `,
-      pythonTestFile: '',
+  it('Test Case #5', function () {
+    let result = mergeSortTopDown([-1, -5, -22, -11, -7])
+    expect(result).to.deep.equal([-22, -11, -7, -5, -1])
+  })
+})
+`,
+      pythonTestFile:
+        `
+import program
+import unittest
+
+class TestProgram(unittest.TestCase):
+
+	def test_case_1(self):
+		self.assertEqual(program.mergeSort([3, 1, 6, 3, 7, 4, 9]), [1, 3, 3, 4, 6, 7, 9])
+
+	def test_case_2(self):
+		self.assertEqual(program.mergeSort([3, 1, -6, 3, -7, 4, 9, 2, -1, 3, 0]), [-7, -6, -1, 0, 1, 2, 3, 3, 3, 4, 9])
+
+	def test_case_3(self):
+	    self.assertEqual(program.mergeSort([3.0, 111, -6, 53, -7.3, 4, 9, 2, -10, 3, 2, 1, 2, 2,  0]), [-10, -7.3, -6, 0, 1, 2, 2, 2, 2, 3, 3.0, 4, 9, 53, 111])
+
+	def test_case_4(self):
+	    self.assertEqual(program.mergeSort([-9.00, 1, -336, 153, -7.3, 4, 2, 0, 2, 0, 2, -120, 13, 112, 111, 33332, 33332, 10]), [-336, -120, -9.0, -7.3, 0, 0, 1, 2, 2, 2, 4, 10, 13, 111, 112, 153, 33332, 33332])
+
+	def test_case_5(self):
+	    self.assertEqual(program.mergeSort([-9.00, 1, -336, 1753, -7.13, 14, 62, 150, 12, 0, 2, -1120, 13, 1412, 111, 333232, 333232, 10]), [-1120, -336, -9.0, -7.13, 0, 1, 2, 10, 12, 13, 14, 62, 111, 150, 1412, 1753, 333232, 333232])
+
+if __name__ == "__main__":
+	unittest.main(verbosity=2)
+`
+      ,
       categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
     Question.create({
-      name: 'Select Sort',
+      name: 'Selection Sort',
       published: true,
-      description: 'selectSort',
-      javascriptSolution: `
-      function selectionSort(array) {
-        for (let i = 0; i < array.length; i++) {
-          let min = i;
-          for(let j = i + 1; j < array.length; j++) {
-            if(array[j] < array[min]) {
-              min = j;
-            }
-          }
-          if(i !== min) {
-            [array[i], array[min]] = [array[min], array[i]];
-          }
-        }
-        return array;
+      description: 'Write a function named "selectionSort" that takes in an array of integers and returns a sorted version of that array. Use the Selection Sort algorithm to sort the array.',
+      javascriptSolution:
+        `
+function selectionSort(array) {
+  for (let i = 0; i < array.length; i++) {
+    let min = i;
+    for(let j = i + 1; j < array.length; j++) {
+      if(array[j] < array[min]) {
+        min = j;
       }
-      `,
-      pythonSolution: '',
-      functionName: 'selectSort',
-      javascriptTestFile: `
-      const chai = require('chai')
-      let expect = chai.expect
+    }
+    if(i !== min) {
+      [array[i], array[min]] = [array[min], array[i]];
+    }
+  }
+  return array;
+}
+`,
+      pythonSolution:
+        `
+def selectionSort(array):
+  currentIdx = 0
+  while currentIdx < len(array) - 1:
+    smallestIdx = currentIdx
+    for i in range(currentIdx + 1, len(array)):
+        if array[smallestIdx] > array[i]:
+            smallestIdx = i
+    swap(currentIdx, smallestIdx, array)
+    currentIdx += 1
+  return array
 
-      describe('Selection Sort', () => {
+def swap(i, j, array):
+  array[i], array[j] = array[j], array[i]
+`,
+      functionName: 'selectionSort',
+      javascriptTestFile:
+        `
+const chai = require('chai')
+  let expect = chai.expect
 
-        it('Test Case #1', function() {
-          let result = selectionSort([])
-          expect(result).to.deep.equal([])
-        })
+  describe('Selection Sort', () => {
 
-         it('Test Case #2', function () {
-          let result = selectionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
-          expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-        })
+    it('Test Case #1', function() {
+      let result = selectionSort([])
+      expect(result).to.deep.equal([])
+    })
 
-        it('Test Case #3', function () {
-          let result = selectionSort([8, 7, 6, 5, 4])
-          expect(result).to.deep.equal([4, 5, 6, 7, 8])
-        })
+    it('Test Case #2', function () {
+      let result = selectionSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
+      expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    })
 
-        it('Test Case #4', function () {
-          let result = selectionSort([8, -7, 6, -5, 4])
-          expect(result).to.deep.equal([-7, -5, 4, 6, 8])
-        })
+    it('Test Case #3', function () {
+      let result = selectionSort([8, 7, 6, 5, 4])
+      expect(result).to.deep.equal([4, 5, 6, 7, 8])
+    })
 
-        it('Test Case #5', function () {
-          let result = selectionSort([-1, -5, -22, -11, -7])
-          expect(result).to.deep.equal([-22, -11, -7, -5, -1])
-        })
-      })
-      `,
-      pythonTestFile: '',
+    it('Test Case #4', function () {
+      let result = selectionSort([8, -7, 6, -5, 4])
+      expect(result).to.deep.equal([-7, -5, 4, 6, 8])
+    })
+
+    it('Test Case #5', function () {
+      let result = selectionSort([-1, -5, -22, -11, -7])
+      expect(result).to.deep.equal([-22, -11, -7, -5, -1])
+    })
+})
+`,
+      pythonTestFile:
+        `
+import program
+import unittest
+
+
+class TestProgram(unittest.TestCase):
+
+	def test_case_1(self):
+		self.assertEqual(program.selectionSort([1]), [1])
+
+	def test_case_2(self):
+		self.assertEqual(program.selectionSort([1, 2]), [1, 2])
+
+	def test_case_3(self):
+		self.assertEqual(program.selectionSort([2, 1]), [1, 2])
+
+	def test_case_4(self):
+		self.assertEqual(program.selectionSort([1, 3, 2]), [1, 2, 3])
+
+	def test_case_5(self):
+		self.assertEqual(program.selectionSort([3, 1, 2]), [1, 2, 3])
+
+	def test_case_6(self):
+		self.assertEqual(program.selectionSort([1, 2, 3]), [1, 2, 3])
+
+	def test_case_7(self):
+		self.assertEqual(program.selectionSort([-4, 5, 10, 8, -10, -6, -4, -2, -5, 3, 5, -4, -5, -1, 1, 6, -7, -6, -7, 8]), [-10, -7, -7, -6, -6, -5, -5, -4, -4, -4, -2, -1, 1, 3, 5, 5, 6, 8, 8, 10])
+
+	def test_case_8(self):
+		self.assertEqual(program.selectionSort([-7, 2, 3, 8, -10, 4, -6, -10, -2, -7, 10, 5, 2, 9, -9, -5, 3, 8]), [-10, -10, -9, -7, -7, -6, -5, -2, 2, 2, 3, 3, 4, 5, 8, 8, 9, 10])
+
+	def test_case_9(self):
+		self.assertEqual(program.selectionSort([8, -6, 7, 10, 8, -1, 6, 2, 4, -5, 1, 10, 8, -10, -9, -10, 8, 9, -2, 7, -2, 4]), [-10, -10, -9, -6, -5, -2, -2, -1, 1, 2, 4, 4, 6, 7, 7, 8, 8, 8, 8, 9, 10, 10])
+
+	def test_case_10(self):
+		self.assertEqual(program.selectionSort([5, -2, 2, -8, 3, -10, -6, -1, 2, -2, 9, 1, 1]), [-10, -8, -6, -2, -2, -1, 1, 1, 2, 2, 3, 5, 9])
+
+	def test_case_11(self):
+		self.assertEqual(program.selectionSort([2, -2, -6, -10, 10, 4, -8, -1, -8, -4, 7, -4, 0, 9, -9, 0, -9, -9, 8, 1, -4, 4, 8, 5, 1, 5, 0, 0, 2, -10]), [-10, -10, -9, -9, -9, -8, -8, -6, -4, -4, -4, -2, -1, 0, 0, 0, 0, 1, 1, 2, 2, 4, 4, 5, 5, 7, 8, 8, 9, 10])
+
+	def test_case_12(self):
+		self.assertEqual(program.selectionSort([4, 1, 5, 0, -9, -3, -3, 9, 3, -4, -9, 8, 1, -3, -7, -4, -9, -1, -7, -2, -7, 4]), [-9, -9, -9, -7, -7, -7, -4, -4, -3, -3, -3, -2, -1, 0, 1, 1, 3, 4, 4, 5, 8, 9])
+
+	def test_case_13(self):
+		self.assertEqual(program.selectionSort([427, 787, 222, 996, -359, -614, 246, 230, 107, -706, 568, 9, -246, 12, -764, -212, -484, 603, 934, -848, -646, -991, 661, -32, -348, -474, -439, -56, 507, 736, 635, -171, -215, 564, -710, 710, 565, 892, 970, -755, 55, 821, -3, -153, 240, -160, -610, -583, -27, 131]), [-991, -848, -764, -755, -710, -706, -646, -614, -610, -583, -484, -474, -439, -359, -348, -246, -215, -212, -171, -160, -153, -56, -32, -27, -3, 9, 12, 55, 107, 131, 222, 230, 240, 246, 427, 507, 564, 565, 568, 603, 635, 661, 710, 736, 787, 821, 892, 934, 970, 996])
+
+	def test_case_14(self):
+		self.assertEqual(program.selectionSort([991, -731, -882, 100, 280, -43, 432, 771, -581, 180, -382, -998, 847, 80, -220, 680, 769, -75, -817, 366, 956, 749, 471, 228, -435, -269, 652, -331, -387, -657, -255, 382, -216, -6, -163, -681, 980, 913, -169, 972, -523, 354, 747, 805, 382, -827, -796, 372, 753, 519, 906]), [-998, -882, -827, -817, -796, -731, -681, -657, -581, -523, -435, -387, -382, -331, -269, -255, -220, -216, -169, -163, -75, -43, -6, 80, 100, 180, 228, 280, 354, 366, 372, 382, 382, 432, 471, 519, 652, 680, 747, 749, 753, 769, 771, 805, 847, 906, 913, 956, 972, 980, 991])
+
+	def test_case_15(self):
+		self.assertEqual(program.selectionSort([384, -67, 120, 759, 697, 232, -7, -557, -772, -987, 687, 397, -763, -86, -491, 947, 921, 421, 825, -679, 946, -562, -626, -898, 204, 776, -343, 393, 51, -796, -425, 31, 165, 975, -720, 878, -785, -367, -609, 662, -79, -112, -313, -94, 187, 260, 43, 85, -746, 612, 67, -389, 508, 777, 624, 993, -581, 34, 444, -544, 243, -995, 432, -755, -978, 515, -68, -559, 489, 732, -19, -489, 737, 924]), [-995, -987, -978, -898, -796, -785, -772, -763, -755, -746, -720, -679, -626, -609, -581, -562, -559, -557, -544, -491, -489, -425, -389, -367, -343, -313, -112, -94, -86, -79, -68, -67, -19, -7, 31, 34, 43, 51, 67, 85, 120, 165, 187, 204, 232, 243, 260, 384, 393, 397, 421, 432, 444, 489, 508, 515, 612, 624, 662, 687, 697, 732, 737, 759, 776, 777, 825, 878, 921, 924, 946, 947, 975, 993])
+
+	def test_case_16(self):
+		self.assertEqual(program.selectionSort([544, -578, 556, 713, -655, -359, -810, -731, 194, -531, -685, 689, -279, -738, 886, -54, -320, -500, 738, 445, -401, 993, -753, 329, -396, -924, -975, 376, 748, -356, 972, 459, 399, 669, -488, 568, -702, 551, 763, -90, -249, -45, 452, -917, 394, 195, -877, 153, 153, 788, 844, 867, 266, -739, 904, -154, -947, 464, 343, -312, 150, -656, 528, 61, 94, -581]), [-975, -947, -924, -917, -877, -810, -753, -739, -738, -731, -702, -685, -656, -655, -581, -578, -531, -500, -488, -401, -396, -359, -356, -320, -312, -279, -249, -154, -90, -54, -45, 61, 94, 150, 153, 153, 194, 195, 266, 329, 343, 376, 394, 399, 445, 452, 459, 464, 528, 544, 551, 556, 568, 669, 689, 713, 738, 748, 763, 788, 844, 867, 886, 904, 972, 993])
+
+	def test_case_17(self):
+		self.assertEqual(program.selectionSort([-19, 759, 168, 306, 270, -602, 558, -821, -599, 328, 753, -50, -568, 268, -92, 381, -96, 730, 629, 678, -837, 351, 896, 63, -85, 437, -453, -991, 294, -384, -628, -529, 518, 613, -319, -519, -220, -67, 834, 619, 802, 207, 946, -904, 295, 718, -740, -557, -560, 80, 296, -90, 401, 407, 798, 254, 154, 387, 434, 491, 228, 307, 268, 505, -415, -976, 676, -917, 937, -609, 593, -36, 881, 607, 121, -373, 915, -885, 879, 391, -158, 588, -641, -937, 986, 949, -321]), [-991, -976, -937, -917, -904, -885, -837, -821, -740, -641, -628, -609, -602, -599, -568, -560, -557, -529, -519, -453, -415, -384, -373, -321, -319, -220, -158, -96, -92, -90, -85, -67, -50, -36, -19, 63, 80, 121, 154, 168, 207, 228, 254, 268, 268, 270, 294, 295, 296, 306, 307, 328, 351, 381, 387, 391, 401, 407, 434, 437, 491, 505, 518, 558, 588, 593, 607, 613, 619, 629, 676, 678, 718, 730, 753, 759, 798, 802, 834, 879, 881, 896, 915, 937, 946, 949, 986])
+
+	def test_case_18(self):
+		self.assertEqual(program.selectionSort([-823, 164, 48, -987, 323, 399, -293, 183, -908, -376, 14, 980, 965, 842, 422, 829, 59, 724, -415, -733, 356, -855, -155, 52, 328, -544, -371, -160, -942, -51, 700, -363, -353, -359, 238, 892, -730, -575, 892, 490, 490, 995, 572, 888, -935, 919, -191, 646, -120, 125, -817, 341, -575, 372, -874, 243, 610, -36, -685, -337, -13, 295, 800, -950, -949, -257, 631, -542, 201, -796, 157, 950, 540, -846, -265, 746, 355, -578, -441, -254, -941, -738, -469, -167, -420, -126, -410, 59]), [-987, -950, -949, -942, -941, -935, -908, -874, -855, -846, -823, -817, -796, -738, -733, -730, -685, -578, -575, -575, -544, -542, -469, -441, -420, -415, -410, -376, -371, -363, -359, -353, -337, -293, -265, -257, -254, -191, -167, -160, -155, -126, -120, -51, -36, -13, 14, 48, 52, 59, 59, 125, 157, 164, 183, 201, 238, 243, 295, 323, 328, 341, 355, 356, 372, 399, 422, 490, 490, 540, 572, 610, 631, 646, 700, 724, 746, 800, 829, 842, 888, 892, 892, 919, 950, 965, 980, 995])
+
+if __name__ == "__main__":
+	unittest.main(verbosity=2)
+`,
       categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
     Question.create({
       name: 'Depth-first Search',
-      published: true,
+      published: false,
       description: '',
       javascriptSolution: '',
       pythonSolution: '',
@@ -1271,35 +1545,38 @@ function postOrderTraverse(tree, array) {
     Question.create({
       name: 'Queue',
       published: true,
-      description: `Implement the Queue Data Structure. It contains the following methods: enqueue(), dequeue(), peek(), and print(). enqueue adds elements to the data structure, dequeue removes elements from the data structure, peek shows the first values in the queue but doesn't remove it, and print will just log all of the values.`,
-      javascriptSolution: `
-      class Queue {
-        constructor() {
-          this.queue = [];
-        }
+      description: `Write a class function named 'Queue' to implement the Queue Data Structure. It contains the following methods: enqueue(), dequeue(), peek(), and print(). enqueue adds elements to the data structure, dequeue removes elements from the data structure, peek shows the first values in the queue but doesn't remove it, and print will just log all of the values.`,
+      javascriptSolution:
+        `
+class Queue {
+  constructor() {
+    this.queue = [];
+  }
 
-        enqueue(value) {
-          this.queue.push(value);
-        }
+  enqueue(value) {
+    this.queue.push(value);
+  }
 
-        dequeue() {
-          return this.queue.shift();
-        }
+  dequeue() {
+    return this.queue.shift();
+  }
+        
+  peek() {
+    return this.queue[0];
+  }
 
-        peek() {
-          return this.queue[0];
-        }
+  length() {
+    return this.queue.length;
+  }
 
-        length() {
-          return this.queue.length;
-        }
-
-        print() {
-          console.log(this.queue.join(' '));
-        }
-      }
-      `,
-      pythonSolution: '',
+  print() {
+    console.log(this.queue.join(' '));
+  }
+}
+`,
+      pythonSolution:
+        `
+`,
       functionName: 'Queue',
       javascriptTestFile: `
       const chai = require('chai')
@@ -1422,7 +1699,7 @@ function postOrderTraverse(tree, array) {
       name: 'Counting Steps',
       published: true,
       description:
-        'Write a function that will count the total number of ways someone can climb a particular set of stairs.  The function will take the total number of steps as a parameter.  In this situation the climber only moves up the steps and can climb 1 step or 2 steps at a time.  The function will return the total number of ways that they can climb the staircase.  For example, a staircase with only 3 steps can be climbed 3 different ways.  They can climb 1 step at a time.  They can climb 1 step and then 2 steps or they can climb 2 steps and then 2 step.',
+        'Write a function named "countSteps" that will count the total number of ways someone can climb a particular set of stairs.  The function will take the total number of steps as a parameter.  In this situation the climber only moves up the steps and can climb 1 step or 2 steps at a time.  The function will return the total number of ways that they can climb the staircase.  For example, a staircase with only 3 steps can be climbed 3 different ways.  They can climb 1 step at a time.  They can climb 1 step and then 2 steps or they can climb 2 steps and then 2 step.',
       javascriptSolution: `function countSteps(N) {
         if (N === 1) {
           return 1
@@ -1432,64 +1709,101 @@ function postOrderTraverse(tree, array) {
         }
         return countSteps(N - 1) + countSteps(N - 2)
       }`,
-      pythonSolution: '',
+      pythonSolution: `
+def countSteps(N):
+          
+    # just as in our solution explanation above, we know that to climb 1 step
+    # there is only 1 solution, and for 2 steps there are 2 solutions
+    if N == 1:
+        return 1
+      
+    if N == 2:
+        return 2
+          
+    # for all N > 2, we add the previous (N - 1) + (N - 2) steps to get
+    # an answer recursively
+    return countSteps(N - 1) + countSteps(N - 2)
+      `,
       functionName: 'countSteps',
       javascriptTestFile: `const chai = require('chai')
       let expect = chai.expect
 
       describe('Power Set Solution', function() {
-        it('produces desired result', function() {
+        it('Test Case #1', function() {
           let result = countSteps(6)
           expect(result).to.deep.equal(13)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #2', function() {
           let result = countSteps(13)
           expect(result).to.deep.equal(377)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #3', function() {
           let result = countSteps(1)
           expect(result).to.deep.equal(1)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #4', function() {
           let result = countSteps(23)
           expect(result).to.deep.equal(46368)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #5', function() {
           let result = countSteps(3)
           expect(result).to.deep.equal(3)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #6', function() {
           let result = countSteps(4)
           expect(result).to.deep.equal(5)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #7', function() {
           let result = countSteps(10)
           expect(result).to.deep.equal(89)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #8', function() {
           let result = countSteps(17)
           expect(result).to.deep.equal(2584)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #9', function() {
           let result = countSteps(15)
           expect(result).to.deep.equal(987)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #10', function() {
           let result = countSteps(20)
           expect(result).to.deep.equal(10946)
         })
       })
       `,
-      pythonTestFile: '',
+      pythonTestFile: `
+import program
+import unittest
+      
+class TestProgram(unittest.TestCase):
+
+    def test_case_1(self):
+        self.assertEqual(program.countSteps(29), 832040)
+      
+    def test_case_2(self):
+        self.assertEqual(program.countSteps(1), 1)
+      
+    def test_case_3(self):
+        self.assertEqual(program.countSteps(32), 3524578)
+      
+    def test_case_4(self):
+        self.assertEqual(program.countSteps(10), 89)
+      
+    def test_case_5(self):
+        self.assertEqual(program.countSteps(18), 4181)
+          
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+          `,
       categoryId: categoryIdsObj.Recursion,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,
@@ -1499,7 +1813,7 @@ function postOrderTraverse(tree, array) {
       name: 'Insert Interval',
       published: true,
       description:
-        'Create a function called instertInterval.  The input is a sorted list of disjoint intervals, and your goal is to insert a new interval and merge all necessary intervals returning a final new list. For example, if the interval list is [[1,5], [10,15], [20,25]] and you need to insert the interval [12,27], then your program should return the new list: [[1,5], [10,27]].',
+        'Create a function named "instertInterval".  The input is a sorted list of disjoint intervals, and your goal is to insert a new interval and merge all necessary intervals returning a final new list. For example, if the interval list is [[1,5], [10,15], [20,25]] and you need to insert the interval [12,27], then your program should return the new list: [[1,5], [10,27]].',
       javascriptSolution: `function insertInterval(arr, interval) {
         var newSet = []
         var endSet = []
@@ -1524,25 +1838,52 @@ function postOrderTraverse(tree, array) {
         }
         return newSet.concat(endSet)
       }`,
-      pythonSolution: '',
-      functionName: 'insterInterval',
+      pythonSolution: `
+def insertInterval(arr, interval):
+
+    newSet = []
+    endSet = []
+    i = 0
+
+    # add intervals that come before the new interval
+    while i < len(arr) and arr[i][1] < interval[0]:
+        newSet.append(arr[i])
+        i += 1
+      
+    # add our new interval to this final list
+    newSet.append(interval)
+
+    # check each interval that comes after the new interval to determine if we can merge
+    # if no merges are required then populate a list of the remaining intervals
+    while i < len(arr):
+        last = newSet[-1]
+        if arr[i][0] < last[1]:
+            newInterval = [min([last[0], arr[i][0]]), max([last[1], arr[i][1]])]
+            newSet[-1] = newInterval
+        else:
+            endSet.append(arr[i])
+        i += 1
+
+    return newSet + endSet
+      `,
+      functionName: 'insertInterval',
       javascriptTestFile: `const chai = require('chai')
       let expect = chai.expect
 
       describe('Insert Interval Solution', function() {
-        it('produces desired result', function() {
+        it('Test Case #1', function() {
           let result = insertInterval([[1, 5], [10, 15], [20, 25]], [12, 27])
           expect(result.length).to.deep.equal(2)
           expect(result).to.deep.equal([[1, 5], [10, 27]])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #2', function() {
           let result = insertInterval([[11, 55], [10, 15], [20, 55]], [11, 27])
           expect(result.length).to.deep.equal(1)
           expect(result).to.deep.equal([[10, 55]])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #3', function() {
           let result = insertInterval(
             [
               [13293602354, 99112002293553],
@@ -1567,25 +1908,25 @@ function postOrderTraverse(tree, array) {
           ])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #4', function() {
           let result = insertInterval([[100, 54], [100, 15], [200, 250]], [12, 54])
           expect(result.length).to.deep.equal(4)
           expect(result).to.deep.equal([[12, 54], [100, 54], [100, 15], [200, 250]])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #5', function() {
           let result = insertInterval([[1, 5], [1, 5], [2, 2]], [2, 54])
           expect(result.length).to.deep.equal(1)
           expect(result).to.deep.equal([[1, 54]])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #6', function() {
           let result = insertInterval([[-100, -54], [-100, 15], [200, 250]], [12, 54])
           expect(result.length).to.deep.equal(3)
           expect(result).to.deep.equal([[-100, -54], [-100, 54], [200, 250]])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #7', function() {
           let result = insertInterval(
             [
               [132354, 1123553],
@@ -1611,7 +1952,7 @@ function postOrderTraverse(tree, array) {
           ])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #8', function() {
           let result = insertInterval(
             [
               [134, 153],
@@ -1636,8 +1977,37 @@ function postOrderTraverse(tree, array) {
         })
       })
       `,
-      pythonTestFile: '',
-      categoryId: categoryIdsObj.Array,
+      pythonTestFile: `
+import program
+import unittest
+
+class TestProgram(unittest.TestCase):
+
+    def test_case_1(self):
+        self.assertEqual(program.insertInterval([[1,5],[10,15],[20,25]], [12,27]), [[1, 5], [10, 27]])
+
+    def test_case_2(self):
+        self.assertEqual(program.insertInterval([[6,7]], [1,9]), [[1, 9]])
+
+    def test_case_3(self):
+        self.assertEqual(program.insertInterval([[6,7]], [1,5]), [[1, 5], [6, 7]])
+
+    def test_case_4(self):
+        self.assertEqual(program.insertInterval([[1,5]], [6,7]), [[1, 5], [6, 7]])
+
+    def test_case_5(self):
+        self.assertEqual(program.insertInterval([[1,5],[6,11],[13,20],[40,50]], [12,19]), [[1, 5], [6, 11], [12, 20], [40, 50]])
+
+    def test_case_6(self):
+        self.assertEqual(program.insertInterval([[1,5],[6,11],[13,20],[25,30],[32,55]], [12,45]), [[1, 5], [6, 11], [12, 55]])
+
+    def test_case_7(self):
+        self.assertEqual(program.insertInterval([[1,5],[6,11],[20,22]], [24,45]), [[1, 5], [6, 11], [20, 22], [24, 45]])
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+          `,
+      categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,
       companyId: companyIdsObj.Google
@@ -1670,7 +2040,38 @@ function postOrderTraverse(tree, array) {
         }
         return powers
       }`,
-      pythonSolution: '',
+      pythonSolution: `
+import math
+
+def powerSet(arr):
+
+    # the final power set
+    powers = []
+
+    # the total number of sets that the power set will contain
+    total = int(math.pow(2, len(arr)))
+
+    # loop through each value from 0 to 2^n
+    for i in range(0, total):
+
+        # our set that we add to the power set
+        tempSet = []
+    
+        # convert the integer to binary
+        num = "{0:b}".format(i)
+    
+        # pad the binary number so 1 becomes 001 for example
+        while len(num) < len(arr):
+            num = '0' + num
+    
+        # build the set that matches the 1's in the binary number
+            for b in range(0, len(num)):
+                if num[b] == '1':
+                    tempSet.append(arr[b])
+        # add this set to the final power set
+        powers.append(tempSet)
+    return powers
+      `,
       functionName: 'powerSet',
       javascriptTestFile: `const chai = require('chai')
       let expect = chai.expect
@@ -1823,7 +2224,30 @@ function postOrderTraverse(tree, array) {
         })
       })
       `,
-      pythonTestFile: '',
+      pythonTestFile: `
+import program
+import unittest
+
+class TestProgram(unittest.TestCase):
+
+    def test_case_1(self):
+        self.assertEqual(program.powerSet([1, 2, 3]), [[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]])
+
+    def test_case_2(self):
+        self.assertEqual(program.powerSet([1, 2, 3, 8, 16, 100, 25]), [[], [25], [100], [100, 25], [16], [16, 25], [16, 100], [16, 100, 25], [8], [8, 25], [8, 100], [8, 100, 25], [8, 16], [8, 16, 25], [8, 16, 100], [8, 16, 100, 25], [3], [3, 25], [3, 100], [3, 100, 25], [3, 16], [3, 16, 25], [3, 16, 100], [3, 16, 100, 25], [3, 8], [3, 8, 25], [3, 8, 100], [3, 8, 100, 25], [3, 8, 16], [3, 8, 16, 25], [3, 8, 16, 100], [3, 8, 16, 100, 25], [2], [2, 25], [2, 100], [2, 100, 25], [2, 16], [2, 16, 25], [2, 16, 100], [2, 16, 100, 25], [2, 8], [2, 8, 25], [2, 8, 100], [2, 8, 100, 25], [2, 8, 16], [2, 8, 16, 25], [2, 8, 16, 100], [2, 8, 16, 100, 25], [2, 3], [2, 3, 25], [2, 3, 100], [2, 3, 100, 25], [2, 3, 16], [2, 3, 16, 25], [2, 3, 16, 100], [2, 3, 16, 100, 25], [2, 3, 8], [2, 3, 8, 25], [2, 3, 8, 100], [2, 3, 8, 100, 25], [2, 3, 8, 16], [2, 3, 8, 16, 25], [2, 3, 8, 16, 100], [2, 3, 8, 16, 100, 25], [1], [1, 25], [1, 100], [1, 100, 25], [1, 16], [1, 16, 25], [1, 16, 100], [1, 16, 100, 25], [1, 8], [1, 8, 25], [1, 8, 100], [1, 8, 100, 25], [1, 8, 16], [1, 8, 16, 25], [1, 8, 16, 100], [1, 8, 16, 100, 25], [1, 3], [1, 3, 25], [1, 3, 100], [1, 3, 100, 25], [1, 3, 16], [1, 3, 16, 25], [1, 3, 16, 100], [1, 3, 16, 100, 25], [1, 3, 8], [1, 3, 8, 25], [1, 3, 8, 100], [1, 3, 8, 100, 25], [1, 3, 8, 16], [1, 3, 8, 16, 25], [1, 3, 8, 16, 100], [1, 3, 8, 16, 100, 25], [1, 2], [1, 2, 25], [1, 2, 100], [1, 2, 100, 25], [1, 2, 16], [1, 2, 16, 25], [1, 2, 16, 100], [1, 2, 16, 100, 25], [1, 2, 8], [1, 2, 8, 25], [1, 2, 8, 100], [1, 2, 8, 100, 25], [1, 2, 8, 16], [1, 2, 8, 16, 25], [1, 2, 8, 16, 100], [1, 2, 8, 16, 100, 25], [1, 2, 3], [1, 2, 3, 25], [1, 2, 3, 100], [1, 2, 3, 100, 25], [1, 2, 3, 16], [1, 2, 3, 16, 25], [1, 2, 3, 16, 100], [1, 2, 3, 16, 100, 25], [1, 2, 3, 8], [1, 2, 3, 8, 25], [1, 2, 3, 8, 100], [1, 2, 3, 8, 100, 25], [1, 2, 3, 8, 16], [1, 2, 3, 8, 16, 25], [1, 2, 3, 8, 16, 100], [1, 2, 3, 8, 16, 100, 25]])
+
+    def test_case_3(self):
+        self.assertEqual(program.powerSet([-2, 2, -3, 8, 16, 62]), [[], [62], [16], [16, 62], [8], [8, 62], [8, 16], [8, 16, 62], [-3], [-3, 62], [-3, 16], [-3, 16, 62], [-3, 8], [-3, 8, 62], [-3, 8, 16], [-3, 8, 16, 62], [2], [2, 62], [2, 16], [2, 16, 62], [2, 8], [2, 8, 62], [2, 8, 16], [2, 8, 16, 62], [2, -3], [2, -3, 62], [2, -3, 16], [2, -3, 16, 62], [2, -3, 8], [2, -3, 8, 62], [2, -3, 8, 16], [2, -3, 8, 16, 62], [-2], [-2, 62], [-2, 16], [-2, 16, 62], [-2, 8], [-2, 8, 62], [-2, 8, 16], [-2, 8, 16, 62], [-2, -3], [-2, -3, 62], [-2, -3, 16], [-2, -3, 16, 62], [-2, -3, 8], [-2, -3, 8, 62], [-2, -3, 8, 16], [-2, -3, 8, 16, 62], [-2, 2], [-2, 2, 62], [-2, 2, 16], [-2, 2, 16, 62], [-2, 2, 8], [-2, 2, 8, 62], [-2, 2, 8, 16], [-2, 2, 8, 16, 62], [-2, 2, -3], [-2, 2, -3, 62], [-2, 2, -3, 16], [-2, 2, -3, 16, 62], [-2, 2, -3, 8], [-2, 2, -3, 8, 62], [-2, 2, -3, 8, 16], [-2, 2, -3, 8, 16, 62]])
+
+    def test_case_4(self):
+        self.assertEqual(program.powerSet([-2, 0, -3, 8, 16, 62, 1, 0]), [[], [0], [1], [1, 0], [62], [62, 0], [62, 1], [62, 1, 0], [16], [16, 0], [16, 1], [16, 1, 0], [16, 62], [16, 62, 0], [16, 62, 1], [16, 62, 1, 0], [8], [8, 0], [8, 1], [8, 1, 0], [8, 62], [8, 62, 0], [8, 62, 1], [8, 62, 1, 0], [8, 16], [8, 16, 0], [8, 16, 1], [8, 16, 1, 0], [8, 16, 62], [8, 16, 62, 0], [8, 16, 62, 1], [8, 16, 62, 1, 0], [-3], [-3, 0], [-3, 1], [-3, 1, 0], [-3, 62], [-3, 62, 0], [-3, 62, 1], [-3, 62, 1, 0], [-3, 16], [-3, 16, 0], [-3, 16, 1], [-3, 16, 1, 0], [-3, 16, 62], [-3, 16, 62, 0], [-3, 16, 62, 1], [-3, 16, 62, 1, 0], [-3, 8], [-3, 8, 0], [-3, 8, 1], [-3, 8, 1, 0], [-3, 8, 62], [-3, 8, 62, 0], [-3, 8, 62, 1], [-3, 8, 62, 1, 0], [-3, 8, 16], [-3, 8, 16, 0], [-3, 8, 16, 1], [-3, 8, 16, 1, 0], [-3, 8, 16, 62], [-3, 8, 16, 62, 0], [-3, 8, 16, 62, 1], [-3, 8, 16, 62, 1, 0], [0], [0, 0], [0, 1], [0, 1, 0], [0, 62], [0, 62, 0], [0, 62, 1], [0, 62, 1, 0], [0, 16], [0, 16, 0], [0, 16, 1], [0, 16, 1, 0], [0, 16, 62], [0, 16, 62, 0], [0, 16, 62, 1], [0, 16, 62, 1, 0], [0, 8], [0, 8, 0], [0, 8, 1], [0, 8, 1, 0], [0, 8, 62], [0, 8, 62, 0], [0, 8, 62, 1], [0, 8, 62, 1, 0], [0, 8, 16], [0, 8, 16, 0], [0, 8, 16, 1], [0, 8, 16, 1, 0], [0, 8, 16, 62], [0, 8, 16, 62, 0], [0, 8, 16, 62, 1], [0, 8, 16, 62, 1, 0], [0, -3], [0, -3, 0], [0, -3, 1], [0, -3, 1, 0], [0, -3, 62], [0, -3, 62, 0], [0, -3, 62, 1], [0, -3, 62, 1, 0], [0, -3, 16], [0, -3, 16, 0], [0, -3, 16, 1], [0, -3, 16, 1, 0], [0, -3, 16, 62], [0, -3, 16, 62, 0], [0, -3, 16, 62, 1], [0, -3, 16, 62, 1, 0], [0, -3, 8], [0, -3, 8, 0], [0, -3, 8, 1], [0, -3, 8, 1, 0], [0, -3, 8, 62], [0, -3, 8, 62, 0], [0, -3, 8, 62, 1], [0, -3, 8, 62, 1, 0], [0, -3, 8, 16], [0, -3, 8, 16, 0], [0, -3, 8, 16, 1], [0, -3, 8, 16, 1, 0], [0, -3, 8, 16, 62], [0, -3, 8, 16, 62, 0], [0, -3, 8, 16, 62, 1], [0, -3, 8, 16, 62, 1, 0], [-2], [-2, 0], [-2, 1], [-2, 1, 0], [-2, 62], [-2, 62, 0], [-2, 62, 1], [-2, 62, 1, 0], [-2, 16], [-2, 16, 0], [-2, 16, 1], [-2, 16, 1, 0], [-2, 16, 62], [-2, 16, 62, 0], [-2, 16, 62, 1], [-2, 16, 62, 1, 0], [-2, 8], [-2, 8, 0], [-2, 8, 1], [-2, 8, 1, 0], [-2, 8, 62], [-2, 8, 62, 0], [-2, 8, 62, 1], [-2, 8, 62, 1, 0], [-2, 8, 16], [-2, 8, 16, 0], [-2, 8, 16, 1], [-2, 8, 16, 1, 0], [-2, 8, 16, 62], [-2, 8, 16, 62, 0], [-2, 8, 16, 62, 1], [-2, 8, 16, 62, 1, 0], [-2, -3], [-2, -3, 0], [-2, -3, 1], [-2, -3, 1, 0], [-2, -3, 62], [-2, -3, 62, 0], [-2, -3, 62, 1], [-2, -3, 62, 1, 0], [-2, -3, 16], [-2, -3, 16, 0], [-2, -3, 16, 1], [-2, -3, 16, 1, 0], [-2, -3, 16, 62], [-2, -3, 16, 62, 0], [-2, -3, 16, 62, 1], [-2, -3, 16, 62, 1, 0], [-2, -3, 8], [-2, -3, 8, 0], [-2, -3, 8, 1], [-2, -3, 8, 1, 0], [-2, -3, 8, 62], [-2, -3, 8, 62, 0], [-2, -3, 8, 62, 1], [-2, -3, 8, 62, 1, 0], [-2, -3, 8, 16], [-2, -3, 8, 16, 0], [-2, -3, 8, 16, 1], [-2, -3, 8, 16, 1, 0], [-2, -3, 8, 16, 62], [-2, -3, 8, 16, 62, 0], [-2, -3, 8, 16, 62, 1], [-2, -3, 8, 16, 62, 1, 0], [-2, 0], [-2, 0, 0], [-2, 0, 1], [-2, 0, 1, 0], [-2, 0, 62], [-2, 0, 62, 0], [-2, 0, 62, 1], [-2, 0, 62, 1, 0], [-2, 0, 16], [-2, 0, 16, 0], [-2, 0, 16, 1], [-2, 0, 16, 1, 0], [-2, 0, 16, 62], [-2, 0, 16, 62, 0], [-2, 0, 16, 62, 1], [-2, 0, 16, 62, 1, 0], [-2, 0, 8], [-2, 0, 8, 0], [-2, 0, 8, 1], [-2, 0, 8, 1, 0], [-2, 0, 8, 62], [-2, 0, 8, 62, 0], [-2, 0, 8, 62, 1], [-2, 0, 8, 62, 1, 0], [-2, 0, 8, 16], [-2, 0, 8, 16, 0], [-2, 0, 8, 16, 1], [-2, 0, 8, 16, 1, 0], [-2, 0, 8, 16, 62], [-2, 0, 8, 16, 62, 0], [-2, 0, 8, 16, 62, 1], [-2, 0, 8, 16, 62, 1, 0], [-2, 0, -3], [-2, 0, -3, 0], [-2, 0, -3, 1], [-2, 0, -3, 1, 0], [-2, 0, -3, 62], [-2, 0, -3, 62, 0], [-2, 0, -3, 62, 1], [-2, 0, -3, 62, 1, 0], [-2, 0, -3, 16], [-2, 0, -3, 16, 0], [-2, 0, -3, 16, 1], [-2, 0, -3, 16, 1, 0], [-2, 0, -3, 16, 62], [-2, 0, -3, 16, 62, 0], [-2, 0, -3, 16, 62, 1], [-2, 0, -3, 16, 62, 1, 0], [-2, 0, -3, 8], [-2, 0, -3, 8, 0], [-2, 0, -3, 8, 1], [-2, 0, -3, 8, 1, 0], [-2, 0, -3, 8, 62], [-2, 0, -3, 8, 62, 0], [-2, 0, -3, 8, 62, 1], [-2, 0, -3, 8, 62, 1, 0], [-2, 0, -3, 8, 16], [-2, 0, -3, 8, 16, 0], [-2, 0, -3, 8, 16, 1], [-2, 0, -3, 8, 16, 1, 0], [-2, 0, -3, 8, 16, 62], [-2, 0, -3, 8, 16, 62, 0], [-2, 0, -3, 8, 16, 62, 1], [-2, 0, -3, 8, 16, 62, 1, 0]])
+
+    def test_case_5(self):
+        self.assertEqual(program.powerSet([-2, -2, -2, 8, -0]), [[], [0], [8], [8, 0], [-2], [-2, 0], [-2, 8], [-2, 8, 0], [-2], [-2, 0], [-2, 8], [-2, 8, 0], [-2, -2], [-2, -2, 0], [-2, -2, 8], [-2, -2, 8, 0], [-2], [-2, 0], [-2, 8], [-2, 8, 0], [-2, -2], [-2, -2, 0], [-2, -2, 8], [-2, -2, 8, 0], [-2, -2], [-2, -2, 0], [-2, -2, 8], [-2, -2, 8, 0], [-2, -2, -2], [-2, -2, -2, 0], [-2, -2, -2, 8], [-2, -2, -2, 8, 0]])
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+          `,
       categoryId: categoryIdsObj.Array,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,
@@ -1845,7 +2269,7 @@ function postOrderTraverse(tree, array) {
     Question.create({
       name: 'Bubble Sort',
       published: true,
-      description: `Implement the bubble sort algorithm that will sort any given array.`,
+      description: `Write a function named "bubbleSort" that takes in an unsorted array and return a sorted array. Use the Selection Sort algorithm to sort the array.`,
       javascriptSolution: `
       function bubbleSort(array) {
         let swapped;
@@ -1860,7 +2284,21 @@ function postOrderTraverse(tree, array) {
         } while(swapped);
         return array;
       }`,
-      pythonSolution: '',
+      pythonSolution:
+        `
+def bubbleSort(array):
+    # Write your code here.
+    isSorted = False
+    counter = len(array)
+    while not isSorted:
+        isSorted = True
+        for i in range(counter - 1):
+            if array[i] > array[i+1]:
+                isSorted = False
+                array[i], array[i+1] = array[i+1], array[i]
+        counter -= 1
+    return array
+`,
       functionName: 'bubbleSort',
       javascriptTestFile: `
       const chai = require('chai')
@@ -1898,7 +2336,71 @@ function postOrderTraverse(tree, array) {
             expect(result).to.deep.equal([2, 3, 3, 5, 5, 8])
           })
       })`,
-      pythonTestFile: '',
+      pythonTestFile:
+        `
+import program
+import unittest
+
+class TestProgram(unittest.TestCase):
+	
+	def test_case_1(self):
+		self.assertEqual(program.bubbleSort([1]), [1])
+	
+	def test_case_2(self):
+		self.assertEqual(program.bubbleSort([1, 2]), [1, 2])
+	
+	def test_case_3(self):
+		self.assertEqual(program.bubbleSort([2, 1]), [1, 2])
+	
+	def test_case_4(self):
+		self.assertEqual(program.bubbleSort([1, 3, 2]), [1, 2, 3])
+	
+	def test_case_5(self):
+		self.assertEqual(program.bubbleSort([3, 1, 2]), [1, 2, 3])
+	
+	def test_case_6(self):
+		self.assertEqual(program.bubbleSort([1, 2, 3]), [1, 2, 3])
+	
+	def test_case_7(self):
+		self.assertEqual(program.bubbleSort([-4, 5, 10, 8, -10, -6, -4, -2, -5, 3, 5, -4, -5, -1, 1, 6, -7, -6, -7, 8]), [-10, -7, -7, -6, -6, -5, -5, -4, -4, -4, -2, -1, 1, 3, 5, 5, 6, 8, 8, 10])
+	
+	def test_case_8(self):
+		self.assertEqual(program.bubbleSort([-7, 2, 3, 8, -10, 4, -6, -10, -2, -7, 10, 5, 2, 9, -9, -5, 3, 8]), [-10, -10, -9, -7, -7, -6, -5, -2, 2, 2, 3, 3, 4, 5, 8, 8, 9, 10])
+	
+	def test_case_9(self):
+		self.assertEqual(program.bubbleSort([8, -6, 7, 10, 8, -1, 6, 2, 4, -5, 1, 10, 8, -10, -9, -10, 8, 9, -2, 7, -2, 4]), [-10, -10, -9, -6, -5, -2, -2, -1, 1, 2, 4, 4, 6, 7, 7, 8, 8, 8, 8, 9, 10, 10])
+	
+	def test_case_10(self):
+		self.assertEqual(program.bubbleSort([5, -2, 2, -8, 3, -10, -6, -1, 2, -2, 9, 1, 1]), [-10, -8, -6, -2, -2, -1, 1, 1, 2, 2, 3, 5, 9])
+	
+	def test_case_11(self):
+		self.assertEqual(program.bubbleSort([2, -2, -6, -10, 10, 4, -8, -1, -8, -4, 7, -4, 0, 9, -9, 0, -9, -9, 8, 1, -4, 4, 8, 5, 1, 5, 0, 0, 2, -10]), [-10, -10, -9, -9, -9, -8, -8, -6, -4, -4, -4, -2, -1, 0, 0, 0, 0, 1, 1, 2, 2, 4, 4, 5, 5, 7, 8, 8, 9, 10])
+	
+	def test_case_12(self):
+		self.assertEqual(program.bubbleSort([4, 1, 5, 0, -9, -3, -3, 9, 3, -4, -9, 8, 1, -3, -7, -4, -9, -1, -7, -2, -7, 4]), [-9, -9, -9, -7, -7, -7, -4, -4, -3, -3, -3, -2, -1, 0, 1, 1, 3, 4, 4, 5, 8, 9])
+	
+	def test_case_13(self):
+		self.assertEqual(program.bubbleSort([427, 787, 222, 996, -359, -614, 246, 230, 107, -706, 568, 9, -246, 12, -764, -212, -484, 603, 934, -848, -646, -991, 661, -32, -348, -474, -439, -56, 507, 736, 635, -171, -215, 564, -710, 710, 565, 892, 970, -755, 55, 821, -3, -153, 240, -160, -610, -583, -27, 131]), [-991, -848, -764, -755, -710, -706, -646, -614, -610, -583, -484, -474, -439, -359, -348, -246, -215, -212, -171, -160, -153, -56, -32, -27, -3, 9, 12, 55, 107, 131, 222, 230, 240, 246, 427, 507, 564, 565, 568, 603, 635, 661, 710, 736, 787, 821, 892, 934, 970, 996])
+	
+	def test_case_14(self):
+		self.assertEqual(program.bubbleSort([991, -731, -882, 100, 280, -43, 432, 771, -581, 180, -382, -998, 847, 80, -220, 680, 769, -75, -817, 366, 956, 749, 471, 228, -435, -269, 652, -331, -387, -657, -255, 382, -216, -6, -163, -681, 980, 913, -169, 972, -523, 354, 747, 805, 382, -827, -796, 372, 753, 519, 906]), [-998, -882, -827, -817, -796, -731, -681, -657, -581, -523, -435, -387, -382, -331, -269, -255, -220, -216, -169, -163, -75, -43, -6, 80, 100, 180, 228, 280, 354, 366, 372, 382, 382, 432, 471, 519, 652, 680, 747, 749, 753, 769, 771, 805, 847, 906, 913, 956, 972, 980, 991])
+	
+	def test_case_15(self):
+		self.assertEqual(program.bubbleSort([384, -67, 120, 759, 697, 232, -7, -557, -772, -987, 687, 397, -763, -86, -491, 947, 921, 421, 825, -679, 946, -562, -626, -898, 204, 776, -343, 393, 51, -796, -425, 31, 165, 975, -720, 878, -785, -367, -609, 662, -79, -112, -313, -94, 187, 260, 43, 85, -746, 612, 67, -389, 508, 777, 624, 993, -581, 34, 444, -544, 243, -995, 432, -755, -978, 515, -68, -559, 489, 732, -19, -489, 737, 924]), [-995, -987, -978, -898, -796, -785, -772, -763, -755, -746, -720, -679, -626, -609, -581, -562, -559, -557, -544, -491, -489, -425, -389, -367, -343, -313, -112, -94, -86, -79, -68, -67, -19, -7, 31, 34, 43, 51, 67, 85, 120, 165, 187, 204, 232, 243, 260, 384, 393, 397, 421, 432, 444, 489, 508, 515, 612, 624, 662, 687, 697, 732, 737, 759, 776, 777, 825, 878, 921, 924, 946, 947, 975, 993])
+	
+	def test_case_16(self):
+		self.assertEqual(program.bubbleSort([544, -578, 556, 713, -655, -359, -810, -731, 194, -531, -685, 689, -279, -738, 886, -54, -320, -500, 738, 445, -401, 993, -753, 329, -396, -924, -975, 376, 748, -356, 972, 459, 399, 669, -488, 568, -702, 551, 763, -90, -249, -45, 452, -917, 394, 195, -877, 153, 153, 788, 844, 867, 266, -739, 904, -154, -947, 464, 343, -312, 150, -656, 528, 61, 94, -581]), [-975, -947, -924, -917, -877, -810, -753, -739, -738, -731, -702, -685, -656, -655, -581, -578, -531, -500, -488, -401, -396, -359, -356, -320, -312, -279, -249, -154, -90, -54, -45, 61, 94, 150, 153, 153, 194, 195, 266, 329, 343, 376, 394, 399, 445, 452, 459, 464, 528, 544, 551, 556, 568, 669, 689, 713, 738, 748, 763, 788, 844, 867, 886, 904, 972, 993])
+	
+	def test_case_17(self):
+		self.assertEqual(program.bubbleSort([-19, 759, 168, 306, 270, -602, 558, -821, -599, 328, 753, -50, -568, 268, -92, 381, -96, 730, 629, 678, -837, 351, 896, 63, -85, 437, -453, -991, 294, -384, -628, -529, 518, 613, -319, -519, -220, -67, 834, 619, 802, 207, 946, -904, 295, 718, -740, -557, -560, 80, 296, -90, 401, 407, 798, 254, 154, 387, 434, 491, 228, 307, 268, 505, -415, -976, 676, -917, 937, -609, 593, -36, 881, 607, 121, -373, 915, -885, 879, 391, -158, 588, -641, -937, 986, 949, -321]), [-991, -976, -937, -917, -904, -885, -837, -821, -740, -641, -628, -609, -602, -599, -568, -560, -557, -529, -519, -453, -415, -384, -373, -321, -319, -220, -158, -96, -92, -90, -85, -67, -50, -36, -19, 63, 80, 121, 154, 168, 207, 228, 254, 268, 268, 270, 294, 295, 296, 306, 307, 328, 351, 381, 387, 391, 401, 407, 434, 437, 491, 505, 518, 558, 588, 593, 607, 613, 619, 629, 676, 678, 718, 730, 753, 759, 798, 802, 834, 879, 881, 896, 915, 937, 946, 949, 986])
+	
+	def test_case_18(self):
+		self.assertEqual(program.bubbleSort([-823, 164, 48, -987, 323, 399, -293, 183, -908, -376, 14, 980, 965, 842, 422, 829, 59, 724, -415, -733, 356, -855, -155, 52, 328, -544, -371, -160, -942, -51, 700, -363, -353, -359, 238, 892, -730, -575, 892, 490, 490, 995, 572, 888, -935, 919, -191, 646, -120, 125, -817, 341, -575, 372, -874, 243, 610, -36, -685, -337, -13, 295, 800, -950, -949, -257, 631, -542, 201, -796, 157, 950, 540, -846, -265, 746, 355, -578, -441, -254, -941, -738, -469, -167, -420, -126, -410, 59]), [-987, -950, -949, -942, -941, -935, -908, -874, -855, -846, -823, -817, -796, -738, -733, -730, -685, -578, -575, -575, -544, -542, -469, -441, -420, -415, -410, -376, -371, -363, -359, -353, -337, -293, -265, -257, -254, -191, -167, -160, -155, -126, -120, -51, -36, -13, 14, 48, 52, 59, 59, 125, 157, 164, 183, 201, 238, 243, 295, 323, 328, 341, 355, 356, 372, 399, 422, 490, 490, 540, 572, 610, 631, 646, 700, 724, 746, 800, 829, 842, 888, 892, 892, 919, 950, 965, 980, 995])
+	
+
+if __name__ == "__main__":
+	unittest.main(verbosity=2)
+`,
       jsWalkThrough: [
         `Step One: Create a function definition called "bubbleSort" which takes an array and takes a parameter named "array", return the parameter as well`,
         `Step Two: Create a boolean flag that will keep track of when a swap will occur inside of a do "while loop"`,
@@ -1965,7 +2467,7 @@ function postOrderTraverse(tree, array) {
     Question.create({
       name: 'Insertion Sort',
       published: true,
-      description: 'Implement the insertionSort function to sort any array',
+      description: 'Write a function called "insertionSort" that takes in an unsorted array and return a sorted array. Use the Insertion Sort algorithm to sort the array.',
       javascriptSolution: `
       function insertionSort(array) {
         for (let i = 0; i < array.length; i++) {
@@ -1980,7 +2482,21 @@ function postOrderTraverse(tree, array) {
         return array;
       }
       `,
-      pythonSolution: '',
+      pythonSolution:
+        `
+def insertionSort(array):
+    # Write your code here.
+    for i in range(len(array)):
+        idx = 0
+        swap = array[i]
+        while array[i] > array[idx]:
+            idx += 1
+        for x in range(i, idx, -1):
+            array[x] = array[x-1]
+        array[idx] = swap
+    return array
+`
+      ,
       functionName: 'insertionSort',
       javascriptTestFile: `
       const chai = require('chai')
@@ -2014,7 +2530,71 @@ function postOrderTraverse(tree, array) {
         })
       })
       `,
-      pythonTestFile: '',
+      pythonTestFile:
+        `
+import program
+import unittest
+
+class TestProgram(unittest.TestCase):
+	
+	def test_case_1(self):
+		self.assertEqual(program.insertionSort([1]), [1])
+	
+	def test_case_2(self):
+		self.assertEqual(program.insertionSort([1, 2]), [1, 2])
+	
+	def test_case_3(self):
+		self.assertEqual(program.insertionSort([2, 1]), [1, 2])
+	
+	def test_case_4(self):
+		self.assertEqual(program.insertionSort([1, 3, 2]), [1, 2, 3])
+	
+	def test_case_5(self):
+		self.assertEqual(program.insertionSort([3, 1, 2]), [1, 2, 3])
+	
+	def test_case_6(self):
+		self.assertEqual(program.insertionSort([1, 2, 3]), [1, 2, 3])
+	
+	def test_case_7(self):
+		self.assertEqual(program.insertionSort([-4, 5, 10, 8, -10, -6, -4, -2, -5, 3, 5, -4, -5, -1, 1, 6, -7, -6, -7, 8]), [-10, -7, -7, -6, -6, -5, -5, -4, -4, -4, -2, -1, 1, 3, 5, 5, 6, 8, 8, 10])
+	
+	def test_case_8(self):
+		self.assertEqual(program.insertionSort([-7, 2, 3, 8, -10, 4, -6, -10, -2, -7, 10, 5, 2, 9, -9, -5, 3, 8]), [-10, -10, -9, -7, -7, -6, -5, -2, 2, 2, 3, 3, 4, 5, 8, 8, 9, 10])
+	
+	def test_case_9(self):
+		self.assertEqual(program.insertionSort([8, -6, 7, 10, 8, -1, 6, 2, 4, -5, 1, 10, 8, -10, -9, -10, 8, 9, -2, 7, -2, 4]), [-10, -10, -9, -6, -5, -2, -2, -1, 1, 2, 4, 4, 6, 7, 7, 8, 8, 8, 8, 9, 10, 10])
+	
+	def test_case_10(self):
+		self.assertEqual(program.insertionSort([5, -2, 2, -8, 3, -10, -6, -1, 2, -2, 9, 1, 1]), [-10, -8, -6, -2, -2, -1, 1, 1, 2, 2, 3, 5, 9])
+	
+	def test_case_11(self):
+		self.assertEqual(program.insertionSort([2, -2, -6, -10, 10, 4, -8, -1, -8, -4, 7, -4, 0, 9, -9, 0, -9, -9, 8, 1, -4, 4, 8, 5, 1, 5, 0, 0, 2, -10]), [-10, -10, -9, -9, -9, -8, -8, -6, -4, -4, -4, -2, -1, 0, 0, 0, 0, 1, 1, 2, 2, 4, 4, 5, 5, 7, 8, 8, 9, 10])
+	
+	def test_case_12(self):
+		self.assertEqual(program.insertionSort([4, 1, 5, 0, -9, -3, -3, 9, 3, -4, -9, 8, 1, -3, -7, -4, -9, -1, -7, -2, -7, 4]), [-9, -9, -9, -7, -7, -7, -4, -4, -3, -3, -3, -2, -1, 0, 1, 1, 3, 4, 4, 5, 8, 9])
+	
+	def test_case_13(self):
+		self.assertEqual(program.insertionSort([427, 787, 222, 996, -359, -614, 246, 230, 107, -706, 568, 9, -246, 12, -764, -212, -484, 603, 934, -848, -646, -991, 661, -32, -348, -474, -439, -56, 507, 736, 635, -171, -215, 564, -710, 710, 565, 892, 970, -755, 55, 821, -3, -153, 240, -160, -610, -583, -27, 131]), [-991, -848, -764, -755, -710, -706, -646, -614, -610, -583, -484, -474, -439, -359, -348, -246, -215, -212, -171, -160, -153, -56, -32, -27, -3, 9, 12, 55, 107, 131, 222, 230, 240, 246, 427, 507, 564, 565, 568, 603, 635, 661, 710, 736, 787, 821, 892, 934, 970, 996])
+	
+	def test_case_14(self):
+		self.assertEqual(program.insertionSort([991, -731, -882, 100, 280, -43, 432, 771, -581, 180, -382, -998, 847, 80, -220, 680, 769, -75, -817, 366, 956, 749, 471, 228, -435, -269, 652, -331, -387, -657, -255, 382, -216, -6, -163, -681, 980, 913, -169, 972, -523, 354, 747, 805, 382, -827, -796, 372, 753, 519, 906]), [-998, -882, -827, -817, -796, -731, -681, -657, -581, -523, -435, -387, -382, -331, -269, -255, -220, -216, -169, -163, -75, -43, -6, 80, 100, 180, 228, 280, 354, 366, 372, 382, 382, 432, 471, 519, 652, 680, 747, 749, 753, 769, 771, 805, 847, 906, 913, 956, 972, 980, 991])
+	
+	def test_case_15(self):
+		self.assertEqual(program.insertionSort([384, -67, 120, 759, 697, 232, -7, -557, -772, -987, 687, 397, -763, -86, -491, 947, 921, 421, 825, -679, 946, -562, -626, -898, 204, 776, -343, 393, 51, -796, -425, 31, 165, 975, -720, 878, -785, -367, -609, 662, -79, -112, -313, -94, 187, 260, 43, 85, -746, 612, 67, -389, 508, 777, 624, 993, -581, 34, 444, -544, 243, -995, 432, -755, -978, 515, -68, -559, 489, 732, -19, -489, 737, 924]), [-995, -987, -978, -898, -796, -785, -772, -763, -755, -746, -720, -679, -626, -609, -581, -562, -559, -557, -544, -491, -489, -425, -389, -367, -343, -313, -112, -94, -86, -79, -68, -67, -19, -7, 31, 34, 43, 51, 67, 85, 120, 165, 187, 204, 232, 243, 260, 384, 393, 397, 421, 432, 444, 489, 508, 515, 612, 624, 662, 687, 697, 732, 737, 759, 776, 777, 825, 878, 921, 924, 946, 947, 975, 993])
+	
+	def test_case_16(self):
+		self.assertEqual(program.insertionSort([544, -578, 556, 713, -655, -359, -810, -731, 194, -531, -685, 689, -279, -738, 886, -54, -320, -500, 738, 445, -401, 993, -753, 329, -396, -924, -975, 376, 748, -356, 972, 459, 399, 669, -488, 568, -702, 551, 763, -90, -249, -45, 452, -917, 394, 195, -877, 153, 153, 788, 844, 867, 266, -739, 904, -154, -947, 464, 343, -312, 150, -656, 528, 61, 94, -581]), [-975, -947, -924, -917, -877, -810, -753, -739, -738, -731, -702, -685, -656, -655, -581, -578, -531, -500, -488, -401, -396, -359, -356, -320, -312, -279, -249, -154, -90, -54, -45, 61, 94, 150, 153, 153, 194, 195, 266, 329, 343, 376, 394, 399, 445, 452, 459, 464, 528, 544, 551, 556, 568, 669, 689, 713, 738, 748, 763, 788, 844, 867, 886, 904, 972, 993])
+	
+	def test_case_17(self):
+		self.assertEqual(program.insertionSort([-19, 759, 168, 306, 270, -602, 558, -821, -599, 328, 753, -50, -568, 268, -92, 381, -96, 730, 629, 678, -837, 351, 896, 63, -85, 437, -453, -991, 294, -384, -628, -529, 518, 613, -319, -519, -220, -67, 834, 619, 802, 207, 946, -904, 295, 718, -740, -557, -560, 80, 296, -90, 401, 407, 798, 254, 154, 387, 434, 491, 228, 307, 268, 505, -415, -976, 676, -917, 937, -609, 593, -36, 881, 607, 121, -373, 915, -885, 879, 391, -158, 588, -641, -937, 986, 949, -321]), [-991, -976, -937, -917, -904, -885, -837, -821, -740, -641, -628, -609, -602, -599, -568, -560, -557, -529, -519, -453, -415, -384, -373, -321, -319, -220, -158, -96, -92, -90, -85, -67, -50, -36, -19, 63, 80, 121, 154, 168, 207, 228, 254, 268, 268, 270, 294, 295, 296, 306, 307, 328, 351, 381, 387, 391, 401, 407, 434, 437, 491, 505, 518, 558, 588, 593, 607, 613, 619, 629, 676, 678, 718, 730, 753, 759, 798, 802, 834, 879, 881, 896, 915, 937, 946, 949, 986])
+	
+	def test_case_18(self):
+		self.assertEqual(program.insertionSort([-823, 164, 48, -987, 323, 399, -293, 183, -908, -376, 14, 980, 965, 842, 422, 829, 59, 724, -415, -733, 356, -855, -155, 52, 328, -544, -371, -160, -942, -51, 700, -363, -353, -359, 238, 892, -730, -575, 892, 490, 490, 995, 572, 888, -935, 919, -191, 646, -120, 125, -817, 341, -575, 372, -874, 243, 610, -36, -685, -337, -13, 295, 800, -950, -949, -257, 631, -542, 201, -796, 157, 950, 540, -846, -265, 746, 355, -578, -441, -254, -941, -738, -469, -167, -420, -126, -410, 59]), [-987, -950, -949, -942, -941, -935, -908, -874, -855, -846, -823, -817, -796, -738, -733, -730, -685, -578, -575, -575, -544, -542, -469, -441, -420, -415, -410, -376, -371, -363, -359, -353, -337, -293, -265, -257, -254, -191, -167, -160, -155, -126, -120, -51, -36, -13, 14, 48, 52, 59, 59, 125, 157, 164, 183, 201, 238, 243, 295, 323, 328, 341, 355, 356, 372, 399, 422, 490, 490, 540, 572, 610, 631, 646, 700, 724, 746, 800, 829, 842, 888, 892, 892, 919, 950, 965, 980, 995])
+	
+
+if __name__ == "__main__":
+	unittest.main(verbosity=2)
+`,
       categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
@@ -2033,12 +2613,12 @@ function postOrderTraverse(tree, array) {
       userId: userIdsObj.admin
     }),
     Question.create({
-      name: 'even_or_odd',
+      name: 'Even Or Odd',
       published: true,
       description:
-        "Create a function that takes an integer as an argument and returns 'even' for even numbers, or 'odd' for odd numbers.",
+        'Write a function called "evenOrOdd" that takes an integer as an argument and returns "even" for even numbers, or "odd" for odd numbers.',
       javascriptSolution: `
-        function even_or_odd(number) {
+        function evenOrOdd(number) {
           if (number % 2 === 0) {
             return 'even'
           } else {
@@ -2046,54 +2626,80 @@ function postOrderTraverse(tree, array) {
           }
         }
       `,
-      pythonSolution: '',
-      functionName: 'even_or_odd',
+      pythonSolution:
+        `
+def evenOrOdd(number):
+    if number % 2 == 0:
+        return 'even'
+    else:
+        return 'odd'
+`,
+      functionName: 'evenOrOdd',
       javascriptTestFile: `
       const chai = require('chai')
       let expect = chai.expect;
 
-      describe('Solution for even_or_odd', () => {
-
-        let even_or_oddFunc
-        beforeEach(function() {
-          even_or_oddFunc = even_or_odd
-        })
+      describe('Solution for evenOrOdd', () => {
 
         it('Test Case #1', function () {
-          let result = even_or_oddFunc(5)
+          let result = evenOrOdd(5)
           expect(result).to.deep.equal('odd');
         });
 
         it('Test Case #2', function () {
-          let result = even_or_oddFunc(6)
+          let result = evenOrOdd(6)
           expect(result).to.deep.equal('even');
         });
 
         it('Test Case #3', function () {
-          let result = even_or_oddFunc(-6)
+          let result = evenOrOdd(-6)
           expect(result).to.deep.equal('even');
         });
 
         it('Test Case #4', function () {
-          let result = even_or_oddFunc(99)
+          let result = evenOrOdd(99)
           expect(result).to.deep.equal('odd');
         });
 
         it('Test Case #5', function () {
-          let result = even_or_oddFunc(0)
+          let result = evenOrOdd(0)
           expect(result).to.deep.equal('even');
         });
 
         it('Test Case #6', function() {
-          let result = even_or_oddFunc(33)
+          let result = evenOrOdd(33)
           expect(result).to.deep.equal('odd');
         })
       })
       `,
-      pythonTestFile: '',
+      pythonTestFile:
+`
+import program
+import unittest
+
+class TestProgram(unittest.TestCase):
+	
+	def test_case_1(self):
+		self.assertEqual(program.evenOrOdd(0), 'even')
+	
+	def test_case_2(self):
+		self.assertEqual(program.evenOrOdd(-55), 'odd')
+	
+	def test_case_3(self):
+		self.assertEqual(program.evenOrOdd(-556), 'even')
+	
+	def test_case_4(self):
+		self.assertEqual(program.evenOrOdd(9.00), 'odd')
+	
+	def test_case_5(self):
+		self.assertEqual(program.evenOrOdd(9.99), 'odd')
+
+if __name__ == "__main__":
+	unittest.main(verbosity=2)
+`,
       jsWalkThrough: [
         `
-      Step One: Create a function named "even_or_odd" that takes an a variable called number.
+      Step One: Create a function named "evenOrOdd" that takes an a variable called number.
       `,
         `
       Step Two: Create an if statement that will return 'even' if the number is an even number.
@@ -2105,19 +2711,19 @@ function postOrderTraverse(tree, array) {
       ],
       jsSolutionWT: [
         `
-      function even_or_odd(number) {
+      function evenOrOdd(number) {
         // Your logic goes here...
       }
       `,
         `
-      function even_or_odd(number) {
+      function evenOrOdd(number) {
         if (number % 2 === 0) {
           return 'even'
         }
       }
       `,
         `
-      function even_or_odd(number) {
+      function evenOrOdd(number) {
         if (number % 2 === 0) {
           return 'even'
         } else {

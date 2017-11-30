@@ -21,10 +21,13 @@ export const forumComments = comments => ({ type: GET_COMMENTS, comments })
  */
 export const getForumComments = title => {
   return function thunk(dispatch) {
+    console.log('from the store', title)
     axios
       .post('/api/forum/comments', { title })
       .then(res => {
+        console.log('res from store', res)
         const comments = res.data
+        console.log('comments from store', comments)
         dispatch(forumComments(comments))
       })
       .catch(console.err)
@@ -83,6 +86,7 @@ export default function(state = defaultForumComments, action) {
   let newState = state
   switch (action.type) {
     case GET_COMMENTS:
+    console.log(action.comments)
       newState = action.comments
       return newState
     default:

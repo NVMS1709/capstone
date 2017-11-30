@@ -37,18 +37,18 @@ class AuthForm extends Component {
                   name="login"
                 >
                   <div className="inputs">
-                    <label htmlFor="email">
-                      <small>Email</small>
-                    </label>
-                    <input name="email" type="text" size="38" />
-                    <label htmlFor="password">
-                      <small>Password</small>
-                    </label>
-                    <input name="password" type="password" size="38" />
+                    <div className="modal-input-row">
+                      <label className="modal-input-label" htmlFor="email">Email</label>
+                      <input name="email" type="text" size="38" />
+                    </div>
+                    <div className="modal-input-row">
+                      <label className="modal-input-label" htmlFor="password">Password</label>
+                      <input name="password" type="password" size="38" />
+                    </div>
                   </div>
-                  <div className="oauth-buttons">
-                    <button style={{ width: 160, padding: 3 }} type="submit">
-                      L o g i n
+                  <div id="modal-login-button-container">
+                    <button id="modal-login-button" type="submit">
+                      LOGIN
                     </button>
                   </div>
                   {error &&
@@ -61,77 +61,75 @@ class AuthForm extends Component {
                 </form>
               </div>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <a href="/auth/github">
-                  <img src="/github.png" style={{ height: 35 }} />
+                <a className="OAuth-buttons-container" href="/auth/github">
+                  <img src="/GitHub-Mark-64px.png" style={{ maxHeight: 25, maxWidth: 25 }} />
+                  <div className="OAuth-content">Sign in with Github</div>
                 </a>
               </div>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <a href="/auth/google">
-                  <img src="/google.png" style={{ height: 35.75 }} />
+                <a className="OAuth-buttons-container" href="/auth/google">
+                  <img src="https://developers.google.com/site-assets/logo-google-g.svg" style={{ maxHeight: 25, maxWidth: 25 }} />
+                  <div className="OAuth-content">Sign in with Google</div>
                 </a>
               </div>
               <div className="not-user-sign-up">
-                <span>Not a user? </span>
                 <a className="toggle-view-auth-sign" onClick={this.toggleView}>
-                  {' '}
-                  Sign Up{' '}
+                  Sign Up
                 </a>
               </div>
             </div>
           </div>
         ) : (
-          <div className="oauth-box">
-            <div className="login-box">
-              <div>
-                <form
-                  onSubmit={event => {
-                    event.preventDefault()
-                    handleSubmit(event, this.props.history.location.pathname)
-                  }}
-                  name="signup"
-                >
-                  <div className="inputs">
-                    <label htmlFor="email">
-                      <small>Email</small>
-                    </label>
-                    <input name="email" type="text" size="38" />
-                    <label htmlFor="password">
-                      <small>Password</small>
-                    </label>
-                    <input name="password" type="password" size="38" />
-                  </div>
-                  <div className="oauth-buttons">
-                    <button
-                      style={{
-                        backgroundColor: 'rgb(227, 227, 227)',
-                        swidth: 160,
-                        padding: 3
-                      }}
-                      type="submit"
-                    >
-                      Create Account
+            <div className="oauth-box">
+              <div className="login-box">
+                <div>
+                  <form
+                    onSubmit={event => {
+                      event.preventDefault()
+                      handleSubmit(event, this.props.history.location.pathname)
+                    }}
+                    name="signup"
+                  >
+                    <div className="inputs">
+                      <label htmlFor="email">
+                        <small>Email</small>
+                      </label>
+                      <input name="email" type="text" size="38" />
+                      <label htmlFor="password">
+                        <small>Password</small>
+                      </label>
+                      <input name="password" type="password" size="38" />
+                    </div>
+                    <div className="oauth-buttons">
+                      <button
+                        style={{
+                          backgroundColor: 'rgb(227, 227, 227)',
+                          swidth: 160,
+                          padding: 3
+                        }}
+                        type="submit"
+                      >
+                        Create Account
                     </button>
-                  </div>
+                    </div>
 
-                  {error &&
-                    error.response && (
-                      <div className="error-handled">
-                        {' '}
-                        {error.response.data}{' '}
-                      </div>
-                    )}
-                </form>
-              </div>
-              <div className="not-user-sign-up">
-                <p>Already a User? </p>
-                <p className="toggle-view-auth-sign" onClick={this.toggleView}>
-                  {' '}
-                  Sign In{' '}
-                </p>
+                    {error &&
+                      error.response && (
+                        <div className="error-handled">
+                          {' '}
+                          {error.response.data}{' '}
+                        </div>
+                      )}
+                  </form>
+                </div>
+                <div className="not-user-sign-up">
+                  <p className="toggle-view-auth-sign" onClick={this.toggleView}>
+                    Sign In
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
     )
   }
