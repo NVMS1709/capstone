@@ -13,7 +13,8 @@ class reactAce extends Component {
     this.onChange = this.onChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
     this.state = {
-      localAlgorithmInput: ''
+      localAlgorithmInput: '',
+      underlineText: false
     }
   }
 
@@ -23,6 +24,12 @@ class reactAce extends Component {
 
   onSubmit(event) {
     event.preventDefault()
+
+    this.setState({ underlineText: true })
+    setTimeout(() => {
+      this.setState({ underlineText: false })
+    }, 100)
+
     const submission = {
       algorithmInput: this.state.localAlgorithmInput,
       language: this.props.language.toLowerCase()
@@ -50,7 +57,7 @@ class reactAce extends Component {
           />
         </div>
         <div className="run-button-container">
-          <button onClick={this.onSubmit}>Submit</button>
+          <button onClick={this.onSubmit} style={this.state.underlineText ? { textDecoration: 'underline' } : {}}>Submit</button>
         </div>
       </div>
     )

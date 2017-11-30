@@ -139,11 +139,11 @@ class UserAlgorithmSubmissionPage extends Component {
     }
 
     handleOutputMode(event) {
-        if (event.target.textContent === 'Validation Custom Output') {
+        if (event.target.textContent === 'Validation Test Output') {
             this.setState({ outputMode: 'ValidationCustomOutput' })
         } else if (event.target.textContent === 'Test Cases') {
             this.setState({ outputMode: 'TestCases' })
-        } else if (event.target.textContent === 'Validation Raw Output') {
+        } else if (event.target.textContent === 'Validation Detailed Output') {
             this.setState({ outputMode: 'ValidationRawOutput' })
         }
     }
@@ -574,7 +574,7 @@ class UserAlgorithmSubmissionPage extends Component {
                 .catch((error) => {
                     (new Promise(resolve => {
                         setTimeout(() => {
-                            this.setState({ processingInfo: 'FAILED TO DELETE' }, ()=>{
+                            this.setState({ processingInfo: 'FAILED TO DELETE' }, () => {
                                 resolve()
                             })
                         }, 1000)
@@ -780,7 +780,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                 onClick={this.onValidate}
                                 style={this.state.colorValidationButton
                                     ?
-                                    { backgroundColor: 'white' }
+                                    { textDecoration: 'underline' }
                                     :
                                     {}}>
                                 ➩ Validate Solution
@@ -805,7 +805,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                 onClick={this.handleOutputMode}
                                 style={this.state.outputMode === 'TestCases'
                                     ?
-                                    { border: '1px solid black', borderBottom: 'none' }
+                                    { border: '1px solid black' }
                                     :
                                     {}}>
                                 Test Cases
@@ -814,19 +814,19 @@ class UserAlgorithmSubmissionPage extends Component {
                                 onClick={this.handleOutputMode}
                                 style={this.state.outputMode === 'ValidationCustomOutput'
                                     ?
-                                    { border: '1px solid black', borderBottom: 'none' }
+                                    { border: '1px solid black' }
                                     :
                                     {}}>
-                                Validation Custom Output
+                                Validation Test Output
                             </button>
                             <button
                                 onClick={this.handleOutputMode}
                                 style={this.state.outputMode === 'ValidationRawOutput'
                                     ?
-                                    { border: '1px solid black', borderBottom: 'none' }
+                                    { border: '1px solid black' }
                                     :
                                     {}}>
-                                Validation Raw Output
+                                Validation Detailed Output
                             </button>
                         </div>
                         {

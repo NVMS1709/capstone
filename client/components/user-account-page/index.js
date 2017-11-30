@@ -29,6 +29,7 @@ class UserPage extends Component {
           <Link className="sidebar-link" to="/user/completed questions" onClick={this.toggleEditView} style={this.state.editView === 'Completed Questions' ? { textDecoration: 'underline' } : {}}>Completed Questions</Link>
           <Link className="sidebar-link" to="/user/authored questions" onClick={this.toggleEditView} style={this.state.editView === 'Authored Questions' ? { textDecoration: 'underline' } : {}}>Authored Questions</Link>
           <Link className="sidebar-link" to="/user/change password" onClick={this.toggleEditView} style={this.state.editView === 'Change Password' ? { textDecoration: 'underline' } : {}}>Change Password</Link>
+          <Link className="sidebar-link" to="/user-submission" onClick={this.toggleEditView} style={this.state.editView === 'Create Question' ? { textDecoration: 'underline' } : {}}>Create Question</Link>
         </div>
         <div id="user-setting-container">
           {

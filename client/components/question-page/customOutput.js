@@ -1,7 +1,7 @@
 import React from 'react'
 //cannot drag horizontal scrollbar
 const CustomOutput = props => (
-  <div className="scroll-viewer">
+  <div id="customoutput-scroll-viewer" >
     <pre className="raw-output">
       {props.testResult.map((result, idx) => (
         <p

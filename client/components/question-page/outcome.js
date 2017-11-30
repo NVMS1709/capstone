@@ -16,17 +16,18 @@ class Outcome extends Component {
   }
 
   handleOutputMode(event) {
-    if (event.target.textContent === 'Raw Output') {
+    if (event.target.textContent === 'Detailed Output') {
       this.setState({ outputMode: 'rawOutput' })
     }
     if (event.target.textContent === 'Tests') {
       this.setState({ outputMode: 'tests' })
     }
-    if (event.target.textContent === 'Custom Output') {
+    if (event.target.textContent === 'Test Outcome') {
       this.setState({ outputMode: 'customOutput' })
     }
   }
 
+  /* eslint-disable complexity*/
   render() {
     return (
       <div>
@@ -35,27 +36,27 @@ class Outcome extends Component {
             onClick={this.handleOutputMode}
             style={
               this.state.outputMode === 'customOutput'
-                ? { border: '1px solid black', borderBottom: 'none' }
+                ? { border: '1px solid black' }
                 : {}
             }
           >
-            Custom Output
+            Test Outcome
           </button>
           <button
             onClick={this.handleOutputMode}
             style={
               this.state.outputMode === 'rawOutput'
-                ? { border: '1px solid black', borderBottom: 'none' }
+                ? { border: '1px solid black' }
                 : {}
             }
           >
-            Raw Output
+            Detailed Output
           </button>
           <button
             onClick={this.handleOutputMode}
             style={
               this.state.outputMode === 'tests'
-                ? { border: '1px solid black', borderBottom: 'none' }
+                ? { border: '1px solid black' }
                 : {}
             }
           >
@@ -68,32 +69,24 @@ class Outcome extends Component {
             testResult={this.props.testCustomResult}
           />
         ) : (
-          ''
-        )}
+            ''
+          )}
         {this.state.outputMode === 'rawOutput' ? (
           <RawOutput
             testResult={this.props.testResult}
-            color={
-              this.props.testCustomResult.length === 0
-                ? 'black'
-                : this.props.testCustomResult.find(
-                    test => test.outcome === 'failed'
-                  )
-                  ? 'red'
-                  : 'green'
-            }
+            color="black"
           />
         ) : (
-          ''
-        )}
+            ''
+          )}
         {this.state.outputMode === 'tests' ? (
           <Tests
             tests={this.props.currentQuestion[`${this.props.language}TestFile`]}
             language={this.props.language}
           />
         ) : (
-          ''
-        )}
+            ''
+          )}
       </div>
     )
   }

@@ -20,7 +20,7 @@ const RandomQuestion = (props) => {
     return (
         <div id="random-question-container">
             <div id="question-column-container">
-                {currentRandomQuestion && <div>Your Next Challenge   ➩ <Link id="randomQuestionLink" to={`/questions/${currentRandomQuestion.name}`}>{currentRandomQuestion.name}</Link></div>}
+                {currentRandomQuestion && <div>{props.user.name}, your next challenge   ➩ <Link id="randomQuestionLink" to={`/questions/${currentRandomQuestion.name}`}>{currentRandomQuestion.name}</Link></div>}
             </div>
         </div>
     )

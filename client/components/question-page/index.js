@@ -6,16 +6,23 @@ import QuestionDescription from './question'
 import { connect } from 'react-redux'
 import Comments from './comments/index'
 import { setCustomResult, setResult } from '../../store'
+import Modal from '../modal'
+import AuthForm from '../auth-form'
 
 class QuestionPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
       mode: 'Prompt',
-      language: 'Javascript'
+      language: 'Javascript',
+      loading: false
     }
     this.setMode = this.setMode.bind(this)
     this.setLanguage = this.setLanguage.bind(this)
+  }
+
+  componentDidMount() {
+    setTimeout(() => this.setState({ loading: true }), 675)
   }
 
   componentWillUnmount() {
@@ -32,12 +39,22 @@ class QuestionPage extends Component {
   }
 
   render() {
-    console.log(
-      this.props.currentQuestion &&
-        this.props.currentQuestion.jsWalkThrough.length > 1
-    )
+    const user = this.props.user
     return (
       <div>
+        {user.id ? (
+          ''
+        ) : (
+          <div>
+            {this.state.loading ? (
+              <Modal>
+                <AuthForm history={this.props.ownProps} />
+              </Modal>
+            ) : (
+              ''
+            )}
+          </div>
+        )}
         <div className="repl-container">
           <div className="left-container">
             {this.props.currentQuestion && (
@@ -141,6 +158,8 @@ class QuestionPage extends Component {
 
 const mapState = (state, ownProps) => {
   return {
+    ownProps: ownProps,
+    user: state.user,
     currentQuestion:
       state.questions &&
       state.questions.find(
