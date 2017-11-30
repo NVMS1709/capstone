@@ -79,6 +79,7 @@ class Discussion extends Component {
   }
 
   render() {
+    console.log('forum title', this.forumTitle)
     this.forumTitle =
       this.props &&
       this.props.forum.filter(forum => forum.title === this.props.titleForum)[0]

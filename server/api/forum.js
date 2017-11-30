@@ -28,13 +28,15 @@ router.delete('/:id', (req, res, next) => {
 
 router.post('/comments', (req, res, next) => {
   Forum.findOne({ where: { title: req.body.title } })
-    .then(comments =>
-      ForumComment.findAll({
+    .then(comments => {
+      return ForumComment.findAll({
         where: { forumId: comments.id },
         include: [{ model: User, required: true }]
       })
-    )
-    .then(comments => res.json(comments))
+    })
+    .then(comments => {
+      res.json(comments)
+    })
     .catch(next)
 })
 

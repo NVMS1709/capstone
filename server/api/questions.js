@@ -1,9 +1,9 @@
 const router = require('express').Router()
-const { Question, Difficulty, Category } = require('../db/models')
+const { Question, Difficulty, Category, Company } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  Question.findAll({ include: [Difficulty, Category] })
+  Question.findAll({ include: [Difficulty, Category, Company] })
     .then(questions => res.json(questions))
     .catch(next)
 })
@@ -89,4 +89,3 @@ router.delete('/:questionId', (req, res, next) => {
     })
     .catch(next)
 })
-
