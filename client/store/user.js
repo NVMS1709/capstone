@@ -61,7 +61,6 @@ export const userUpdate = (id, user) => dispatch => {
 }
 
 export const passwordUpdate = (id, user) => dispatch => {
-  console.log('HERE IN THUNK')
   return axios
     .put(`/api/users/password/${id}`, user)
     .then(results => {
