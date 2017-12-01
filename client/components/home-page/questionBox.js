@@ -32,7 +32,7 @@ class QuestionBox extends Component {
 
   render() {
     let { categories, difficulties } = this.props
-    let google, facebook
+    let google, facebook, microsoft
 
     categories = categories.map(category => {
       category.questions = category.questions.filter(
@@ -54,15 +54,19 @@ class QuestionBox extends Component {
         if (question.company) return question.company.name === 'Google'
       })
 
+    microsoft =
+      this.props &&
+      this.props.questions.filter(question => {
+        if (question.company) return question.company.name === 'Microsoft'
+      })
+
     facebook =
       this.props &&
       this.props.questions.filter(question => {
         if (question.company) return question.company.name === 'Facebook'
       })
 
-    // console.log(facebook)
-    // console.log(google)
-    const companies = [facebook, google]
+    const companies = [facebook, google, microsoft]
 
     return (
       <div id="homepage-bottom-container">
@@ -138,6 +142,52 @@ class QuestionBox extends Component {
           ''
         )}
         {/* 'here' */}
+        {/* 'here' */}
+        {/* 'here' */}
+        {/* 'here' */}
+        {this.state.groupBy === 'Group by Company' ? (
+          <div id="box-container">
+            {companies.map(company => {
+              return (
+                <div
+                  value={company[0].company.id}
+                  key={company[0].company.id}
+                  onMouseEnter={this.showQuestions}
+                  onMouseLeave={this.hideQuestions}
+                  className="box"
+                >
+                  <div value={company[0].id} className="title">
+                    {company[0].company.name}
+                  </div>
+                  {+this.state.showQuestions === company[0].company.id ? (
+                    <div className="questions">
+                      {company.map(question => (
+                        <div key={question.id}>
+                          <Link
+                            to={`/questions/${question.name}`}
+                            className="question-link"
+                          >
+                            {question.name}
+                          </Link>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div value={company[0].company.id} className="description">
+                      {company[0].company.description}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          ''
+        )}
+        {/* 'here' */}
+        {/* 'here' */}
+        {/* 'here' */}
+        {/* 'here' */}
         {this.state.groupBy === 'Group by Difficulty' ? (
           <div id="difficulty-container">
             {difficulties.map(difficulty => (
@@ -162,32 +212,6 @@ class QuestionBox extends Component {
           ''
         )}
         {/* 'here' */}
-        {this.state.groupBy === 'Group by Company' ? (
-          <div id="difficulty-container">
-            {companies.map(company => {
-              console.log('COMPANY', company)
-              return (
-                <div className="difficulty-box" key={company[0].id}>
-                  <div className="title">{company[0].company.name}</div>
-                  <div className="questions">
-                    {company.map(question => (
-                      <div key={question.id}>
-                        <Link
-                          to={`/questions/${question.name}`}
-                          className="question-link"
-                        >
-                          {question.name}
-                        </Link>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        ) : (
-          ''
-        )}
       </div>
     )
   }

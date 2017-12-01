@@ -32,9 +32,19 @@ async function seed() {
   // executed until that promise resolves!
 
   const companies = await Promise.all([
-    Company.create({ name: 'Google' }),
-    Company.create({ name: 'Facebook' }),
-    Company.create({ name: 'Microsoft' })
+    Company.create({
+      name: 'Google',
+      description:
+        'Google LLC is an American multinational technology company that specializes in Internet-related services and products. These include online advertising technologies, search, cloud computing, software, and hardware.'
+    }),
+    Company.create({
+      name: `Facebook`,
+      description: `Facebook is a popular social networking website that allows registered users to create profiles, upload photos and video, send messages and keep in touch with friends, family and colleagues.`
+    }),
+    Company.create({
+      name: 'Microsoft',
+      description: `Microsoft Corporation is an American multinational technology company with headquarters in Redmond, Washington. It develops, manufactures, licenses, supports and sells computer software, consumer electronics, personal computers, and services.`
+    })
   ]).then(companiesArr => {
     companiesArr.forEach(company => {
       companyIdsObj[company.name] = company.id
@@ -829,8 +839,7 @@ def inOrderTraverse(tree, array):
         chai.expect(postOrderTraverse(test3, [])).to.deep.equal([1, 1, 1, 1, 1, 3, 2, 5, 22, 15, 5, 203, 206, 208, 207, 205, 204, 55000, 502, 100]);
       });
       `,
-      pythonTestFile:
-        `
+      pythonTestFile: `
 import program
 import unittest
 
@@ -906,8 +915,7 @@ if __name__ == "__main__":
       companyId: companyIdsObj.Facebook,
       description:
         'Write a function named "duplicatesHash" that finds all duplicates in an array.  The array should only contain integers.  Attempt to utilize a hash table to store each element as we go throguh the array.',
-      javascriptSolution:
-        `
+      javascriptSolution: `
 function duplicatesHash(arr) {
   var hashTable = [];
   var dups = [];
@@ -919,8 +927,7 @@ function duplicatesHash(arr) {
   }
   return dups;
 }`,
-      pythonSolution:
-        `
+      pythonSolution: `
 def duplicatesHash(arr):
 
     # our hash table to store each element
@@ -1114,7 +1121,7 @@ class TestProgram(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
-          `,
+          `
     }),
     Question.create({
       name: 'Dutch Flag',
@@ -1268,7 +1275,8 @@ if __name__ == "__main__":
     Question.create({
       name: 'Merge Sort',
       published: true,
-      description: 'Write a function named "mergeSort". The idea behind this algorithm is that it combines two ordered arrays together',
+      description:
+        'Write a function named "mergeSort". The idea behind this algorithm is that it combines two ordered arrays together',
       javascriptSolution: `
 function mergeSort(array) {
   if(array.length < 2) {
@@ -1295,8 +1303,7 @@ function merge(left, right) {
   return array.concat(left.slice()).concat(right.slice());
 }
 `,
-      pythonSolution:
-        `
+      pythonSolution: `
 def mergeSort(nlist):
   if len(nlist)>1:
     mid = len(nlist)//2
@@ -1359,8 +1366,7 @@ describe('Merge Sort(Top-Down Implemention)', function() {
   })
 })
 `,
-      pythonTestFile:
-        `
+      pythonTestFile: `
 import program
 import unittest
 
@@ -1383,8 +1389,7 @@ class TestProgram(unittest.TestCase):
 
 if __name__ == "__main__":
 	unittest.main(verbosity=2)
-`
-      ,
+`,
       categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
@@ -1392,9 +1397,9 @@ if __name__ == "__main__":
     Question.create({
       name: 'Selection Sort',
       published: true,
-      description: 'Write a function named "selectionSort" that takes in an array of integers and returns a sorted version of that array. Use the Selection Sort algorithm to sort the array.',
-      javascriptSolution:
-        `
+      description:
+        'Write a function named "selectionSort" that takes in an array of integers and returns a sorted version of that array. Use the Selection Sort algorithm to sort the array.',
+      javascriptSolution: `
 function selectionSort(array) {
   for (let i = 0; i < array.length; i++) {
     let min = i;
@@ -1410,8 +1415,7 @@ function selectionSort(array) {
   return array;
 }
 `,
-      pythonSolution:
-        `
+      pythonSolution: `
 def selectionSort(array):
   currentIdx = 0
   while currentIdx < len(array) - 1:
@@ -1427,8 +1431,7 @@ def swap(i, j, array):
   array[i], array[j] = array[j], array[i]
 `,
       functionName: 'selectionSort',
-      javascriptTestFile:
-        `
+      javascriptTestFile: `
 const chai = require('chai')
   let expect = chai.expect
 
@@ -1460,8 +1463,7 @@ const chai = require('chai')
     })
 })
 `,
-      pythonTestFile:
-        `
+      pythonTestFile: `
 import program
 import unittest
 
@@ -1546,8 +1548,7 @@ if __name__ == "__main__":
       name: 'Queue',
       published: true,
       description: `Write a class function named 'Queue' to implement the Queue Data Structure. It contains the following methods: enqueue(), dequeue(), peek(), and print(). enqueue adds elements to the data structure, dequeue removes elements from the data structure, peek shows the first values in the queue but doesn't remove it, and print will just log all of the values.`,
-      javascriptSolution:
-        `
+      javascriptSolution: `
 class Queue {
   constructor() {
     this.queue = [];
@@ -1574,8 +1575,7 @@ class Queue {
   }
 }
 `,
-      pythonSolution:
-        `
+      pythonSolution: `
 `,
       functionName: 'Queue',
       javascriptTestFile: `
@@ -2284,8 +2284,7 @@ if __name__ == "__main__":
         } while(swapped);
         return array;
       }`,
-      pythonSolution:
-        `
+      pythonSolution: `
 def bubbleSort(array):
     # Write your code here.
     isSorted = False
@@ -2336,8 +2335,7 @@ def bubbleSort(array):
             expect(result).to.deep.equal([2, 3, 3, 5, 5, 8])
           })
       })`,
-      pythonTestFile:
-        `
+      pythonTestFile: `
 import program
 import unittest
 
@@ -2467,7 +2465,8 @@ if __name__ == "__main__":
     Question.create({
       name: 'Insertion Sort',
       published: true,
-      description: 'Write a function called "insertionSort" that takes in an unsorted array and return a sorted array. Use the Insertion Sort algorithm to sort the array.',
+      description:
+        'Write a function called "insertionSort" that takes in an unsorted array and return a sorted array. Use the Insertion Sort algorithm to sort the array.',
       javascriptSolution: `
       function insertionSort(array) {
         for (let i = 0; i < array.length; i++) {
@@ -2482,8 +2481,7 @@ if __name__ == "__main__":
         return array;
       }
       `,
-      pythonSolution:
-        `
+      pythonSolution: `
 def insertionSort(array):
     # Write your code here.
     for i in range(len(array)):
@@ -2495,8 +2493,7 @@ def insertionSort(array):
             array[x] = array[x-1]
         array[idx] = swap
     return array
-`
-      ,
+`,
       functionName: 'insertionSort',
       javascriptTestFile: `
       const chai = require('chai')
@@ -2530,8 +2527,7 @@ def insertionSort(array):
         })
       })
       `,
-      pythonTestFile:
-        `
+      pythonTestFile: `
 import program
 import unittest
 
@@ -2626,8 +2622,7 @@ if __name__ == "__main__":
           }
         }
       `,
-      pythonSolution:
-        `
+      pythonSolution: `
 def evenOrOdd(number):
     if number % 2 == 0:
         return 'even'
@@ -2672,8 +2667,7 @@ def evenOrOdd(number):
         })
       })
       `,
-      pythonTestFile:
-`
+      pythonTestFile: `
 import program
 import unittest
 
@@ -2737,9 +2731,72 @@ if __name__ == "__main__":
       userId: userIdsObj.admin
     }),
     Question.create({
+      name: 'Find Duplicates',
+      published: true,
+      description:
+        'Create a function called duplicates.  This function should find all the duplicates in an array where the numbers in the array are in the range of 0 to n-1 where n is the size of the array. For example: [1, 2, 3, 3] is okay but [1, 2, 6, 3] is not. In this version of the challenge there can be multiple duplicate numbers as well.',
+      javascriptSolution: `function duplicates(arr) {
+        var dups = []
+        for (var i = 0; i < arr.length; i++) {
+          var el = arr[Math.abs(arr[i])]
+          if (el > 0) {
+            arr[Math.abs(arr[i])] = -arr[Math.abs(arr[i])]
+          } else if (el === 0) {
+            arr[Math.abs(arr[i])] = -arr.length
+          } else {
+            if (Math.abs(arr[i]) === arr.length) {
+              dups.push(0)
+            } else {
+              dups.push(Math.abs(arr[i]))
+            }
+          }
+        }
+        return dups
+      }`,
+      pythonSolution: '',
+      functionName: 'dupilcates',
+      javascriptTestFile: `const chai = require('chai')
+      let expect = chai.expect
+
+      describe('Find Duplicate', function() {
+        it('produces desired result with', function() {
+          let result = duplicates([0, 2, 0, 1, 3, 3])
+          expect(result).to.deep.equal([0, 3])
+        })
+
+        it('produces desired result with', function() {
+          let result = duplicates([35, 31])
+          expect(result).to.deep.equal([35, 31])
+        })
+
+        it('produces desired result with', function() {
+          let result = duplicates([0, 1, 0, 1, 35, 31])
+          expect(result).to.deep.equal([0, 1, 35, 31])
+        })
+
+        it('produces desired result with', function() {
+          let result = duplicates([4, 5, 634, 63, 7, 7, 2, 74, 37, 45, 72, 2])
+          expect(result).to.deep.equal([634, 63, 7, 74, 37, 45, 72, 2])
+        })
+
+        it('produces desired result with', function() {
+          let result = duplicates([4, 11, 2422, 61, 100, -25, 15, -1255, 127])
+          expect(result).to.deep.equal([11, 2422, 61, 100, 25, 15, 1255, 127])
+        })
+      })
+    })
+    `,
+      pythonTestFile: '',
+      categoryId: categoryIdsObj.Arrays,
+      difficultyId: difficultyIdsObj.difficult,
+      userId: userIdsObj.admin
+    }),
+
+    Question.create({
       name: 'Max Profit',
       published: true,
-      description: 'You will be given a list of stock prices for a given day and your goal is to return the maximum profit that could have been made by buying a stock at the given price and then selling the stock later on. For example if the input is: [45, 24, 35, 31, 40, 38, 11] then your program should return 16 because if you bought the stock at $24 and sold it at $40, a profit of $16 was made and this is the largest profit that could be made. If no profit could have been made, return -1.',
+      description:
+        'You will be given a list of stock prices for a given day and your goal is to return the maximum profit that could have been made by buying a stock at the given price and then selling the stock later on. For example if the input is: [45, 24, 35, 31, 40, 38, 11] then your program should return 16 because if you bought the stock at $24 and sold it at $40, a profit of $16 was made and this is the largest profit that could be made. If no profit could have been made, return -1.',
       javascriptSolution: `function maxProfit(arr) {
         var max_profit = -1;
         var buy_price = 0;
@@ -2799,7 +2856,8 @@ if __name__ == "__main__":
     Question.create({
       name: 'Move Positions',
       published: true,
-      description: 'Write a JavaScript function to move an array element from one position to another.',
+      description:
+        'Write a JavaScript function to move an array element from one position to another.',
       javascriptSolution: `
       function movePosition(arr, old_index, new_index) {
         while (old_index < 0) {
@@ -2843,7 +2901,8 @@ if __name__ == "__main__":
     Question.create({
       name: 'Nth Largest',
       published: true,
-      description: 'Write a JavaScript function to get nth largest element from an unsorted arry.',
+      description:
+        'Write a JavaScript function to get nth largest element from an unsorted arry.',
       javascriptSolution: `
       function nthLargest(arr, n) {
         var x = 0,
@@ -2910,7 +2969,8 @@ if __name__ == "__main__":
       pythonTestFile: '',
       categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin
+      userId: userIdsObj.admin,
+      companyId: companyIdsObj.Microsoft
     })
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
