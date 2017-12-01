@@ -1804,7 +1804,7 @@ class TestProgram(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main(verbosity=2)
           `,
-      categoryId: categoryIdsObj.Recursion,
+      categoryId: categoryIdsObj.Arrays,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,
       companyId: companyIdsObj.Google
@@ -2783,58 +2783,191 @@ if __name__ == "__main__":
           let result = duplicates([4, 11, 2422, 61, 100, -25, 15, -1255, 127])
           expect(result).to.deep.equal([11, 2422, 61, 100, 25, 15, 1255, 127])
         })
+      })
+    })
+    `,
+      pythonTestFile: '',
+      categoryId: categoryIdsObj.Arrays,
+      difficultyId: difficultyIdsObj.difficult,
+      userId: userIdsObj.admin
+    }),
+
+    Question.create({
+      name: 'Max Profit',
+      published: true,
+      description:
+        'You will be given a list of stock prices for a given day and your goal is to return the maximum profit that could have been made by buying a stock at the given price and then selling the stock later on. For example if the input is: [45, 24, 35, 31, 40, 38, 11] then your program should return 16 because if you bought the stock at $24 and sold it at $40, a profit of $16 was made and this is the largest profit that could be made. If no profit could have been made, return -1.',
+      javascriptSolution: `function maxProfit(arr) {
+        var max_profit = -1;
+        var buy_price = 0;
+        var sell_price = 0;
+        var change_buy_index = true;
+
+        for (var i = 0; i < arr.length-1; i++) {
+
+          sell_price = arr[i+1];
+
+          if (change_buy_index) { buy_price = arr[i]; }
+
+          if (sell_price < buy_price) {
+            change_buy_index = true;
+            continue;
+          }
+
+          else {
+            var temp_profit = sell_price - buy_price;
+            if (temp_profit > max_profit) { max_profit = temp_profit; }
+            change_buy_index = false;
+          }
+
+        }
+
+        return max_profit;
+      }`,
+      pythonSolution: '',
+      functionName: 'maxProfit',
+      javascriptTestFile: `
+      const chai = require('chai')
+      let expect = chai.expect
+
+      describe('Max Profit ', function() {
 
         it('produces desired result with', function() {
-          let result = duplicates([
-            4,
-            3,
-            2,
-            24,
-            -1,
-            13,
-            2,
-            6,
-            46,
-            2,
-            -13,
-            4,
-            26,
-            73,
-            -45,
-            -834,
-            1,
-            32,
-            4,
-            -6,
-            8,
-            -85,
-            5,
-            6,
-            25
-          ])
-          expect(result).to.deep.equal([
-            4,
-            2,
-            46,
-            2,
-            13,
-            4,
-            26,
-            73,
-            45,
-            834,
-            1,
-            32,
-            4,
-            6,
-            85,
-            6,
-            0
-          ])
+          let result = maxProfit([44, 30, 24, 32, 35, 30, 40, 38, 15])
+          expect(result).to.deep.equal(16)
+        })
+
+        it('produces desired result with', function() {
+          let result = maxProfit([50, 45, 40, 30])
+          expect(result).to.deep.equal(-1)
+        })
+
+        it('produces desired result with', function() {
+          let result = maxProfit([50, 45, 40, 30, 30])
+          expect(result).to.deep.equal(0)
+        })
+      })
+      `,
+      pythonTestFile: '',
+      categoryId: categoryIdsObj.Arrays,
+      difficultyId: difficultyIdsObj.difficult,
+      userId: userIdsObj.admin
+    }),
+    Question.create({
+      name: 'Move Positions',
+      published: true,
+      description:
+        'Write a JavaScript function to move an array element from one position to another.',
+      javascriptSolution: `
+      function movePosition(arr, old_index, new_index) {
+        while (old_index < 0) {
+            old_index += arr.length;
+        }
+        while (new_index < 0) {
+            new_index += arr.length;
+        }
+        if (new_index >= arr.length) {
+            var k = new_index - arr.length;
+            while ((k--) + 1) {
+                arr.push(undefined);
+            }
+        }
+         arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+       return arr;
+      }`,
+      pythonSolution: '',
+      functionName: 'movePosition',
+      javascriptTestFile: `
+      const chai = require('chai')
+      let expect = chai.expect
+
+      describe('Move Position', function() {
+
+        it('produces desired result with', function() {
+          let result = movePosition([10, 20, 30, 40, 50], 0, 2)
+          expect(result).to.deep.equal([20, 30, 10, 40, 50])
+        })
+
+        it('produces desired result with', function() {
+          let result = movePosition([10, 20, 30, 40, 50], -1, -2)
+          expect(result).to.deep.equal([10, 20, 30, 50, 40])
         })
       })`,
       pythonTestFile: '',
       categoryId: categoryIdsObj.Arrays,
+      difficultyId: difficultyIdsObj.easy,
+      userId: userIdsObj.admin
+    }),
+    Question.create({
+      name: 'Nth Largest',
+      published: true,
+      description:
+        'Write a JavaScript function to get nth largest element from an unsorted arry.',
+      javascriptSolution: `
+      function nthLargest(arr, n) {
+        var x = 0,
+          y = 0,
+          z = 0,
+          temp = 0,
+          tnum = arr.length,
+          flag = false,
+          result = false;
+
+        while (x < tnum) {
+          y = x + 1;
+
+          if (y < tnum) {
+            for (z = y; z < tnum; z++) {
+
+              if (arr[x] < arr[z]) {
+                temp = arr[z];
+                arr[z] = arr[x];
+                arr[x] = temp;
+                flag = true;
+              } else {
+                continue;
+              }
+            }
+          }
+
+          if (flag) {
+            flag = false;
+          } else {
+            x++;
+            if (x === n) {
+
+              result = true;
+            }
+          }
+          if (result) {
+            break;
+          }
+        }
+
+        return (arr[(n - 1)]);
+
+      }`,
+      pythonSolution: '',
+      functionName: 'nthLargest',
+      javascriptTestFile: `
+      const chai = require('chai')
+      let expect = chai.expect
+
+      describe('nth Largest ', function() {
+
+        it('produces desired result with', function() {
+          let result = nthLargest([ 43, 56, 23, 89, 88, 90, 99, 652], 4)
+          expect(result).to.deep.equal(89)
+        })
+
+        it('produces desired result with', function() {
+          let result = nthLargest([10, 20, 30, 40, 50], 5)
+          expect(result).to.deep.equal(10)
+        })
+      })
+      `,
+      pythonTestFile: '',
+      categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin,
       companyId: companyIdsObj.Microsoft
