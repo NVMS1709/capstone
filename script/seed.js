@@ -1260,19 +1260,6 @@ if __name__ == "__main__":
       companyId: companyIdsObj.Facebook
     }),
     Question.create({
-      name: 'Max Sum Increasing Subsequence',
-      published: false,
-      description: '',
-      javascriptSolution: '',
-      pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
-      pythonTestFile: '',
-      categoryId: categoryIdsObj['Dynamic Programming'],
-      difficultyId: difficultyIdsObj.difficult,
-      userId: userIdsObj.admin
-    }),
-    Question.create({
       name: 'Merge Sort',
       published: true,
       description:
@@ -1528,19 +1515,6 @@ if __name__ == "__main__":
 	unittest.main(verbosity=2)
 `,
       categoryId: categoryIdsObj.Sorting,
-      difficultyId: difficultyIdsObj.easy,
-      userId: userIdsObj.admin
-    }),
-    Question.create({
-      name: 'Depth-first Search',
-      published: false,
-      description: '',
-      javascriptSolution: '',
-      pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
-      pythonTestFile: '',
-      categoryId: categoryIdsObj.Searching,
       difficultyId: difficultyIdsObj.easy,
       userId: userIdsObj.admin
     }),
@@ -2254,19 +2228,6 @@ if __name__ == "__main__":
       companyId: companyIdsObj.Google
     }),
     Question.create({
-      name: 'Shifted Binary Search',
-      published: false,
-      description: '',
-      javascriptSolution: '',
-      pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
-      pythonTestFile: '',
-      categoryId: categoryIdsObj.Searching,
-      difficultyId: difficultyIdsObj.medium,
-      userId: userIdsObj.admin
-    }),
-    Question.create({
       name: 'Bubble Sort',
       published: true,
       description: `Write a function named "bubbleSort" that takes in an unsorted array and return a sorted array. Use the Selection Sort algorithm to sort the array.`,
@@ -2593,19 +2554,6 @@ if __name__ == "__main__":
 `,
       categoryId: categoryIdsObj.Sorting,
       difficultyId: difficultyIdsObj.easy,
-      userId: userIdsObj.admin
-    }),
-    Question.create({
-      name: 'Heap Sort',
-      published: true,
-      description: '',
-      javascriptSolution: '',
-      pythonSolution: '',
-      functionName: '',
-      javascriptTestFile: '',
-      pythonTestFile: '',
-      categoryId: categoryIdsObj.Sorting,
-      difficultyId: difficultyIdsObj.medium,
       userId: userIdsObj.admin
     }),
     Question.create({
