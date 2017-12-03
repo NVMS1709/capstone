@@ -78,9 +78,9 @@ async function seed() {
 
   const forums = await Promise.all([
     Forum.create({
-      title: 'Report Bugs',
+      title: 'Report Issues',
       comment:
-        'Use this thread to submit bugs that you come across while using the Algorithms website.  Reports will be reviewed by the site administator in the order that they are received.',
+        'Use this thread to submit Issues that you come across while using the Algorithms website.  Reports will be reviewed by the site administator in the order that they are received.',
       userId: 1
     }),
     Forum.create({
