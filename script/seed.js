@@ -953,7 +953,7 @@ const chai = require('chai')
 
   describe('Find Duplicate', function() {
     it('Test Case #1', function() {
-        et result = duplicatesHash([1, 21, -4, 103, 21, 4, 1])
+        let result = duplicatesHash([1, 21, -4, 103, 21, 4, 1])
       expect(result.sort()).to.deep.equal([1, 21])
     })
 
@@ -1341,27 +1341,27 @@ let expect = chai.expect
 describe('Merge Sort(Top-Down Implemention)', function() {
 
   it('Test Case #1', function() {
-    let result = mergeSortTopDown([])
+    let result = mergeSort([])
     expect(result).to.deep.equal([])
   })
 
   it('Test Case #2', function () {
-    let result = mergeSortTopDown([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
+    let result = mergeSort([9, 2, 5, 6, 4, 3, 7, 10, 1, 8])
     expect(result).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
   })
 
   it('Test Case #3', function () {
-    let result = mergeSortTopDown([8, 7, 6, 5, 4])
+    let result = mergeSort([8, 7, 6, 5, 4])
     expect(result).to.deep.equal([4, 5, 6, 7, 8])
   })
 
   it('Test Case #4', function () {
-    let result = mergeSortTopDown([8, -7, 6, -5, 4])
+    let result = mergeSort([8, -7, 6, -5, 4])
     expect(result).to.deep.equal([-7, -5, 4, 6, 8])
   })
 
   it('Test Case #5', function () {
-    let result = mergeSortTopDown([-1, -5, -22, -11, -7])
+    let result = mergeSort([-1, -5, -22, -11, -7])
     expect(result).to.deep.equal([-22, -11, -7, -5, -1])
   })
 })
@@ -1679,7 +1679,7 @@ class Queue {
         })
 
         describe('Print Method', () => {
-          it('should correctly print out all of the values in the array', () => {
+          it('Test Case #11', () => {
             queue.enqueue(1)
             queue.enqueue(3)
             queue.enqueue(5)
@@ -2077,18 +2077,18 @@ def powerSet(arr):
       let expect = chai.expect
 
       describe('Power Set Solution', function() {
-        it('produces desired result', function() {
+        it('Test Case #1', function() {
           let result = powerSet([1, 2, 3])
           expect(result.length).to.deep.equal(8)
         })
 
-        it('produces desired result', function() {
+        it('Test Case #2', function() {
           let result = powerSet([1, 1])
           expect(result.length).to.deep.equal(4)
           expect(result).to.deep.equal([[], [1], [1], [1, 1]])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #3', function() {
           let result = powerSet([21, 24, 3])
           expect(result.length).to.deep.equal(8)
           expect(result).to.deep.equal([
@@ -2103,7 +2103,7 @@ def powerSet(arr):
           ])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #4', function() {
           let result = powerSet([221, 2144, 31414])
           expect(result.length).to.deep.equal(8)
           expect(result).to.deep.equal([
@@ -2118,7 +2118,7 @@ def powerSet(arr):
           ])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #5', function() {
           let result = powerSet([28180505040421, 2123728144, 9999369396])
           expect(result.length).to.deep.equal(8)
           expect(result).to.deep.equal([
@@ -2133,7 +2133,7 @@ def powerSet(arr):
           ])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #6', function() {
           let result = powerSet([
             28180505040421,
             2123728144,
@@ -2178,7 +2178,7 @@ def powerSet(arr):
           ])
         })
 
-        it('produces desired result', function() {
+        it('Test Case #7', function() {
           let result = powerSet([
             28180505040421,
             2123728144,
@@ -2759,27 +2759,27 @@ if __name__ == "__main__":
       let expect = chai.expect
 
       describe('Find Duplicate', function() {
-        it('produces desired result with', function() {
+        it('Test Case #1', function() {
           let result = duplicates([0, 2, 0, 1, 3, 3])
           expect(result).to.deep.equal([0, 3])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #2', function() {
           let result = duplicates([35, 31])
           expect(result).to.deep.equal([35, 31])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #3', function() {
           let result = duplicates([0, 1, 0, 1, 35, 31])
           expect(result).to.deep.equal([0, 1, 35, 31])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #4', function() {
           let result = duplicates([4, 5, 634, 63, 7, 7, 2, 74, 37, 45, 72, 2])
           expect(result).to.deep.equal([634, 63, 7, 74, 37, 45, 72, 2])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #5', function() {
           let result = duplicates([4, 11, 2422, 61, 100, -25, 15, -1255, 127])
           expect(result).to.deep.equal([11, 2422, 61, 100, 25, 15, 1255, 127])
         })
@@ -2832,17 +2832,17 @@ if __name__ == "__main__":
 
       describe('Max Profit ', function() {
 
-        it('produces desired result with', function() {
+        it('Test Case #1', function() {
           let result = maxProfit([44, 30, 24, 32, 35, 30, 40, 38, 15])
           expect(result).to.deep.equal(16)
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #2', function() {
           let result = maxProfit([50, 45, 40, 30])
           expect(result).to.deep.equal(-1)
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #3', function() {
           let result = maxProfit([50, 45, 40, 30, 30])
           expect(result).to.deep.equal(0)
         })
@@ -2883,12 +2883,12 @@ if __name__ == "__main__":
 
       describe('Move Position', function() {
 
-        it('produces desired result with', function() {
+        it('Test Case #1', function() {
           let result = movePosition([10, 20, 30, 40, 50], 0, 2)
           expect(result).to.deep.equal([20, 30, 10, 40, 50])
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #2', function() {
           let result = movePosition([10, 20, 30, 40, 50], -1, -2)
           expect(result).to.deep.equal([10, 20, 30, 50, 40])
         })
@@ -2955,12 +2955,12 @@ if __name__ == "__main__":
 
       describe('nth Largest ', function() {
 
-        it('produces desired result with', function() {
+        it('Test Case #1', function() {
           let result = nthLargest([ 43, 56, 23, 89, 88, 90, 99, 652], 4)
           expect(result).to.deep.equal(89)
         })
 
-        it('produces desired result with', function() {
+        it('Test Case #2', function() {
           let result = nthLargest([10, 20, 30, 40, 50], 5)
           expect(result).to.deep.equal(10)
         })
