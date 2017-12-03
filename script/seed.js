@@ -476,8 +476,8 @@ if __name__ == "__main__":
     unittest.main(verbosity=2)
       `,
       jsWalkThrough: [
-        `Function: 'BST'
-        .Create a class function called 'BST.'
+        `JS Walkthrough: Function: 'BST'
+        .  Create a class function called 'BST.'
         Make a constructor within the function that takes a value as a parameter. The initial value passed in through the constructor will become the value of our tree's root node.  Any future values passed  via the constructor's instance method(s) will become nodes within the tree.
         Next, you will want to create key value pairs that represent the properties of the new node and place these pairs into the constructor.  You will want a property that represents the node's value, as well as a property that points to the nodes located to the left and right of the newly created node.`,
 
@@ -2683,7 +2683,8 @@ if __name__ == "__main__":
       published: true,
       description:
         'Create a function called duplicates.  This function should find all the duplicates in an array where the numbers in the array are in the range of 0 to n-1 where n is the size of the array. For example: [1, 2, 3, 3] is okay but [1, 2, 6, 3] is not. In this version of the challenge there can be multiple duplicate numbers as well.',
-      javascriptSolution: `function duplicates(arr) {
+      javascriptSolution: `
+      function duplicates(arr) {
         var dups = []
         for (var i = 0; i < arr.length; i++) {
           var el = arr[Math.abs(arr[i])]
@@ -2702,8 +2703,9 @@ if __name__ == "__main__":
         return dups
       }`,
       pythonSolution: '',
-      functionName: 'dupilcates',
-      javascriptTestFile: `const chai = require('chai')
+      functionName: 'duplicates',
+      javascriptTestFile: `
+      const chai = require('chai')
       let expect = chai.expect
 
       describe('Find Duplicate', function() {
@@ -2732,7 +2734,6 @@ if __name__ == "__main__":
           expect(result).to.deep.equal([11, 2422, 61, 100, 25, 15, 1255, 127])
         })
       })
-    })
     `,
       pythonTestFile: '',
       categoryId: categoryIdsObj.Arrays,
