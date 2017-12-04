@@ -12,7 +12,7 @@ router.post('/javascript', (req, res, next) => {
     req.body.algorithmContent +
     `\n module.exports = {${req.body.question.functionName}}`
 
-    console.log("ALGORITHM WRAPPED CONTENT", req.body.algorithmContent)
+  console.log("ALGORITHM WRAPPED CONTENT", req.body.algorithmContent)
 
   let wrappedTestFile = wrapTestfile(
     req.body.question.javascriptTestFile,
@@ -96,6 +96,7 @@ router.post('/javascript', (req, res, next) => {
           `npm run test-javascript-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(
             algorithmTestTempDirectory.lastIndexOf('/')
           )}/algorithm-test.js`,
+          { timeout: 5000 },
           (err, stdout, stderr) => {
 
             try {
@@ -112,7 +113,7 @@ router.post('/javascript', (req, res, next) => {
               //bad way to do it maybe should imitate python's way
               const testCasesArr = JSON.parse(testCasesStr.trim())
               console.log("_________JSON PARSE TEST CASES STR___________")
-              
+
               if (err) {
                 console.error('EXECUTION ERROR______________________', err)
               }
@@ -127,7 +128,7 @@ router.post('/javascript', (req, res, next) => {
               }
 
             } catch (error) {
-              cleanupCB()              
+              cleanupCB()
               res.send({
                 testCasesArr: [{ title: 'ERROR. All tests', outcome: 'failed' }],
                 rawOutput: '\n' + stderr + '\n' + error,
@@ -196,26 +197,31 @@ router.post('/python', (req, res, next) => {
         algorithmTestTempDirectory,
         cleanupCB
       ] = await createAlgorithmTestTempDirectory()
+
       const algorithmTestFile = createAlgorithmTestFile(
         algorithmTest,
         algorithmTestTempDirectory
       )
+
       const algorithmInputFile = createAlgorithmInputFile(
         algorithmInput,
         algorithmTestTempDirectory
       )
+
       return [
         algorithmTestTempDirectory,
         cleanupCB,
         await algorithmInputFile,
         await algorithmTestFile
       ]
+
     })(req.body.algorithmContent, req.body.question.pythonTestFile).then(
       ([algorithmTestTempDirectory, cleanupCB]) => {
         exec(
           `npm run test-python-algorithm-input ./server/algorithm_input_test${algorithmTestTempDirectory.slice(
             algorithmTestTempDirectory.lastIndexOf('/')
           )}/algorithm-test.py`,
+          { timeout: 5000 },
           (err, stdout, stderr) => {
             cleanupCB()
             const testCasesArr = getPythonTestCaseOutcomes(stderr)
