@@ -67,12 +67,25 @@ describe('${functionName}', function () {
 }
 
 const wrapAlgorithmInput = (algorithmInput, functionName) => {
-    return algorithmInput + `\nmodule.exports = ${functionName}`
+    return algorithmInput + `\nmodule.exports = {${functionName}}`
+}
+
+const wrapPythonTestfile = testSuiteInput => {
+    return `
+import program
+import unittest
+
+` + testSuiteInput + `
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+`
 }
 
 module.exports = {
     getTestCaseOutcomes,
     wrapTestfile,
     wrapAlgorithmInput,
-    getPythonTestCaseOutcomes
+    getPythonTestCaseOutcomes,
+    wrapPythonTestfile
 }

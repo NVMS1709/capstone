@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import history from '../history'
+import history from '../history'
 
 /**
  * ACTION TYPES
@@ -38,18 +38,18 @@ export const fetchQuestions = () => {
 
 //TODO dispatch to get new questions
 export const postUserAlgorithmQuestion = questionSubmission => {
-    return function thunk(dispatch) {
-        return axios
-            .post('/api/questions', questionSubmission)
-            .then((res) => {
-                return new Promise(resolve => {
-                    resolve(dispatch(getQuestion(res.data)))
-                })
-            })
-            .catch((error) => {
-                console.error(error)
-            })
-    }
+  return function thunk(dispatch) {
+    return axios
+      .post('/api/questions', questionSubmission)
+      .then((res) => {
+        return new Promise(resolve => {
+          resolve(dispatch(getQuestion(res.data)))
+        })
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
 }
 
 export const deleteUserAlgorithmQuestion = question => {

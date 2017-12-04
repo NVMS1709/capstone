@@ -56,6 +56,10 @@ class UserAlgorithmSubmissionPage extends Component {
         this.setInitialStateOnSubmissionPage = this.setInitialStateOnSubmissionPage.bind(this)
     }
 
+    componentWillReceiveProps(nextProps) {
+
+    }
+
     setAlgorithmName(event) {
         const targetValue = event.target.value;
 
@@ -150,8 +154,11 @@ class UserAlgorithmSubmissionPage extends Component {
 
     onSolutionChange(newValue) {
         if (this.state.algorithmLanguage === 'javascript') {
+            console.log("IN JAVASCRIPT SOLUTION CHANGE")
+
             this.setState({ localJavascriptAlgorithmInput: newValue })
         } else {
+            console.log("IN PYTHON SOLUTION CHANGE")
             this.setState({ localPythonAlgorithmInput: newValue })
         }
     }
@@ -178,10 +185,10 @@ class UserAlgorithmSubmissionPage extends Component {
 
             this.props.toPostAlgorithmValidationSubmission(
                 {
-                    algorithmInput: this.state.localJavascriptAlgorithmInput,
+                    algorithmInput: this.state['local' + this.state.algorithmLanguage[0].toUpperCase() + this.state.algorithmLanguage.slice(1) + 'AlgorithmInput'],
                     language: this.state.algorithmLanguage,
                     functionName: this.state.algorithmFunctionName,
-                    testFile: this.state.localJavascriptTestInput
+                    testFile: this.state['local' + this.state.algorithmLanguage[0].toUpperCase() + this.state.algorithmLanguage.slice(1) + 'TestInput']
                 },
                 this.props.user
             )
@@ -225,7 +232,7 @@ class UserAlgorithmSubmissionPage extends Component {
                 )
             }))
                 .then(updatedQuestion => {
-                    if (updatedQuestion) {
+                    if (updatedQuestion.question) {
 
                         setTimeout(() => {
                             (new Promise(resolve => {
@@ -236,6 +243,9 @@ class UserAlgorithmSubmissionPage extends Component {
                                 .then(() => {
                                     setTimeout(() => {
                                         this.setState({ processingInfo: '' })
+                                        console.log("UPDATED QUESTION NAME", updatedQuestion.question.name)
+                                        this.props.history.push(`/user-submission/${updatedQuestion.question.name}`)
+                                        window.location.reload() // a bad practice
                                     }, 2000) //set to 2000ms, so the 'SAVED' message will display for 2000ms
                                 })
                         }, 1000) // not a necessary setTimeout, set 1000ms to prolong the display of 'saving...' message for possibly better user experience
@@ -251,9 +261,11 @@ class UserAlgorithmSubmissionPage extends Component {
                                     setTimeout(() => {
                                         this.setState({ processingInfo: '' })
                                     }, 2000) //set to 2000ms, so the 'SAVED' message will display for 2000ms
+
                                 })
                         }, 1000) // not a necessary setTimeout, set 1000ms to prolong the display of 'saving...' message for possibly better user experience
                     }
+
                 })
                 .catch(error => {
 
@@ -354,6 +366,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                                 .then(() => {
                                                     setTimeout(() => {
                                                         this.setState({ processingInfo: '' })
+                                                        window.location.reload()                                                        
                                                     }, 2000) //same as above
                                                 })
                                         }, 1000) //same as above
@@ -475,7 +488,10 @@ class UserAlgorithmSubmissionPage extends Component {
 
         setTimeout(() => {
             this.setState({ makeSure: '' })
+            console.log("I AM HERE")
         }, 20000)
+
+
 
     }
 
@@ -522,6 +538,7 @@ class UserAlgorithmSubmissionPage extends Component {
                         .then(() => {
                             setTimeout(() => {
                                 this.setState({ processingInfo: '' })
+                                window.location.reload()
                             }, 2000)
                         })
                 })
@@ -568,6 +585,10 @@ class UserAlgorithmSubmissionPage extends Component {
                         .then(() => {
                             setTimeout(() => {
                                 this.setState({ processingInfo: '' })
+                                console.log("I am here")
+                                this.props.history.push('/user-submission')
+                                window.location.reload()
+                                
                             }, 2000)
                         })
                 })
