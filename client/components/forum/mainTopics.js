@@ -50,7 +50,11 @@ class Topics extends Component {
                     onChange={this.onChange}
                   />
                 </p>
-                <button onClick={this.toggleForumAdd}>Add Forum Topic</button>
+                {this.props.user.id ? (
+                  <button onClick={this.toggleForumAdd}>Add Forum Topic</button>
+                ) : (
+                  ''
+                )}
               </div>
 
               <div className="filter-search">

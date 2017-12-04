@@ -133,17 +133,23 @@ class Discussion extends Component {
         </div>
         <div className="question-chat">
           <div className="post-chat-container">
-            <p style={{ fontSize: '14px' }}>Post Comment</p>
-            <form onSubmit={this.onSubmit}>
-              <textarea
-                rows="2"
-                name="comment"
-                style={{ borderStyle: 'none none solid none' }}
-                value={this.state.newComment}
-                onChange={this.onChange}
-              />
-              <button type="submit">Submit</button>
-            </form>
+            {this.props.user.id ? (
+              <div>
+                <p style={{ fontSize: '14px' }}>Post Comment</p>
+                <form onSubmit={this.onSubmit}>
+                  <textarea
+                    rows="2"
+                    name="comment"
+                    style={{ borderStyle: 'none none solid none' }}
+                    value={this.state.newComment}
+                    onChange={this.onChange}
+                  />
+                  <button type="submit">Submit</button>
+                </form>
+              </div>
+            ) : (
+              <p style={{ fontSize: '14px' }}>Sign In to Post a Comment</p>
+            )}
           </div>
           <div className="posted-chat-container">
             <div className="posted-comments">
