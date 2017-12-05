@@ -62,9 +62,7 @@ async function seed() {
       email: 'admin@email.com',
       password: '123',
       questionsSolved: [1, 4, 6, 8]
-    }),
-    User.create({ name: 'cody', email: 'cody@email.com', password: '123' }),
-    User.create({ name: 'murphy', email: 'murphy@email.com', password: '123' })
+    })
   ]).then(usersArr => {
     usersArr.forEach(user => {
       userIdsObj[user.name] = user.id

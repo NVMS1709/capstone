@@ -10,7 +10,6 @@ import QuestionPage from './components/question-page/index'
 import HomePage from './components/home-page'
 import UserPage from './components/user-account-page/index.js'
 import UserAlgorithmSubmissionPage from './components/user-new-algorithm-submission-page/index.js'
-import Payment from './components/payment/payment'
 import Forum from './components/forum/index'
 import Discussion from './components/forum/discussionIndex'
 import Login from './components/auth-form'
@@ -69,43 +68,41 @@ class Routes extends Component {
             </div>
           </div>
         ) : (
-            <Main>
-              <Switch>
-                {/* Routes placed here are available to all visitors */}
-                <Route path="/home" component={HomePage} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/" component={HomePage} />
-                {isLoggedIn && (
-                  <Switch>
-                    {/* Routes placed here are only available after logging in */}
-                    <Route path="/home" component={HomePage} />
-                    <Route
-                      exact
-                      path="/user-submission"
-                      component={UserAlgorithmSubmissionPage}
-                    />
-                    <Route
-                      exact
-                      path="/user-submission/:questionName"
-                      component={UserAlgorithmSubmissionPage}
-                    />
-                    <Route exact path="/" component={HomePage} />
-                    <Route
-                      path="/questions/:questionName"
-                      component={QuestionPage}
-                    />
-                    <Route path="/user" component={UserPage} />
-                    <Route path="/payment" component={Payment} />
-                    <Route exact path="/forum" component={Forum} />
-                    <Route path="/forum/:discussionName" component={Discussion} />
-                  </Switch>
-                )}
+          <Main>
+            <Switch>
+              {/* Routes placed here are available to all visitors */}
+              <Route path="/home" component={HomePage} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/forum" component={Forum} />
+              <Route path="/forum/:discussionName" component={Discussion} />
+              <Route path="/questions/:questionName" component={QuestionPage} />
 
-                {/* Displays our Login component as a fallback */}
-                <Route path="/home" component={HomePage} />
-              </Switch>
-            </Main>
-          )}
+              <Route path="/user" component={UserPage} />
+              <Route
+                exact
+                path="/user-submission"
+                component={UserAlgorithmSubmissionPage}
+              />
+              <Route
+                exact
+                path="/user-submission/:questionName"
+                component={UserAlgorithmSubmissionPage}
+              />
+
+              {isLoggedIn && (
+                <Switch>
+                  {/* Routes placed here are only available after logging in */}
+                  <Route path="/home" component={HomePage} />
+                  <Route exact path="/" component={HomePage} />
+                </Switch>
+              )}
+
+              {/* Displays our Login component as a fallback */}
+              <Route path="/home" component={HomePage} />
+            </Switch>
+          </Main>
+        )}
       </Router>
     )
   }
