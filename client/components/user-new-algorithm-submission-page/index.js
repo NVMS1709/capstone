@@ -6,6 +6,8 @@ import 'brace/mode/python'
 import 'brace/mode/javascript'
 import 'brace/theme/chrome'
 import { setTimeout } from 'timers';
+import Modal from '../modal'
+import AuthForm from '../auth-form'
 
 class UserAlgorithmSubmissionPage extends Component {
     constructor(props) {
@@ -35,7 +37,8 @@ class UserAlgorithmSubmissionPage extends Component {
             needUniqueAlgorithmName: false,
             setInitialState: true,
             processingInfo: '',
-            makeSure: ''
+            makeSure: '',
+            loading: false
         }
 
         this.setAlgorithmName = this.setAlgorithmName.bind(this)
@@ -54,6 +57,10 @@ class UserAlgorithmSubmissionPage extends Component {
         this.handleOutputMode = this.handleOutputMode.bind(this)
         this.setAlgorithmFunctionName = this.setAlgorithmFunctionName.bind(this)
         this.setInitialStateOnSubmissionPage = this.setInitialStateOnSubmissionPage.bind(this)
+    }
+
+    componentDidMount() {
+      setTimeout(() => this.setState({ loading: true }), 675)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -278,7 +285,7 @@ class UserAlgorithmSubmissionPage extends Component {
                             .then(() => {
                                 setTimeout(() => {
                                     this.setState({ processingInfo: '' })
-                                }, 2000)//set to 2000ms, so the 'SAVED' message will display for 2000ms 
+                                }, 2000)//set to 2000ms, so the 'SAVED' message will display for 2000ms
                             })
                     }, 1000)// not a necessary setTimeout, set 1000ms to prolong the display of 'saving...' message for possibly better user experience
 
@@ -366,7 +373,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                                 .then(() => {
                                                     setTimeout(() => {
                                                         this.setState({ processingInfo: '' })
-                                                        window.location.reload()                                                        
+                                                        window.location.reload()
                                                     }, 2000) //same as above
                                                 })
                                         }, 1000) //same as above
@@ -588,7 +595,7 @@ class UserAlgorithmSubmissionPage extends Component {
                                 console.log("I am here")
                                 this.props.history.push('/user-submission')
                                 window.location.reload()
-                                
+
                             }, 2000)
                         })
                 })
@@ -903,6 +910,20 @@ class UserAlgorithmSubmissionPage extends Component {
 
         /* eslint-disable no-nested-ternary */
         return (
+          <div>
+          {this.props && this.props.user.id ? (
+          ''
+        ) : (
+          <div>
+            {this.state.loading ? (
+              <Modal>
+                <AuthForm history={this.props.ownProps} />
+              </Modal>
+            ) : (
+              ''
+            )}
+          </div>
+        )}
             <div>
                 {
                     /*
@@ -940,12 +961,14 @@ class UserAlgorithmSubmissionPage extends Component {
                             <div>Unauthorized</div>
                 }
             </div>
+            </div>
         )
     }
 }
 
 const mapState = (state, ownProps) => {
     return {
+        ownProps: ownProps,
         questions: state.questions,
         user: state.user,
         categories: state.categories,
